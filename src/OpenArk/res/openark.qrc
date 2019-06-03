@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/OpenArk">
+        <file>exit.ico</file>
+        <file>ontop.ico</file>
+        <file>OpenArk.ico</file>
+        <file>save.ico</file>
+        <file>settings.ico</file>
+        <file>open.ico</file>
+        <file>refresh.ico</file>
+        <file>gitub.ico</file>
+        <file>console.ico</file>
+        <file>BundlerShell.exe</file>
+    </qresource>
+</RCC>

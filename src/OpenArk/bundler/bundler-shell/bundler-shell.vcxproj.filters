@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\crc32\crc32.cpp">
+      <Filter>crc32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\pack\pack.cpp">
+      <Filter>pack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lz4\lz4.c">
+      <Filter>lz4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lz4\lz4frame.c">
+      <Filter>lz4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lz4\lz4hc.c">
+      <Filter>lz4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lz4\xxhash.c">
+      <Filter>lz4</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\crc32\crc32.h">
+      <Filter>crc32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\pack\pack.h">
+      <Filter>pack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lz4\lz4.h">
+      <Filter>lz4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lz4\lz4frame.h">
+      <Filter>lz4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lz4\lz4frame_static.h">
+      <Filter>lz4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lz4\lz4hc.h">
+      <Filter>lz4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lz4\xxhash.h">
+      <Filter>lz4</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BundlerShell.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="crc32">
+      <UniqueIdentifier>{52ca2bd1-6918-44d0-8674-f5f601646b0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lz4">
+      <UniqueIdentifier>{db2d029f-49d3-46d4-a7aa-98b9cf80b949}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pack">
+      <UniqueIdentifier>{99834ee3-9aff-4f80-afad-8f00733e3201}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
