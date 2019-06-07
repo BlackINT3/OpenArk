@@ -20,8 +20,8 @@ OpenArk is a open source toolkit on Windows. Ark is Anti Rootkit abbreviated, it
 * [Qt 5.6.2](https://download.qt.io/official_releases/qt/5.6/5.6.2/)
 
 ### Distributions
-* Binaray (exe)
-  * one binaray, no dependence, support 32/64 bit.
+* Binary (exe)
+  * one binary, no dependence, support 32/64 bit.
 * Supported OS
   * Windows XP/2003
   * Windows Vista/7/2008

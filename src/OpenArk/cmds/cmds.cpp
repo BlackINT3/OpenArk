@@ -64,13 +64,13 @@ out: [hwnd] [parent hwnd] [title] [class] [pid.tid] [process name])" },
 { L".ps", "CmdProcessInfo", LR"(show process information)",
 LR"(.ps [show processes list]
 .ps -name lsass [find process name matched *lsass*]
-.ps -pid 1234,2048 [find process pid=1234/2048]
+.ps -pid 1234,0n2048,0x3200 [find process pid=1234/0n2048/0x3200, default is decimal]
 .ps -path \windows [find process path matched *\windows*]
-.ps -mods 1234 [show module list that process pid=1234]
+.ps -mods 1234 [show module list that process pid=0n1234, default is decimal]
 .ps -kill -name chrome [kill process name matched *chrome* , be careful!!!]
-.ps -kill -pid 1234,2048 [kill process pid=1234 or 2048]
+.ps -kill -pid 1234,0n2048,0x3200 [kill process pid=1234/0n2048/0x3200, default is decimal]
 .ps -kill -path \temp\ [kill process path matched *\temp\* , be careful!!!]
-.ps -inject 1234 c:\hook.dll [inject hook.dll into pid=1234])" },
+.ps -inject 1234 c:\hook.dll [inject hook.dll into pid=0n1234])" },
 
 { L".mm", "CmdMemoryInfo", LR"(show memory information)",
 LR"(.mm [show os memory]
@@ -269,7 +269,7 @@ Q_INVOKABLE void Cmds::CmdTimeStamp(QStringList argv)
 		return;
 	}
 	if (paramcnt == 1) {
-		CmdOutput("%s", UNONE::TmFormatUnixTimeA(VariantInt(argv[0].toStdString()), "Y-M-D H:W:S").c_str());
+		CmdOutput("%s", UNONE::TmFormatUnixTimeA(VariantInt(argv[0].toStdString(), 10), "Y-M-D H:W:S").c_str());
 		return;
 	}
 	CmdException(ECMD_PARAM_INVALID);
@@ -288,7 +288,7 @@ Q_INVOKABLE void Cmds::CmdErrorShow(QStringList argv)
 
 	auto argc = argv.size();
 	if (argc == 1) {
-		int64_t val = VariantInt64(argv[0].toStdString());
+		int64_t val = VariantInt64(argv[0].toStdString(), 10);
 		OutErrorMsg(val);
 		return;
 	}
@@ -379,7 +379,7 @@ Q_INVOKABLE void Cmds::CmdProcessInfo(QStringList argv)
 		std::vector<std::wstring> wvec;
 		UNONE::StrSplitW(wstr, L",", wvec);
 		for (auto s : wvec) {
-			pids.push_back(VariantInt(UNONE::StrToA(s)));
+			pids.push_back(VariantInt(UNONE::StrToA(s), 10));
 		}
 	};
 
@@ -444,7 +444,7 @@ Q_INVOKABLE void Cmds::CmdProcessInfo(QStringList argv)
 			return;
 		}
 		if (argv[0] == "-mods") {
-			OuputModulesInfo(VariantInt(UNONE::StrToA(wstr)));
+			OuputModulesInfo(VariantInt(UNONE::StrToA(wstr), 10));
 			return;
 		}
 	}
@@ -470,8 +470,9 @@ Q_INVOKABLE void Cmds::CmdProcessInfo(QStringList argv)
 			}
 		}
 		if (argv[0] == "-inject") {
-			DWORD pid = VariantInt(argv[1].toStdString());
+			DWORD pid = VariantInt(argv[1].toStdString(), 10);
 			auto path = argv[2].toStdWString();
+			path = UNONE::StrTrimW(path, L" \n\r\t\"");
 			auto thd = UNONE::PsInjectByRemoteThreadW(pid, path);
 			if (thd) {
 				CmdOutput(L"[+] inject pid:%d path:%s ok", pid, path.c_str());
@@ -522,7 +523,7 @@ Q_INVOKABLE void Cmds::CmdMemoryInfo(QStringList argv)
 	}
 	if (argc == 2) {
 		if (argv[0] == "-pid") {
-			DWORD pid = VariantInt(argv[1].toStdString());
+			DWORD pid = VariantInt(argv[1].toStdString(), 10);
 			PROCESS_MEMORY_COUNTERS_EX mm_info;
 			if (!UNONE::MmGetProcessMemoryInfo(pid, mm_info))
 				return;
@@ -657,7 +658,7 @@ void Cmds::CmdDispatcher(const std::wstring &cmdline)
 	CmdException(ECMD_NOSUCH_CMD);
 }
 
-int Cmds::VariantInt(std::string val)
+int Cmds::VariantInt(std::string val, int radix)
 {
 	if (val.empty()) {
 		return 0;
@@ -678,10 +679,16 @@ int Cmds::VariantInt(std::string val)
 		UNONE::StrReplaceA(val, "0y");
 		return UNONE::StrToBinaryA(val);
 	}
-	return UNONE::StrToHexA(val);
+	switch (radix) {
+	case 2: return UNONE::StrToBinaryA(val);
+	case 8: return UNONE::StrToOctalA(val);
+	case 10: return UNONE::StrToDecimalA(val);
+	case 16: return UNONE::StrToHexA(val);
+	default: return UNONE::StrToHexA(val);
+	}
 }
 
-int64_t Cmds::VariantInt64(std::string val)
+int64_t Cmds::VariantInt64(std::string val, int radix)
 {
 	if (val.empty()) {
 		return 0;
@@ -702,5 +709,11 @@ int64_t Cmds::VariantInt64(std::string val)
 		UNONE::StrReplaceA(val, "0y");
 		return UNONE::StrToBinary64A(val);
 	}
-	return UNONE::StrToHex64A(val);
+	switch (radix) {
+	case 2: return UNONE::StrToBinary64A(val);
+	case 8: return UNONE::StrToOctal64A(val);
+	case 10: return UNONE::StrToDecimal64A(val);
+	case 16: return UNONE::StrToHex64A(val);
+	default: return UNONE::StrToHex64A(val);
+	}
 }

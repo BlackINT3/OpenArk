@@ -25,7 +25,7 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 
-#define APP_CHKUPT_SERVER "http://openark.blackint.org/version.txt"
+#define APP_CHKUPT_SERVER "http://upt.blackint3.com/openark/version.txt"
 #define APP_MESSAGE_PATTERN \
 "%{if-debug}<font color=blue>%{endif}"\
 "%{if-info}<font color=black>%{endif}"\

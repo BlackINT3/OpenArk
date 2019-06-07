@@ -55,8 +55,8 @@ public:
 	void CmdDispatcher(const std::wstring &cmdline);
 
 private:
-	int VariantInt(std::string val);
-	int64_t VariantInt64(std::string val);
+	int VariantInt(std::string val, int radix = 16);
+	int64_t VariantInt64(std::string val, int radix = 16);
 
 	size_t cmd_cursor_;
 	QStringList cmd_history_;
