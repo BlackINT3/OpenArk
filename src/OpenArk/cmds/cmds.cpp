@@ -39,7 +39,7 @@ LR"(.help [show commands help and examples]
 
 { L".start", "CmdStart", LR"(async execute command line)" , LR"(.start taskmgr [open taskmgr])" },
 
-{ L".ts", "CmdTimeStamp", LR"(show unix timestamp)" , LR"(.ts 0n22222/431203BC [show timestamp])" },
+{ L".ts", "CmdTimeStamp", LR"(show unix timestamp)" , LR"(.ts 1234566/0n22222/0x431203BC [show timestamp])" },
 
 { L".err", "CmdErrorShow", LR"(show LastError or NTSTATUS)" ,
 LR"(.err 2 [show LastError]

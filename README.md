@@ -39,3 +39,7 @@ OpenArk is a open source toolkit on Windows. Ark is Anti Rootkit abbreviated, it
 
 ### Contributing
   * Issues and Push request is welcome.
+
+  * QQ Qun: 836208099
+  
+  ![](doc/resources/qq-qun.png)
