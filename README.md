@@ -2,8 +2,14 @@
 
 ![License](https://img.shields.io/badge/License-LGPL-green.svg)
 
+### Official Links
+* Website: https://openark.blackint3.com/
+* Source: https://github.com/BlackINT3/OpenArk/
+* Manuals: https://openark.blackint3.com/manuals/
+* QQ Qun: 836208099
+
 ### Introduction
-OpenArk is a open source toolkit on Windows. Ark is Anti Rootkit abbreviated, it aimmed at reversing/programming helper and also users can find out malwares in the OS. More and more commands will be supported in future.
+&ensp;&ensp;OpenArk is a open source toolkit on Windows. Ark is Anti Rootkit abbreviated, it aimmed at reversing/programming helper and also users can find out malwares in the OS. More and more commands will be supported in future.
 
 ![image](doc/resources/snapshot.png)
 
@@ -23,17 +29,12 @@ OpenArk is a open source toolkit on Windows. Ark is Anti Rootkit abbreviated, it
 * Binary (exe)
   * one binary, no dependence, support 32/64 bit.
 * Supported OS
-  * Windows XP/2003
-  * Windows Vista/7/2008
-  * Windows 8/8.1/2012
-  * Windows 10/2016/2019
+  * Windows XP/2003/Vista/7/2008/8/8.1/2012/10/2016/2019
 * Supported Compiler
-  * Visual Studio 2015 (vc140)
-  * Visual Studio 2017 (vc141)
-  * Visual Studio 2019 (vc142)
+  * Visual Studio 2015/2017/2019
 
 ### How to compile
-* install UNONE static library .
+* install UNONE static library, vs2015-unone.nupkg.
 * install Qt static library.
 * just build it, current is vs2015 project.
 
@@ -41,5 +42,5 @@ OpenArk is a open source toolkit on Windows. Ark is Anti Rootkit abbreviated, it
   * Issues and Push request is welcome.
 
   * QQ Qun: 836208099
-  
+
   ![](doc/resources/qq-qun.png)
