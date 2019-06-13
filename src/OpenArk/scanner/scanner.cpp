@@ -807,6 +807,7 @@ void Scanner::RefreshDebug()
 		auto name_size = (DWORD)strlen(name);
 		if (name_size && name_size < MAX_PATH) pdb = name;
 		GUID guid = ((UNONE::CV_INFO_PDB70*)cv_hdr)->Signature;
+		age = ((UNONE::CV_INFO_PDB70*)cv_hdr)->Age;
 		guidsig = UNONE::StrFormatA("{%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X}",
 			guid.Data1,
 			guid.Data2,
