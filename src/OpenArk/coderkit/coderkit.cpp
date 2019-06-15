@@ -103,12 +103,10 @@ void CoderKit::onCodeTextChanged(const QString & text)
 		}	else if (sender == ui.utf8Edit) {
 			data = UNONE::StrCodeToWide(CP_UTF8, str);
 		}	else if (sender == ui.utf16Edit) {
-			U16 utf16((int16_t*)str.c_str(), str.size() / 2);
-			data = UNONE::StrUTF8ToWide(U16Convert().to_bytes(utf16));
+			data = std::wstring((wchar_t*)str.c_str(), str.size() / 2);
 		}	else if (sender == ui.butf16Edit) {
 			str = UNONE::StrReverseA(str, 2);
-			U16 utf16((int16_t*)str.c_str(), str.size() / 2);
-			data = UNONE::StrUTF8ToWide(U16Convert().to_bytes(utf16));
+			data = std::wstring((wchar_t*)str.c_str(), str.size() / 2);
 		}	else if (sender == ui.utf32Edit) {
 			U32 utf32((int32_t*)str.c_str(), str.size() / 4);
 			data = UNONE::StrUTF8ToWide(U32Convert().to_bytes(utf32));
@@ -189,12 +187,10 @@ void CoderKit::UpdateEditCodeText(const std::wstring& data, QObject* ignored_obj
 	text = UNONE::StrStreamToHexStrA(UNONE::StrWideToCode(CP_UTF8, data));
 	SetText(ui.utf8Edit, text);
 
-	U16Convert cvt16;
-	auto utf16 = cvt16.from_bytes(UNONE::StrWideToCode(CP_UTF8, data));
-	auto stream = std::string((char*)utf16.c_str(), utf16.size() * 2);
-	text = UNONE::StrStreamToHexStrA(stream);
+	text = UNONE::StrStreamToHexStrA(std::string((char*)data.c_str(), data.size() * 2));
 	SetText(ui.utf16Edit, text);
 
+	auto stream = std::string((char*)data.c_str(), data.size() * 2);
 	stream = UNONE::StrReverseA(stream, 2);
 	text = UNONE::StrStreamToHexStrA(stream);
 	SetText(ui.butf16Edit, text);
