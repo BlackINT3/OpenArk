@@ -60,3 +60,10 @@ __inline QString AppBdTime()
 	QString stamp = StrToQ(UNONE::TmFormatUnixTimeA(UNONE::PeGetTimeStamp((CHAR*)GetModuleHandleW(NULL)), "YMDHW"));
 	return stamp;
 }
+
+// disable logger, exit recover
+#define DISABLE_RECOVER() \
+	UNONE::LogCallback routine;\
+	bool regok = UNONE::InterCurrentLogger(routine);\
+	if (regok) UNONE::InterRegisterLogger([&](const std::wstring &) {});\
+	ON_SCOPE_EXIT([&] {if (regok) UNONE::InterUnregisterLogger(); });

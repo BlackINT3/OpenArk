@@ -36,3 +36,10 @@ void CacheRefreshProcInfo();
 
 UNONE::PROCESS_BASE_INFOW CacheGetProcessBaseInfo(DWORD pid);
 
+struct FileBaseInfo {
+	QString path;
+	QString desc;
+	QString ver;
+	QString corp;
+};
+FileBaseInfo CacheGetFileBaseInfo(QString path);

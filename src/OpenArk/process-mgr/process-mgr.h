@@ -78,7 +78,7 @@ private slots:
 
 private:
 	void ShowProperties(DWORD pid, int tab);
-
+	void ShowProcess();
 	void ShowProcessList();
 	void ShowProcessTree();
 	void AppendProcessItem(QStandardItem *parent, QStandardItem *name_item, ProcInfo info, int seq);

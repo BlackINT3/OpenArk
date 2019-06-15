@@ -493,10 +493,7 @@ Q_INVOKABLE void Cmds::CmdProcessInfo(QStringList argv)
 
 Q_INVOKABLE void Cmds::CmdProcessTree(QStringList argv)
 {
-	UNONE::LogCallback routine;
-	bool regok = UNONE::InterCurrentLogger(routine);
-	if (regok) UNONE::InterRegisterLogger([&](const std::wstring &) {});
-	ON_SCOPE_EXIT([&] {if (regok) UNONE::InterUnregisterLogger();});
+	DISABLE_RECOVER();
 
 	int level = 0;
 	std::wstring prefix;

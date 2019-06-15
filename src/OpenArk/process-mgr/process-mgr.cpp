@@ -33,13 +33,14 @@ struct {
 
 // ModulesView's header index
 struct {
-	int name = 0;
-	int base = 1;
-	int size = 2;
-	int path = 3;
-	int desc = 4;
-	int ver = 5;
-	int corp = 6;
+	int s = 0;
+	int name = s++;
+	int base = s++;
+	int size = s++;
+	int path = s++;
+	int desc = s++;
+	int ver = s++;
+	int corp = s++;
 } MDX;
 
 ProcSortFilterProxyModel::ProcSortFilterProxyModel(QWidget *parent)
@@ -120,7 +121,7 @@ ProcessMgr::ProcessMgr(QWidget* parent) :
 	pview->setColumnWidth(PDX.path, 440);
 	pview->setColumnWidth(PDX.desc, 190);
 	pview->setColumnWidth(PDX.corp, 155);
-	ShowProcessTree();
+	ShowProcess();
 
 	mod_menu_ = new QMenu();
 	mod_menu_->addAction(tr("Refresh"), this, SLOT(onRefresh()));
@@ -128,7 +129,7 @@ ProcessMgr::ProcessMgr(QWidget* parent) :
 	mod_menu_->addAction(tr("Sento Scanner"), this, SLOT(onSendtoScanner()));
 	mod_model_ = new QStandardItemModel;
 	QTreeView *mview = ui.moduleView;
-	mod_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Base") << tr("Size") << tr("Path"));
+	mod_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Base") << tr("Size") << tr("Path") << tr("Description") << tr("Version") << tr("Company Name"));
 	SetDefaultTreeViewStyle(mview, mod_model_);
 	mview->header()->setSortIndicator(-1, Qt::AscendingOrder);
 	mview->viewport()->installEventFilter(this);
@@ -222,8 +223,7 @@ void ProcessMgr::onRefresh()
 {
 	auto sender = QObject::sender();
 	if (IsContainAction(proc_menu_, sender)) {
-		if (proc_header_idx_ == 0) ShowProcessTree();
-		else ShowProcessList();
+		ShowProcess();
 		return;
 	}
 	if (IsContainAction(mod_menu_, sender)) {
@@ -231,8 +231,7 @@ void ProcessMgr::onRefresh()
 		return;
 	}
 	if (sender == nullptr) {
-		if (proc_header_idx_ == 0) ShowProcessTree();
-		else ShowProcessList();
+		ShowProcess();
 		return;
 	}
 }
@@ -407,6 +406,7 @@ void ProcessMgr::onShowProperties()
 
 void ProcessMgr::onShowModules()
 {
+	DISABLE_RECOVER();
 	ClearItemModelData(mod_model_, 0);
 	DWORD pid = ProcCurPid();
 	UNONE::PsEnumModule(pid, [&](MODULEENTRY32W& entry)->bool{
@@ -414,10 +414,6 @@ void ProcessMgr::onShowModules()
 		QString modpath = WCharsToQ(entry.szExePath);
 		ULONG64 modbase = (ULONG64)entry.modBaseAddr;
 		ULONG64 modsize = entry.modBaseSize;
-		QStandardItem *item0 = new QStandardItem(LoadIcon(modpath), modname);
-		QStandardItem *item1 = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", modbase)));
-		QStandardItem *item2 = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", modsize)));
-		QStandardItem *item3 = new QStandardItem(modpath);
 		auto count = mod_model_->rowCount();
 		for (int i = 0; i < count; i++) {
 			auto base = mod_model_->data(mod_model_->index(i, MDX.base)).toString().toStdWString();
@@ -425,18 +421,30 @@ void ProcessMgr::onShowModules()
 				return true;
 			}
 		}
-		mod_model_->setItem(count, MDX.name, item0);
-		mod_model_->setItem(count, MDX.base, item1);
-		mod_model_->setItem(count, MDX.size, item2);
-		mod_model_->setItem(count, MDX.path, item3);
+		auto info = CacheGetFileBaseInfo(modpath);
+		QStandardItem *name_item = new QStandardItem(LoadIcon(modpath), modname);
+		QStandardItem *base_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", modbase)));
+		QStandardItem *size_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", modsize)));
+		QStandardItem *path_item = new QStandardItem(modpath);
+		QStandardItem *desc_item = new QStandardItem(info.desc);
+		QStandardItem *ver_item = new QStandardItem(info.ver);
+		QStandardItem *corp_item = new QStandardItem(info.corp);
+		mod_model_->setItem(count, MDX.name, name_item);
+		mod_model_->setItem(count, MDX.base, base_item);
+		mod_model_->setItem(count, MDX.size, size_item);
+		mod_model_->setItem(count, MDX.path, path_item);
+		mod_model_->setItem(count, MDX.desc, desc_item);
+		mod_model_->setItem(count, MDX.ver, ver_item);
+		mod_model_->setItem(count, MDX.corp, corp_item);
 		return true;
 	});
 
 	auto view = ui.moduleView;
-	view->setColumnWidth(MDX.name, 180);
+	view->setColumnWidth(MDX.name, 150);
 	view->resizeColumnToContents(MDX.base);
 	view->resizeColumnToContents(MDX.size);
-	view->setColumnWidth(MDX.path, 180);
+	view->setColumnWidth(MDX.path, 425);
+	view->setColumnWidth(MDX.desc, 200);
 }
 
 void ProcessMgr::onProcSectionClicked(int idx)
@@ -446,15 +454,15 @@ void ProcessMgr::onProcSectionClicked(int idx)
 		switch (proc_header_idx_) {
 		case 3:
 			ui.processView->header()->setSortIndicator(-1, Qt::AscendingOrder);
-			ShowProcessTree();
+			ShowProcess();
 			proc_header_idx_ = 0;
 			break;
 		case 1:
-			ShowProcessList();
+			ShowProcess();
 		}
 	}	else {
 		if (proc_header_idx_ == 0) {
-			ShowProcessList();
+			ShowProcess();
 			proc_header_idx_ = 1;
 		}
 	}
@@ -532,11 +540,18 @@ void ProcessMgr::ShowProperties(DWORD pid, int tab)
 	properties->show();
 }
 
-void ProcessMgr::ShowProcessList()
+void ProcessMgr::ShowProcess()
 {
+	DISABLE_RECOVER();
 	ClearItemModelData(proc_model_);
 	CacheRefreshProcInfo();
+	if (proc_header_idx_ == 0) ShowProcessTree();
+	else ShowProcessList();
+	AjustProcessStyle();
+}
 
+void ProcessMgr::ShowProcessList()
+{
 	std::vector<ProcInfo> pis;
 	UNONE::PsEnumProcess([&pis](PROCESSENTRY32W& entry)->bool {
 		ProcInfo info;
@@ -553,11 +568,11 @@ void ProcessMgr::ShowProcessList()
 		AppendProcessItem(nullptr, name_item, pi, proc_model_->rowCount());
 	}
 
-	AjustProcessStyle();
 }
 
 void ProcessMgr::ShowProcessTree()
 {
+	DISABLE_RECOVER();
 	ClearItemModelData(proc_model_);
 	CacheRefreshProcInfo();
 
