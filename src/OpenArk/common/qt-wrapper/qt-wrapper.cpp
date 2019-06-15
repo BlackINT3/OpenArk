@@ -202,3 +202,14 @@ void OpenBrowserUrl(QString url)
 {
 	ShellExecuteW(NULL, L"open", url.toStdWString().c_str(), NULL, NULL, SW_SHOW);
 }
+
+QString PidFormat(DWORD pid)
+{
+	if (pid == -1) return "N/A";
+	return QString("%1").arg(pid);
+}
+
+QString NameFormat(QString name)
+{
+	return name.replace(" *32", "");
+}

@@ -20,6 +20,7 @@
 #include <QMutex>
 #include <Windows.h>
 #include "ui_process-mgr.h"
+#include "../common/cache/cache.h"
 
 namespace Ui {
 	class ProcessMgr;
@@ -27,14 +28,6 @@ namespace Ui {
 }
 
 class OpenArk;
-
-struct ProcInfo {
-	DWORD pid;
-	DWORD ppid;
-	QString name;
-	QString path;
-	QString ctime;
-};
 
 class ProcSortFilterProxyModel : public QSortFilterProxyModel {
 	Q_OBJECT
@@ -79,15 +72,18 @@ private slots:
 	void onSendtoScanner();
 	void onShowProperties();
 	void onShowModules();
+	void onProcSectionClicked(int idx);
 	void onProcDoubleClicked(const QModelIndex &idx);
 	void onProcChanged(const QModelIndex &current, const QModelIndex &previous);
 
 private:
 	void ShowProperties(DWORD pid, int tab);
+
 	void ShowProcessList();
-	bool GetProcCache(unsigned int pid, ProcInfo& info);
-	void SetProcCache(unsigned int pid, ProcInfo& info);
-	
+	void ShowProcessTree();
+	void AppendProcessItem(QStandardItem *parent, QStandardItem *name_item, ProcInfo info, int seq);
+	void AjustProcessStyle();
+
 	int ProcCurRow();
 	int ProcCurCol();
 	DWORD ProcCurPid();
@@ -95,6 +91,9 @@ private:
 	QString ProcViewItemData(int row, int column);
 	QString ModCurViewItemData(int column);
 	QString ModViewItemData(int row, int column);
+
+private:
+	int proc_header_idx_;
 
 private:
 	Ui::ProcessMgr ui;
@@ -107,8 +106,6 @@ private:
 	QMenu *proc_menu_;
 	QMenu *mod_menu_;
 	QTimer timer_;
-	QMutex mutex_;
-	QMap<unsigned int, ProcInfo> proc_caches_;
 	QStandardItemModel *proc_model_;
 	QStandardItemModel *mod_model_;
 	ProcSortFilterProxyModel *proxy_model_;

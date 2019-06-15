@@ -93,6 +93,12 @@
     <ClCompile Include="common\win-wrapper\win-wrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="common\cpp-wrapper\cpp-wrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="common\cache\cache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="process-mgr\process-mgr.h">
@@ -146,6 +152,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ui\process-selection.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\untitled.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -211,6 +220,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="res\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\cpp-wrapper\cpp-wrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\cache\cache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

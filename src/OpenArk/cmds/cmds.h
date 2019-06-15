@@ -44,6 +44,7 @@ public:
 	Q_INVOKABLE void CmdMsg(QStringList argv);
 	Q_INVOKABLE void CmdWndInfo(QStringList argv);
 	Q_INVOKABLE void CmdProcessInfo(QStringList argv);
+	Q_INVOKABLE void CmdProcessTree(QStringList argv);
 	Q_INVOKABLE void CmdMemoryInfo(QStringList argv);
 
 	QString CmdGetLast();

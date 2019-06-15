@@ -141,3 +141,5 @@ bool JsonGetValue(const QByteArray &data, const QString &key, QJsonValue &val);
 
 //
 void OpenBrowserUrl(QString url);
+QString PidFormat(DWORD pid);
+QString NameFormat(QString name);

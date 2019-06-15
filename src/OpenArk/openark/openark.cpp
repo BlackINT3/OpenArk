@@ -54,6 +54,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	});
 
 	ui.setupUi(this);
+	resize(1300, 800);
 	ui.splitter->setStretchFactor(0, 1);
 	ui.splitter->setStretchFactor(1, 5);
 	QString title = QString(tr("OpenArk v%1 ").arg(AppVersion()));
@@ -84,6 +85,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	ui.statusBar->setFixedHeight(28);
 	ui.statusBar->addWidget(widget, 1);
 	connect(ui.actionConsole, SIGNAL(triggered(bool)), this, SLOT(onActionConsole(bool)));
+
 	ui.consoleWidget->hide();
 	ui.actionOnTop->setCheckable(true);
 	ui.actionExit->setShortcut(QKeySequence(Qt::ALT + Qt::Key_F4));

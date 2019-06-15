@@ -15,6 +15,7 @@
 ****************************************************************************/
 #include "process-properties.h"
 #include "../common/common.h"
+#include "../common/cache/cache.h"
 
 ProcessProperties::ProcessProperties(QWidget* parent, DWORD pid, int tab) :
 	pid_(pid)
@@ -136,8 +137,7 @@ void ProcessProperties::ShowImageDetail()
 		ui.buildLabel->setText(StrToQ(cptime));
 		UNONE::PeUnmapImage(image);
 	}
-	UNONE::PROCESS_BASE_INFOW info;
-	UNONE::PsGetProcessInfoW(pid_, info);
+	auto info = CacheGetProcessBaseInfo(pid_);
 	ui.cmdlineEdit->setText(WStrToQ(info.CommandLine));
 	ui.curdirEdit->setText(WStrToQ(info.CurrentDirectory));
 	auto ppid = UNONE::PsGetParentPid(pid_);

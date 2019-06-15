@@ -46,14 +46,14 @@
     <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)..\build\bin</OutDir>
+    <OutDir>$(SolutionDir)..\build\bin\</OutDir>
     <Linkages-unone>static</Linkages-unone>
     <TargetName>$(ProjectName)32</TargetName>
     <SourcePath>D:\Qt\Qt5.6.2\5.6\Src;$(SourcePath)</SourcePath>
     <Linkages-vs2015-unone>static</Linkages-vs2015-unone>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)..\build\bin</OutDir>
+    <OutDir>$(SolutionDir)..\build\bin\</OutDir>
     <Linkages-unone>static</Linkages-unone>
     <LibraryPath>$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)64</TargetName>
@@ -61,14 +61,14 @@
     <Linkages-vs2015-unone>static</Linkages-vs2015-unone>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)..\build\bin</OutDir>
+    <OutDir>$(SolutionDir)..\build\bin\</OutDir>
     <Linkages-UNONE>static</Linkages-UNONE>
     <TargetName>$(ProjectName)32</TargetName>
     <SourcePath>D:\Qt\Qt5.6.2\5.6\Src;$(SourcePath)</SourcePath>
     <Linkages-vs2015-unone>static</Linkages-vs2015-unone>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)..\build\bin</OutDir>
+    <OutDir>$(SolutionDir)..\build\bin\</OutDir>
     <Linkages-UNONE>static</Linkages-UNONE>
     <TargetName>$(ProjectName)64</TargetName>
     <SourcePath>D:\Qt\Qt5.6.2\5.6\Src;$(SourcePath)</SourcePath>
@@ -245,7 +245,9 @@
     <ClCompile Include="cmds\constants\constants.cpp" />
     <ClCompile Include="coderkit\coderkit.cpp" />
     <ClCompile Include="cmds\cmds.cpp" />
+    <ClCompile Include="common\cache\cache.cpp" />
     <ClCompile Include="common\common.cpp" />
+    <ClCompile Include="common\cpp-wrapper\cpp-wrapper.cpp" />
     <ClCompile Include="common\qt-wrapper\qt-wrapper.cpp" />
     <ClCompile Include="common\win-wrapper\win-wrapper.cpp" />
     <ClCompile Include="main.cpp" />
@@ -264,6 +266,7 @@
     <QtUic Include="ui\process-properties.ui" />
     <QtUic Include="ui\process-selection.ui" />
     <QtUic Include="ui\scanner.ui" />
+    <QtUic Include="ui\untitled.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="res\openark.qrc">
@@ -271,6 +274,8 @@
     </QtRcc>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="common\cache\cache.h" />
+    <ClInclude Include="common\cpp-wrapper\cpp-wrapper.h" />
     <ClInclude Include="res\resource.h" />
     <QtMoc Include="process-mgr\process-selection.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>

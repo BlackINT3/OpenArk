@@ -42,6 +42,7 @@ bool LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...);
 
 #include "win-wrapper/win-wrapper.h"
 #include "qt-wrapper/qt-wrapper.h"
+#include "cpp-wrapper/cpp-wrapper.h"
 
 
 __inline QString AppVersion()

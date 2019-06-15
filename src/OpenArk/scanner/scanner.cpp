@@ -439,23 +439,23 @@ void Scanner::RefreshSummary(const std::wstring& path)
 
 	if (!CheckIsPe()) return;
 
-	std::wstring file_ver, prod_ver, prod_name, copyright, original, inner, company, descript;
+	std::wstring file_ver, prod_ver, prod_name, cright, origin, inner, corp, desc;
 	UNONE::FsGetFileInfoW(path, L"FileVersion", file_ver);
 	UNONE::FsGetFileInfoW(path, L"ProductVersion", prod_ver);
 	UNONE::FsGetFileInfoW(path, L"ProductName", prod_name);
-	UNONE::FsGetFileInfoW(path, L"LegalCopyright", copyright);
-	UNONE::FsGetFileInfoW(path, L"OriginalFileName", original);
+	UNONE::FsGetFileInfoW(path, L"LegalCopyright", cright);
+	UNONE::FsGetFileInfoW(path, L"OriginalFileName", origin);
 	UNONE::FsGetFileInfoW(path, L"InternalName", inner);
-	UNONE::FsGetFileInfoW(path, L"CompanyName", company);
-	UNONE::FsGetFileInfoW(path, L"FileDescription", descript);
+	UNONE::FsGetFileInfoW(path, L"CompanyName", corp);
+	UNONE::FsGetFileInfoW(path, L"FileDescription", desc);
 	AddSummaryUpItem(tr("File Version"), WStrToQ(file_ver));
 	AddSummaryUpItem(tr("ProductVersion"), WStrToQ(prod_ver));
 	AddSummaryUpItem(tr("ProductName"), WStrToQ(prod_name));
-	AddSummaryUpItem(tr("LegalCopyright"), WStrToQ(copyright));
-	AddSummaryUpItem(tr("OriginalFileName"), WStrToQ(original));
+	AddSummaryUpItem(tr("LegalCopyright"), WStrToQ(cright));
+	AddSummaryUpItem(tr("OriginalFileName"), WStrToQ(origin));
 	AddSummaryUpItem(tr("InternalName"), WStrToQ(inner));
-	AddSummaryUpItem(tr("CompanyName"), WStrToQ(company));
-	AddSummaryUpItem(tr("FileDescription"), WStrToQ(descript));
+	AddSummaryUpItem(tr("CompanyName"), WStrToQ(corp));
+	AddSummaryUpItem(tr("FileDescription"), WStrToQ(desc));
 
 	std::string pdb, cptime, cpver;
 	pdb = UNONE::PeGetPdb(pe_image_);

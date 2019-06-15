@@ -72,6 +72,10 @@ LR"(.ps [show processes list]
 .ps -kill -path \temp\ [kill process path matched *\temp\* , be careful!!!]
 .ps -inject 1234 c:\hook.dll [inject hook.dll into pid=0n1234])" },
 
+{ L".pstree", "CmdProcessTree", LR"(show process tree)",
+LR"(.pstree [show process tree]
+.pstree 1234/0x3200 [show process tree parent id = 1234 or 0x3200])" },
+
 { L".mm", "CmdMemoryInfo", LR"(show memory information)",
 LR"(.mm [show os memory]
 .mm -pid 1234 [show process pid=1234 memory information])" },
@@ -482,6 +486,55 @@ Q_INVOKABLE void Cmds::CmdProcessInfo(QStringList argv)
 			CloseHandle(thd);
 			return;
 		}
+	}
+
+	CmdException(ECMD_PARAM_INVALID);
+}
+
+Q_INVOKABLE void Cmds::CmdProcessTree(QStringList argv)
+{
+	UNONE::LogCallback routine;
+	bool regok = UNONE::InterCurrentLogger(routine);
+	if (regok) UNONE::InterRegisterLogger([&](const std::wstring &) {});
+	ON_SCOPE_EXIT([&] {if (regok) UNONE::InterUnregisterLogger();});
+
+	int level = 0;
+	std::wstring prefix;
+	std::function<void(DWORD pid, bool last)> OutputProcessTree = [&](DWORD pid, bool last) {
+		//auto path = UNONE::PsGetProcessPathW(pid);
+		auto name = UNONE::PsGetProcessNameW(pid);
+		if (level == 0) {
+			prefix = L"©À©¤";
+		}	else {
+			prefix = UNONE::StrRepeatW(L"©¦&nbsp;&nbsp;", level);
+			if (last) prefix.append(L"©¸©¤");
+			else prefix.append(L"©À©¤");
+		}
+		CmdOutput(L"%s%s(%d)", prefix.c_str(), name.c_str(), pid);
+		level++;
+		auto childs = UNONE::PsGetChildPids(pid);
+		for (size_t i = 0; i < childs.size(); i++) {
+			OutputProcessTree(childs[i], (i == childs.size() - 1));
+		}
+		level--;
+	};
+
+	auto argc = argv.size();
+	if (argc == 0) {
+		UNONE::PsEnumProcess([&](PROCESSENTRY32W &entry)->bool {
+			auto ppid = entry.th32ParentProcessID;
+			if (ppid == 0 || UNONE::PsIsDeleted(ppid)) {
+				// root node
+				OutputProcessTree(entry.th32ProcessID, false);
+			}
+			return true;
+		});
+		return;
+	}
+
+	if (argc == 1) {
+		OutputProcessTree(VariantInt(argv[0].toStdString(), 10), false);
+		return;
 	}
 
 	CmdException(ECMD_PARAM_INVALID);
