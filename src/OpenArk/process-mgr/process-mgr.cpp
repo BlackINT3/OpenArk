@@ -43,29 +43,25 @@ struct {
 	int corp = s++;
 } MDX;
 
-ProcSortFilterProxyModel::ProcSortFilterProxyModel(QWidget *parent)
-	: QSortFilterProxyModel(parent)
-{}
-
-ProcSortFilterProxyModel::~ProcSortFilterProxyModel()
-{}
-
-bool ProcSortFilterProxyModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
+bool ProcSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
-	if (!left.isValid() || !right.isValid())
-		return false;
-	auto s1 = sourceModel()->data(left);
-	auto s2 = sourceModel()->data(right);
-	if ((left.column() == 1 || left.column() == 2)) {
-		return s1.toUInt() < s2.toUInt();
-	}
+	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
+	auto column = left.column();
+	if ((column == 1 || column == 2)) return s1.toUInt() < s2.toUInt();
+	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
+}
+bool ModSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
+{
+	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
+	auto column = left.column();
+	if ((column == 1 || column == 2)) return UNONE::StrToHex64W(s1.toString().toStdWString()) < UNONE::StrToHex64W(s2.toString().toStdWString());
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
 
 ProcessMgr::ProcessMgr(QWidget* parent) :
 	parent_((OpenArk*)parent),
 	cntproc_lable_(nullptr),
-	proxy_model_(nullptr),
+	proxy_proc_(nullptr),
 	proc_header_idx_(0)
 {
 	ui.setupUi(this);
@@ -104,12 +100,12 @@ ProcessMgr::ProcessMgr(QWidget* parent) :
 	proc_model_ = new QStandardItemModel;
 	proc_model_->setHorizontalHeaderLabels(QStringList() << tr("Process") << tr("PID") << tr("PPID") << tr("Path") << tr("Description") << tr("Company Name") << tr("CreatedTime") );
 	QTreeView *pview = ui.processView;
-	proxy_model_ = new ProcSortFilterProxyModel(pview);
-	proxy_model_->setSourceModel(proc_model_);
-	proxy_model_->setDynamicSortFilter(true);
-	proxy_model_->setFilterKeyColumn(1);
-	pview->setModel(proxy_model_);
-	pview->selectionModel()->setModel(proxy_model_);
+	proxy_proc_ = new ProcSortFilterProxyModel(pview);
+	proxy_proc_->setSourceModel(proc_model_);
+	proxy_proc_->setDynamicSortFilter(true);
+	proxy_proc_->setFilterKeyColumn(1);
+	pview->setModel(proxy_proc_);
+	pview->selectionModel()->setModel(proxy_proc_);
 	pview->header()->setSortIndicator(-1, Qt::AscendingOrder);
 	pview->setSortingEnabled(true);
 	pview->viewport()->installEventFilter(this);
@@ -128,10 +124,17 @@ ProcessMgr::ProcessMgr(QWidget* parent) :
 	mod_menu_->addAction(tr("Explore File"), this, SLOT(onExploreFile()));
 	mod_menu_->addAction(tr("Sento Scanner"), this, SLOT(onSendtoScanner()));
 	mod_model_ = new QStandardItemModel;
-	QTreeView *mview = ui.moduleView;
 	mod_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Base") << tr("Size") << tr("Path") << tr("Description") << tr("Version") << tr("Company Name"));
-	SetDefaultTreeViewStyle(mview, mod_model_);
+	QTreeView *mview = ui.moduleView;
+	proxy_mod_ = new ModSortFilterProxyModel(mview);
+	proxy_mod_->setSourceModel(mod_model_);
+	proxy_mod_->setDynamicSortFilter(true);
+	proxy_mod_->setFilterKeyColumn(1);
+	mview->setModel(proxy_mod_);
+	mview->selectionModel()->setModel(proxy_mod_);
 	mview->header()->setSortIndicator(-1, Qt::AscendingOrder);
+	mview->setSortingEnabled(true);
+	//mview->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	mview->viewport()->installEventFilter(this);
 	mview->installEventFilter(this);
 
@@ -164,6 +167,7 @@ bool ProcessMgr::eventFilter(QObject *obj, QEvent *e)
 			QMouseEvent *mouse = static_cast<QMouseEvent *>(e);
 			QPoint pt = mouse->pos();
 			if (pt.rx() <= ui.processView->columnWidth(0)) {
+				DISABLE_RECOVER();
 				QModelIndex idx = ui.processView->indexAt(pt);
 				const QModelIndex &curidx = idx.sibling(idx.row(), 1);
 				auto pid = curidx.data(Qt::DisplayRole).toInt();
@@ -449,21 +453,21 @@ void ProcessMgr::onShowModules()
 
 void ProcessMgr::onProcSectionClicked(int idx)
 {
-	if (idx == 0) {
+	if (idx == PDX.name) {
 		proc_header_idx_++;
 		switch (proc_header_idx_) {
 		case 3:
 			ui.processView->header()->setSortIndicator(-1, Qt::AscendingOrder);
-			ShowProcess();
 			proc_header_idx_ = 0;
+			ShowProcess();
 			break;
 		case 1:
 			ShowProcess();
 		}
 	}	else {
 		if (proc_header_idx_ == 0) {
-			ShowProcess();
 			proc_header_idx_ = 1;
+			ShowProcess();
 		}
 	}
 }

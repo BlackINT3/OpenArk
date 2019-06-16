@@ -733,11 +733,10 @@ void Scanner::RefreshExport()
 	DWORD cnt_ordinals = exp->NumberOfFunctions;
 	DWORD base_ordinal = exp->Base;
 	for (DWORD i = 0; i < cnt_names; i++) {
-		row = 0;
-		count = exp_func_model_->rowCount();
 		DWORD idx = addr_ordinals[i];
 		DWORD func_addr = addr_funcs[idx];
 		CHAR* func_name = pe_image_ + addr_names[i];
+		InitTableItem2(exp_func_model_, exp_func_model_->rowCount());
 		AppendTableItem(exp_func_model_, DWordToHexQ(func_addr));
 		AppendTableItem(exp_func_model_, DWordToHexQ(idx));
 		AppendTableItem(exp_func_model_, CharsToQ(func_name));

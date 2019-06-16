@@ -99,6 +99,12 @@
     <ClCompile Include="common\cache\cache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="settings\settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="common\config\config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="process-mgr\process-mgr.h">
@@ -128,6 +134,9 @@
     <QtMoc Include="process-mgr\process-selection.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="settings\settings.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\process-mgr.ui">
@@ -154,7 +163,7 @@
     <QtUic Include="ui\process-selection.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="ui\untitled.ui">
+    <QtUic Include="ui\settings.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -226,6 +235,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="common\cache\cache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\config\config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

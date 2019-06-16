@@ -13,40 +13,13 @@
 ** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
 **
 ****************************************************************************/
-#include "../openark/openark.h"
-#include "common/common.h"
+#pragma once
+#include <QString>
+#include <QSettings>
 
-//for qt static link
-#include <QtWidgets/QApplication>
-#include <QtPlugin>
-Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
-Q_IMPORT_PLUGIN(QICOPlugin)
+// configration
+extern QSettings *appconf;
 
-int OpenArkInit(int argc, char *argv[])
-{
-	UNONE::SeEnableDebugPrivilege();
-	bool is_ark64 = UNONE::PeX64((CHAR*)GetModuleHandleW(NULL));
-	if (!is_ark64 && UNONE::OsIs64()) {
-		auto &&path = UNONE::PsGetProcessDirW() + L"\\OpenArk64.exe";
-		if (UNONE::FsIsExistedW(path)) {
-			UNONE::PsCreateProcessW(path);
-			exit(0);
-		}
-	}
+void ConfigInit();
 
-	ConfigInit();
-	return 0;
-}
-
-int main(int argc, char *argv[])
-{
-	OpenArkInit(argc, argv);
-
-	QApplication a(argc, argv);
-	a.setWindowIcon(QIcon(":/OpenArk/OpenArk.ico"));
-
-	OpenArk w;
-	w.show();
-
-	return a.exec();
-}
+QString ConfigGetConsole(const QString &name);

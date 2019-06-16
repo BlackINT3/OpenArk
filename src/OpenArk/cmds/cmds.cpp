@@ -29,7 +29,9 @@ LR"(.help [show commands help and examples]
 
 { L".cls", "CmdCls", LR"(clear console screen)", L"" },
 
-{ L".history", "CmdHistory", LR"(show commands history)" , L"" },
+{ L".history", "CmdHistory", LR"(show commands history)" ,
+LR"(.history [show commands history]
+.history ps [show commands history matched *ps*])" },
 
 { L".exit", "CmdExit", LR"(exit current process)" , L"" },
 
@@ -67,6 +69,9 @@ LR"(.ps [show processes list]
 .ps -pid 1234,0n2048,0x3200 [find process pid=1234/0n2048/0x3200, default is decimal]
 .ps -path \windows [find process path matched *\windows*]
 .ps -mods 1234 [show module list that process pid=0n1234, default is decimal]
+.ps -rst -name chrome [restart process name matched *chrome* , be careful!!!]
+.ps -rst -pid 1234,0n2048,0x3200 [restart process pid=1234/0n2048/0x3200, default is decimal]
+.ps -rst -path \temp\ [restart process path matched *\temp\* , be careful!!!]
 .ps -kill -name chrome [kill process name matched *chrome* , be careful!!!]
 .ps -kill -pid 1234,0n2048,0x3200 [kill process pid=1234/0n2048/0x3200, default is decimal]
 .ps -kill -path \temp\ [kill process path matched *\temp\* , be careful!!!]
@@ -93,10 +98,28 @@ Cmds::Cmds(QTextBrowser *parent) :
 		else	
 			item.example.append(tail);
 	}
+
+	auto path = ConfigGetConsole("History.FilePath").toStdWString();
+	std::string history;
+	std::vector<std::string> vec;
+	UNONE::FsReadFileDataW(path, history);
+	UNONE::StrSplitA(history, "\r\n", vec);
+	for (auto &h : vec) {
+		if (!h.empty())
+			cmd_history_.push_back(StrToQ(h));
+	}
 }
 
 Cmds::~Cmds()
 {
+	UNONE::InterUnregisterLogger();
+	std::string history;
+	for (auto &h : cmd_history_) {
+		history.append(h.toStdString());
+		history.append("\r\n");
+	}
+	auto path = ConfigGetConsole("History.FilePath").toStdWString();
+	UNONE::FsWriteFileDataW(path, history);
 }
 
 Q_INVOKABLE void Cmds::CmdHelp(QStringList argv)
@@ -254,13 +277,16 @@ Q_INVOKABLE void Cmds::CmdWndInfo(QStringList argv)
 
 Q_INVOKABLE void Cmds::CmdHistory(QStringList argv)
 {
+	std::wstring pattern;
+	auto argc = argv.size();
+	if (argc == 1) {pattern = argv[0].toStdWString();}
 	int i = 0;
-	for (auto& m : cmd_history_) {
-		QString line = QString("%1 %2").arg(i).arg(m);
-		if (i == cmd_cursor_) {
-			line.insert(0, "* ");
+	for (auto &m : cmd_history_) {
+		if (UNONE::StrContainIW(m.toStdWString(), pattern)) {
+			QString line = QString("%1 %2").arg(i).arg(m);
+			if (i == cmd_cursor_) line.insert(0, "* ");
+			CmdOutput(line.toStdWString().c_str());
 		}
-		CmdOutput(line.toStdWString().c_str());
 		i++;
 	}
 }
@@ -420,6 +446,20 @@ Q_INVOKABLE void Cmds::CmdProcessInfo(QStringList argv)
 		}
 	};
 
+	auto RestartPids = [&](std::vector<DWORD> &pids) {
+		for (auto pid : pids) {
+			auto name = UNONE::PsGetProcessNameW(pid);
+			auto path = UNONE::PsGetProcessPathW(pid);
+			bool killed = UNONE::PsKillProcess(pid);
+			if (killed) {
+				UNONE::PsCreateProcessW(path);
+				CmdOutput(L"[+] restart pid:%d name:%s path:%s ok", pid, name.c_str(), path.c_str());
+			} else {
+				CmdOutput(L"[-] kill pid:%d name:%s path:%s err", pid, name.c_str(), path.c_str());
+			}
+		}
+	};
+
 	auto argc = argv.size();
 
 	if (argc == 0) {
@@ -470,6 +510,25 @@ Q_INVOKABLE void Cmds::CmdProcessInfo(QStringList argv)
 			if (argv[1] == "-path") {
 				FindPidsByPath(wstr, pids);
 				KillPids(pids);
+				return;
+			}
+		}
+		if (argv[0] == "-rst") {
+			std::wstring wstr = argv[2].toStdWString();
+			std::vector<DWORD> pids;
+			if (argv[1] == "-name") {
+				FindPidsByName(wstr, pids);
+				RestartPids(pids);
+				return;
+			}
+			if (argv[1] == "-pid") {
+				ParsePids(wstr, pids);
+				RestartPids(pids);
+				return;
+			}
+			if (argv[1] == "-path") {
+				FindPidsByPath(wstr, pids);
+				RestartPids(pids);
 				return;
 			}
 		}
@@ -676,6 +735,10 @@ void Cmds::CmdDispatcher(const std::wstring &cmdline)
 	CmdOutput(LR"(<b><font color="black">C:\>%s</font></b>)", cmdline.c_str());
 
 	if (cmd_history_.empty() || QString::compare(WStrToQ(wstr), cmd_history_.back(), Qt::CaseInsensitive)!=0) {
+		auto cnt = ConfigGetConsole("History.MaxRecords").toInt();
+		if (cmd_history_.size() >= cnt) {
+			cmd_history_.pop_front();
+		}
 		cmd_history_.push_back(WStrToQ(wstr));
 	}
 	cmd_cursor_ = cmd_history_.size();

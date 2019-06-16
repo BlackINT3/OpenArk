@@ -19,6 +19,7 @@
 #include "scanner/scanner.h"
 #include "coderkit/coderkit.h"
 #include "bundler/bundler.h"
+#include "settings/settings.h"
 #include "about/about.h"
 #include "cmds/cmds.h"
 
@@ -91,6 +92,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	ui.actionExit->setShortcut(QKeySequence(Qt::ALT + Qt::Key_F4));
 	connect(ui.actionExit, &QAction::triggered, this, [=]() { QApplication::quit(); });
 	connect(ui.actionAbout, SIGNAL(triggered(bool)), this, SLOT(onActionAbout(bool)));
+	connect(ui.actionSettings, SIGNAL(triggered(bool)), this, SLOT(onActionSettings(bool)));
 	connect(ui.actionOpen, SIGNAL(triggered(bool)), this, SLOT(onActionOpen(bool)));
 	connect(ui.actionRefresh, SIGNAL(triggered(bool)), this, SLOT(onActionRefresh(bool)));
 	connect(ui.actionReset, SIGNAL(triggered(bool)), this, SLOT(onActionReset(bool)));
@@ -102,6 +104,8 @@ OpenArk::OpenArk(QWidget *parent) :
 	connect(ui.actionBundler, SIGNAL(triggered(bool)), this, SLOT(onActionBundler(bool)));
 
 	cmds_ = new Cmds(ui.cmdOutWindow);
+	cmds_->hide();
+	cmds_->setParent(ui.cmdOutWindow);
 	ui.cmdInput->installEventFilter(this);
 	ui.cmdOutWindow->installEventFilter(this);
 	ui.cmdOutWindow->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -204,6 +208,13 @@ void OpenArk::onActionOnTop(bool checked)
 void OpenArk::onActionAbout(bool checked)
 {
 	auto about = new About(this);
+	about->raise();
+	about->show();
+}
+
+void OpenArk::onActionSettings(bool checked)
+{
+	auto about = new Settings(this);
 	about->raise();
 	about->show();
 }
@@ -326,10 +337,17 @@ void OpenArk::onCmdHelp()
 void OpenArk::onShowConsoleMenu(const QPoint &pt)
 {
 	QMenu *menu = ui.cmdOutWindow->createStandardContextMenu();
+	menu->addSeparator();
+	menu->addAction(tr("History"), this, SLOT(onConsoleHistory()));
 	menu->addAction(tr("Helps"), this, SLOT(onConsoleHelps()));
 	menu->addAction(tr("Clear"), this, SLOT(onConsoleClear()));
 	menu->exec(ui.cmdOutWindow->mapToGlobal(pt));
 	delete menu;
+}
+
+void OpenArk::onConsoleHistory()
+{
+	onExecCmd(L".history");
 }
 
 void OpenArk::onConsoleClear()

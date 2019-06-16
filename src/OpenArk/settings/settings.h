@@ -13,40 +13,26 @@
 ** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
 **
 ****************************************************************************/
-#include "../openark/openark.h"
-#include "common/common.h"
+#pragma once
+#include <QtCore>
+#include <QtWidgets>
+#include <Windows.h>
+#include "ui_settings.h"
 
-//for qt static link
-#include <QtWidgets/QApplication>
-#include <QtPlugin>
-Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
-Q_IMPORT_PLUGIN(QICOPlugin)
-
-int OpenArkInit(int argc, char *argv[])
-{
-	UNONE::SeEnableDebugPrivilege();
-	bool is_ark64 = UNONE::PeX64((CHAR*)GetModuleHandleW(NULL));
-	if (!is_ark64 && UNONE::OsIs64()) {
-		auto &&path = UNONE::PsGetProcessDirW() + L"\\OpenArk64.exe";
-		if (UNONE::FsIsExistedW(path)) {
-			UNONE::PsCreateProcessW(path);
-			exit(0);
-		}
-	}
-
-	ConfigInit();
-	return 0;
+namespace Ui {
+	class Settings;
 }
 
-int main(int argc, char *argv[])
-{
-	OpenArkInit(argc, argv);
+class Settings : public QWidget {
+	Q_OBJECT
+public:
+	Settings(QWidget *parent);
+	~Settings();
 
-	QApplication a(argc, argv);
-	a.setWindowIcon(QIcon(":/OpenArk/OpenArk.ico"));
+protected:
+	void closeEvent(QCloseEvent *e);
 
-	OpenArk w;
-	w.show();
-
-	return a.exec();
-}
+private:
+	Ui::Settings ui;
+	QStandardItemModel *console_model_;
+};

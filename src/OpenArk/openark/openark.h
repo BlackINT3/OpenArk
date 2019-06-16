@@ -41,6 +41,7 @@ private slots:
 	void onActionReset(bool checked);
 	void onActionOnTop(bool checked);
 	void onActionAbout(bool checked);
+	void onActionSettings(bool checked);
 	void onActionConsole(bool checked);
 	void onActionGithub(bool checked);
 	void onActionCoderKit(bool checked);
@@ -51,6 +52,7 @@ private slots:
 	void onShowConsoleMenu(const QPoint &pt);
 	void onConsoleClear();
 	void onConsoleHelps();
+	void onConsoleHistory();
 	void onCmdInput();
 	void onTabChanged();
 

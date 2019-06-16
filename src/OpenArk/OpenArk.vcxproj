@@ -247,6 +247,7 @@
     <ClCompile Include="cmds\cmds.cpp" />
     <ClCompile Include="common\cache\cache.cpp" />
     <ClCompile Include="common\common.cpp" />
+    <ClCompile Include="common\config\config.cpp" />
     <ClCompile Include="common\cpp-wrapper\cpp-wrapper.cpp" />
     <ClCompile Include="common\qt-wrapper\qt-wrapper.cpp" />
     <ClCompile Include="common\win-wrapper\win-wrapper.cpp" />
@@ -256,6 +257,7 @@
     <ClCompile Include="process-mgr\process-properties.cpp" />
     <ClCompile Include="process-mgr\process-selection.cpp" />
     <ClCompile Include="scanner\scanner.cpp" />
+    <ClCompile Include="settings\settings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\about.ui" />
@@ -266,7 +268,7 @@
     <QtUic Include="ui\process-properties.ui" />
     <QtUic Include="ui\process-selection.ui" />
     <QtUic Include="ui\scanner.ui" />
-    <QtUic Include="ui\untitled.ui" />
+    <QtUic Include="ui\settings.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="res\openark.qrc">
@@ -275,8 +277,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\cache\cache.h" />
+    <ClInclude Include="common\config\config.h" />
     <ClInclude Include="common\cpp-wrapper\cpp-wrapper.h" />
     <ClInclude Include="res\resource.h" />
+    <QtMoc Include="settings\settings.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork</IncludePath>
+    </QtMoc>
     <QtMoc Include="process-mgr\process-selection.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>

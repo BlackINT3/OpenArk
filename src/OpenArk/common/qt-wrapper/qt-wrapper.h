@@ -100,22 +100,32 @@ __inline QString WordArrayToHexQ(WORD* arr, int len) {
 	root->setChild(row++, 1, new QStandardItem(value));
 
 #define InitTableItem(root) \
-	int row = 0;\
+	int column = 0;\
 	int count = root->rowCount();\
+	QStandardItem *item;\
+
+#define InitTableItem2(root, cnt) \
+	int column = 0;\
+	count = cnt;\
 	QStandardItem *item;\
 
 #define AppendTableItem(root, value) \
 	item = new QStandardItem(value);\
-	root->setItem(count, row++, item);
+	root->setItem(count, column++, item);
 
 #define AppendTableIconItem(root, ico, value) \
 	item = new QStandardItem(ico, value);\
-	root->setItem(count, row++, item);
+	root->setItem(count, column++, item);
 
 #define AppendNameValue(root, name, value) \
 	root->setItem(count, 0, new QStandardItem(name)); \
 	root->setItem(count, 1, new QStandardItem(value)); \
 	count++
+
+#define AppendTableRowNameVaule(root, name, value) \
+	count = root->rowCount();\
+	root->setItem(count, 0, new QStandardItem(name)); \
+	root->setItem(count, 1, new QStandardItem(value)); \
 
 // MVC wrapper
 QString GetItemModelData(QAbstractItemModel *model, int row, int column);

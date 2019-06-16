@@ -32,10 +32,18 @@ class OpenArk;
 class ProcSortFilterProxyModel : public QSortFilterProxyModel {
 	Q_OBJECT
 public:
-	ProcSortFilterProxyModel(QWidget *parent);
-	~ProcSortFilterProxyModel();
+	ProcSortFilterProxyModel(QWidget *parent) {};
+	~ProcSortFilterProxyModel() {};
 protected:
-	bool lessThan(const QModelIndex& left, const QModelIndex& right) const;
+	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
+};
+class ModSortFilterProxyModel : public QSortFilterProxyModel {
+	Q_OBJECT
+public:
+	ModSortFilterProxyModel(QWidget *parent) {};
+	~ModSortFilterProxyModel() {};
+protected:
+	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
 };
 
 class ProcessMgr : public QWidget {
@@ -108,5 +116,6 @@ private:
 	QTimer timer_;
 	QStandardItemModel *proc_model_;
 	QStandardItemModel *mod_model_;
-	ProcSortFilterProxyModel *proxy_model_;
+	ProcSortFilterProxyModel *proxy_proc_;
+	ModSortFilterProxyModel *proxy_mod_;
 };

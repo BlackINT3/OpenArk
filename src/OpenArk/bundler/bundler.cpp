@@ -172,9 +172,7 @@ void Bundler::OpenFolderImpl(QString folder)
 			UNONE::FsEnumDirectoryW(path, fcb, param);;
 			return true;
 		}
-		QStandardItem* item;
-		int count = files_model_->rowCount();
-		int row = 0;
+		InitTableItem(files_model_);
 		AppendTableIconItem(files_model_, LoadIcon(WCharsToQ(path)), WCharsToQ(name));
 		DWORD64 size;
 		UNONE::FsGetFileSizeW(path, size);
