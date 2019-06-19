@@ -476,7 +476,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="typeBox"/>
+             <widget class="QComboBox" name="typeBox">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
             </item>
             <item>
              <spacer name="horizontalSpacer">
@@ -510,7 +517,7 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
-             <widget class="QLabel" name="label_21">
+             <widget class="QLabel" name="keyLabel">
               <property name="text">
                <string>Key:</string>
               </property>

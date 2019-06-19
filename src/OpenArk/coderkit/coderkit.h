@@ -41,12 +41,16 @@ private slots:
 	void onCodeTextChanged(const QString &text);
 	void onWindowsErrorTextChanged(const QString &text);
 	void onMessageId();
+	void onAlgIndexChanged(int index);
+	void onAlgPlainChanged();
 
 private:
+	void UpdateAlgorithmText(bool crypt);
 	void UpdateEditCodeText(const std::wstring& data, QObject* ignored_obj);
 
 private:
 	Ui::CoderKit ui;
 	OpenArk* parent_;
 	std::mutex upt_mutex_;
+	int alg_idx_;
 };

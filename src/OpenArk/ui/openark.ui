@@ -194,7 +194,15 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>&amp;Options</string>
     </property>
+    <widget class="QMenu" name="menuLanguage">
+     <property name="title">
+      <string>&amp;Language</string>
+     </property>
+     <addaction name="actionEnglish"/>
+     <addaction name="action"/>
+    </widget>
     <addaction name="actionSettings"/>
+    <addaction name="menuLanguage"/>
    </widget>
    <widget class="QMenu" name="menuPlugins">
     <property name="title">
@@ -207,26 +215,26 @@ p, li { white-space: pre-wrap; }
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Window</string>
+     <string>&amp;Help</string>
     </property>
-   </widget>
-   <widget class="QMenu" name="menuHelp_2">
-    <property name="title">
-     <string>Help</string>
-    </property>
-    <addaction name="actionTortois"/>
+    <addaction name="actionManuals"/>
     <addaction name="separator"/>
     <addaction name="actionGithub"/>
     <addaction name="separator"/>
     <addaction name="actionCheckUpdate"/>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>&amp;Window</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
    <addaction name="menuOptions"/>
    <addaction name="menuPlugins"/>
+   <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
-   <addaction name="menuHelp_2"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
@@ -305,7 +313,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/OpenArk/exit.ico</normaloff>:/OpenArk/exit.ico</iconset>
    </property>
    <property name="text">
-    <string>Exit</string>
+    <string>&amp;Exit</string>
    </property>
   </action>
   <action name="actionOutput">
@@ -357,7 +365,7 @@ p, li { white-space: pre-wrap; }
     <string>Project on Github</string>
    </property>
   </action>
-  <action name="actionTortois">
+  <action name="actionManuals">
    <property name="text">
     <string>Manuals</string>
    </property>
@@ -397,7 +405,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionCoderKit">
    <property name="text">
-    <string>&amp;CoderKit</string>
+    <string>CoderKit</string>
    </property>
   </action>
   <action name="actionScanner">
@@ -430,6 +438,16 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="toolTip">
     <string>Reset Window</string>
+   </property>
+  </action>
+  <action name="actionEnglish">
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>简体中文</string>
    </property>
   </action>
  </widget>

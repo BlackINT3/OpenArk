@@ -36,7 +36,11 @@ void OpenArkTabStyle::drawControl(ControlElement element, const QStyleOption *op
 				painter->save();
 				painter->setPen(0xb9b9b9);
 				painter->setBrush(QBrush(0xffffff));
-				painter->drawRect(rect.adjusted(0, 0, 0, 0));
+				if (tabopt->position != QStyleOptionTab::End) {
+					painter->drawRect(rect.adjusted(0, 0, 20, 0));
+				}	else {
+					painter->drawRect(rect.adjusted(0, 0, 20, -1));
+				}
 				painter->restore();
 				painter->save();
 				painter->setPen(0x00868b);
@@ -45,12 +49,15 @@ void OpenArkTabStyle::drawControl(ControlElement element, const QStyleOption *op
 				painter->setFont(QFont("", 11, QFont::Bold));
 				painter->drawText(rect, tabopt->text, option);
 				painter->restore();
-			}
-			else {
+			} else {
 				painter->save();
 				painter->setPen(0xb9b9b9);
 				painter->setBrush(QBrush(0xf0f0f0));
-				painter->drawRect(rect.adjusted(0, 0, 0, 0));
+				if (tabopt->position != QStyleOptionTab::End) {
+					painter->drawRect(rect.adjusted(0, 0, 20, 0));
+				}	else {
+					painter->drawRect(rect.adjusted(0, 0, 20, -1));
+				}
 				painter->restore();
 				painter->save();
 				QTextOption option;
@@ -151,7 +158,7 @@ void SetDefaultTableViewStyle(QTableView* view, QStandardItemModel* model)
 	view->horizontalHeader()->setMinimumSectionSize(100);
 	view->verticalHeader()->setDefaultSectionSize(25);
 	view->selectionModel()->selectedIndexes();
-};
+}
 
 void SetDefaultTreeViewStyle(QTreeView* view, QStandardItemModel* model)
 {
@@ -160,7 +167,7 @@ void SetDefaultTreeViewStyle(QTreeView* view, QStandardItemModel* model)
 	//view->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 	view->header()->setMinimumSectionSize(100);
 	view->setSortingEnabled(true);
-};
+}
 
 bool JsonParse(const QByteArray &data, QJsonObject &obj)
 {

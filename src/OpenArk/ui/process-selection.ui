@@ -56,7 +56,7 @@
    <widget class="QLineEdit" name="pidEdit">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>60</x>
       <y>20</y>
       <width>131</width>
       <height>20</height>
@@ -69,7 +69,7 @@
    <widget class="QRadioButton" name="decRadio">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>60</x>
       <y>50</y>
       <width>71</width>
       <height>16</height>
@@ -82,9 +82,9 @@
    <widget class="QRadioButton" name="hexRadio">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>140</x>
       <y>50</y>
-      <width>51</width>
+      <width>71</width>
       <height>16</height>
      </rect>
     </property>
@@ -97,7 +97,7 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>31</width>
+      <width>41</width>
       <height>21</height>
      </rect>
     </property>
@@ -110,7 +110,7 @@
      <rect>
       <x>10</x>
       <y>70</y>
-      <width>31</width>
+      <width>41</width>
       <height>21</height>
      </rect>
     </property>
@@ -123,7 +123,7 @@
      <rect>
       <x>10</x>
       <y>100</y>
-      <width>31</width>
+      <width>41</width>
       <height>21</height>
      </rect>
     </property>
@@ -137,7 +137,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>60</x>
       <y>70</y>
       <width>131</width>
       <height>20</height>
@@ -153,7 +153,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>60</x>
       <y>100</y>
       <width>231</width>
       <height>20</height>

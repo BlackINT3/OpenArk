@@ -313,7 +313,6 @@
     <ClInclude Include="GeneratedFiles\ui_about.h" />
     <ClInclude Include="GeneratedFiles\ui_bundler.h" />
     <ClInclude Include="GeneratedFiles\ui_coderkit.h" />
-    <ClInclude Include="GeneratedFiles\ui_file-scan.h" />
     <ClInclude Include="GeneratedFiles\ui_openark.h" />
     <ClInclude Include="GeneratedFiles\ui_process-mgr.h" />
     <ClInclude Include="GeneratedFiles\ui_process-properties.h" />
@@ -333,6 +332,7 @@
     <ResourceCompile Include="res\OpenArk.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="openark_zh.ts" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -43,6 +43,7 @@ private slots:
 	void onActionAbout(bool checked);
 	void onActionSettings(bool checked);
 	void onActionConsole(bool checked);
+	void onActionManuals(bool checked);
 	void onActionGithub(bool checked);
 	void onActionCoderKit(bool checked);
 	void onActionScanner(bool checked);

@@ -17,7 +17,9 @@
 #include <vector>
 #include <map>
 #include <string>
+
 #include <unone.h>
+using namespace UNONE::Plugins;
 
 bool RetrieveThreadTimes(DWORD tid, std::wstring& ct, std::wstring& kt, std::wstring& ut);
 std::wstring FormatFileTime(FILETIME *file_tm);

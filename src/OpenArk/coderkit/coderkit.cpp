@@ -22,6 +22,21 @@
 std::locale::id std::codecvt<char16_t, char, _Mbstatet>::id;
 #endif
 
+typedef std::wstring_convert<std::codecvt_utf8<int16_t>, int16_t> U16Convert;
+typedef U16Convert::wide_string U16;
+typedef std::wstring_convert<std::codecvt_utf8<int32_t>, int32_t> U32Convert;
+typedef U32Convert::wide_string U32;
+
+// Algorithm index
+struct {
+	int s = 0;
+	int base64 = s++;
+	int crc32 = s++;
+	int md5 = s++;
+	int sha1 = s++;
+	int rc4 = s++;
+} IDX;
+
 CoderKit::CoderKit(QWidget* parent) :
 	parent_((OpenArk*)parent)
 {
@@ -49,11 +64,18 @@ CoderKit::CoderKit(QWidget* parent) :
 	connect(ui.hresultEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onWindowsErrorTextChanged(const QString &)));
 	connect(ui.msgidBtn, SIGNAL(clicked()), this, SLOT(onMessageId()));
 
-	ui.typeBox->addItem("Base64");
-	ui.typeBox->addItem("CRC32");
-	ui.typeBox->addItem("MD5");
-	ui.typeBox->addItem("SHA1");
-	ui.typeBox->addItem("RC4");
+	alg_idx_ = 0;
+	onAlgIndexChanged(alg_idx_);
+	ui.typeBox->insertItem(IDX.base64, "Base64");
+	ui.typeBox->insertItem(IDX.crc32, "CRC32");
+	ui.typeBox->insertItem(IDX.md5, "MD5");
+	ui.typeBox->insertItem(IDX.sha1, "SHA1");
+	//ui.typeBox->insertItem(IDX.rc4, "RC4");
+
+	connect(ui.typeBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onAlgIndexChanged(int)));
+	connect(ui.plainEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
+	connect(ui.cipherEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
+	//connect(ui.keyEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
 }
  
 CoderKit::~CoderKit()
@@ -71,11 +93,6 @@ void CoderKit::onCodeTextChanged()
 
 	UpdateEditCodeText(data, sender);
 }
-
-typedef std::wstring_convert<std::codecvt_utf8<int16_t>, int16_t> U16Convert;
-typedef U16Convert::wide_string U16;
-typedef std::wstring_convert<std::codecvt_utf8<int32_t>, int32_t> U32Convert;
-typedef U32Convert::wide_string U32;
 
 void CoderKit::onCodeTextChanged(const QString & text)
 {
@@ -153,9 +170,85 @@ void CoderKit::onMessageId()
 	MsgBoxInfo(tr("Open console to view result"));
 }
 
+void CoderKit::onAlgIndexChanged(int index)
+{
+	INFO("%d", index);
+	alg_idx_ = index;
+
+	auto e_key = ui.keyEdit;
+	auto e_plain = ui.plainEdit;
+	auto l_plain = ui.keyLabel;
+	auto e_cipher = ui.cipherEdit;
+
+	e_key->hide();
+	l_plain->hide();
+	if (index == IDX.rc4) {
+		e_key->show();
+		l_plain->show();
+		UpdateAlgorithmText(false);
+		return;
+	}
+
+	UpdateAlgorithmText(true);
+	return;
+}
+
+void CoderKit::onAlgPlainChanged()
+{
+	auto sender = qobject_cast<QTextEdit*>(QObject::sender());
+	if (sender == ui.plainEdit) {
+		UpdateAlgorithmText(true);
+	} else if (sender == ui.cipherEdit) {
+		UpdateAlgorithmText(false);
+	} else if (sender == ui.keyEdit) {
+		UpdateAlgorithmText(true);
+	} 
+}
+
+void CoderKit::UpdateAlgorithmText(bool crypt)
+{
+	auto e_key = ui.keyEdit;
+	std::string key = e_key->toPlainText().toStdString();
+
+	auto e_plain = ui.plainEdit;
+	std::string plain = e_plain->toPlainText().toStdString();
+
+	auto e_cipher = ui.cipherEdit;
+	std::string cipher;
+
+	if (alg_idx_ == IDX.base64) {
+		if (crypt) {
+			cipher = Cryptor::Base64Encode(plain);
+		} else {
+			cipher = e_cipher->toPlainText().toStdString();
+			plain = Cryptor::Base64Decode(cipher);
+			e_plain->blockSignals(true);
+			e_plain->setText(StrToQ(plain));
+			e_plain->blockSignals(false);
+			return;
+		}
+	}	else if (alg_idx_ == IDX.crc32) {
+		auto val = Cryptor::GetCRC32ByData(plain);
+		cipher = UNONE::StrFormatA("%x", val);
+	} else if (alg_idx_ == IDX.md5) {
+		cipher = Cryptor::GetMD5ByData(plain);
+		cipher = UNONE::StrStreamToHexStrA(cipher);
+	}	else if (alg_idx_ == IDX.sha1) {
+		cipher = Cryptor::GetSHA1ByData(plain);
+		cipher = UNONE::StrStreamToHexStrA(cipher);
+	}	else if (alg_idx_ == IDX.rc4) {
+		cipher = Cryptor::GetSHA1ByData(plain);
+	}
+
+	if (!crypt) return;
+	e_cipher->blockSignals(true);
+	e_cipher->setText(StrToQ(cipher));
+	e_cipher->blockSignals(false);
+}
+
 void CoderKit::UpdateEditCodeText(const std::wstring& data, QObject* ignored_obj)
 {
-	//prevent multicall simultaneously
+	//prevent multi call simultaneously
 	std::unique_lock<std::mutex> guard(upt_mutex_, std::try_to_lock);
 	if (!guard.owns_lock()) return;
 

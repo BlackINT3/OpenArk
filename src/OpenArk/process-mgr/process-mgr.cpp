@@ -263,11 +263,11 @@ void ProcessMgr::onTimer()
 		cntthread_lable_ = new QLabel(); parent_->StatusBarAdd(cntthread_lable_);
 		cnthandle_lable_ = new QLabel(); parent_->StatusBarAdd(cnthandle_lable_);
 	}
-	cpu_percent_lable_->setText(WStrToQ(UNONE::StrFormatW(L"CPU:%0.2f%%", GetSystemUsageOfCPU())));
-	mm_percent_lable_->setText(WStrToQ(UNONE::StrFormatW(L"Memory:%0.2f%%", GetSystemUsageOfMemory())));
-	cntproc_lable_->setText(QString("Processes:%1").arg(perf.ProcessCount));
-	cntthread_lable_->setText(QString("Threads:%1").arg(perf.ThreadCount));
-	cnthandle_lable_->setText(QString("Handles:%1").arg(perf.HandleCount));
+	cpu_percent_lable_->setText(tr("CPU:") + WStrToQ(UNONE::StrFormatW(L"%0.2f%%", GetSystemUsageOfCPU())));
+	mm_percent_lable_->setText(tr("Memory:") + WStrToQ(UNONE::StrFormatW(L"%0.2f%%", GetSystemUsageOfMemory())));
+	cntproc_lable_->setText(tr("Processes:") + QString("%1").arg(perf.ProcessCount));
+	cntthread_lable_->setText(tr("Threads:") + QString("%1").arg(perf.ThreadCount));
+	cnthandle_lable_->setText(tr("Handles:") + QString("%1").arg(perf.HandleCount));
 }
 
 void ProcessMgr::onCopyActionTriggerd(QAction* action)

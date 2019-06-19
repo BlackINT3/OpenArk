@@ -167,7 +167,7 @@ void Bundler::OpenFolderImpl(QString folder)
 	files_folder_ = folder;
 	ui.folderLabel->setText(folder);
 	ClearItemModelData(files_model_);
-	UNONE::FileCallbackW fcb = [&](wchar_t* path, wchar_t* name, void* param)->bool {
+	UNONE::DirEnumCallbackW fcb = [&](wchar_t* path, wchar_t* name, void* param)->bool {
 		if (UNONE::FsIsDirW(path)) {
 			UNONE::FsEnumDirectoryW(path, fcb, param);;
 			return true;

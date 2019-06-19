@@ -10,5 +10,6 @@
         <file>gitub.ico</file>
         <file>console.ico</file>
         <file>BundlerShell.exe</file>
+        <file>lang/openark_zh.qm</file>
     </qresource>
 </RCC>

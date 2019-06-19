@@ -42,11 +42,15 @@ int main(int argc, char *argv[])
 {
 	OpenArkInit(argc, argv);
 
-	QApplication a(argc, argv);
-	a.setWindowIcon(QIcon(":/OpenArk/OpenArk.ico"));
+	QApplication app(argc, argv);
+	app.setWindowIcon(QIcon(":/OpenArk/OpenArk.ico"));
+
+	QTranslator translator;
+	translator.load(":/OpenArk/lang/openark_zh.qm");
+	app.installTranslator(&translator);
 
 	OpenArk w;
 	w.show();
 
-	return a.exec();
+	return app.exec();
 }

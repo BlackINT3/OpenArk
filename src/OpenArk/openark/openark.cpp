@@ -68,7 +68,7 @@ OpenArk::OpenArk(QWidget *parent) :
 
 	QWidget *widget = new QWidget();
 	QLabel *link = new QLabel(widget);
-	link->setText(tr("<a style='color:blue;a{text-decoration: none}' href=\"https://github.com/BlackINT3/OpenArk\">Project on Github</a>&nbsp;"));
+	link->setText("<a style='color:blue;a{text-decoration: none}' href=\"https://github.com/BlackINT3/OpenArk\">"+ tr("Project on Github")+"</a>&nbsp;");
 	link->setOpenExternalLinks(true);
 
 	stool_ = new QToolBar(widget);
@@ -98,6 +98,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	connect(ui.actionReset, SIGNAL(triggered(bool)), this, SLOT(onActionReset(bool)));
 	connect(ui.actionOnTop, SIGNAL(triggered(bool)), this, SLOT(onActionOnTop(bool)));
 	connect(ui.actionGithub, SIGNAL(triggered(bool)), this, SLOT(onActionGithub(bool)));
+	connect(ui.actionManuals, SIGNAL(triggered(bool)), this, SLOT(onActionManuals(bool)));
 	connect(ui.actionCheckUpdate, SIGNAL(triggered(bool)), this, SLOT(onActionCheckUpdate(bool)));
 	connect(ui.actionCoderKit, SIGNAL(triggered(bool)), this, SLOT(onActionCoderKit(bool)));
 	connect(ui.actionScanner, SIGNAL(triggered(bool)), this, SLOT(onActionScanner(bool)));
@@ -125,7 +126,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	CreateTabPage(new Scanner(this), ui.tabScanner);
 	CreateTabPage(new CoderKit(this), ui.tabCoderKit);
 	CreateTabPage(new Bundler(this), ui.tabBundler);
-	ActivateTab(0);
+	ActivateTab(1);
 
 	chkupt_timer_ = new QTimer();
 	chkupt_timer_->setInterval(5000);
@@ -230,9 +231,14 @@ void OpenArk::onActionConsole(bool checked)
 	}
 }
 
+void OpenArk::onActionManuals(bool checked)
+{
+	OpenBrowserUrl("https://openark.blackint3.com/manuals/");
+}
+
 void OpenArk::onActionGithub(bool checked)
 {
-	OpenBrowserUrl("https://github.com/BlackINT3/OpenArk");
+	OpenBrowserUrl("https://github.com/BlackINT3/OpenArk/");
 }
 
 void OpenArk::onActionCheckUpdate(bool checked)
