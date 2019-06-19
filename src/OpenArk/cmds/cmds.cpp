@@ -550,6 +550,18 @@ Q_INVOKABLE void Cmds::CmdProcessInfo(QStringList argv)
 	CmdException(ECMD_PARAM_INVALID);
 }
 
+std::vector<DWORD> _PsGetChildPids(__in DWORD pid)
+{
+	std::vector<DWORD> childs;
+	UNONE::PsEnumProcess([&](PROCESSENTRY32W &entry)->bool {
+		if (pid != 0 && pid == entry.th32ParentProcessID) {
+			childs.push_back(entry.th32ProcessID);
+		}
+		return true;
+	});
+	return childs;
+}
+
 Q_INVOKABLE void Cmds::CmdProcessTree(QStringList argv)
 {
 	DISABLE_RECOVER();
@@ -568,7 +580,7 @@ Q_INVOKABLE void Cmds::CmdProcessTree(QStringList argv)
 		}
 		CmdOutput(L"%s%s(%d)", prefix.c_str(), name.c_str(), pid);
 		level++;
-		auto childs = UNONE::PsGetChildPids(pid);
+		auto childs = _PsGetChildPids(pid);
 		for (size_t i = 0; i < childs.size(); i++) {
 			OutputProcessTree(childs[i], (i == childs.size() - 1));
 		}

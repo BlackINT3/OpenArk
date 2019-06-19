@@ -30,10 +30,6 @@ CoderKit::CoderKit(QWidget* parent) :
 	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
 	ui.tabWidget->setStyleSheet("background-color: white;");
 
-	//QRegExp re("[0-9]+$");
-	//QRegExpValidator *validator = new QRegExpValidator(re, this);
-	//ui.defaultEdit->setValidator(validator);
-
 	connect(ui.textEdit, SIGNAL(textChanged()), this, SLOT(onCodeTextChanged()));
 	connect(ui.defaultEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onCodeTextChanged(const QString &)));
 	connect(ui.asciiEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onCodeTextChanged(const QString &)));
@@ -52,6 +48,12 @@ CoderKit::CoderKit(QWidget* parent) :
 	connect(ui.ntstatusEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onWindowsErrorTextChanged(const QString &)));
 	connect(ui.hresultEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onWindowsErrorTextChanged(const QString &)));
 	connect(ui.msgidBtn, SIGNAL(clicked()), this, SLOT(onMessageId()));
+
+	ui.typeBox->addItem("Base64");
+	ui.typeBox->addItem("CRC32");
+	ui.typeBox->addItem("MD5");
+	ui.typeBox->addItem("SHA1");
+	ui.typeBox->addItem("RC4");
 }
  
 CoderKit::~CoderKit()

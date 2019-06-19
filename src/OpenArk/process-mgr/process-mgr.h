@@ -102,6 +102,7 @@ private:
 
 private:
 	int proc_header_idx_;
+	int mod_header_idx_;
 
 private:
 	Ui::ProcessMgr ui;
@@ -114,6 +115,7 @@ private:
 	QMenu *proc_menu_;
 	QMenu *mod_menu_;
 	QTimer timer_;
+	QPoint proc_sel_;
 	QStandardItemModel *proc_model_;
 	QStandardItemModel *mod_model_;
 	ProcSortFilterProxyModel *proxy_proc_;

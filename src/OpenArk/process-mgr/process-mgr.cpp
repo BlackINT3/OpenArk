@@ -62,7 +62,8 @@ ProcessMgr::ProcessMgr(QWidget* parent) :
 	parent_((OpenArk*)parent),
 	cntproc_lable_(nullptr),
 	proxy_proc_(nullptr),
-	proc_header_idx_(0)
+	proc_header_idx_(0),
+	mod_header_idx_(0)
 {
 	ui.setupUi(this);
 	ui.splitter->setStretchFactor(0, 2);
@@ -142,6 +143,7 @@ ProcessMgr::ProcessMgr(QWidget* parent) :
 	connect(pview, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onProcDoubleClicked(const QModelIndex&)));
 	connect(pview->selectionModel(), &QItemSelectionModel::currentRowChanged, this, &ProcessMgr::onProcChanged);
 	connect(this, SIGNAL(signalOpen(QString)), parent_, SLOT(onOpen(QString)));
+	connect(mview->header(), SIGNAL(sectionClicked(int)), this, SLOT(onProcSectionClicked(int)));
 
 	connect(&timer_, SIGNAL(timeout()), this, SLOT(onTimer()));
 	timer_.setInterval(1000);
@@ -453,21 +455,30 @@ void ProcessMgr::onShowModules()
 
 void ProcessMgr::onProcSectionClicked(int idx)
 {
-	if (idx == PDX.name) {
-		proc_header_idx_++;
-		switch (proc_header_idx_) {
-		case 3:
-			ui.processView->header()->setSortIndicator(-1, Qt::AscendingOrder);
-			proc_header_idx_ = 0;
-			ShowProcess();
-			break;
-		case 1:
-			ShowProcess();
+	auto sender = QObject::sender();
+	if (sender == ui.processView->header()) {
+		if (idx == PDX.name) {
+			proc_header_idx_++;
+			switch (proc_header_idx_) {
+			case 3:
+				ui.processView->header()->setSortIndicator(-1, Qt::AscendingOrder);
+				proc_header_idx_ = 0;
+				ShowProcess();
+				break;
+			case 1:
+				ShowProcess();
+			}
+		} else {
+			if (proc_header_idx_ == 0) {
+				proc_header_idx_ = 1;
+				ShowProcess();
+			}
 		}
-	}	else {
-		if (proc_header_idx_ == 0) {
-			proc_header_idx_ = 1;
-			ShowProcess();
+	}	else if (sender == ui.moduleView->header()) {
+		mod_header_idx_++;
+		if (mod_header_idx_ == 3) {
+			mod_header_idx_ = 0;
+			ui.moduleView->header()->setSortIndicator(-1, Qt::AscendingOrder);
 		}
 	}
 }
@@ -485,16 +496,37 @@ void ProcessMgr::onProcChanged( const QModelIndex &current, const QModelIndex &p
 void ProcessMgr::onProcSelection(QString pid)
 {
 	auto view = ui.processView;
-	int rows = proc_model_->rowCount();
-	for (int i = 0; i < rows; i++) {
-		const QModelIndex &idx = view->currentIndex().sibling(i, PDX.pid);
-		auto qstr = idx.data().toString();
-		if (qstr == pid) {
-			view->selectionModel()->clearSelection();
-			view->selectionModel()->select(idx, QItemSelectionModel::Select | QItemSelectionModel::Rows);
-			view->scrollTo(idx);
+	std::function<bool(QModelIndex idx)> LocateProcess = [&](QModelIndex idx)->bool {
+		int rows = proc_model_->rowCount(idx);
+		for (int i = 0; i < rows; i++) {
+			QString qstr;
+			QModelIndex child_name;
+			QStandardItem *item;
+			if (idx == view->rootIndex()) {
+				child_name = proc_model_->index(i, PDX.name);
+				item = proc_model_->itemFromIndex(child_name);
+				qstr = proc_model_->index(i, PDX.pid).data(Qt::DisplayRole).toString();
+			} else {
+				item = proc_model_->itemFromIndex(idx);
+				child_name = item->child(i, PDX.name)->index();
+				qstr = item->child(i, PDX.pid)->data(Qt::DisplayRole).toString();
+			}
+			if (qstr == pid) {
+				auto idx = proxy_proc_->mapFromSource(child_name);
+				view->selectionModel()->select(idx, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
+				view->scrollTo(idx);
+				return true;
+			}
+			if (proc_model_->itemFromIndex(child_name)->hasChildren()) {
+				if (LocateProcess(child_name)) {
+					return true;
+				}
+			}
 		}
-	}
+		return false;
+	};
+
+	LocateProcess(view->rootIndex());
 }
 
 DWORD ProcessMgr::ProcCurPid()
@@ -547,6 +579,12 @@ void ProcessMgr::ShowProperties(DWORD pid, int tab)
 void ProcessMgr::ShowProcess()
 {
 	DISABLE_RECOVER();
+	auto view = ui.processView;
+	auto selected = view->selectionModel()->selectedIndexes();
+	if (!selected.empty()) {
+		QRect rect = view->visualRect(selected[0]);
+		proc_sel_ = rect.center();
+	}
 	ClearItemModelData(proc_model_);
 	CacheRefreshProcInfo();
 	if (proc_header_idx_ == 0) ShowProcessTree();
@@ -556,6 +594,7 @@ void ProcessMgr::ShowProcess()
 
 void ProcessMgr::ShowProcessList()
 {
+	DISABLE_RECOVER();
 	std::vector<ProcInfo> pis;
 	UNONE::PsEnumProcess([&pis](PROCESSENTRY32W& entry)->bool {
 		ProcInfo info;
@@ -577,9 +616,6 @@ void ProcessMgr::ShowProcessList()
 void ProcessMgr::ShowProcessTree()
 {
 	DISABLE_RECOVER();
-	ClearItemModelData(proc_model_);
-	CacheRefreshProcInfo();
-
 	std::function<void(QStandardItem *parent, ProcInfo pi, int seq)> AppendProcessTree =
 	[&](QStandardItem *parent, ProcInfo pi, int seq) {
 		QStandardItem *name_item = new QStandardItem(pi.name);
@@ -609,7 +645,6 @@ void ProcessMgr::ShowProcessTree()
 		AppendProcessTree(nullptr, pi, proc_model_->rowCount());
 	}
 
-	AjustProcessStyle();
 	ui.processView->expandAll();
 }
 
@@ -648,10 +683,8 @@ void ProcessMgr::AjustProcessStyle()
 	auto view = ui.processView;
 	view->resizeColumnToContents(1);
 	view->resizeColumnToContents(2);
-	QModelIndexList selected = view->selectionModel()->selectedIndexes();
-	if (!selected.isEmpty()) {
-		const QModelIndex& idx = selected[0];
-		view->selectionModel()->select(idx, QItemSelectionModel::Select | QItemSelectionModel::Rows);
-		view->scrollTo(idx);
-	}
+
+	QModelIndex idx = view->indexAt(proc_sel_);
+	view->selectionModel()->select(idx, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
+	view->scrollTo(idx);
 }
