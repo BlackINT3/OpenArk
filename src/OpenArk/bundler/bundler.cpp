@@ -9,6 +9,8 @@ Bundler::Bundler(QWidget *parent) :
 	parent_((OpenArk*)parent)
 {
 	ui.setupUi(this);
+	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
+
 	ui.folderLabel->installEventFilter(this);
 	ui.folderLabel->setCursor(Qt::PointingHandCursor);
 	setAcceptDrops(true);
@@ -83,7 +85,7 @@ void Bundler::onOpenFolder()
 
 void Bundler::onSelectIcon()
 {
-	QString file = QFileDialog::getOpenFileName(this, tr("Select ICON"), "", tr("ico/exe (*.*)"));
+	QString file = QFileDialog::getOpenFileName(this, tr("Select ICON"), "", tr("ico/exe (*.exe;*.ico)"));
 	if (file.isEmpty()) return;
 	SelectIconImpl(file);
 }

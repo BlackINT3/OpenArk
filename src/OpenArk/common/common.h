@@ -17,7 +17,9 @@
 #include <QString>
 #include "../openark/openark.h"
 
-extern OpenArk *app;
+extern QApplication *app;
+extern QTranslator *app_tr;
+extern OpenArk *openark;
 
 void MsgBoxInfo(QString msg);
 void MsgBoxWarn(QString msg);

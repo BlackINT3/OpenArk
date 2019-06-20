@@ -49,6 +49,7 @@ private slots:
 	void onActionScanner(bool checked);
 	void onActionBundler(bool checked);
 	void onActionCheckUpdate(bool checked);
+	void onActionLanguage(QAction *act);
 	void onCmdHelp();
 	void onShowConsoleMenu(const QPoint &pt);
 	void onConsoleClear();

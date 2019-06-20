@@ -20,6 +20,8 @@ ProcessSelection::ProcessSelection(QWidget *parent) :
 	parent_((ProcessMgr*)parent)
 {
 	ui.setupUi(this);
+	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
+
 	setAttribute(Qt::WA_ShowModal, true);
 	setAttribute(Qt::WA_DeleteOnClose);
 	setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);

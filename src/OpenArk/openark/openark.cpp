@@ -41,20 +41,20 @@ void QtMessageHandlerCallback(QtMsgType type, const QMessageLogContext &context,
 	if (!msg.isEmpty()) {
 		fmt = qFormatLogMessage(type, context, msg);
 	}
-	app->onLogOutput(fmt);
+	openark->onLogOutput(fmt);
 }
 
 OpenArk::OpenArk(QWidget *parent) : 
 	QMainWindow(parent)
 {
-	app = this;
+	openark = this;
 	qSetMessagePattern(APP_MESSAGE_PATTERN);
 	qInstallMessageHandler(QtMessageHandlerCallback);
 	UNONE::InterRegisterLogger([&](const std::wstring &log) {
 		onLogOutput(WStrToQ(log));
 	});
-
 	ui.setupUi(this);
+
 	resize(1300, 800);
 	ui.splitter->setStretchFactor(0, 1);
 	ui.splitter->setStretchFactor(1, 5);
@@ -90,6 +90,25 @@ OpenArk::OpenArk(QWidget *parent) :
 	ui.consoleWidget->hide();
 	ui.actionOnTop->setCheckable(true);
 	ui.actionExit->setShortcut(QKeySequence(Qt::ALT + Qt::Key_F4));
+
+	QActionGroup *langs = new QActionGroup(this);
+	langs->setExclusive(true);
+	langs->addAction(ui.actionEnglish);
+	langs->addAction(ui.actionZh);
+	auto actionEnglish = new QAction(tr("English"), langs);
+	auto actionZhcn = new QAction(WCharsToQ(L"简体中文"), langs);
+	actionEnglish->setCheckable(true);
+	actionZhcn->setCheckable(true);
+	ui.menuLanguage->addAction(actionEnglish);
+	ui.menuLanguage->addAction(actionZhcn);
+	int lang = OpenArkLanguage::Instance()->GetLanguage();
+	if (lang == 0) {
+		actionEnglish->setChecked(true);
+	} else if (lang == 1)  {
+		actionZhcn->setChecked(true);
+	}
+	connect(langs, SIGNAL(triggered(QAction*)), this, SLOT(onActionLanguage(QAction*)));
+
 	connect(ui.actionExit, &QAction::triggered, this, [=]() { QApplication::quit(); });
 	connect(ui.actionAbout, SIGNAL(triggered(bool)), this, SLOT(onActionAbout(bool)));
 	connect(ui.actionSettings, SIGNAL(triggered(bool)), this, SLOT(onActionSettings(bool)));
@@ -135,6 +154,8 @@ OpenArk::OpenArk(QWidget *parent) :
 		onActionCheckUpdate(false);
 		chkupt_timer_->stop();
 	});
+
+	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
 }
 
 bool OpenArk::eventFilter(QObject *obj, QEvent *e)
@@ -193,16 +214,11 @@ void OpenArk::onActionReset(bool checked)
 void OpenArk::onActionOnTop(bool checked)
 {
 	HWND wnd = (HWND)winId();
-	DWORD style = ::GetWindowLong(wnd, GWL_EXSTYLE);
 	QAction* sender = qobject_cast<QAction*>(QObject::sender());
 	if (sender->isChecked()) {
-		style |= WS_EX_TOPMOST;
-		::SetWindowLong(wnd, GWL_EXSTYLE, style);
-		::SetWindowPos(wnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOREPOSITION | SWP_NOSIZE | SWP_SHOWWINDOW);
+		SetWindowOnTop(wnd, true);
 	}	else {
-		style &= ~WS_EX_TOPMOST;
-		::SetWindowLong(wnd, GWL_EXSTYLE, style);
-		::SetWindowPos(wnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOREPOSITION | SWP_NOSIZE | SWP_SHOWWINDOW);
+		SetWindowOnTop(wnd, false);
 	}
 }
 
@@ -298,6 +314,28 @@ void OpenArk::onActionCheckUpdate(bool checked)
 		INFO(L"OpenArk is latest.");
 		reply->deleteLater();
 	});
+}
+
+void OpenArk::onActionLanguage(QAction *act)
+{
+	auto lang = OpenArkLanguage::Instance()->GetLanguage();
+	auto text = act->text();
+	if (text == "English") {
+		if (lang == 0) return;
+		lang = 0;
+	} else if (text == WCharsToQ(L"简体中文")) {
+		if (lang == 1) return;
+		lang = 1;
+	}	else {
+		return; 
+	}
+	OpenArkLanguage::Instance()->ChangeLanguage(lang);
+	QString tips = tr("Language changed ok, did you restart application now?");
+	QMessageBox::StandardButton reply;
+	reply = QMessageBox::information(this, tr("Information"), tips, QMessageBox::Yes | QMessageBox::No);
+	if (reply == QMessageBox::Yes) {
+		onExecCmd(L".restart");
+	}
 }
 
 void OpenArk::onActionCoderKit(bool checked)

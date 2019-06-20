@@ -17,7 +17,9 @@
 #include "../openark/openark.h"
 #include <QMessageBox>
 
-OpenArk *app = nullptr;
+QApplication *app = nullptr;
+QTranslator *app_tr = nullptr;
+OpenArk *openark = nullptr;
 
 void MsgBoxInfo(QString msg)
 {
@@ -54,7 +56,7 @@ bool LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...)
 	str = UNONE::StrFormatVaListW(prefix.c_str(), lst);
 	va_end(lst);
 
-	app->onLogOutput(QString::fromStdWString(str));
+	openark->onLogOutput(QString::fromStdWString(str));
 
 	return true;
 }

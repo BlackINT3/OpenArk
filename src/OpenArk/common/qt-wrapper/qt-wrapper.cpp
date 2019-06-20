@@ -74,6 +74,42 @@ void OpenArkTabStyle::drawControl(ControlElement element, const QStyleOption *op
 	}
 }
 
+OpenArkLanguage* OpenArkLanguage::langobj_ = nullptr;
+OpenArkLanguage* OpenArkLanguage::Instance()
+{
+	if (langobj_) return langobj_;
+	langobj_ = new OpenArkLanguage;
+	return langobj_;
+}
+void OpenArkLanguage::ChangeLanguage(int lang)
+{
+	curlang_ = lang;
+	switch (lang) {
+	case -1:
+		if (QLocale::system().language() == QLocale::Chinese) {
+			return ChangeLanguage(1);
+		} else {
+			return ChangeLanguage(0);
+		}
+		break;
+	case 0:
+		if (app_tr) {
+			app->removeTranslator(app_tr);
+			//emit languageChaned();
+		}
+		break;
+	case 1:
+		if (app_tr) {
+			app_tr->load(":/OpenArk/lang/openark_zh.qm");
+			app->installTranslator(app_tr);
+			//emit languageChaned();
+		}
+	default:
+		break;
+	}
+	ConfOpLang(CONF_SET, lang);
+}
+
 QIcon LoadIcon(QString file_path)
 {
 	QFileInfo file_info(file_path);

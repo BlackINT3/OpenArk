@@ -152,7 +152,8 @@ std::vector<HWND> GetSystemWnds()
 
 int64_t FileTimeToInt64(FILETIME tm)
 {
-	return tm.dwHighDateTime << 32 | tm.dwLowDateTime;
+	int64_t high = (int64_t)tm.dwHighDateTime;
+	return high << 32 | tm.dwLowDateTime;
 }
 
 double GetSystemUsageOfCPU()
@@ -200,4 +201,18 @@ SIZE_T GetProcessPrivateWorkingSet(DWORD pid)
 	delete[] ws;
 	CloseHandle(phd);
 	return shared;
+}
+
+void SetWindowOnTop(HWND wnd, bool ontop)
+{
+	DWORD style = ::GetWindowLong(wnd, GWL_EXSTYLE);
+	if (ontop) {
+		style |= WS_EX_TOPMOST;
+		::SetWindowLong(wnd, GWL_EXSTYLE, style);
+		::SetWindowPos(wnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOREPOSITION | SWP_NOSIZE | SWP_SHOWWINDOW);
+	} else {
+		style &= ~WS_EX_TOPMOST;
+		::SetWindowLong(wnd, GWL_EXSTYLE, style);
+		::SetWindowPos(wnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOREPOSITION | SWP_NOSIZE | SWP_SHOWWINDOW);
+	}
 }

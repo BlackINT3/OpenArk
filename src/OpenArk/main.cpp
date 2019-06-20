@@ -35,22 +35,20 @@ int OpenArkInit(int argc, char *argv[])
 	}
 
 	ConfigInit();
+
+	OpenArkLanguage::Instance()->ChangeLanguage(ConfOpLang(CONF_GET));
 	return 0;
 }
 
 int main(int argc, char *argv[])
 {
+	app = new QApplication(argc, argv);
+	app->setWindowIcon(QIcon(":/OpenArk/OpenArk.ico"));
+	app_tr = new QTranslator();
+
 	OpenArkInit(argc, argv);
-
-	QApplication app(argc, argv);
-	app.setWindowIcon(QIcon(":/OpenArk/OpenArk.ico"));
-
-	QTranslator translator;
-	translator.load(":/OpenArk/lang/openark_zh.qm");
-	app.installTranslator(&translator);
-
 	OpenArk w;
 	w.show();
 
-	return app.exec();
+	return app->exec();
 }

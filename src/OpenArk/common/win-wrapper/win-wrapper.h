@@ -31,3 +31,4 @@ int64_t FileTimeToInt64(FILETIME tm);
 double GetSystemUsageOfCPU();
 double GetSystemUsageOfMemory();
 SIZE_T GetProcessPrivateWorkingSet(DWORD pid);
+void SetWindowOnTop(HWND wnd, bool ontop);

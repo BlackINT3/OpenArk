@@ -68,7 +68,7 @@ font-size:14px;</string>
      </rect>
     </property>
     <property name="text">
-     <string>Open source and free, for reverse enginerring 、programming、anti-malware...</string>
+     <string>Open source and free, for reverse enginerring, programming, anti-malware...</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">

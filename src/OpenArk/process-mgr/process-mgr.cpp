@@ -66,6 +66,8 @@ ProcessMgr::ProcessMgr(QWidget* parent) :
 	mod_header_idx_(0)
 {
 	ui.setupUi(this);
+	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
+
 	ui.splitter->setStretchFactor(0, 2);
 	ui.splitter->setStretchFactor(1, 1);
 
@@ -297,7 +299,7 @@ void ProcessMgr::onKillProcessTree()
 		tips.append("\n");
 	}
 	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(this, tr("Warning"), tips, QMessageBox::Yes | QMessageBox::No);
+	reply = QMessageBox::warning(this, tr("Warning"), tips, QMessageBox::Yes | QMessageBox::No);
 	if (reply == QMessageBox::Yes) {
 		for (auto d : pids) { UNONE::PsKillProcess(d); };
 		onRefresh();

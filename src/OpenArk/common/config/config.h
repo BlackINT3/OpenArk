@@ -20,6 +20,13 @@
 // configration
 extern QSettings *appconf;
 
+enum ConfOp {
+	CONF_GET,
+	CONF_SET,
+};
+
 void ConfigInit();
 
+static int def_lang_ = -1;
 QString ConfigGetConsole(const QString &name);
+int ConfOpLang(ConfOp op, int &lang = def_lang_);

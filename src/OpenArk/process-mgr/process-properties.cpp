@@ -24,6 +24,7 @@ ProcessProperties::ProcessProperties(QWidget* parent, DWORD pid, int tab) :
 	setAttribute(Qt::WA_DeleteOnClose);
 	setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);
 	ui.setupUi(this);
+	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
 
 	std::wstring wstr = UNONE::PsGetProcessPathW(pid_);
 	proc_path_ = WStrToQ(wstr);

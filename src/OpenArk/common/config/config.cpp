@@ -42,3 +42,21 @@ QString ConfigGetConsole(const QString &name)
 	}
 	return "";
 }
+
+int ConfOpLang(ConfOp op, int &lang)
+{
+	QString section = "/Main/";
+	QString key = section + "lang";
+
+	if (op == CONF_GET) {
+		lang = appconf->value(key, -1).toInt();
+		return lang;
+	}
+
+	if (op == CONF_SET) {
+		appconf->setValue(key, lang);
+		return lang;
+	}
+
+	return -1;
+}

@@ -40,6 +40,24 @@ public:
 	void drawControl(ControlElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget = 0) const;
 };
 
+// Language
+#include <qtranslator.h>
+class OpenArkLanguage : public QObject {
+	Q_OBJECT
+public:
+	OpenArkLanguage() { curlang_ = -1; };
+	~OpenArkLanguage() {};
+public:
+	static OpenArkLanguage* Instance();
+	void ChangeLanguage(int lang);
+	int GetLanguage() { return curlang_; };
+signals:
+	void languageChaned();
+private:
+	static OpenArkLanguage *langobj_;
+	int curlang_;
+};
+
 #define CharsToQ(chars) QString::fromLocal8Bit(chars)
 #define WCharsToQ(wchars) QString::fromWCharArray(wchars)
 #define StrToQ(str) QString::fromStdString(str)

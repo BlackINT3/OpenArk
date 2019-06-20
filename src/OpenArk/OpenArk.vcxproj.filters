@@ -142,6 +142,9 @@
     <QtMoc Include="settings\settings.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="common\qt-wrapper\qt-wrapper.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\process-mgr.ui">
@@ -224,9 +227,6 @@
     <ClInclude Include="cmds\constants\constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common\qt-wrapper\qt-wrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="common\win-wrapper\win-wrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -262,6 +262,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="openark_zh.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="openark_zh2.ts">
       <Filter>Translation Files</Filter>
     </None>
   </ItemGroup>
