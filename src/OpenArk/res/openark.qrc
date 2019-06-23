@@ -11,5 +11,8 @@
         <file>console.ico</file>
         <file>BundlerShell.exe</file>
         <file>lang/openark_zh.qm</file>
+        <file>handle.ico</file>
+        <file>module.ico</file>
+        <file>memory.ico</file>
     </qresource>
 </RCC>

@@ -149,11 +149,13 @@ __inline QString WordArrayToHexQ(WORD* arr, int len) {
 QString GetItemModelData(QAbstractItemModel *model, int row, int column);
 QString GetItemViewData(QAbstractItemView *view, int row, int column);
 QString GetCurItemViewData(QAbstractItemView *view, int column);
+void SetCurItemViewData(QAbstractItemView *view, int column, QString val);
 int GetCurViewRow(QAbstractItemView *view);
 void ClearItemModelData(QStandardItemModel* model, int pos = 0);
 void ExpandTreeView(const QModelIndex& index, QTreeView* view);
 void SetDefaultTableViewStyle(QTableView* view, QStandardItemModel* model);
 void SetDefaultTreeViewStyle(QTreeView* view, QStandardItemModel* model);
+void SetLineBgColor(QStandardItemModel *model, int row, const QBrush &abrush);
 
 // Others
 QIcon LoadIcon(QString file_path);

@@ -73,7 +73,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QSplitter" name="splitter_5">
+        <widget class="QSplitter" name="splitterSummary">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
            <horstretch>0</horstretch>

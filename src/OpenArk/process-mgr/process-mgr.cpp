@@ -15,6 +15,7 @@
 ****************************************************************************/
 #include "process-mgr.h"
 #include "../common/common.h"
+#include "../cmds/constants/constants.h"
 #include "../openark/openark.h"
 #include "process-properties.h"
 #include "process-selection.h"
@@ -29,9 +30,8 @@ struct {
 	int desc = s++;
 	int corp = s++;
 	int ctime = s++;
-} PDX;
-
-// ModulesView's header index
+} PS;
+// ModuleView's header index
 struct {
 	int s = 0;
 	int name = s++;
@@ -41,7 +41,32 @@ struct {
 	int desc = s++;
 	int ver = s++;
 	int corp = s++;
-} MDX;
+	int sign = s++;
+} MOD;
+// HandleView's header index
+struct {
+	int s = 0;
+	int type = s++;
+	int name = s++;
+	int value = s++;
+	int access = s++;
+	int obj = s++;
+} HD;
+// MemoryView's header index
+struct {
+	int s = 0;
+	int addr = s++;
+	int size = s++;
+	int property = s++;
+	int state = s++;
+	int type = s++;
+	int base = s++;
+	int mod = s++;
+} MEM;
+
+#define BOTTOM_MOD 0
+#define BOTTOM_HD 1
+#define BOTTOM_MEM 2
 
 bool ProcSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
@@ -54,7 +79,17 @@ bool ModSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelInde
 {
 	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
 	auto column = left.column();
-	if ((column == 1 || column == 2)) return UNONE::StrToHex64W(s1.toString().toStdWString()) < UNONE::StrToHex64W(s2.toString().toStdWString());
+	if (bottom_idx_ == BOTTOM_MOD) {
+		if ((column == MOD.base || column == MOD.size))
+			return UNONE::StrToHex64W(s1.toString().toStdWString()) < UNONE::StrToHex64W(s2.toString().toStdWString());
+	} else if (bottom_idx_ == BOTTOM_HD) {
+		if ((column == HD.value || column == HD.access || column == HD.obj))
+			return UNONE::StrToHex64W(s1.toString().toStdWString()) < UNONE::StrToHex64W(s2.toString().toStdWString());
+	} else if (bottom_idx_ == BOTTOM_MEM) {
+		if ((column == MEM.addr || column == MEM.size || column == MEM.base))
+			return UNONE::StrToHex64W(s1.toString().toStdWString()) < UNONE::StrToHex64W(s2.toString().toStdWString());
+	}
+
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
 
@@ -63,90 +98,24 @@ ProcessMgr::ProcessMgr(QWidget* parent) :
 	cntproc_lable_(nullptr),
 	proxy_proc_(nullptr),
 	proc_header_idx_(0),
-	mod_header_idx_(0)
+	mod_header_idx_(0),
+	mod_menu_(nullptr),
+	hd_menu_(nullptr),
+	mem_menu_(nullptr)
 {
 	ui.setupUi(this);
 	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
 
 	ui.splitter->setStretchFactor(0, 2);
 	ui.splitter->setStretchFactor(1, 1);
-
-	//process list
-	auto copy_menu_ = new QMenu();
-	copy_menu_->addAction(tr("Process Name"))->setData(PDX.name);
-	copy_menu_->addAction(tr("Process ID"))->setData(PDX.pid);
-	copy_menu_->addAction(tr("Parent ID"))->setData(PDX.ppid);
-	copy_menu_->addAction(tr("Process Path"))->setData(PDX.path);
-	copy_menu_->addAction(tr("Created Time"))->setData(PDX.ctime);
-	copy_menu_->setTitle(tr("Copy"));
-	connect(copy_menu_, SIGNAL(triggered(QAction*)), SLOT(onCopyActionTriggerd(QAction*)));
-
-	auto dump_menu_ = new QMenu();
-	dump_menu_->addAction(tr("Create Minidump..."), this, SLOT(onCreateMiniDump()));
-	dump_menu_->addAction(tr("Create Fulldump..."), this, SLOT(onCreateFullDump()));
-	dump_menu_->setTitle(tr("Create Dump"));
-	proc_menu_ = new QMenu();
-	proc_menu_->addAction(tr("Refresh"), this, SLOT(onRefresh()), QKeySequence::Refresh);
-	proc_menu_->addAction(copy_menu_->menuAction());
-	proc_menu_->addAction(tr("Kill Process"), this, SLOT(onKillProcess()), QKeySequence::Delete);
-	proc_menu_->addAction(tr("Kill Process Tree"), this, SLOT(onKillProcessTree()), QKeySequence("SHIFT+Delete"));
-	//proc_menu_->addAction(tr("Suspend"), this, SLOT(onSuspendProcess()));
-	proc_menu_->addAction(tr("Select PID"), this, SLOT(onSelectPid()), QKeySequence("CTRL+G"));
-	proc_menu_->addAction(tr("Explore File"), this, SLOT(onExploreFile()), QKeySequence("CTRL+L"));
-	proc_menu_->addAction(tr("Enum Thread"), this, SLOT(onEnumThread()));
-	proc_menu_->addAction(tr("Enum Window"), this, SLOT(onEnumWindow()));
-	proc_menu_->addAction(tr("Inject Dll"), this, SLOT(onInjectDll()), QKeySequence("CTRL+J"));
-	proc_menu_->addAction(tr("Sento Scanner"), this, SLOT(onSendtoScanner()));
-	proc_menu_->addAction(dump_menu_->menuAction());
-	proc_menu_->addAction(tr("Properties..."), this, SLOT(onShowProperties()), QKeySequence("CTRL+P"));
-
-	proc_model_ = new QStandardItemModel;
-	proc_model_->setHorizontalHeaderLabels(QStringList() << tr("Process") << tr("PID") << tr("PPID") << tr("Path") << tr("Description") << tr("Company Name") << tr("CreatedTime") );
-	QTreeView *pview = ui.processView;
-	proxy_proc_ = new ProcSortFilterProxyModel(pview);
-	proxy_proc_->setSourceModel(proc_model_);
-	proxy_proc_->setDynamicSortFilter(true);
-	proxy_proc_->setFilterKeyColumn(1);
-	pview->setModel(proxy_proc_);
-	pview->selectionModel()->setModel(proxy_proc_);
-	pview->header()->setSortIndicator(-1, Qt::AscendingOrder);
-	pview->setSortingEnabled(true);
-	pview->viewport()->installEventFilter(this);
-	pview->installEventFilter(this);
-	pview->setMouseTracking(true);
-	pview->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	pview->setExpandsOnDoubleClick(false);
-	pview->setColumnWidth(PDX.name, 250);
-	pview->setColumnWidth(PDX.path, 440);
-	pview->setColumnWidth(PDX.desc, 190);
-	pview->setColumnWidth(PDX.corp, 155);
-	ShowProcess();
-
-	mod_menu_ = new QMenu();
-	mod_menu_->addAction(tr("Refresh"), this, SLOT(onRefresh()));
-	mod_menu_->addAction(tr("Explore File"), this, SLOT(onExploreFile()));
-	mod_menu_->addAction(tr("Sento Scanner"), this, SLOT(onSendtoScanner()));
-	mod_model_ = new QStandardItemModel;
-	mod_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Base") << tr("Size") << tr("Path") << tr("Description") << tr("Version") << tr("Company Name"));
-	QTreeView *mview = ui.moduleView;
-	proxy_mod_ = new ModSortFilterProxyModel(mview);
-	proxy_mod_->setSourceModel(mod_model_);
-	proxy_mod_->setDynamicSortFilter(true);
-	proxy_mod_->setFilterKeyColumn(1);
-	mview->setModel(proxy_mod_);
-	mview->selectionModel()->setModel(proxy_mod_);
-	mview->header()->setSortIndicator(-1, Qt::AscendingOrder);
-	mview->setSortingEnabled(true);
-	//mview->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	mview->viewport()->installEventFilter(this);
-	mview->installEventFilter(this);
-
-	connect(pview->header(), SIGNAL(sectionClicked(int)), this, SLOT(onProcSectionClicked(int)));
-	connect(pview, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onProcDoubleClicked(const QModelIndex&)));
-	connect(pview->selectionModel(), &QItemSelectionModel::currentRowChanged, this, &ProcessMgr::onProcChanged);
+	
+	InitProcessView();
+	InitBottomCommon();
+	InitModuleView();
+	InitHandleView();
+	InitMemoryView();
+	connect(parent_, SIGNAL(signalShowPtool(int)), this, SLOT(onShowBottom(int)));
 	connect(this, SIGNAL(signalOpen(QString)), parent_, SLOT(onOpen(QString)));
-	connect(mview->header(), SIGNAL(sectionClicked(int)), this, SLOT(onProcSectionClicked(int)));
-
 	connect(&timer_, SIGNAL(timeout()), this, SLOT(onTimer()));
 	timer_.setInterval(1000);
 	timer_.start();
@@ -188,8 +157,22 @@ bool ProcessMgr::eventFilter(QObject *obj, QEvent *e)
 		if (e->type() == QEvent::ContextMenu) {
 			QContextMenuEvent* ctxevt = dynamic_cast<QContextMenuEvent*>(e);
 			if (ctxevt != nullptr) {
-				mod_menu_->move(ctxevt->globalPos());
-				mod_menu_->show();
+				QMenu *menu = nullptr;
+				switch (bottom_idx_) {
+				case BOTTOM_MOD:
+					menu = mod_menu_;
+					break;
+				case BOTTOM_HD:
+					menu = hd_menu_;
+					break;
+				case BOTTOM_MEM:
+					menu = mem_menu_;
+					break;
+				}
+				if (menu) {
+					menu->move(ctxevt->globalPos());
+					menu->show();
+				}
 			}
 		}
 	} else if (obj == ui.processView) {
@@ -231,15 +214,15 @@ void ProcessMgr::onRefresh()
 {
 	auto sender = QObject::sender();
 	if (IsContainAction(proc_menu_, sender)) {
-		ShowProcess();
+		onShowProcess();
 		return;
 	}
 	if (IsContainAction(mod_menu_, sender)) {
-		onShowModules();
+		onShowModule();
 		return;
 	}
 	if (sender == nullptr) {
-		ShowProcess();
+		onShowProcess();
 		return;
 	}
 }
@@ -353,15 +336,15 @@ void ProcessMgr::onExploreFile()
 {
 	auto sender = QObject::sender();
 	if (IsContainAction(proc_menu_, sender)) {
-		ExploreFile(ProcCurViewItemData(PDX.path));
+		ExploreFile(ProcCurViewItemData(PS.path));
 		return;
 	}
 	if (IsContainAction(mod_menu_, sender)) {
-		ExploreFile(ModCurViewItemData(MDX.path));
+		ExploreFile(BottomCurViewItemData(MOD.path));
 		return;
 	}
 	if (sender == nullptr) {
-		ExploreFile(ProcCurViewItemData(PDX.path));
+		ExploreFile(ProcCurViewItemData(PS.path));
 		return;
 	}
 }
@@ -399,12 +382,44 @@ void ProcessMgr::onSendtoScanner()
 	QString path;
 	auto action = qobject_cast<QAction*>(QObject::sender());
 	if (IsContainAction(proc_menu_, action)) {
-		path = ProcCurViewItemData(PDX.path);
+		path = ProcCurViewItemData(PS.path);
 	} else if (IsContainAction(mod_menu_, action)) {
-		path = ModCurViewItemData(3);
+		path = BottomCurViewItemData(MOD.path);
 	}
 	parent_->ActivateTab(2);
 	emit signalOpen(path);
+}
+
+void ProcessMgr::onVerifySignature()
+{
+	QString path;
+	path = BottomCurViewItemData(MOD.path);
+	auto row = ui.moduleView->currentIndex().row();
+	QString owner;
+	bool ret = GetCertOwner(path, owner);
+	if (!ret) {
+		auto err = GetLastError();
+		owner = WStrToQ(UNONE::StrFormatW(L"[-] %X %s", err, UNONE::OsDosErrorMsgW(err).c_str()));
+		SetLineBgColor(bottom_model_, row, Qt::red);
+	}
+	SetCurItemViewData(ui.moduleView, MOD.sign, owner);
+}
+
+void ProcessMgr::onVerifyAllSignature()
+{
+	for (int i = 0; i < bottom_model_->rowCount(); i++) {
+		auto row = i;
+		QString path = bottom_model_->item(row, MOD.path)->data(Qt::DisplayRole).toString();
+		QString owner;
+		bool ret = GetCertOwner(path, owner);
+		if (!ret) {
+			auto err = GetLastError();
+			owner = WStrToQ(UNONE::StrFormatW(L"[-] %X %s", err, UNONE::OsDosErrorMsgW(err).c_str()));
+			SetLineBgColor(bottom_model_, row, Qt::red);
+		}
+		bottom_model_->item(row, MOD.sign)->setData(owner, Qt::DisplayRole);
+	}
+	ui.moduleView->header()->setSortIndicator(MOD.sign, Qt::AscendingOrder);
 }
 
 void ProcessMgr::onShowProperties()
@@ -412,19 +427,108 @@ void ProcessMgr::onShowProperties()
 	ShowProperties(ProcCurPid(), 0);
 }
 
-void ProcessMgr::onShowModules()
+void ProcessMgr::onCloseHandle()
+{
+	auto src_hd = (HANDLE)(UNONE::StrToHex64A(BottomCurViewItemData(HD.value).toStdString()));
+	DWORD pid = ProcCurPid();
+	HANDLE phd = OpenProcess(PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	if (!phd) {
+		ERR(L"OpenProcess pid:%d err:%d", pid, GetLastError());
+		return;
+	}
+	HANDLE dup = NULL;
+	if (!DuplicateHandle(phd, (HANDLE)src_hd, GetCurrentProcess(), &dup, 0, FALSE, DUPLICATE_CLOSE_SOURCE)) {
+		ERR(L"DuplicateHandle pid:%d hd:%x err:%d", pid, src_hd, GetLastError());
+		CloseHandle(phd);
+		return;
+	}
+	INFO(L"DuplicateHandle pid:%d hd:%x ok", pid, src_hd);
+	CloseHandle(dup);
+	CloseHandle(phd);
+	onShowHandle();
+}
+
+void ProcessMgr::onDumpMemory()
+{
+	DWORD pid = ProcCurPid();
+	HANDLE phd = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	if (!phd) {
+		ERR(L"OpenProcess pid:%d err:%d", pid, GetLastError());
+		return;
+	}
+	DWORD size = UNONE::StrToHexA(BottomCurViewItemData(MEM.size).toStdString());
+	DWORD64 addr = UNONE::StrToHex64A(BottomCurViewItemData(MEM.base).toStdString());
+	std::string data;
+	data.resize(size);
+	SIZE_T readlen;
+	bool ret = ReadProcessMemory(phd, (LPCVOID)addr, (LPVOID)data.data(), size, &readlen);
+	if (!ret && size != readlen) {
+		ERR(L"ReadProcessMemory pid:%d err:%d", pid, GetLastError());
+		CloseHandle(phd);
+		return;
+	}
+	QString filename = StrToQ(UNONE::StrFormatA("%X_%X", addr, size));
+	QString dumpmem = QFileDialog::getSaveFileName(this, tr("Save to"), filename, tr("DumpMemory(*)"));
+	if (!dumpmem.isEmpty()) {
+		ret = UNONE::FsWriteFileDataW(dumpmem.toStdWString(), data);
+		if (ret) {
+			MsgBoxInfo(tr("Dump memory ok"));
+		}
+	}
+	CloseHandle(phd);
+}
+
+void ProcessMgr::onShowBottom(int idx)
+{
+	ui.moduleView->show();
+	switch (idx) {
+	case BOTTOM_MOD:
+		onShowModule();
+		break;
+	case BOTTOM_HD:
+		onShowHandle();
+		break;
+	case BOTTOM_MEM:
+		onShowMemory();
+		break;
+	default:
+		ui.moduleView->hide();
+		break;
+	}
+	bottom_idx_ = idx;
+	proxy_mod_->bottom_idx_ = idx;
+}
+
+void ProcessMgr::onShowProcess()
 {
 	DISABLE_RECOVER();
-	ClearItemModelData(mod_model_, 0);
+	auto view = ui.processView;
+	auto selected = view->selectionModel()->selectedIndexes();
+	if (!selected.empty()) {
+		QRect rect = view->visualRect(selected[0]);
+		proc_sel_ = rect.center();
+	}
+	ClearItemModelData(proc_model_);
+	CacheRefreshProcInfo();
+	if (proc_header_idx_ == 0) ShowProcessTree();
+	else ShowProcessList();
+	AjustProcessStyle();
+}
+
+void ProcessMgr::onShowModule()
+{
+	DISABLE_RECOVER();
+	ClearItemModelData(bottom_model_, 0);
+	InitModuleView();
 	DWORD pid = ProcCurPid();
 	UNONE::PsEnumModule(pid, [&](MODULEENTRY32W& entry)->bool{
 		QString modname = WCharsToQ(entry.szModule);
 		QString modpath = WCharsToQ(entry.szExePath);
 		ULONG64 modbase = (ULONG64)entry.modBaseAddr;
 		ULONG64 modsize = entry.modBaseSize;
-		auto count = mod_model_->rowCount();
+		auto count = bottom_model_->rowCount();
 		for (int i = 0; i < count; i++) {
-			auto base = mod_model_->data(mod_model_->index(i, MDX.base)).toString().toStdWString();
+			auto base = bottom_model_->data(bottom_model_->index(i, MOD.base)).toString().toStdWString();
 			if (UNONE::StrToHex64W(base) == modbase) {
 				return true;
 			}
@@ -437,43 +541,169 @@ void ProcessMgr::onShowModules()
 		QStandardItem *desc_item = new QStandardItem(info.desc);
 		QStandardItem *ver_item = new QStandardItem(info.ver);
 		QStandardItem *corp_item = new QStandardItem(info.corp);
-		mod_model_->setItem(count, MDX.name, name_item);
-		mod_model_->setItem(count, MDX.base, base_item);
-		mod_model_->setItem(count, MDX.size, size_item);
-		mod_model_->setItem(count, MDX.path, path_item);
-		mod_model_->setItem(count, MDX.desc, desc_item);
-		mod_model_->setItem(count, MDX.ver, ver_item);
-		mod_model_->setItem(count, MDX.corp, corp_item);
+		QStandardItem *sign_item = new QStandardItem("");
+		bottom_model_->setItem(count, MOD.name, name_item);
+		bottom_model_->setItem(count, MOD.base, base_item);
+		bottom_model_->setItem(count, MOD.size, size_item);
+		bottom_model_->setItem(count, MOD.path, path_item);
+		bottom_model_->setItem(count, MOD.desc, desc_item);
+		bottom_model_->setItem(count, MOD.ver, ver_item);
+		bottom_model_->setItem(count, MOD.corp, corp_item);
+		bottom_model_->setItem(count, MOD.sign, sign_item);
 		return true;
 	});
-
 	auto view = ui.moduleView;
-	view->setColumnWidth(MDX.name, 150);
-	view->resizeColumnToContents(MDX.base);
-	view->resizeColumnToContents(MDX.size);
-	view->setColumnWidth(MDX.path, 425);
-	view->setColumnWidth(MDX.desc, 200);
+	view->setColumnWidth(MOD.name, 150);
+	view->resizeColumnToContents(MOD.base);
+	view->resizeColumnToContents(MOD.size);
+	view->setColumnWidth(MOD.path, 290);
+	view->setColumnWidth(MOD.desc, 200);
+	view->setColumnWidth(MOD.corp, 150);
 }
 
-void ProcessMgr::onProcSectionClicked(int idx)
+void ProcessMgr::onShowHandle()
+{
+	DISABLE_RECOVER();
+	ClearItemModelData(bottom_model_, 0);
+	InitHandleView();
+	DWORD pid = ProcCurPid();
+	HANDLE phd = OpenProcess(PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	UNONE::PsEnumHandle(pid, [&](SYSTEM_HANDLE_TABLE_ENTRY_INFO &info)->bool {
+		auto count = bottom_model_->rowCount();
+		auto idx = info.ObjectTypeIndex;
+		QStandardItem *type_item = new QStandardItem(StrToQ(UNONE::StrFormatA("%s (%02d)",ObjectTypeTable[idx].c_str(), idx)));
+		std::string name;
+		if (phd != NULL) {
+			HANDLE dup = NULL;
+			if (DuplicateHandle(phd, (HANDLE)info.HandleValue, GetCurrentProcess(), &dup, 0, FALSE, DUPLICATE_SAME_ACCESS)) {
+				switch (idx) {
+				case 7: {
+					DWORD pid = GetProcessId(dup);
+					name = UNONE::StrFormatA("%s(%d)", UNONE::PsGetProcessNameA(pid).c_str(), pid);
+					break;
+				}
+				case 8: {
+					DWORD tid = GetThreadId(dup);
+					DWORD pid = UNONE::PsGetPidByThread(tid);
+					name = UNONE::StrFormatA("%s(%d) %d", UNONE::PsGetProcessNameA(pid).c_str(), pid, tid);
+				}
+				default:
+					ObGetObjectName((HANDLE)dup, name);
+					if (idx == 28) UNONE::ObParseToDosPathA(name, name);
+					break;
+				}
+				CloseHandle(dup);
+			}
+		}
+
+		QStandardItem *name_item = new QStandardItem(StrToQ(name));
+		QStandardItem *value_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", info.HandleValue)));
+		QStandardItem *access_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", info.GrantedAccess)));
+		QStandardItem *obj_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", info.Object)));
+		bottom_model_->setItem(count, HD.type, type_item);
+		bottom_model_->setItem(count, HD.name, name_item);
+		bottom_model_->setItem(count, HD.value, value_item);
+		bottom_model_->setItem(count, HD.access, access_item);
+		bottom_model_->setItem(count, HD.obj, obj_item);
+		return true;
+	});
+	CloseHandle(phd);
+}
+
+std::string MbiTypeToString(int type)
+{
+	std::string str;
+	if (type & MEM_PRIVATE) str += "MEM_PRIVATE | ";
+	if (type & MEM_IMAGE) str += "MEM_IMAGE | ";
+	if (type & MEM_MAPPED) str += "MEM_MAPPED | ";
+	return str.empty() ? "" : str.substr(0, str.size() - 3);
+}
+std::string MbiStateToString(int type)
+{
+	std::string str;
+	if (type & MEM_COMMIT) str += "MEM_COMMIT | ";
+	if (type & MEM_FREE) str += "MEM_FREE | ";
+	if (type & MEM_RESERVE) str += "MEM_RESERVE | ";
+	return str.empty() ? "" : str.substr(0, str.size() - 3);
+}
+std::string MbiPageProtectToString(int type)
+{
+	std::string str;
+	if (type & PAGE_EXECUTE) str += "PAGE_EXECUTE | ";
+	if (type & PAGE_EXECUTE_READ) str += "PAGE_EXECUTE_READ | ";
+	if (type & PAGE_EXECUTE_READWRITE) str += "PAGE_EXECUTE_READWRITE | ";
+	if (type & PAGE_EXECUTE_WRITECOPY) str += "PAGE_EXECUTE_WRITECOPY | ";
+	if (type & PAGE_NOACCESS) str += "PAGE_NOACCESS | ";
+	if (type & PAGE_READONLY) str += "PAGE_READONLY | ";
+	if (type & PAGE_READWRITE) str += "PAGE_READWRITE | ";
+	if (type & PAGE_GUARD) str += "PAGE_GUARD | ";
+	if (type & PAGE_NOCACHE) str += "PAGE_NOCACHE | ";
+	if (type & PAGE_WRITECOMBINE) str += "PAGE_WRITECOMBINE | ";
+	return str.empty() ? "" : str.substr(0, str.size() - 3);
+}
+
+
+void ProcessMgr::onShowMemory()
+{
+	DISABLE_RECOVER();
+	ClearItemModelData(bottom_model_, 0);
+	InitMemoryView();
+
+	DWORD pid = ProcCurPid();
+	HANDLE phd = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	UNONE::PsEnumMemory(pid, [&](MEMORY_BASIC_INFORMATION &mbi)->bool {
+		
+		std::wstring mod_name;
+		WCHAR name[MAX_PATH + 1] = { 0 };
+		if (mbi.Type & MEM_IMAGE) {
+			GetMappedFileNameW(phd, mbi.BaseAddress, name, MAX_PATH);
+			UNONE::ObParseToDosPathW(name, mod_name);
+		}
+
+		auto count = bottom_model_->rowCount();
+		QStandardItem *addr_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", mbi.BaseAddress)));
+		QStandardItem *size_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%X", mbi.RegionSize)));
+		QStandardItem *property_item = new QStandardItem(StrToQ(MbiPageProtectToString(mbi.Protect)));
+		QStandardItem *state_item = new QStandardItem(StrToQ(MbiStateToString(mbi.State)));
+		QStandardItem *type_item = new QStandardItem(StrToQ(MbiTypeToString(mbi.Type)));
+		QStandardItem *base_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", mbi.AllocationBase)));
+		QStandardItem *mod_item = new QStandardItem(WStrToQ(mod_name));
+
+		bottom_model_->setItem(count, MEM.addr, addr_item);
+		bottom_model_->setItem(count, MEM.size, size_item);
+		bottom_model_->setItem(count, MEM.property, property_item);
+		bottom_model_->setItem(count, MEM.state, state_item);
+		bottom_model_->setItem(count, MEM.type, type_item);
+		bottom_model_->setItem(count, MEM.base, base_item);
+		bottom_model_->setItem(count, MEM.mod, mod_item);
+
+		if ((mbi.Protect & PAGE_NOACCESS) || (mbi.State & MEM_RESERVE)) {
+			SetLineBgColor(bottom_model_, count, Qt::gray);
+		}
+
+		return true;
+	});
+}
+
+void ProcessMgr::onSectionClicked(int idx)
 {
 	auto sender = QObject::sender();
 	if (sender == ui.processView->header()) {
-		if (idx == PDX.name) {
+		if (idx == PS.name) {
 			proc_header_idx_++;
 			switch (proc_header_idx_) {
 			case 3:
 				ui.processView->header()->setSortIndicator(-1, Qt::AscendingOrder);
 				proc_header_idx_ = 0;
-				ShowProcess();
+				onShowProcess();
 				break;
 			case 1:
-				ShowProcess();
+				onShowProcess();
 			}
 		} else {
 			if (proc_header_idx_ == 0) {
 				proc_header_idx_ = 1;
-				ShowProcess();
+				onShowProcess();
 			}
 		}
 	}	else if (sender == ui.moduleView->header()) {
@@ -492,7 +722,7 @@ void ProcessMgr::onProcDoubleClicked( const QModelIndex &idx )
 
 void ProcessMgr::onProcChanged( const QModelIndex &current, const QModelIndex &previous )
 {
-	onShowModules();
+	onShowBottom(bottom_idx_);
 }
 
 void ProcessMgr::onProcSelection(QString pid)
@@ -505,13 +735,13 @@ void ProcessMgr::onProcSelection(QString pid)
 			QModelIndex child_name;
 			QStandardItem *item;
 			if (idx == view->rootIndex()) {
-				child_name = proc_model_->index(i, PDX.name);
+				child_name = proc_model_->index(i, PS.name);
 				item = proc_model_->itemFromIndex(child_name);
-				qstr = proc_model_->index(i, PDX.pid).data(Qt::DisplayRole).toString();
+				qstr = proc_model_->index(i, PS.pid).data(Qt::DisplayRole).toString();
 			} else {
 				item = proc_model_->itemFromIndex(idx);
-				child_name = item->child(i, PDX.name)->index();
-				qstr = item->child(i, PDX.pid)->data(Qt::DisplayRole).toString();
+				child_name = item->child(i, PS.name)->index();
+				qstr = item->child(i, PS.pid)->data(Qt::DisplayRole).toString();
 			}
 			if (qstr == pid) {
 				auto idx = proxy_proc_->mapFromSource(child_name);
@@ -534,7 +764,7 @@ void ProcessMgr::onProcSelection(QString pid)
 DWORD ProcessMgr::ProcCurPid()
 {
 	auto idx = ui.processView->currentIndex();
-	DWORD pid = idx.sibling(idx.row(), PDX.pid).data().toString().toUInt();
+	DWORD pid = idx.sibling(idx.row(), PS.pid).data().toString().toUInt();
 	return pid;
 }
 
@@ -560,7 +790,7 @@ QString ProcessMgr::ProcViewItemData(int row, int column)
 	return GetItemViewData(ui.processView, row, column);
 }
 
-QString ProcessMgr::ModCurViewItemData(int column)
+QString ProcessMgr::BottomCurViewItemData(int column)
 {
 	return GetCurItemViewData(ui.moduleView, column);
 }
@@ -570,28 +800,134 @@ QString ProcessMgr::ModViewItemData(int row, int column)
 	return GetItemViewData(ui.moduleView, row, column);
 }
 
+void ProcessMgr::InitProcessView()
+{
+	//process list
+	auto copy_menu_ = new QMenu();
+	copy_menu_->addAction(tr("Process Name"))->setData(PS.name);
+	copy_menu_->addAction(tr("Process ID"))->setData(PS.pid);
+	copy_menu_->addAction(tr("Parent ID"))->setData(PS.ppid);
+	copy_menu_->addAction(tr("Process Path"))->setData(PS.path);
+	copy_menu_->addAction(tr("Created Time"))->setData(PS.ctime);
+	copy_menu_->setTitle(tr("Copy"));
+	connect(copy_menu_, SIGNAL(triggered(QAction*)), SLOT(onCopyActionTriggerd(QAction*)));
+
+	auto dump_menu_ = new QMenu();
+	dump_menu_->addAction(tr("Create Minidump..."), this, SLOT(onCreateMiniDump()));
+	dump_menu_->addAction(tr("Create Fulldump..."), this, SLOT(onCreateFullDump()));
+	dump_menu_->setTitle(tr("Create Dump"));
+	proc_menu_ = new QMenu();
+	proc_menu_->addAction(tr("Refresh"), this, SLOT(onRefresh()), QKeySequence::Refresh);
+	proc_menu_->addAction(copy_menu_->menuAction());
+	proc_menu_->addAction(tr("Kill Process"), this, SLOT(onKillProcess()), QKeySequence::Delete);
+	proc_menu_->addAction(tr("Kill Process Tree"), this, SLOT(onKillProcessTree()), QKeySequence("SHIFT+Delete"));
+	//proc_menu_->addAction(tr("Suspend"), this, SLOT(onSuspendProcess()));
+	proc_menu_->addAction(tr("Select PID"), this, SLOT(onSelectPid()), QKeySequence("CTRL+G"));
+	proc_menu_->addAction(tr("Explore File"), this, SLOT(onExploreFile()), QKeySequence("CTRL+L"));
+	proc_menu_->addAction(tr("Enum Thread"), this, SLOT(onEnumThread()));
+	proc_menu_->addAction(tr("Enum Window"), this, SLOT(onEnumWindow()));
+	proc_menu_->addAction(tr("Inject Dll"), this, SLOT(onInjectDll()), QKeySequence("CTRL+J"));
+	proc_menu_->addAction(tr("Sendto Scanner"), this, SLOT(onSendtoScanner()));
+	proc_menu_->addAction(dump_menu_->menuAction());
+	proc_menu_->addAction(tr("Properties..."), this, SLOT(onShowProperties()), QKeySequence("CTRL+P"));
+
+	proc_model_ = new QStandardItemModel;
+	proc_model_->setHorizontalHeaderLabels(QStringList() << tr("Process") << tr("PID") << tr("PPID") << tr("Path") << tr("Description") << tr("Company Name") << tr("CreatedTime"));
+	QTreeView *pview = ui.processView;
+	proxy_proc_ = new ProcSortFilterProxyModel(pview);
+	proxy_proc_->setSourceModel(proc_model_);
+	proxy_proc_->setDynamicSortFilter(true);
+	proxy_proc_->setFilterKeyColumn(1);
+	pview->setModel(proxy_proc_);
+	pview->selectionModel()->setModel(proxy_proc_);
+	pview->header()->setSortIndicator(-1, Qt::AscendingOrder);
+	pview->setSortingEnabled(true);
+	pview->viewport()->installEventFilter(this);
+	pview->installEventFilter(this);
+	pview->setMouseTracking(true);
+	pview->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	pview->setExpandsOnDoubleClick(false);
+	pview->setColumnWidth(PS.name, 250);
+	pview->setColumnWidth(PS.path, 440);
+	pview->setColumnWidth(PS.desc, 190);
+	pview->setColumnWidth(PS.corp, 155);
+	connect(pview->header(), SIGNAL(sectionClicked(int)), this, SLOT(onSectionClicked(int)));
+	connect(pview, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onProcDoubleClicked(const QModelIndex&)));
+	connect(pview->selectionModel(), &QItemSelectionModel::currentRowChanged, this, &ProcessMgr::onProcChanged);
+	onShowProcess();
+}
+
+void ProcessMgr::InitBottomCommon()
+{
+	bottom_model_ = new QStandardItemModel;
+	QTreeView *view = ui.moduleView;
+	proxy_mod_ = new ModSortFilterProxyModel(view);
+	proxy_mod_->setSourceModel(bottom_model_);
+	proxy_mod_->setDynamicSortFilter(true);
+	proxy_mod_->setFilterKeyColumn(1);
+	view->setModel(proxy_mod_);
+	view->selectionModel()->setModel(proxy_mod_);
+	view->header()->setSortIndicator(-1, Qt::AscendingOrder);
+	view->setSortingEnabled(true);
+	view->viewport()->installEventFilter(this);
+	view->installEventFilter(this);
+	view->hide();
+	connect(view->header(), SIGNAL(sectionClicked(int)), this, SLOT(onSectionClicked(int)));
+}
+
+void ProcessMgr::InitModuleView()
+{
+	if (!mod_menu_) {
+		mod_menu_ = new QMenu();
+		mod_menu_->addAction(tr("Refresh"), this, SLOT(onRefresh()));
+		mod_menu_->addAction(tr("Explore File"), this, SLOT(onExploreFile()));
+		mod_menu_->addAction(tr("Sendto Scanner"), this, SLOT(onSendtoScanner()));
+		mod_menu_->addAction(tr("Verify Signature"), this, SLOT(onVerifySignature()));
+		mod_menu_->addAction(tr("Verify All Signature"), this, SLOT(onVerifyAllSignature()));
+		mod_menu_->addAction(tr("Properties..."), this, [&]() {WinShowProperties(BottomCurViewItemData(MOD.path).toStdWString()); });
+	} else {
+		bottom_model_->clear();
+		bottom_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Base") << tr("Size") << tr("Path") << tr("Description") << tr("Version") << tr("Company Name")<<tr("Signature"));
+	}
+}
+
+void ProcessMgr::InitHandleView()
+{
+	if (!hd_menu_) {
+		hd_menu_ = new QMenu();
+		hd_menu_->addAction(tr("Close Handle"), this, SLOT(onCloseHandle()));
+	} else {
+		bottom_model_->clear();
+		bottom_model_->setHorizontalHeaderLabels(QStringList() << tr("Type") << tr("Name") << tr("Value") << tr("Access") << tr("Object Address"));
+		auto bview = ui.moduleView;
+		bview->setColumnWidth(HD.type, 170);
+		bview->setColumnWidth(HD.name, 700);
+	}
+}
+
+void ProcessMgr::InitMemoryView()
+{
+	if (!mem_menu_) {
+		mem_menu_ = new QMenu();
+		mem_menu_->addAction(tr("Dump Memory"), this, SLOT(onDumpMemory()));
+	} else {
+		bottom_model_->clear();
+		bottom_model_->setHorizontalHeaderLabels(QStringList() << tr("Address") << tr("Size") << tr("Property") << tr("State") << tr("Type") << tr("Base") << tr("Module"));
+		auto bview = ui.moduleView;
+		bview->setColumnWidth(MEM.addr, 150);
+		bview->setColumnWidth(MEM.property, 180);
+		bview->setColumnWidth(MEM.state, 180);
+		bview->setColumnWidth(MEM.type, 180);
+		bview->setColumnWidth(MEM.base, 150);
+	}
+}
+
 void ProcessMgr::ShowProperties(DWORD pid, int tab)
 {
 	auto properties = new ProcessProperties(this->parent_, pid, tab);
 	properties->setObjectName("ProcessProperties");
 	properties->raise();
 	properties->show();
-}
-
-void ProcessMgr::ShowProcess()
-{
-	DISABLE_RECOVER();
-	auto view = ui.processView;
-	auto selected = view->selectionModel()->selectedIndexes();
-	if (!selected.empty()) {
-		QRect rect = view->visualRect(selected[0]);
-		proc_sel_ = rect.center();
-	}
-	ClearItemModelData(proc_model_);
-	CacheRefreshProcInfo();
-	if (proc_header_idx_ == 0) ShowProcessTree();
-	else ShowProcessList();
-	AjustProcessStyle();
 }
 
 void ProcessMgr::ShowProcessList()
@@ -661,23 +997,23 @@ void ProcessMgr::AppendProcessItem(QStandardItem *parent, QStandardItem *name_it
 	QStandardItem *path_item = new QStandardItem(info.path);
 
 	if (parent == nullptr) {
-		proc_model_->setItem(seq, PDX.name, name_item);
-		proc_model_->setItem(seq, PDX.pid, pid_item);
-		proc_model_->setItem(seq, PDX.ppid, ppid_item);
-		proc_model_->setItem(seq, PDX.path, path_item);
-		proc_model_->setItem(seq, PDX.desc, desc_item);
-		proc_model_->setItem(seq, PDX.corp, corp_item);
-		proc_model_->setItem(seq, PDX.ctime, ctime_item);
+		proc_model_->setItem(seq, PS.name, name_item);
+		proc_model_->setItem(seq, PS.pid, pid_item);
+		proc_model_->setItem(seq, PS.ppid, ppid_item);
+		proc_model_->setItem(seq, PS.path, path_item);
+		proc_model_->setItem(seq, PS.desc, desc_item);
+		proc_model_->setItem(seq, PS.corp, corp_item);
+		proc_model_->setItem(seq, PS.ctime, ctime_item);
 		return;
 	}
 
 	parent->appendRow(name_item);
-	parent->setChild(seq, PDX.pid, pid_item);
-	parent->setChild(seq, PDX.ppid, ppid_item);
-	parent->setChild(seq, PDX.path, path_item);
-	parent->setChild(seq, PDX.desc, desc_item);
-	parent->setChild(seq, PDX.corp, corp_item);
-	parent->setChild(seq, PDX.ctime, ctime_item);
+	parent->setChild(seq, PS.pid, pid_item);
+	parent->setChild(seq, PS.ppid, ppid_item);
+	parent->setChild(seq, PS.path, path_item);
+	parent->setChild(seq, PS.desc, desc_item);
+	parent->setChild(seq, PS.corp, corp_item);
+	parent->setChild(seq, PS.ctime, ctime_item);
 }
 
 void ProcessMgr::AjustProcessStyle()

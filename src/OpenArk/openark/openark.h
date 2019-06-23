@@ -29,6 +29,7 @@ protected:
 
 signals:
 	void signalRefresh();
+	void signalShowPtool(int);
 
 public slots:
 	void onLogOutput(QString log);
@@ -43,6 +44,7 @@ private slots:
 	void onActionAbout(bool checked);
 	void onActionSettings(bool checked);
 	void onActionConsole(bool checked);
+	void onActionPtool(bool checked);
 	void onActionManuals(bool checked);
 	void onActionGithub(bool checked);
 	void onActionCoderKit(bool checked);

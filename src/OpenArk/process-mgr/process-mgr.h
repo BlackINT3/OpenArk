@@ -42,6 +42,7 @@ class ModSortFilterProxyModel : public QSortFilterProxyModel {
 public:
 	ModSortFilterProxyModel(QWidget *parent) {};
 	~ModSortFilterProxyModel() {};
+	int bottom_idx_;
 protected:
 	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
 };
@@ -78,15 +79,27 @@ private slots:
 	void onEnumThread();
 	void onEnumWindow();
 	void onSendtoScanner();
+	void onVerifySignature();
+	void onVerifyAllSignature();
 	void onShowProperties();
-	void onShowModules();
-	void onProcSectionClicked(int idx);
+	void onCloseHandle();
+	void onDumpMemory();
+	void onShowBottom(int idx);
+	void onShowProcess();
+	void onShowModule();
+	void onShowHandle();
+	void onShowMemory();
+	void onSectionClicked(int idx);
 	void onProcDoubleClicked(const QModelIndex &idx);
 	void onProcChanged(const QModelIndex &current, const QModelIndex &previous);
 
 private:
+	void InitProcessView();
+	void InitBottomCommon();
+	void InitModuleView();
+	void InitHandleView();
+	void InitMemoryView();
 	void ShowProperties(DWORD pid, int tab);
-	void ShowProcess();
 	void ShowProcessList();
 	void ShowProcessTree();
 	void AppendProcessItem(QStandardItem *parent, QStandardItem *name_item, ProcInfo info, int seq);
@@ -97,12 +110,13 @@ private:
 	DWORD ProcCurPid();
 	QString ProcCurViewItemData(int column);
 	QString ProcViewItemData(int row, int column);
-	QString ModCurViewItemData(int column);
+	QString BottomCurViewItemData(int column);
 	QString ModViewItemData(int row, int column);
 
 private:
 	int proc_header_idx_;
 	int mod_header_idx_;
+	int bottom_idx_;
 
 private:
 	Ui::ProcessMgr ui;
@@ -114,10 +128,16 @@ private:
 	QLabel *cnthandle_lable_;
 	QMenu *proc_menu_;
 	QMenu *mod_menu_;
+	QMenu *hd_menu_;
+	QMenu *mem_menu_;
 	QTimer timer_;
 	QPoint proc_sel_;
 	QStandardItemModel *proc_model_;
-	QStandardItemModel *mod_model_;
+	QStandardItemModel *bottom_model_;
+	QStandardItemModel *hd_model_;
+	QStandardItemModel *mem_model_;
 	ProcSortFilterProxyModel *proxy_proc_;
 	ModSortFilterProxyModel *proxy_mod_;
+	ModSortFilterProxyModel *proxy_hd_;
+	ModSortFilterProxyModel *proxy_mem_;
 };

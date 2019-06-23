@@ -41,6 +41,8 @@ Scanner::Scanner(QWidget *parent) :
 	SetDefaultTableViewStyle(ui.summaryDownView, sumdown_model_);
 	ui.summaryDownView->horizontalHeader()->hide();
 	ui.summaryDownView->setColumnWidth(0, 120);
+	ui.splitterSummary->setStretchFactor(0, 2);
+	ui.splitterSummary->setStretchFactor(1, 1);
 
 	headers_model_ = new QStandardItemModel;
 	headers_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Value"));
@@ -75,7 +77,7 @@ Scanner::Scanner(QWidget *parent) :
 	SetDefaultTableViewStyle(ui.relocView, reloc_model_);
 	SetDefaultTableViewStyle(ui.relocItemView, reloc_item_model_);
 	reloc_model_->setHorizontalHeaderLabels(QStringList() << tr("VirtualAddress") << tr("SizeOfBlock") << tr("ItemCount"));
-	reloc_item_model_->setHorizontalHeaderLabels(QStringList() << tr("Item") << tr("RVA") << tr("Type"));
+	reloc_item_model_->setHorizontalHeaderLabels(QStringList() << tr("Item") << tr("Address") << tr("Type"));
 	connect(ui.relocView->selectionModel(), &QItemSelectionModel::currentRowChanged, this, &Scanner::onRelocChanged);
 
 	dbg_model_ = new QStandardItemModel;
@@ -439,6 +441,14 @@ void Scanner::RefreshSummary(const std::wstring& path)
 	AddSummaryUpItem(tr("Modified Time"), MsToTime(access_tm));
 	AddSummaryUpItem(tr("Accessed Time"), MsToTime(modify_tm));
 
+	auto &&temp = UNONE::StrToA(path);
+	auto crc32 = Cryptor::GetCRC32ByFile(temp);
+	auto md5 = UNONE::StrStreamToHexStrA(Cryptor::GetMD5ByFile(temp));
+	auto sha1 = UNONE::StrStreamToHexStrA(Cryptor::GetSHA1ByFile(temp));
+	AddSummaryUpItem(tr("CRC32"), StrToQ(UNONE::StrFormatA("%08x", crc32)));
+	AddSummaryUpItem(tr("MD5"), StrToQ(md5));
+	AddSummaryUpItem(tr("SHA1"), StrToQ(sha1));
+
 	if (!CheckIsPe()) return;
 
 	std::wstring file_ver, prod_ver, prod_name, cright, origin, inner, corp, desc;
@@ -450,6 +460,7 @@ void Scanner::RefreshSummary(const std::wstring& path)
 	UNONE::FsGetFileInfoW(path, L"InternalName", inner);
 	UNONE::FsGetFileInfoW(path, L"CompanyName", corp);
 	UNONE::FsGetFileInfoW(path, L"FileDescription", desc);
+
 	AddSummaryUpItem(tr("File Version"), WStrToQ(file_ver));
 	AddSummaryUpItem(tr("ProductVersion"), WStrToQ(prod_ver));
 	AddSummaryUpItem(tr("ProductName"), WStrToQ(prod_name));
@@ -459,9 +470,9 @@ void Scanner::RefreshSummary(const std::wstring& path)
 	AddSummaryUpItem(tr("CompanyName"), WStrToQ(corp));
 	AddSummaryUpItem(tr("FileDescription"), WStrToQ(desc));
 
-	std::string pdb, cptime, cpver;
-	pdb = UNONE::PeGetPdb(pe_image_);
-	cptime = UNONE::TmFormatUnixTimeA((time_t)PE_NT_HEADER(pe_image_)->FileHeader.TimeDateStamp, "Y-M-D H:W:S");
+	std::wstring pdb, cptime, cpver;
+	pdb = UNONE::StrToW(UNONE::PeGetPdb(pe_image_));
+	cptime = UNONE::TmFormatUnixTimeW((time_t)PE_NT_HEADER(pe_image_)->FileHeader.TimeDateStamp, L"Y-M-D H:W:S");
 	DWORD link_major, link_minor;
 	if (UNONE::PeX64(pe_image_)) {
 		AddSummaryDownItem(tr("ImageBase"), QWordToHexQ(PE_OPT_HEADER64(pe_image_)->ImageBase));
@@ -477,29 +488,42 @@ void Scanner::RefreshSummary(const std::wstring& path)
 		link_minor = PE_OPT_HEADER32(pe_image_)->MinorLinkerVersion;
 	}
 
-	struct { int major; int minor; char* info; } linkers[] = {
-		{ 5, -1, "vc50 (5.0)" },
-		{ 6, -1, "vc60 (6.0)" },
-		{ 7, -1, "vc70 (2003)" },
-		{ 8, -1, "vc80 (2005)" },
-		{ 9, -1, "vc90 (2008)" },
-		{ 10, -1, "vc100 (2010)" },
-		{ 11, -1, "vc110 (2012)" },
-		{ 12, -1, "vc120 (2013)" },
-		{ 14, 0, "vc140 (2015)" },
-		{ 14, 0x10, "vc141 (2017)" },
-		{ 14, 0x10, "vc142 (2019)" },
+	struct { int major; int minor; wchar_t* info; } linkers[] = {
+		{ 5, -1, L"vc50 (5.0)" },
+		{ 6, -1, L"vc60 (6.0)" },
+		{ 7, -1, L"vc70 (2003)" },
+		{ 8, -1, L"vc80 (2005)" },
+		{ 9, -1, L"vc90 (2008)" },
+		{ 10, -1, L"vc100 (2010)" },
+		{ 11, -1, L"vc110 (2012)" },
+		{ 12, -1, L"vc120 (2013)" },
+		{ 14, 0, L"vc140 (2015)" },
+		{ 14, 0x10, L"vc141 (2017)" },
+		{ 14, 0x10, L"vc142 (2019)" },
 	};
-	cpver = UNONE::StrFormatA("vc%d%d (unknown)", link_major, link_minor);
+	cpver = UNONE::StrFormatW(L"vc%d%d (unknown)", link_major, link_minor);
 	for (int i = 0; i < _countof(linkers); i++) {
 		if (linkers[i].major == link_major && (linkers[i].minor == link_minor || linkers[i].minor == -1)) {
 			cpver = linkers[i].info;
 			break;
 		}
 	}
-	AddSummaryDownItem(tr("Linker"), StrToQ(cpver));
-	AddSummaryDownItem(tr("CompileTime"), StrToQ(cptime));
-	AddSummaryDownItem(tr("PDB File"), StrToQ(pdb));
+	AddSummaryDownItem(tr("Linker"), WStrToQ(cpver));
+	AddSummaryDownItem(tr("CompileTime"), WStrToQ(cptime));
+	AddSummaryDownItem(tr("PDB File"), WStrToQ(pdb));
+
+	std::vector<UNONE::CertInfoW> infos;
+	std::wstring sign, sn;
+	bool ret = UNONE::SeGetCertInfoW(path, infos);
+	if (!ret) {
+		DWORD err = GetLastError();
+		UNONE::StrFormatW(sign, L"%X %s", err, UNONE::OsDosErrorMsgW(err).c_str());
+	} else {
+		sign = infos[0].owner;
+		sn = infos[0].sn;
+	}
+	AddSummaryDownItem(tr("Cert Owner"), WStrToQ(sign));
+	AddSummaryDownItem(tr("Cert SN"), WStrToQ(sn));
 }
 
 void Scanner::RefreshHeaders()
@@ -839,7 +863,7 @@ void Scanner::RefreshDebug()
 	AppendNameValue(dbg_model_, tr("Age"), DWordToHexQ(age));
 	AppendNameValue(dbg_model_, tr("GUID"), StrToQ(guidsig));
 	AppendNameValue(dbg_model_, tr("SymbolID"), StrToQ(symid));
-	AppendNameValue(dbg_model_, tr("PDB"), StrToQ(pdb));
+	AppendNameValue(dbg_model_, tr("PDB"), WStrToQ(UNONE::StrToW(pdb)));
 }
 
 void Scanner::RefreshRva()

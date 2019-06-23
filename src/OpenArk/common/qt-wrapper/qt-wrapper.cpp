@@ -107,7 +107,6 @@ void OpenArkLanguage::ChangeLanguage(int lang)
 	default:
 		break;
 	}
-	ConfOpLang(CONF_SET, lang);
 }
 
 QIcon LoadIcon(QString file_path)
@@ -158,6 +157,12 @@ QString GetCurItemViewData(QAbstractItemView *view, int column)
 	return idx.sibling(idx.row(), column).data().toString();
 }
 
+void SetCurItemViewData(QAbstractItemView *view, int column, QString val)
+{
+	auto idx = view->currentIndex();
+	view->model()->setData(idx.sibling(idx.row(), column), val);
+}
+
 void ExpandTreeView(const QModelIndex& index, QTreeView* view)
 {
 	if (!index.isValid()) {
@@ -203,6 +208,13 @@ void SetDefaultTreeViewStyle(QTreeView* view, QStandardItemModel* model)
 	//view->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 	view->header()->setMinimumSectionSize(100);
 	view->setSortingEnabled(true);
+}
+
+void SetLineBgColor(QStandardItemModel *model, int row, const QBrush &abrush)
+{
+	for (int i = 0; i < model->columnCount(); i++) {
+		model->item(row, i)->setBackground(abrush);
+	}
 }
 
 bool JsonParse(const QByteArray &data, QJsonObject &obj)

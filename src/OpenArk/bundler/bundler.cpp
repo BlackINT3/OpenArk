@@ -22,7 +22,7 @@ Bundler::Bundler(QWidget *parent) :
 	files_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Size(KB)") << tr("Path"));
 
 	files_menu_ = new QMenu();
-	files_menu_->addAction(WCharsToQ(L"Use this ICON"), this, SLOT(onUseIcon()));
+	files_menu_->addAction(tr("Use the ICON"), this, SLOT(onUseIcon()));
 
 	connect(ui.openBtn, SIGNAL(clicked()), this, SLOT(onOpenFolder()));
 	connect(ui.selectIconBtn, SIGNAL(clicked()), this, SLOT(onSelectIcon()));

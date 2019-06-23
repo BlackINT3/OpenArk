@@ -160,9 +160,10 @@ void CoderKit::onWindowsErrorTextChanged(const QString & text)
 		ui.doserrEdit->setText(QString("%1").arg(doserr));
 		ui.msgEdit->setText(WStrToQ(UNONE::OsDosErrorMsgW(doserr)));
 	}	else if (sender == ui.hresultEdit) {
-		doserr = UNONE::StrToHexA(number) & 0xFFFF;
+		auto hr = UNONE::StrToHexA(number);
+		doserr = hr & 0xFFFF;
 		ui.doserrEdit->setText(QString("%1").arg(doserr));
-		ui.msgEdit->setText(WStrToQ(UNONE::OsDosErrorMsgW(doserr)));
+		ui.msgEdit->setText(WStrToQ(UNONE::OsDosErrorMsgW(hr)));
 	}
 }
 
@@ -174,7 +175,6 @@ void CoderKit::onMessageId()
 
 void CoderKit::onAlgIndexChanged(int index)
 {
-	INFO("%d", index);
 	alg_idx_ = index;
 
 	auto e_key = ui.keyEdit;

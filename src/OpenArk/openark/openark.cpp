@@ -55,7 +55,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	});
 	ui.setupUi(this);
 
-	resize(1300, 800);
+	resize(1300, 820);
 	ui.splitter->setStretchFactor(0, 1);
 	ui.splitter->setStretchFactor(1, 5);
 	QString title = QString(tr("OpenArk v%1 ").arg(AppVersion()));
@@ -75,6 +75,16 @@ OpenArk::OpenArk(QWidget *parent) :
 	stool_->setObjectName(QStringLiteral("statusToolBar"));
 	stool_->setIconSize(QSize(16, 16));
 	stool_->addAction(ui.actionConsole);
+	stool_->addSeparator();
+	stool_->addAction(ui.actionModule);
+	stool_->addAction(ui.actionHandle);
+	stool_->addAction(ui.actionMemory);
+	ui.actionModule->setChecked(false);
+	ui.actionHandle->setChecked(false);
+	ui.actionMemory->setChecked(false);
+	connect(ui.actionModule, SIGNAL(triggered(bool)), this, SLOT(onActionPtool(bool)));
+	connect(ui.actionHandle, SIGNAL(triggered(bool)), this, SLOT(onActionPtool(bool)));
+	connect(ui.actionMemory, SIGNAL(triggered(bool)), this, SLOT(onActionPtool(bool)));
 	//stool_->setStyleSheet("background-color:red");
 
 	QGridLayout *layout = new QGridLayout(widget);
@@ -91,21 +101,16 @@ OpenArk::OpenArk(QWidget *parent) :
 	ui.actionOnTop->setCheckable(true);
 	ui.actionExit->setShortcut(QKeySequence(Qt::ALT + Qt::Key_F4));
 
+	// Language 
 	QActionGroup *langs = new QActionGroup(this);
 	langs->setExclusive(true);
 	langs->addAction(ui.actionEnglish);
-	langs->addAction(ui.actionZh);
-	auto actionEnglish = new QAction(tr("English"), langs);
-	auto actionZhcn = new QAction(WCharsToQ(L"简体中文"), langs);
-	actionEnglish->setCheckable(true);
-	actionZhcn->setCheckable(true);
-	ui.menuLanguage->addAction(actionEnglish);
-	ui.menuLanguage->addAction(actionZhcn);
+	langs->addAction(ui.actionZhcn);
 	int lang = OpenArkLanguage::Instance()->GetLanguage();
 	if (lang == 0) {
-		actionEnglish->setChecked(true);
+		ui.actionEnglish->setChecked(true);
 	} else if (lang == 1)  {
-		actionZhcn->setChecked(true);
+		ui.actionZhcn->setChecked(true);
 	}
 	connect(langs, SIGNAL(triggered(QAction*)), this, SLOT(onActionLanguage(QAction*)));
 
@@ -145,7 +150,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	CreateTabPage(new Scanner(this), ui.tabScanner);
 	CreateTabPage(new CoderKit(this), ui.tabCoderKit);
 	CreateTabPage(new Bundler(this), ui.tabBundler);
-	ActivateTab(1);
+	ActivateTab(0);
 
 	chkupt_timer_ = new QTimer();
 	chkupt_timer_->setInterval(5000);
@@ -247,6 +252,35 @@ void OpenArk::onActionConsole(bool checked)
 	}
 }
 
+void OpenArk::onActionPtool(bool checked)
+{
+	QAction* sender = qobject_cast<QAction*>(QObject::sender());
+	if (!sender->isChecked()) {
+		emit signalShowPtool(-1);
+		return;
+	}
+	if (sender == ui.actionModule) {
+		emit signalShowPtool(0);
+		ui.actionHandle->setChecked(false);
+		ui.actionMemory->setChecked(false);
+		return;
+	}
+
+	if (sender == ui.actionHandle) {
+		emit signalShowPtool(1);
+		ui.actionModule->setChecked(false);
+		ui.actionMemory->setChecked(false);
+		return;
+	}
+
+	if (sender == ui.actionMemory) {
+		emit signalShowPtool(2);
+		ui.actionModule->setChecked(false);
+		ui.actionHandle->setChecked(false);
+		return;
+	}
+}
+
 void OpenArk::onActionManuals(bool checked)
 {
 	OpenBrowserUrl("https://openark.blackint3.com/manuals/");
@@ -320,17 +354,17 @@ void OpenArk::onActionLanguage(QAction *act)
 {
 	auto lang = OpenArkLanguage::Instance()->GetLanguage();
 	auto text = act->text();
-	if (text == "English") {
+	if (act == ui.actionEnglish) {
 		if (lang == 0) return;
 		lang = 0;
-	} else if (text == WCharsToQ(L"简体中文")) {
+	} else if (act == ui.actionZhcn) {
 		if (lang == 1) return;
 		lang = 1;
 	}	else {
 		return; 
 	}
-	OpenArkLanguage::Instance()->ChangeLanguage(lang);
 	QString tips = tr("Language changed ok, did you restart application now?");
+	ConfOpLang(CONF_SET, lang);
 	QMessageBox::StandardButton reply;
 	reply = QMessageBox::information(this, tr("Information"), tips, QMessageBox::Yes | QMessageBox::No);
 	if (reply == QMessageBox::Yes) {
