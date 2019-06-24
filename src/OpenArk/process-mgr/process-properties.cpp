@@ -29,7 +29,7 @@ ProcessProperties::ProcessProperties(QWidget* parent, DWORD pid, int tab) :
 	std::wstring wstr = UNONE::PsGetProcessPathW(pid_);
 	proc_path_ = WStrToQ(wstr);
 	proc_name_ = WStrToQ(UNONE::FsPathToNameW(wstr));
-	QString title = QString("%1:%2 Properties").arg(proc_name_).arg(pid_);
+	QString title = QString(tr("%1:%2 Properties")).arg(proc_name_).arg(pid_);
 	setWindowTitle(title);
 	setWindowIcon(LoadIcon(proc_path_));
 
@@ -40,7 +40,7 @@ ProcessProperties::ProcessProperties(QWidget* parent, DWORD pid, int tab) :
 	SetDefaultTreeViewStyle(ui.threadView, threads_model_);
 	SetDefaultTreeViewStyle(ui.wndsView, wnds_model_);
 	menu_ = new QMenu();
-	menu_->addAction(WCharsToQ(L"Refresh"), this, SLOT(onRefresh()));
+	menu_->addAction(tr("Refresh"), this, SLOT(onRefresh()));
 	ui.threadView->installEventFilter(this);
 	ui.wndsView->installEventFilter(this);
 

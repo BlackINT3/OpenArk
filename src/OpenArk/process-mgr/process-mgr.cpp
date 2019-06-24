@@ -98,11 +98,16 @@ ProcessMgr::ProcessMgr(QWidget* parent) :
 	cntproc_lable_(nullptr),
 	proxy_proc_(nullptr),
 	proc_header_idx_(0),
-	mod_header_idx_(0),
+	bottom_header_idx_(0),
 	mod_menu_(nullptr),
 	hd_menu_(nullptr),
 	mem_menu_(nullptr)
 {
+	unnamed_checked_ = false;
+	uncommed_checked_ = false;
+	nonexec_checked_ = false;
+	imaged_checked_ = false;
+
 	ui.setupUi(this);
 	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
 
@@ -448,6 +453,54 @@ void ProcessMgr::onCloseHandle()
 	onShowHandle();
 }
 
+void ProcessMgr::onHideUnnamedHandles(bool checked)
+{
+	unnamed_checked_ = checked;
+	for (int i = 0; i < bottom_model_->rowCount(); i++) {
+		if (!checked) {
+			SetLineHidden(ui.moduleView, i, false);
+			continue;
+		}
+		if (bottom_model_->item(i, HD.name)->data(Qt::DisplayRole).toString().isEmpty()) {
+			QModelIndex idx = bottom_model_->index(i, HD.name);
+			SetLineHidden(ui.moduleView, proxy_bottom_->mapFromSource(idx).row(), true);
+		}
+	}
+}
+
+void ProcessMgr::onHideMemoryItem(bool checked)
+{
+	auto sender = QObject::sender();
+	if (sender == ui.actionHideUncommited)
+		uncommed_checked_ = checked;
+	else if (sender == ui.actionHideNonExecute)
+		nonexec_checked_ = checked;
+	else if (sender == ui.actionHideImage)
+		imaged_checked_ = checked;
+
+	for (int i = 0; i < bottom_model_->rowCount(); i++) {
+		bool hidden = false;
+		if (uncommed_checked_) {
+			if (bottom_model_->item(i, MEM.state)->data(Qt::DisplayRole).toString() != "MEM_COMMIT")
+				hidden = true;
+		}
+		if (nonexec_checked_) {
+			if (!bottom_model_->item(i, MEM.property)->data(Qt::DisplayRole).toString().contains("EXECUTE"))
+				hidden = true;
+		}
+		if (imaged_checked_) {
+			if (bottom_model_->item(i, MEM.type)->data(Qt::DisplayRole).toString() == "MEM_IMAGE")
+				hidden = true;
+		}
+		QModelIndex idx = bottom_model_->index(i, HD.name);
+		if (hidden) {
+			SetLineHidden(ui.moduleView, proxy_bottom_->mapFromSource(idx).row(), true);
+		} else {
+			SetLineHidden(ui.moduleView, proxy_bottom_->mapFromSource(idx).row(), false);
+		}
+	}
+}
+
 void ProcessMgr::onDumpMemory()
 {
 	DWORD pid = ProcCurPid();
@@ -496,7 +549,7 @@ void ProcessMgr::onShowBottom(int idx)
 		break;
 	}
 	bottom_idx_ = idx;
-	proxy_mod_->bottom_idx_ = idx;
+	proxy_bottom_->bottom_idx_ = idx;
 }
 
 void ProcessMgr::onShowProcess()
@@ -566,6 +619,7 @@ void ProcessMgr::onShowHandle()
 	DISABLE_RECOVER();
 	ClearItemModelData(bottom_model_, 0);
 	InitHandleView();
+	InitObjectTypeTable();
 	DWORD pid = ProcCurPid();
 	HANDLE phd = OpenProcess(PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
 	UNONE::PsEnumHandle(pid, [&](SYSTEM_HANDLE_TABLE_ENTRY_INFO &info)->bool {
@@ -589,7 +643,8 @@ void ProcessMgr::onShowHandle()
 				}
 				default:
 					ObGetObjectName((HANDLE)dup, name);
-					if (idx == 28) UNONE::ObParseToDosPathA(name, name);
+					static int file_idx = GetObjectTypeIndex("File");
+					if (idx == file_idx) UNONE::ObParseToDosPathA(name, name);
 					break;
 				}
 				CloseHandle(dup);
@@ -609,39 +664,6 @@ void ProcessMgr::onShowHandle()
 	});
 	CloseHandle(phd);
 }
-
-std::string MbiTypeToString(int type)
-{
-	std::string str;
-	if (type & MEM_PRIVATE) str += "MEM_PRIVATE | ";
-	if (type & MEM_IMAGE) str += "MEM_IMAGE | ";
-	if (type & MEM_MAPPED) str += "MEM_MAPPED | ";
-	return str.empty() ? "" : str.substr(0, str.size() - 3);
-}
-std::string MbiStateToString(int type)
-{
-	std::string str;
-	if (type & MEM_COMMIT) str += "MEM_COMMIT | ";
-	if (type & MEM_FREE) str += "MEM_FREE | ";
-	if (type & MEM_RESERVE) str += "MEM_RESERVE | ";
-	return str.empty() ? "" : str.substr(0, str.size() - 3);
-}
-std::string MbiPageProtectToString(int type)
-{
-	std::string str;
-	if (type & PAGE_EXECUTE) str += "PAGE_EXECUTE | ";
-	if (type & PAGE_EXECUTE_READ) str += "PAGE_EXECUTE_READ | ";
-	if (type & PAGE_EXECUTE_READWRITE) str += "PAGE_EXECUTE_READWRITE | ";
-	if (type & PAGE_EXECUTE_WRITECOPY) str += "PAGE_EXECUTE_WRITECOPY | ";
-	if (type & PAGE_NOACCESS) str += "PAGE_NOACCESS | ";
-	if (type & PAGE_READONLY) str += "PAGE_READONLY | ";
-	if (type & PAGE_READWRITE) str += "PAGE_READWRITE | ";
-	if (type & PAGE_GUARD) str += "PAGE_GUARD | ";
-	if (type & PAGE_NOCACHE) str += "PAGE_NOCACHE | ";
-	if (type & PAGE_WRITECOMBINE) str += "PAGE_WRITECOMBINE | ";
-	return str.empty() ? "" : str.substr(0, str.size() - 3);
-}
-
 
 void ProcessMgr::onShowMemory()
 {
@@ -707,9 +729,13 @@ void ProcessMgr::onSectionClicked(int idx)
 			}
 		}
 	}	else if (sender == ui.moduleView->header()) {
-		mod_header_idx_++;
-		if (mod_header_idx_ == 3) {
-			mod_header_idx_ = 0;
+		if (idx == bottom_header_last_) {
+			bottom_header_idx_ = 1;
+		} else {
+			bottom_header_idx_++;
+		}
+		if (bottom_header_idx_ == 3) {
+			bottom_header_idx_ = 0;
 			ui.moduleView->header()->setSortIndicator(-1, Qt::AscendingOrder);
 		}
 	}
@@ -861,12 +887,12 @@ void ProcessMgr::InitBottomCommon()
 {
 	bottom_model_ = new QStandardItemModel;
 	QTreeView *view = ui.moduleView;
-	proxy_mod_ = new ModSortFilterProxyModel(view);
-	proxy_mod_->setSourceModel(bottom_model_);
-	proxy_mod_->setDynamicSortFilter(true);
-	proxy_mod_->setFilterKeyColumn(1);
-	view->setModel(proxy_mod_);
-	view->selectionModel()->setModel(proxy_mod_);
+	proxy_bottom_ = new ModSortFilterProxyModel(view);
+	proxy_bottom_->setSourceModel(bottom_model_);
+	proxy_bottom_->setDynamicSortFilter(true);
+	proxy_bottom_->setFilterKeyColumn(1);
+	view->setModel(proxy_bottom_);
+	view->selectionModel()->setModel(proxy_bottom_);
 	view->header()->setSortIndicator(-1, Qt::AscendingOrder);
 	view->setSortingEnabled(true);
 	view->viewport()->installEventFilter(this);
@@ -896,6 +922,8 @@ void ProcessMgr::InitHandleView()
 	if (!hd_menu_) {
 		hd_menu_ = new QMenu();
 		hd_menu_->addAction(tr("Close Handle"), this, SLOT(onCloseHandle()));
+		hd_menu_->addAction(ui.actionHideUnnamed);
+		connect(ui.actionHideUnnamed, SIGNAL(triggered(bool)), this, SLOT(onHideUnnamedHandles(bool)));
 	} else {
 		bottom_model_->clear();
 		bottom_model_->setHorizontalHeaderLabels(QStringList() << tr("Type") << tr("Name") << tr("Value") << tr("Access") << tr("Object Address"));
@@ -909,7 +937,14 @@ void ProcessMgr::InitMemoryView()
 {
 	if (!mem_menu_) {
 		mem_menu_ = new QMenu();
+		mem_menu_->addAction(ui.actionHideUncommited);
+		mem_menu_->addAction(ui.actionHideNonExecute);
+		mem_menu_->addAction(ui.actionHideImage);
+		mem_menu_->addSeparator();
 		mem_menu_->addAction(tr("Dump Memory"), this, SLOT(onDumpMemory()));
+		connect(ui.actionHideUncommited, SIGNAL(triggered(bool)), this, SLOT(onHideMemoryItem(bool)));
+		connect(ui.actionHideNonExecute, SIGNAL(triggered(bool)), this, SLOT(onHideMemoryItem(bool)));
+		connect(ui.actionHideImage, SIGNAL(triggered(bool)), this, SLOT(onHideMemoryItem(bool)));
 	} else {
 		bottom_model_->clear();
 		bottom_model_->setHorizontalHeaderLabels(QStringList() << tr("Address") << tr("Size") << tr("Property") << tr("State") << tr("Type") << tr("Base") << tr("Module"));

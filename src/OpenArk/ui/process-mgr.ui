@@ -66,6 +66,38 @@
     </widget>
    </item>
   </layout>
+  <action name="actionHideUnnamed">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide Unnamed Handles</string>
+   </property>
+  </action>
+  <action name="actionHideUncommited">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide Uncommited Memory</string>
+   </property>
+  </action>
+  <action name="actionHideNonExecute">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide NonExecute Memory</string>
+   </property>
+  </action>
+  <action name="actionHideImage">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide Image Memory</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

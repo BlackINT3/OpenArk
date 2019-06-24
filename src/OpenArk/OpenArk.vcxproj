@@ -338,7 +338,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="openark_zh.ts" />
-    <None Include="openark_zh2.ts" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

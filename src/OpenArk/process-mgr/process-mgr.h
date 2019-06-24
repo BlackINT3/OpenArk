@@ -83,6 +83,8 @@ private slots:
 	void onVerifyAllSignature();
 	void onShowProperties();
 	void onCloseHandle();
+	void onHideUnnamedHandles(bool checked);
+	void onHideMemoryItem(bool checked);
 	void onDumpMemory();
 	void onShowBottom(int idx);
 	void onShowProcess();
@@ -115,9 +117,13 @@ private:
 
 private:
 	int proc_header_idx_;
-	int mod_header_idx_;
+	int bottom_header_idx_;
+	int bottom_header_last_;
 	int bottom_idx_;
-
+	bool unnamed_checked_;
+	bool uncommed_checked_;
+	bool nonexec_checked_;
+	bool imaged_checked_;
 private:
 	Ui::ProcessMgr ui;
 	OpenArk *parent_;
@@ -137,7 +143,5 @@ private:
 	QStandardItemModel *hd_model_;
 	QStandardItemModel *mem_model_;
 	ProcSortFilterProxyModel *proxy_proc_;
-	ModSortFilterProxyModel *proxy_mod_;
-	ModSortFilterProxyModel *proxy_hd_;
-	ModSortFilterProxyModel *proxy_mem_;
+	ModSortFilterProxyModel *proxy_bottom_;
 };

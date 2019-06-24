@@ -394,7 +394,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="336"/>
+        <location filename="openark/openark.cpp" line="335"/>
         <source>Found new version, app should be updated.
 appver: %1
 appbd: %2
@@ -405,37 +405,37 @@ appurl: %3</source>
 下载地址:%3</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="341"/>
+        <location filename="openark/openark.cpp" line="340"/>
         <source>App Updates</source>
         <translation type="unfinished">程序更新</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="347"/>
+        <location filename="openark/openark.cpp" line="346"/>
         <source>OpenArk is latest.</source>
         <translation type="unfinished">OpenArk是最新版本.</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="366"/>
+        <location filename="openark/openark.cpp" line="365"/>
         <source>Language changed ok, did you restart application now?</source>
         <translation type="unfinished">语言设置成功，现在是否重启进程？</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="369"/>
+        <location filename="openark/openark.cpp" line="368"/>
         <source>Information</source>
         <translation type="unfinished">信息</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="419"/>
+        <location filename="openark/openark.cpp" line="418"/>
         <source>History</source>
         <translation type="unfinished">历史记录</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="420"/>
+        <location filename="openark/openark.cpp" line="419"/>
         <source>Helps</source>
         <translation type="unfinished">帮助</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="421"/>
+        <location filename="openark/openark.cpp" line="420"/>
         <source>Clear</source>
         <translation type="unfinished">清空</translation>
     </message>
@@ -444,37 +444,37 @@ appurl: %3</source>
     <name>OpenArkWindow</name>
     <message>
         <location filename="ui/openark.ui" line="75"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="403"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="405"/>
         <source>Process</source>
         <translation type="unfinished">进程</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="80"/>
         <location filename="ui/openark.ui" line="408"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="380"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="404"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="382"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="406"/>
         <source>CoderKit</source>
         <translation type="unfinished">编程助手</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="85"/>
         <location filename="ui/openark.ui" line="413"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="381"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="405"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="383"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="407"/>
         <source>Scanner</source>
         <translation type="unfinished">扫描器</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="90"/>
         <location filename="ui/openark.ui" line="423"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="383"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="406"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="385"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="408"/>
         <source>Bundler</source>
         <translation type="unfinished">捆绑器</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="117"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="407"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="409"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -485,118 +485,118 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="ui/openark.ui" line="144"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="413"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="415"/>
         <source>C:\&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="154"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="414"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="416"/>
         <source>Command Help</source>
         <translation type="unfinished">命令帮助</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="177"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="415"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="417"/>
         <source>&amp;File</source>
         <translation type="unfinished">文件(&amp;F)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="186"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="416"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="418"/>
         <source>&amp;View</source>
         <translation type="unfinished">视图(&amp;V)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="195"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="417"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="419"/>
         <source>&amp;Options</source>
         <translation type="unfinished">选项(&amp;O)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="209"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="419"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="421"/>
         <source>&amp;Plugins</source>
         <translation type="unfinished">插件(&amp;P)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="229"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="421"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="423"/>
         <source>&amp;Window</source>
         <oldsource>Window</oldsource>
         <translation type="unfinished">窗口(&amp;W)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="218"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="420"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="422"/>
         <source>&amp;Help</source>
         <oldsource>Help</oldsource>
         <translation type="unfinished">帮助(&amp;H)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="199"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="418"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="420"/>
         <source>&amp;Language</source>
         <translation type="unfinished">语言(&amp;L)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="241"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="422"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="424"/>
         <source>toolBar</source>
         <translation type="unfinished">工具栏</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="284"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="356"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="358"/>
         <source>&amp;Console</source>
         <translation type="unfinished">控制台(&amp;C)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="287"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="358"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="360"/>
         <source>Open Console Window</source>
         <translation type="unfinished">打开控制台窗口</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="290"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="360"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="362"/>
         <source>Alt+Shift+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="299"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="361"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="363"/>
         <source>&amp;Open</source>
         <translation type="unfinished">打开(&amp;O)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="302"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="362"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="364"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="307"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="363"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="365"/>
         <source>Ex&amp;port</source>
         <translation type="unfinished">导出(&amp;P)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="316"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="364"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="366"/>
         <source>&amp;Exit</source>
         <oldsource>Exit</oldsource>
         <translation type="unfinished">退出(&amp;E)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="321"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="365"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="367"/>
         <source>Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="326"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="366"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="368"/>
         <source>HelloCoder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -604,105 +604,105 @@ p, li { white-space: pre-wrap; }
         <location filename="ui/openark.ui" line="343"/>
         <location filename="ui/openark.ui" line="346"/>
         <location filename="ui/openark.ui" line="365"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="367"/>
         <location filename="GeneratedFiles/ui_openark.h" line="369"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="373"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="371"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="375"/>
         <source>Project on Github</source>
         <translation type="unfinished">Github开源项目</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="355"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="371"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="373"/>
         <source>About OpenArk</source>
         <translation type="unfinished">关于OpenArk</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="360"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="372"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="374"/>
         <source>Check for Updates...</source>
         <translation type="unfinished">检查更新...</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="370"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="374"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="376"/>
         <source>Manuals</source>
         <translation type="unfinished">文档手册</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="379"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="375"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="377"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">刷新(&amp;R)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="382"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="376"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="378"/>
         <source>F5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="391"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="377"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="379"/>
         <source>&amp;Save</source>
         <translation type="unfinished">保存(&amp;S)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="394"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="378"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="380"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="403"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="379"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="381"/>
         <source>&amp;Settings</source>
         <translation type="unfinished">设置(&amp;S)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="452"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="389"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="391"/>
         <source>&amp;Module</source>
         <translation type="unfinished">模块(&amp;M)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="455"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="391"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="393"/>
         <source>Open Module Window</source>
         <translation type="unfinished">打开模块列表</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="467"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="393"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="395"/>
         <source>&amp;Handle</source>
         <translation type="unfinished">句柄(&amp;H)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="470"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="395"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="397"/>
         <source>Open Handle Window</source>
         <translation type="unfinished">打开句柄列表</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="482"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="397"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="399"/>
         <source>&amp;Memory</source>
         <translation type="unfinished">内存(&amp;M)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="485"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="399"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="401"/>
         <source>Open Memory Window</source>
         <translation type="unfinished">打开内存列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="490"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="401"/>
+        <location filename="ui/openark.ui" line="493"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="403"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="495"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="402"/>
+        <location filename="ui/openark.ui" line="501"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="404"/>
         <source>简体中文</source>
         <translation type="unfinished"></translation>
     </message>
@@ -712,25 +712,25 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="ui/openark.ui" line="418"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="382"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="384"/>
         <source>C&amp;leaner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="432"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="384"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="386"/>
         <source>&amp;Allways On Top</source>
         <translation type="unfinished">置顶(&amp;A)</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="437"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="385"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="387"/>
         <source>Reset</source>
         <translation type="unfinished">重置</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="440"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="387"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="389"/>
         <source>Reset Window</source>
         <translation type="unfinished">重置窗口</translation>
     </message>
@@ -739,94 +739,118 @@ p, li { white-space: pre-wrap; }
     <name>ProcessMgr</name>
     <message>
         <location filename="ui/process-mgr.ui" line="20"/>
-        <location filename="GeneratedFiles/ui_process-mgr.h" line="81"/>
+        <location filename="GeneratedFiles/ui_process-mgr.h" line="97"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="807"/>
+        <location filename="ui/process-mgr.ui" line="74"/>
+        <location filename="GeneratedFiles/ui_process-mgr.h" line="98"/>
+        <source>Hide Unnamed Handles</source>
+        <translation type="unfinished">隐藏无名称句柄</translation>
+    </message>
+    <message>
+        <location filename="ui/process-mgr.ui" line="82"/>
+        <location filename="GeneratedFiles/ui_process-mgr.h" line="99"/>
+        <source>Hide Uncommited Memory</source>
+        <translation type="unfinished">隐藏未提交内存</translation>
+    </message>
+    <message>
+        <location filename="ui/process-mgr.ui" line="90"/>
+        <location filename="GeneratedFiles/ui_process-mgr.h" line="100"/>
+        <source>Hide NonExecute Memory</source>
+        <translation type="unfinished">隐藏非可执行内存</translation>
+    </message>
+    <message>
+        <location filename="ui/process-mgr.ui" line="98"/>
+        <location filename="GeneratedFiles/ui_process-mgr.h" line="101"/>
+        <source>Hide Image Memory</source>
+        <translation type="unfinished">隐藏模块内存</translation>
+    </message>
+    <message>
+        <location filename="process-mgr/process-mgr.cpp" line="833"/>
         <source>Process Name</source>
         <translation type="unfinished">进程名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="808"/>
+        <location filename="process-mgr/process-mgr.cpp" line="834"/>
         <source>Process ID</source>
         <translation type="unfinished">进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="809"/>
+        <location filename="process-mgr/process-mgr.cpp" line="835"/>
         <source>Parent ID</source>
         <translation type="unfinished">父进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="810"/>
+        <location filename="process-mgr/process-mgr.cpp" line="836"/>
         <source>Process Path</source>
         <translation type="unfinished">进程路径</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="811"/>
+        <location filename="process-mgr/process-mgr.cpp" line="837"/>
         <source>Created Time</source>
         <translation type="unfinished">启动时间</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="812"/>
+        <location filename="process-mgr/process-mgr.cpp" line="838"/>
         <source>Copy</source>
         <translation type="unfinished">复制</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="816"/>
+        <location filename="process-mgr/process-mgr.cpp" line="842"/>
         <source>Create Minidump...</source>
         <translation type="unfinished">创建 MiniDump...</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="817"/>
+        <location filename="process-mgr/process-mgr.cpp" line="843"/>
         <source>Create Fulldump...</source>
         <translation type="unfinished">创建 FullDump...</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="818"/>
+        <location filename="process-mgr/process-mgr.cpp" line="844"/>
         <source>Create Dump</source>
         <translation type="unfinished">创建Dump文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="820"/>
-        <location filename="process-mgr/process-mgr.cpp" line="882"/>
+        <location filename="process-mgr/process-mgr.cpp" line="846"/>
+        <location filename="process-mgr/process-mgr.cpp" line="908"/>
         <source>Refresh</source>
         <translation type="unfinished">刷新</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="822"/>
+        <location filename="process-mgr/process-mgr.cpp" line="848"/>
         <source>Kill Process</source>
         <translation type="unfinished">结束进程</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="823"/>
+        <location filename="process-mgr/process-mgr.cpp" line="849"/>
         <source>Kill Process Tree</source>
         <translation type="unfinished">结束进程树</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="825"/>
+        <location filename="process-mgr/process-mgr.cpp" line="851"/>
         <source>Select PID</source>
         <translation type="unfinished">选择进程(PID)</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="826"/>
-        <location filename="process-mgr/process-mgr.cpp" line="883"/>
+        <location filename="process-mgr/process-mgr.cpp" line="852"/>
+        <location filename="process-mgr/process-mgr.cpp" line="909"/>
         <source>Explore File</source>
         <translation type="unfinished">定位到文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="827"/>
+        <location filename="process-mgr/process-mgr.cpp" line="853"/>
         <source>Enum Thread</source>
         <translation type="unfinished">枚举线程</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="828"/>
+        <location filename="process-mgr/process-mgr.cpp" line="854"/>
         <source>Enum Window</source>
         <translation type="unfinished">枚举窗口</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="829"/>
+        <location filename="process-mgr/process-mgr.cpp" line="855"/>
         <source>Inject Dll</source>
         <translation type="unfinished">注入DLL</translation>
     </message>
@@ -835,187 +859,187 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">扫描</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="471"/>
+        <location filename="process-mgr/process-mgr.cpp" line="524"/>
         <source>Save to</source>
         <translation type="unfinished">生成程序</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="471"/>
+        <location filename="process-mgr/process-mgr.cpp" line="524"/>
         <source>DumpMemory(*)</source>
         <translation type="unfinished">转储文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="475"/>
+        <location filename="process-mgr/process-mgr.cpp" line="528"/>
         <source>Dump memory ok</source>
         <translation type="unfinished">内存转储成功</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="830"/>
-        <location filename="process-mgr/process-mgr.cpp" line="884"/>
+        <location filename="process-mgr/process-mgr.cpp" line="856"/>
+        <location filename="process-mgr/process-mgr.cpp" line="910"/>
         <source>Sendto Scanner</source>
         <oldsource>Scanner</oldsource>
         <translation type="unfinished">扫描</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="832"/>
-        <location filename="process-mgr/process-mgr.cpp" line="887"/>
+        <location filename="process-mgr/process-mgr.cpp" line="858"/>
+        <location filename="process-mgr/process-mgr.cpp" line="913"/>
         <source>Properties...</source>
         <translation type="unfinished">属性...</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="835"/>
+        <location filename="process-mgr/process-mgr.cpp" line="861"/>
         <source>Process</source>
         <translation type="unfinished">进程</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="835"/>
+        <location filename="process-mgr/process-mgr.cpp" line="861"/>
         <source>PID</source>
         <translation type="unfinished">进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="835"/>
+        <location filename="process-mgr/process-mgr.cpp" line="861"/>
         <source>PPID</source>
         <translation type="unfinished">父进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="835"/>
-        <location filename="process-mgr/process-mgr.cpp" line="890"/>
+        <location filename="process-mgr/process-mgr.cpp" line="861"/>
+        <location filename="process-mgr/process-mgr.cpp" line="916"/>
         <source>Path</source>
         <translation type="unfinished">路径</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="835"/>
-        <location filename="process-mgr/process-mgr.cpp" line="890"/>
+        <location filename="process-mgr/process-mgr.cpp" line="861"/>
+        <location filename="process-mgr/process-mgr.cpp" line="916"/>
         <source>Description</source>
         <translation type="unfinished">描述</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="835"/>
-        <location filename="process-mgr/process-mgr.cpp" line="890"/>
+        <location filename="process-mgr/process-mgr.cpp" line="861"/>
+        <location filename="process-mgr/process-mgr.cpp" line="916"/>
         <source>Company Name</source>
         <translation type="unfinished">公司名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="835"/>
+        <location filename="process-mgr/process-mgr.cpp" line="861"/>
         <source>CreatedTime</source>
         <translation type="unfinished">启动时间</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="885"/>
+        <location filename="process-mgr/process-mgr.cpp" line="911"/>
         <source>Verify Signature</source>
         <translation type="unfinished">校验签名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="886"/>
+        <location filename="process-mgr/process-mgr.cpp" line="912"/>
         <source>Verify All Signature</source>
         <translation type="unfinished">校验所有签名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="890"/>
-        <location filename="process-mgr/process-mgr.cpp" line="901"/>
+        <location filename="process-mgr/process-mgr.cpp" line="916"/>
+        <location filename="process-mgr/process-mgr.cpp" line="929"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="890"/>
-        <location filename="process-mgr/process-mgr.cpp" line="915"/>
+        <location filename="process-mgr/process-mgr.cpp" line="916"/>
+        <location filename="process-mgr/process-mgr.cpp" line="950"/>
         <source>Base</source>
         <translation type="unfinished">基址</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="890"/>
-        <location filename="process-mgr/process-mgr.cpp" line="915"/>
+        <location filename="process-mgr/process-mgr.cpp" line="916"/>
+        <location filename="process-mgr/process-mgr.cpp" line="950"/>
         <source>Size</source>
         <translation type="unfinished">大小</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="890"/>
+        <location filename="process-mgr/process-mgr.cpp" line="916"/>
         <source>Version</source>
         <translation type="unfinished">版本</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="890"/>
+        <location filename="process-mgr/process-mgr.cpp" line="916"/>
         <source>Signature</source>
         <translation type="unfinished">签名校验</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="898"/>
+        <location filename="process-mgr/process-mgr.cpp" line="924"/>
         <source>Close Handle</source>
         <translation type="unfinished">关闭句柄</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="901"/>
-        <location filename="process-mgr/process-mgr.cpp" line="915"/>
+        <location filename="process-mgr/process-mgr.cpp" line="929"/>
+        <location filename="process-mgr/process-mgr.cpp" line="950"/>
         <source>Type</source>
         <translation type="unfinished">类型</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="901"/>
+        <location filename="process-mgr/process-mgr.cpp" line="929"/>
         <source>Value</source>
         <translation type="unfinished">值</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="901"/>
+        <location filename="process-mgr/process-mgr.cpp" line="929"/>
         <source>Access</source>
         <translation type="unfinished">访问权限</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="901"/>
+        <location filename="process-mgr/process-mgr.cpp" line="929"/>
         <source>Object Address</source>
         <translation type="unfinished">对象地址</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="912"/>
+        <location filename="process-mgr/process-mgr.cpp" line="944"/>
         <source>Dump Memory</source>
         <translation type="unfinished">内存转储</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="915"/>
+        <location filename="process-mgr/process-mgr.cpp" line="950"/>
         <source>Address</source>
         <translation type="unfinished">地址</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="915"/>
+        <location filename="process-mgr/process-mgr.cpp" line="950"/>
         <source>Property</source>
         <translation type="unfinished">属性</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="915"/>
+        <location filename="process-mgr/process-mgr.cpp" line="950"/>
         <source>State</source>
         <translation type="unfinished">状态</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="915"/>
+        <location filename="process-mgr/process-mgr.cpp" line="950"/>
         <source>Module</source>
         <translation type="unfinished">模块</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="251"/>
+        <location filename="process-mgr/process-mgr.cpp" line="256"/>
         <source>CPU:</source>
         <translation type="unfinished">CPU使用:</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="252"/>
+        <location filename="process-mgr/process-mgr.cpp" line="257"/>
         <source>Memory:</source>
         <translation type="unfinished">内存使用:</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="253"/>
+        <location filename="process-mgr/process-mgr.cpp" line="258"/>
         <source>Processes:</source>
         <translation type="unfinished">进程数:</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="254"/>
+        <location filename="process-mgr/process-mgr.cpp" line="259"/>
         <source>Threads:</source>
         <translation type="unfinished">线程数:</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="255"/>
+        <location filename="process-mgr/process-mgr.cpp" line="260"/>
         <source>Handles:</source>
         <translation type="unfinished">句柄数:</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="278"/>
+        <location filename="process-mgr/process-mgr.cpp" line="283"/>
         <source>Do you kill all processes?
 -------------------
 </source>
@@ -1024,54 +1048,54 @@ p, li { white-space: pre-wrap; }
 </translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="285"/>
+        <location filename="process-mgr/process-mgr.cpp" line="290"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="299"/>
+        <location filename="process-mgr/process-mgr.cpp" line="304"/>
         <source>Select Dll</source>
         <translation type="unfinished">选择DLL</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="299"/>
+        <location filename="process-mgr/process-mgr.cpp" line="304"/>
         <source>Dll Files (*.dll);;All Files (*.*)</source>
         <translation type="unfinished">DLL文件 (*.dll);;所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="305"/>
+        <location filename="process-mgr/process-mgr.cpp" line="310"/>
         <source>Dll file invalid.</source>
         <translation type="unfinished">DLL文件无效.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="312"/>
+        <location filename="process-mgr/process-mgr.cpp" line="317"/>
         <source>Can&apos;t inject 32-bit dll to 64-bit process.</source>
         <translation type="unfinished">32位DLL不能注入到64位进程中.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="316"/>
+        <location filename="process-mgr/process-mgr.cpp" line="321"/>
         <source>Inject 64-bit dll to 32-bit process, maybe fail.</source>
         <translation type="unfinished">64位模块注入到32位进程，可能会失败.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="320"/>
+        <location filename="process-mgr/process-mgr.cpp" line="325"/>
         <source>Inject ok.</source>
         <translation type="unfinished">注入成功.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="322"/>
+        <location filename="process-mgr/process-mgr.cpp" line="327"/>
         <source>Inject failed.</source>
         <translation type="unfinished">注入失败.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="366"/>
-        <location filename="process-mgr/process-mgr.cpp" line="375"/>
+        <location filename="process-mgr/process-mgr.cpp" line="371"/>
+        <location filename="process-mgr/process-mgr.cpp" line="380"/>
         <source>Save dump file</source>
         <translation type="unfinished">保存Dump文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="366"/>
-        <location filename="process-mgr/process-mgr.cpp" line="375"/>
+        <location filename="process-mgr/process-mgr.cpp" line="371"/>
+        <location filename="process-mgr/process-mgr.cpp" line="380"/>
         <source>DumpFile(*.dmp)</source>
         <translation type="unfinished">Dump文件(*.dmp)</translation>
     </message>
@@ -1211,6 +1235,11 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">窗口列表</translation>
     </message>
     <message>
+        <location filename="process-mgr/process-properties.cpp" line="32"/>
+        <source>%1:%2 Properties</source>
+        <translation type="unfinished">%1:%2 属性</translation>
+    </message>
+    <message>
         <location filename="process-mgr/process-properties.cpp" line="38"/>
         <location filename="process-mgr/process-properties.cpp" line="39"/>
         <source>TID</source>
@@ -1255,6 +1284,11 @@ p, li { white-space: pre-wrap; }
         <location filename="process-mgr/process-properties.cpp" line="39"/>
         <source>PID</source>
         <translation type="unfinished">进程ID</translation>
+    </message>
+    <message>
+        <location filename="process-mgr/process-properties.cpp" line="43"/>
+        <source>Refresh</source>
+        <translation type="unfinished">刷新</translation>
     </message>
 </context>
 <context>

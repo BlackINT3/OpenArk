@@ -217,6 +217,11 @@ void SetLineBgColor(QStandardItemModel *model, int row, const QBrush &abrush)
 	}
 }
 
+void SetLineHidden(QTreeView *view, int row, bool hide)
+{
+	view->setRowHidden(row, view->rootIndex(), hide);
+}
+
 bool JsonParse(const QByteArray &data, QJsonObject &obj)
 {
 	QJsonParseError err;

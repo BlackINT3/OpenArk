@@ -264,8 +264,5 @@
     <None Include="openark_zh.ts">
       <Filter>Translation Files</Filter>
     </None>
-    <None Include="openark_zh2.ts">
-      <Filter>Translation Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

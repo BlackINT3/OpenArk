@@ -219,8 +219,7 @@ void OpenArk::onActionReset(bool checked)
 void OpenArk::onActionOnTop(bool checked)
 {
 	HWND wnd = (HWND)winId();
-	QAction* sender = qobject_cast<QAction*>(QObject::sender());
-	if (sender->isChecked()) {
+	if (checked) {
 		SetWindowOnTop(wnd, true);
 	}	else {
 		SetWindowOnTop(wnd, false);

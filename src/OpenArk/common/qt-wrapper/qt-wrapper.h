@@ -156,6 +156,7 @@ void ExpandTreeView(const QModelIndex& index, QTreeView* view);
 void SetDefaultTableViewStyle(QTableView* view, QStandardItemModel* model);
 void SetDefaultTreeViewStyle(QTreeView* view, QStandardItemModel* model);
 void SetLineBgColor(QStandardItemModel *model, int row, const QBrush &abrush);
+void SetLineHidden(QTreeView *view, int row, bool hide);
 
 // Others
 QIcon LoadIcon(QString file_path);
