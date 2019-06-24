@@ -57,10 +57,6 @@ void Bundler::dragEnterEvent(QDragEnterEvent *event)
 		event->acceptProposedAction();
 }
 
-void Bundler::dragMoveEvent(QDragMoveEvent *event)
-{
-}
-
 void Bundler::dropEvent(QDropEvent *event)
 {
 	if (!event->mimeData()->hasUrls())

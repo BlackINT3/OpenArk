@@ -26,9 +26,38 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tabDrivers">
+      <attribute name="title">
+       <string>Drivers</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QTreeView" name="driverView">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="font">
+            <font>
+             <kerning>true</kerning>
+            </font>
+           </property>
+           <property name="itemsExpandable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabDriverKit">
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
       <attribute name="title">
        <string>DriverKit</string>
       </attribute>
@@ -46,6 +75,9 @@
            <width>150</width>
            <height>0</height>
           </size>
+         </property>
+         <property name="acceptDrops">
+          <bool>true</bool>
          </property>
          <property name="title">
           <string>Driver Installer</string>
@@ -113,6 +145,12 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item>
@@ -161,7 +199,7 @@
             <item>
              <widget class="QLabel" name="infoLabel">
               <property name="text">
-               <string/>
+               <string>You can drag drvier file to here...</string>
               </property>
              </widget>
             </item>
@@ -182,32 +220,6 @@
           </size>
          </property>
         </spacer>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tabConstants">
-      <attribute name="title">
-       <string>Drivers</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QTreeView" name="driverView">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="font">
-            <font>
-             <kerning>true</kerning>
-            </font>
-           </property>
-           <property name="itemsExpandable">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
        </item>
       </layout>
      </widget>

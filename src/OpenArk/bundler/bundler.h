@@ -27,7 +27,6 @@ protected:
 
 private slots:
 	void dragEnterEvent(QDragEnterEvent *event);
-	void dragMoveEvent(QDragMoveEvent *event);
 	void dropEvent(QDropEvent *event);
 	void onRefresh();
 	void onOpenFolder();

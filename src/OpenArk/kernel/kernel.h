@@ -40,14 +40,20 @@ public:
 	Kernel(QWidget* parent);
 	~Kernel();
 
+protected:
+	bool eventFilter(QObject *obj, QEvent *e);
+	void dragEnterEvent(QDragEnterEvent *event);
+	void dropEvent(QDropEvent *event);
+
 signals:
 	void signalOpen(QString);
 
 private slots:
 	void onTabChanged(int index);
+	void onOpenFile(QString path);
 
 private:
-	bool eventFilter(QObject *obj, QEvent *e);
+	void InstallDriver(QString driver);
 	void ShowDrivers();
 	int DriversCurRow();
 	QString DriversCurViewItemData(int column);

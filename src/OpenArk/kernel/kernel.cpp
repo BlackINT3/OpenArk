@@ -17,7 +17,7 @@
 #include "../common/common.h"
 #include "../openark/openark.h"
 
-#define KernelTabDrivers 1
+#define KernelTabDrivers 0
 
 struct {
 	int s = 0;
@@ -34,7 +34,8 @@ bool DriversSortFilterProxyModel::lessThan(const QModelIndex &left, const QModel
 {
 	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
 	auto column = left.column();
-	if ((column == DRV.base || column == DRV.number)) return s1.toUInt() < s2.toUInt();
+	if ((column == DRV.base || column == DRV.number)) 
+		return UNONE::StrToHex64W(s1.toString().toStdWString()) < UNONE::StrToHex64W(s2.toString().toStdWString());
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
 
@@ -44,6 +45,7 @@ Kernel::Kernel(QWidget* parent) :
 	ui.setupUi(this);
 	ui.tabWidget->setTabPosition(QTabWidget::West);
 	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
+	setAcceptDrops(true);
 
 	drivers_model_ = new QStandardItemModel;
 	QTreeView *dview = ui.driverView;
@@ -82,6 +84,13 @@ Kernel::Kernel(QWidget* parent) :
 		WinShowProperties(path.toStdWString());
 	});
 
+	connect(ui.installBtn, &QPushButton::clicked, this, [&]() {
+		InstallDriver(ui.driverFileEdit->text());
+	});
+	connect(ui.browseBtn, &QPushButton::clicked, this, [&]() {
+		QString file = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Driver Files (*.sys);;All Files (*.*)"));
+		onOpenFile(file);
+	});
 	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 	connect(this, SIGNAL(signalOpen(QString)), parent_, SLOT(onOpen(QString)));
 }
@@ -89,6 +98,7 @@ Kernel::Kernel(QWidget* parent) :
 Kernel::~Kernel()
 {
 }
+
 
 bool Kernel::eventFilter(QObject *obj, QEvent *e)
 {
@@ -109,10 +119,47 @@ bool Kernel::eventFilter(QObject *obj, QEvent *e)
 	return QWidget::eventFilter(obj, e);
 }
 
+void Kernel::dragEnterEvent(QDragEnterEvent *event)
+{
+	if (event->mimeData()->hasFormat("text/uri-list"))
+		event->acceptProposedAction();
+}
+
+void Kernel::dropEvent(QDropEvent *event)
+{
+	if (!event->mimeData()->hasUrls())
+		return;
+	QString& path = event->mimeData()->urls()[0].toLocalFile();
+	onOpenFile(path);
+}
+
+void Kernel::onOpenFile(QString path)
+{
+	if (!UNONE::FsIsFileW(path.toStdWString()))
+		return;
+	ui.driverFileEdit->setText(path);
+	auto &&name = UNONE::FsPathToPureNameW(path.toStdWString());
+	ui.serviceEdit->setText(WStrToQ(name));
+}
+
 void Kernel::onTabChanged(int index)
 {
 	if (index == KernelTabDrivers) {
 		ShowDrivers();
+	}
+}
+
+void Kernel::InstallDriver(QString driver)
+{
+	if (driver.isEmpty()) return;
+	auto &&path = driver.toStdWString();
+	auto &&name = UNONE::FsPathToPureNameW(path);
+	if (UNONE::ObLoadDriverW(path, name)) {
+		ui.infoLabel->setText(tr("Install ok..."));
+		ui.infoLabel->setStyleSheet("color:green");
+	} else {
+		ui.infoLabel->setText(tr("Install failed, open console window to view detail..."));
+		ui.infoLabel->setStyleSheet("color:red");
 	}
 }
 
@@ -132,10 +179,12 @@ void Kernel::ShowDrivers()
 			name.compare("apisetschema.dll", Qt::CaseInsensitive) == 0) {
 			continue;
 		}
+		bool existed = true;
 		auto info = CacheGetFileBaseInfo(path);
 		if (info.desc.isEmpty()) {
-			if (!UNONE::FsIsExistedW(info.desc.toStdWString())) {
+			if (!UNONE::FsIsExistedW(info.path.toStdWString())) {
 				info.desc = tr("[-] Driver file not existed!");
+				existed = false;
 			}
 		}
 		QStandardItem *name_item = new QStandardItem(name);
@@ -154,6 +203,7 @@ void Kernel::ShowDrivers()
 		drivers_model_->setItem(count, DRV.desc, desc_item);
 		drivers_model_->setItem(count, DRV.ver, ver_item);
 		drivers_model_->setItem(count, DRV.corp, corp_item);
+		if (!existed) SetLineBgColor(drivers_model_, count, Qt::red);
 		number++;
 	}
 }

@@ -123,59 +123,59 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">使用这个图标</translation>
     </message>
     <message>
-        <location filename="bundler/bundler.cpp" line="81"/>
+        <location filename="bundler/bundler.cpp" line="77"/>
         <source>Open Folder</source>
         <translation type="unfinished">打开文件夹</translation>
     </message>
     <message>
-        <location filename="bundler/bundler.cpp" line="88"/>
+        <location filename="bundler/bundler.cpp" line="84"/>
         <source>Select ICON</source>
         <translation type="unfinished">选择图标</translation>
     </message>
     <message>
-        <location filename="bundler/bundler.cpp" line="88"/>
+        <location filename="bundler/bundler.cpp" line="84"/>
         <source>ico/exe (*.exe;*.ico)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="bundler/bundler.cpp" line="103"/>
+        <location filename="bundler/bundler.cpp" line="99"/>
         <source>Save to</source>
         <translation type="unfinished">生成程序</translation>
     </message>
     <message>
-        <location filename="bundler/bundler.cpp" line="103"/>
+        <location filename="bundler/bundler.cpp" line="99"/>
         <source>BundleFile(*.exe)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="bundler/bundler.cpp" line="108"/>
+        <location filename="bundler/bundler.cpp" line="104"/>
         <source>Files is empty</source>
         <translation type="unfinished">文件列表不能为空</translation>
     </message>
     <message>
-        <location filename="bundler/bundler.cpp" line="125"/>
+        <location filename="bundler/bundler.cpp" line="121"/>
         <source>Build err</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="bundler/bundler.cpp" line="126"/>
+        <location filename="bundler/bundler.cpp" line="122"/>
         <source>Build bundle file err</source>
         <translation type="unfinished">打包程序失败</translation>
     </message>
     <message>
-        <location filename="bundler/bundler.cpp" line="142"/>
-        <location filename="bundler/bundler.cpp" line="143"/>
+        <location filename="bundler/bundler.cpp" line="138"/>
+        <location filename="bundler/bundler.cpp" line="139"/>
         <source>BeginUpdateResourceW err</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="bundler/bundler.cpp" line="148"/>
-        <location filename="bundler/bundler.cpp" line="149"/>
+        <location filename="bundler/bundler.cpp" line="144"/>
+        <location filename="bundler/bundler.cpp" line="145"/>
         <source>UpdateResourceW err</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="bundler/bundler.cpp" line="154"/>
+        <location filename="bundler/bundler.cpp" line="150"/>
         <source>Build %1 ok</source>
         <translation type="unfinished">生成程序 %1 成功</translation>
     </message>
@@ -351,50 +351,193 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">密文:</translation>
     </message>
     <message>
-        <location filename="coderkit/coderkit.cpp" line="173"/>
+        <location filename="coderkit/coderkit.cpp" line="172"/>
         <source>Open console to view result</source>
         <translation type="unfinished">打开控制台查看结果</translation>
     </message>
 </context>
 <context>
-    <name>OpenArk</name>
+    <name>Kernel</name>
     <message>
-        <location filename="openark/openark.cpp" line="61"/>
-        <source>OpenArk v%1 </source>
+        <location filename="ui/kernel.ui" line="14"/>
+        <location filename="GeneratedFiles/ui_kernel.h" line="204"/>
+        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="62"/>
-        <source> [build:%1]  </source>
-        <translation type="unfinished"> [构建:%1]  </translation>
+        <location filename="ui/kernel.ui" line="36"/>
+        <location filename="GeneratedFiles/ui_kernel.h" line="212"/>
+        <source>DriverKit</source>
+        <translation type="unfinished">驱动工具箱</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="64"/>
-        <source>64-Bit</source>
-        <translation type="unfinished">64位</translation>
+        <location filename="ui/kernel.ui" line="57"/>
+        <location filename="GeneratedFiles/ui_kernel.h" line="205"/>
+        <source>Driver Installer</source>
+        <translation type="unfinished">驱动安装</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="64"/>
-        <source>32-Bit</source>
-        <translation type="unfinished">32位</translation>
+        <location filename="ui/kernel.ui" line="77"/>
+        <location filename="GeneratedFiles/ui_kernel.h" line="206"/>
+        <source>DriverFile:</source>
+        <translation type="unfinished">驱动文件：</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="71"/>
-        <source>Project on Github</source>
-        <translation type="unfinished">Github开源项目</translation>
+        <location filename="ui/kernel.ui" line="87"/>
+        <location filename="GeneratedFiles/ui_kernel.h" line="207"/>
+        <source>Browse...</source>
+        <translation type="unfinished">浏览...</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="204"/>
+        <location filename="ui/kernel.ui" line="110"/>
+        <location filename="GeneratedFiles/ui_kernel.h" line="208"/>
+        <source>ServiceName:</source>
+        <translation type="unfinished">服务名:</translation>
+    </message>
+    <message>
+        <location filename="ui/kernel.ui" line="140"/>
+        <location filename="GeneratedFiles/ui_kernel.h" line="209"/>
+        <source>Install</source>
+        <translation type="unfinished">安装</translation>
+    </message>
+    <message>
+        <location filename="ui/kernel.ui" line="163"/>
+        <location filename="GeneratedFiles/ui_kernel.h" line="210"/>
+        <source>Information:</source>
+        <translation type="unfinished">信息:</translation>
+    </message>
+    <message>
+        <location filename="ui/kernel.ui" line="170"/>
+        <location filename="GeneratedFiles/ui_kernel.h" line="211"/>
+        <source>You can drag drvier file to here...</source>
+        <translation type="unfinished">可拖动文件到这里...</translation>
+    </message>
+    <message>
+        <location filename="ui/kernel.ui" line="196"/>
+        <location filename="GeneratedFiles/ui_kernel.h" line="213"/>
+        <source>Drivers</source>
+        <translation type="unfinished">驱动列表</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="62"/>
+        <source>Name</source>
+        <translation type="unfinished">名称</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="62"/>
+        <source>Base</source>
+        <translation type="unfinished">基址</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="62"/>
+        <source>Path</source>
+        <translation type="unfinished">路径</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="62"/>
+        <source>Number</source>
+        <translation type="unfinished">顺序</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="62"/>
+        <source>Description</source>
+        <translation type="unfinished">描述</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="62"/>
+        <source>Version</source>
+        <translation type="unfinished">版本</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="62"/>
+        <source>Company</source>
+        <translation type="unfinished">公司</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="72"/>
+        <source>Refresh</source>
+        <translation type="unfinished">刷新</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="73"/>
+        <source>Explore File</source>
+        <translation type="unfinished">定位到文件</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="77"/>
+        <source>Sendto Scanner</source>
+        <translation type="unfinished">扫描</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="82"/>
+        <source>Properties...</source>
+        <translation type="unfinished">属性...</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="91"/>
         <source>Open File</source>
         <translation type="unfinished">打开文件</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="204"/>
+        <location filename="kernel/kernel.cpp" line="91"/>
+        <source>Driver Files (*.sys);;All Files (*.*)</source>
+        <translation type="unfinished">驱动文件 (*.sys);;所有文件 (*.*)</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="158"/>
+        <source>Install ok...</source>
+        <translation type="unfinished">安装成功...</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="161"/>
+        <source>Install failed, open console window to view detail...</source>
+        <translation type="unfinished">安装失败,打开控制台窗口查看详情...</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="185"/>
+        <source>[-] Driver file not existed!</source>
+        <translation type="unfinished">[-] 驱动文件不存在!</translation>
+    </message>
+</context>
+<context>
+    <name>OpenArk</name>
+    <message>
+        <location filename="openark/openark.cpp" line="62"/>
+        <source>OpenArk v%1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="openark/openark.cpp" line="63"/>
+        <source> [build:%1]  </source>
+        <translation type="unfinished"> [构建:%1]  </translation>
+    </message>
+    <message>
+        <location filename="openark/openark.cpp" line="65"/>
+        <source>64-Bit</source>
+        <translation type="unfinished">64位</translation>
+    </message>
+    <message>
+        <location filename="openark/openark.cpp" line="65"/>
+        <source>32-Bit</source>
+        <translation type="unfinished">32位</translation>
+    </message>
+    <message>
+        <location filename="openark/openark.cpp" line="72"/>
+        <source>Project on Github</source>
+        <translation type="unfinished">Github开源项目</translation>
+    </message>
+    <message>
+        <location filename="openark/openark.cpp" line="206"/>
+        <source>Open File</source>
+        <translation type="unfinished">打开文件</translation>
+    </message>
+    <message>
+        <location filename="openark/openark.cpp" line="206"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="335"/>
+        <location filename="openark/openark.cpp" line="337"/>
         <source>Found new version, app should be updated.
 appver: %1
 appbd: %2
@@ -405,37 +548,37 @@ appurl: %3</source>
 下载地址:%3</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="340"/>
+        <location filename="openark/openark.cpp" line="342"/>
         <source>App Updates</source>
         <translation type="unfinished">程序更新</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="346"/>
+        <location filename="openark/openark.cpp" line="348"/>
         <source>OpenArk is latest.</source>
         <translation type="unfinished">OpenArk是最新版本.</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="365"/>
+        <location filename="openark/openark.cpp" line="367"/>
         <source>Language changed ok, did you restart application now?</source>
         <translation type="unfinished">语言设置成功，现在是否重启进程？</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="368"/>
+        <location filename="openark/openark.cpp" line="370"/>
         <source>Information</source>
         <translation type="unfinished">信息</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="418"/>
+        <location filename="openark/openark.cpp" line="420"/>
         <source>History</source>
         <translation type="unfinished">历史记录</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="419"/>
+        <location filename="openark/openark.cpp" line="421"/>
         <source>Helps</source>
         <translation type="unfinished">帮助</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="420"/>
+        <location filename="openark/openark.cpp" line="422"/>
         <source>Clear</source>
         <translation type="unfinished">清空</translation>
     </message>
@@ -444,37 +587,37 @@ appurl: %3</source>
     <name>OpenArkWindow</name>
     <message>
         <location filename="ui/openark.ui" line="75"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="405"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="409"/>
         <source>Process</source>
         <translation type="unfinished">进程</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="80"/>
-        <location filename="ui/openark.ui" line="408"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="382"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="406"/>
+        <location filename="ui/openark.ui" line="85"/>
+        <location filename="ui/openark.ui" line="413"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="386"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="411"/>
         <source>CoderKit</source>
         <translation type="unfinished">编程助手</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="85"/>
-        <location filename="ui/openark.ui" line="413"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="383"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="407"/>
+        <location filename="ui/openark.ui" line="90"/>
+        <location filename="ui/openark.ui" line="418"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="387"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="412"/>
         <source>Scanner</source>
         <translation type="unfinished">扫描器</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="90"/>
-        <location filename="ui/openark.ui" line="423"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="385"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="408"/>
+        <location filename="ui/openark.ui" line="95"/>
+        <location filename="ui/openark.ui" line="428"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="389"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="413"/>
         <source>Bundler</source>
         <translation type="unfinished">捆绑器</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="117"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="409"/>
+        <location filename="ui/openark.ui" line="122"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="414"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -484,225 +627,231 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="144"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="415"/>
+        <location filename="ui/openark.ui" line="149"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="420"/>
         <source>C:\&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="154"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="416"/>
+        <location filename="ui/openark.ui" line="159"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="421"/>
         <source>Command Help</source>
         <translation type="unfinished">命令帮助</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="177"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="417"/>
+        <location filename="ui/openark.ui" line="182"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="422"/>
         <source>&amp;File</source>
         <translation type="unfinished">文件(&amp;F)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="186"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="418"/>
+        <location filename="ui/openark.ui" line="191"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="423"/>
         <source>&amp;View</source>
         <translation type="unfinished">视图(&amp;V)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="195"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="419"/>
+        <location filename="ui/openark.ui" line="200"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="424"/>
         <source>&amp;Options</source>
         <translation type="unfinished">选项(&amp;O)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="209"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="421"/>
+        <location filename="ui/openark.ui" line="214"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="426"/>
         <source>&amp;Plugins</source>
         <translation type="unfinished">插件(&amp;P)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="229"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="423"/>
+        <location filename="ui/openark.ui" line="234"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="428"/>
         <source>&amp;Window</source>
         <oldsource>Window</oldsource>
         <translation type="unfinished">窗口(&amp;W)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="218"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="422"/>
+        <location filename="ui/openark.ui" line="223"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="427"/>
         <source>&amp;Help</source>
         <oldsource>Help</oldsource>
         <translation type="unfinished">帮助(&amp;H)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="199"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="420"/>
+        <location filename="ui/openark.ui" line="80"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="410"/>
+        <source>Kernel</source>
+        <translation type="unfinished">内核</translation>
+    </message>
+    <message>
+        <location filename="ui/openark.ui" line="204"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="425"/>
         <source>&amp;Language</source>
         <translation type="unfinished">语言(&amp;L)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="241"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="424"/>
+        <location filename="ui/openark.ui" line="246"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="429"/>
         <source>toolBar</source>
         <translation type="unfinished">工具栏</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="284"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="358"/>
+        <location filename="ui/openark.ui" line="289"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="362"/>
         <source>&amp;Console</source>
         <translation type="unfinished">控制台(&amp;C)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="287"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="360"/>
+        <location filename="ui/openark.ui" line="292"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="364"/>
         <source>Open Console Window</source>
         <translation type="unfinished">打开控制台窗口</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="290"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="362"/>
+        <location filename="ui/openark.ui" line="295"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="366"/>
         <source>Alt+Shift+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="299"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="363"/>
+        <location filename="ui/openark.ui" line="304"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="367"/>
         <source>&amp;Open</source>
         <translation type="unfinished">打开(&amp;O)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="302"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="364"/>
+        <location filename="ui/openark.ui" line="307"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="368"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="307"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="365"/>
+        <location filename="ui/openark.ui" line="312"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="369"/>
         <source>Ex&amp;port</source>
         <translation type="unfinished">导出(&amp;P)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="316"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="366"/>
+        <location filename="ui/openark.ui" line="321"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="370"/>
         <source>&amp;Exit</source>
         <oldsource>Exit</oldsource>
         <translation type="unfinished">退出(&amp;E)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="321"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="367"/>
+        <location filename="ui/openark.ui" line="326"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="371"/>
         <source>Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="326"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="368"/>
+        <location filename="ui/openark.ui" line="331"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="372"/>
         <source>HelloCoder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="343"/>
-        <location filename="ui/openark.ui" line="346"/>
-        <location filename="ui/openark.ui" line="365"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="369"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="371"/>
+        <location filename="ui/openark.ui" line="348"/>
+        <location filename="ui/openark.ui" line="351"/>
+        <location filename="ui/openark.ui" line="370"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="373"/>
         <location filename="GeneratedFiles/ui_openark.h" line="375"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="379"/>
         <source>Project on Github</source>
         <translation type="unfinished">Github开源项目</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="355"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="373"/>
+        <location filename="ui/openark.ui" line="360"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="377"/>
         <source>About OpenArk</source>
         <translation type="unfinished">关于OpenArk</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="360"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="374"/>
+        <location filename="ui/openark.ui" line="365"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="378"/>
         <source>Check for Updates...</source>
         <translation type="unfinished">检查更新...</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="370"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="376"/>
+        <location filename="ui/openark.ui" line="375"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="380"/>
         <source>Manuals</source>
         <translation type="unfinished">文档手册</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="379"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="377"/>
+        <location filename="ui/openark.ui" line="384"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="381"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">刷新(&amp;R)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="382"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="378"/>
+        <location filename="ui/openark.ui" line="387"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="382"/>
         <source>F5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="391"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="379"/>
+        <location filename="ui/openark.ui" line="396"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="383"/>
         <source>&amp;Save</source>
         <translation type="unfinished">保存(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="394"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="380"/>
+        <location filename="ui/openark.ui" line="399"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="384"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="403"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="381"/>
+        <location filename="ui/openark.ui" line="408"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="385"/>
         <source>&amp;Settings</source>
         <translation type="unfinished">设置(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="452"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="391"/>
+        <location filename="ui/openark.ui" line="457"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="395"/>
         <source>&amp;Module</source>
         <translation type="unfinished">模块(&amp;M)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="455"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="393"/>
+        <location filename="ui/openark.ui" line="460"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="397"/>
         <source>Open Module Window</source>
         <translation type="unfinished">打开模块列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="467"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="395"/>
+        <location filename="ui/openark.ui" line="472"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="399"/>
         <source>&amp;Handle</source>
         <translation type="unfinished">句柄(&amp;H)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="470"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="397"/>
+        <location filename="ui/openark.ui" line="475"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="401"/>
         <source>Open Handle Window</source>
         <translation type="unfinished">打开句柄列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="482"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="399"/>
+        <location filename="ui/openark.ui" line="487"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="403"/>
         <source>&amp;Memory</source>
         <translation type="unfinished">内存(&amp;M)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="485"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="401"/>
+        <location filename="ui/openark.ui" line="490"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="405"/>
         <source>Open Memory Window</source>
         <translation type="unfinished">打开内存列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="493"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="403"/>
+        <location filename="ui/openark.ui" line="498"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="407"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="501"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="404"/>
+        <location filename="ui/openark.ui" line="506"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="408"/>
         <source>简体中文</source>
         <translation type="unfinished"></translation>
     </message>
@@ -711,26 +860,26 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">编程助手</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="418"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="384"/>
+        <location filename="ui/openark.ui" line="423"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="388"/>
         <source>C&amp;leaner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="432"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="386"/>
+        <location filename="ui/openark.ui" line="437"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="390"/>
         <source>&amp;Allways On Top</source>
         <translation type="unfinished">置顶(&amp;A)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="437"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="387"/>
+        <location filename="ui/openark.ui" line="442"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="391"/>
         <source>Reset</source>
         <translation type="unfinished">重置</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="440"/>
-        <location filename="GeneratedFiles/ui_openark.h" line="389"/>
+        <location filename="ui/openark.ui" line="445"/>
+        <location filename="GeneratedFiles/ui_openark.h" line="393"/>
         <source>Reset Window</source>
         <translation type="unfinished">重置窗口</translation>
     </message>
@@ -1427,326 +1576,326 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="38"/>
-        <location filename="scanner/scanner.cpp" line="48"/>
-        <location filename="scanner/scanner.cpp" line="58"/>
+        <location filename="scanner/scanner.cpp" line="37"/>
+        <location filename="scanner/scanner.cpp" line="47"/>
+        <location filename="scanner/scanner.cpp" line="57"/>
+        <location filename="scanner/scanner.cpp" line="63"/>
         <location filename="scanner/scanner.cpp" line="64"/>
-        <location filename="scanner/scanner.cpp" line="65"/>
+        <location filename="scanner/scanner.cpp" line="71"/>
         <location filename="scanner/scanner.cpp" line="72"/>
-        <location filename="scanner/scanner.cpp" line="73"/>
-        <location filename="scanner/scanner.cpp" line="85"/>
+        <location filename="scanner/scanner.cpp" line="84"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="38"/>
-        <location filename="scanner/scanner.cpp" line="48"/>
-        <location filename="scanner/scanner.cpp" line="72"/>
-        <location filename="scanner/scanner.cpp" line="85"/>
+        <location filename="scanner/scanner.cpp" line="37"/>
+        <location filename="scanner/scanner.cpp" line="47"/>
+        <location filename="scanner/scanner.cpp" line="71"/>
+        <location filename="scanner/scanner.cpp" line="84"/>
         <source>Value</source>
         <translation type="unfinished">值</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="58"/>
+        <location filename="scanner/scanner.cpp" line="57"/>
         <source>VirtualSize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="58"/>
-        <location filename="scanner/scanner.cpp" line="79"/>
+        <location filename="scanner/scanner.cpp" line="57"/>
+        <location filename="scanner/scanner.cpp" line="78"/>
         <source>VirtualAddress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="58"/>
+        <location filename="scanner/scanner.cpp" line="57"/>
         <source>SizeOfRawData</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="58"/>
-        <location filename="scanner/scanner.cpp" line="816"/>
+        <location filename="scanner/scanner.cpp" line="57"/>
+        <location filename="scanner/scanner.cpp" line="815"/>
         <source>PointerToRawData</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="58"/>
+        <location filename="scanner/scanner.cpp" line="57"/>
         <source>PointerToRelocations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="58"/>
+        <location filename="scanner/scanner.cpp" line="57"/>
         <source>PointerToLinenumbers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="58"/>
+        <location filename="scanner/scanner.cpp" line="57"/>
         <source>NumberOfRelocations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="58"/>
+        <location filename="scanner/scanner.cpp" line="57"/>
         <source>NumberOfLinenumbers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="58"/>
-        <location filename="scanner/scanner.cpp" line="809"/>
+        <location filename="scanner/scanner.cpp" line="57"/>
+        <location filename="scanner/scanner.cpp" line="808"/>
         <source>Characteristics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="64"/>
+        <location filename="scanner/scanner.cpp" line="63"/>
         <source>OriginalFirstThunk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="64"/>
-        <location filename="scanner/scanner.cpp" line="810"/>
+        <location filename="scanner/scanner.cpp" line="63"/>
+        <location filename="scanner/scanner.cpp" line="809"/>
         <source>TimeDateStamp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="64"/>
+        <location filename="scanner/scanner.cpp" line="63"/>
         <source>ForwarderChain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="64"/>
+        <location filename="scanner/scanner.cpp" line="63"/>
         <source>FirstThunk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="65"/>
+        <location filename="scanner/scanner.cpp" line="64"/>
         <source>ForwarderString</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="65"/>
+        <location filename="scanner/scanner.cpp" line="64"/>
         <source>Function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="65"/>
-        <location filename="scanner/scanner.cpp" line="73"/>
+        <location filename="scanner/scanner.cpp" line="64"/>
+        <location filename="scanner/scanner.cpp" line="72"/>
         <source>Ordinal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="65"/>
+        <location filename="scanner/scanner.cpp" line="64"/>
         <source>AddressOfData</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="65"/>
+        <location filename="scanner/scanner.cpp" line="64"/>
         <source>Hint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="73"/>
+        <location filename="scanner/scanner.cpp" line="72"/>
         <source>FunctionAddr</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="79"/>
+        <location filename="scanner/scanner.cpp" line="78"/>
         <source>SizeOfBlock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="79"/>
+        <location filename="scanner/scanner.cpp" line="78"/>
         <source>ItemCount</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="80"/>
+        <location filename="scanner/scanner.cpp" line="79"/>
         <source>Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="80"/>
-        <location filename="scanner/scanner.cpp" line="813"/>
+        <location filename="scanner/scanner.cpp" line="79"/>
+        <location filename="scanner/scanner.cpp" line="812"/>
         <source>Type</source>
         <translation type="unfinished">类型</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="80"/>
+        <location filename="scanner/scanner.cpp" line="79"/>
         <source>Address</source>
         <translation type="unfinished">地址</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="339"/>
+        <location filename="scanner/scanner.cpp" line="338"/>
         <source>file path is empty</source>
         <translation type="unfinished">文件路径为空</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="434"/>
+        <location filename="scanner/scanner.cpp" line="433"/>
         <source>File Path</source>
         <translation type="unfinished">文件路径</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="435"/>
+        <location filename="scanner/scanner.cpp" line="434"/>
         <source>File Type</source>
         <translation type="unfinished">文件类型</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="436"/>
+        <location filename="scanner/scanner.cpp" line="435"/>
         <source>File Size</source>
         <translation type="unfinished">文件大小</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="440"/>
+        <location filename="scanner/scanner.cpp" line="439"/>
         <source>Created Time</source>
         <translation type="unfinished">创建时间</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="441"/>
+        <location filename="scanner/scanner.cpp" line="440"/>
         <source>Modified Time</source>
         <translation type="unfinished">修改时间</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="442"/>
+        <location filename="scanner/scanner.cpp" line="441"/>
         <source>Accessed Time</source>
         <translation type="unfinished">访问时间</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="448"/>
+        <location filename="scanner/scanner.cpp" line="447"/>
         <source>CRC32</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="449"/>
+        <location filename="scanner/scanner.cpp" line="448"/>
         <source>MD5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="450"/>
+        <location filename="scanner/scanner.cpp" line="449"/>
         <source>SHA1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="464"/>
+        <location filename="scanner/scanner.cpp" line="463"/>
         <source>File Version</source>
         <translation type="unfinished">文件版本</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="465"/>
+        <location filename="scanner/scanner.cpp" line="464"/>
         <source>ProductVersion</source>
         <translation type="unfinished">产品版本</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="466"/>
+        <location filename="scanner/scanner.cpp" line="465"/>
         <source>ProductName</source>
         <translation type="unfinished">产品名称</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="467"/>
+        <location filename="scanner/scanner.cpp" line="466"/>
         <source>LegalCopyright</source>
         <translation type="unfinished">版权信息</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="468"/>
+        <location filename="scanner/scanner.cpp" line="467"/>
         <source>OriginalFileName</source>
         <translation type="unfinished">原始文件名</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="469"/>
+        <location filename="scanner/scanner.cpp" line="468"/>
         <source>InternalName</source>
         <translation type="unfinished">内部名称</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="470"/>
+        <location filename="scanner/scanner.cpp" line="469"/>
         <source>CompanyName</source>
         <translation type="unfinished">公司名称</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="471"/>
+        <location filename="scanner/scanner.cpp" line="470"/>
         <source>FileDescription</source>
         <translation type="unfinished">文件描述</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="478"/>
-        <location filename="scanner/scanner.cpp" line="484"/>
+        <location filename="scanner/scanner.cpp" line="477"/>
+        <location filename="scanner/scanner.cpp" line="483"/>
         <source>ImageBase</source>
         <translation type="unfinished">镜像基址</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="479"/>
-        <location filename="scanner/scanner.cpp" line="485"/>
+        <location filename="scanner/scanner.cpp" line="478"/>
+        <location filename="scanner/scanner.cpp" line="484"/>
         <source>ImageSize</source>
         <translation type="unfinished">镜像大小</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="480"/>
-        <location filename="scanner/scanner.cpp" line="486"/>
+        <location filename="scanner/scanner.cpp" line="479"/>
+        <location filename="scanner/scanner.cpp" line="485"/>
         <source>OEP</source>
         <translation type="unfinished">程序入口</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="511"/>
+        <location filename="scanner/scanner.cpp" line="510"/>
         <source>Linker</source>
         <translation type="unfinished">编译器</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="512"/>
+        <location filename="scanner/scanner.cpp" line="511"/>
         <source>CompileTime</source>
         <translation type="unfinished">编译时间</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="513"/>
+        <location filename="scanner/scanner.cpp" line="512"/>
         <source>PDB File</source>
         <translation type="unfinished">符号文件</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="525"/>
+        <location filename="scanner/scanner.cpp" line="524"/>
         <source>Cert Owner</source>
         <translation type="unfinished">证书所有者</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="526"/>
+        <location filename="scanner/scanner.cpp" line="525"/>
         <source>Cert SN</source>
         <translation type="unfinished">证书序列号</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="811"/>
+        <location filename="scanner/scanner.cpp" line="810"/>
         <source>MajorVersion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="812"/>
+        <location filename="scanner/scanner.cpp" line="811"/>
         <source>MinorVersion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="814"/>
+        <location filename="scanner/scanner.cpp" line="813"/>
         <source>SizeOfData</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="815"/>
+        <location filename="scanner/scanner.cpp" line="814"/>
         <source>AddressOfRawData</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="862"/>
+        <location filename="scanner/scanner.cpp" line="861"/>
         <source>Signature</source>
         <translation type="unfinished">签名校验</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="863"/>
+        <location filename="scanner/scanner.cpp" line="862"/>
         <source>Age</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="864"/>
+        <location filename="scanner/scanner.cpp" line="863"/>
         <source>GUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="865"/>
+        <location filename="scanner/scanner.cpp" line="864"/>
         <source>SymbolID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="866"/>
+        <location filename="scanner/scanner.cpp" line="865"/>
         <source>PDB</source>
         <translation type="unfinished"></translation>
     </message>
