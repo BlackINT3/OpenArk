@@ -127,11 +127,11 @@ private:
 private:
 	Ui::ProcessMgr ui;
 	OpenArk *parent_;
-	QLabel *cpu_percent_lable_;
-	QLabel *mm_percent_lable_;
-	QLabel *cntproc_lable_;
-	QLabel *cntthread_lable_;
-	QLabel *cnthandle_lable_;
+	QLabel *cpu_percent_label_;
+	QLabel *mm_percent_label_;
+	QLabel *cntproc_label_;
+	QLabel *cntthread_label_;
+	QLabel *cnthandle_label_;
 	QMenu *proc_menu_;
 	QMenu *mod_menu_;
 	QMenu *hd_menu_;

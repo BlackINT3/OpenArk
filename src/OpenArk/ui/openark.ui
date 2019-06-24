@@ -68,11 +68,16 @@
 </string>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tabProcessMgr">
         <attribute name="title">
          <string>Process</string>
+        </attribute>
+       </widget>
+       <widget class="QWidget" name="tabKernel">
+        <attribute name="title">
+         <string>Kernel</string>
         </attribute>
        </widget>
        <widget class="QWidget" name="tabCoderKit">

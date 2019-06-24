@@ -95,7 +95,7 @@ bool ModSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelInde
 
 ProcessMgr::ProcessMgr(QWidget* parent) :
 	parent_((OpenArk*)parent),
-	cntproc_lable_(nullptr),
+	cntproc_label_(nullptr),
 	proxy_proc_(nullptr),
 	proc_header_idx_(0),
 	bottom_header_idx_(0),
@@ -246,18 +246,18 @@ void ProcessMgr::onTimer()
 	//ShowProcessList();
 	PERFORMANCE_INFORMATION perf = { 0 };
 	GetPerformanceInfo(&perf, sizeof(perf));
-	if (cntproc_lable_ == nullptr) {
-		cpu_percent_lable_ = new QLabel(); parent_->StatusBarAdd(cpu_percent_lable_);
-		mm_percent_lable_ = new QLabel(); parent_->StatusBarAdd(mm_percent_lable_);
-		cntproc_lable_ = new QLabel(); parent_->StatusBarAdd(cntproc_lable_);
-		cntthread_lable_ = new QLabel(); parent_->StatusBarAdd(cntthread_lable_);
-		cnthandle_lable_ = new QLabel(); parent_->StatusBarAdd(cnthandle_lable_);
+	if (cntproc_label_ == nullptr) {
+		cpu_percent_label_ = new QLabel(); parent_->StatusBarAdd(cpu_percent_label_);
+		mm_percent_label_ = new QLabel(); parent_->StatusBarAdd(mm_percent_label_);
+		cntproc_label_ = new QLabel(); parent_->StatusBarAdd(cntproc_label_);
+		cntthread_label_ = new QLabel(); parent_->StatusBarAdd(cntthread_label_);
+		cnthandle_label_ = new QLabel(); parent_->StatusBarAdd(cnthandle_label_);
 	}
-	cpu_percent_lable_->setText(tr("CPU:") + WStrToQ(UNONE::StrFormatW(L"%0.2f%%", GetSystemUsageOfCPU())));
-	mm_percent_lable_->setText(tr("Memory:") + WStrToQ(UNONE::StrFormatW(L"%0.2f%%", GetSystemUsageOfMemory())));
-	cntproc_lable_->setText(tr("Processes:") + QString("%1").arg(perf.ProcessCount));
-	cntthread_lable_->setText(tr("Threads:") + QString("%1").arg(perf.ThreadCount));
-	cnthandle_lable_->setText(tr("Handles:") + QString("%1").arg(perf.HandleCount));
+	cpu_percent_label_->setText(tr("CPU:") + WStrToQ(UNONE::StrFormatW(L"%0.2f%%", GetSystemUsageOfCPU())));
+	mm_percent_label_->setText(tr("Memory:") + WStrToQ(UNONE::StrFormatW(L"%0.2f%%", GetSystemUsageOfMemory())));
+	cntproc_label_->setText(tr("Processes:") + QString("%1").arg(perf.ProcessCount));
+	cntthread_label_->setText(tr("Threads:") + QString("%1").arg(perf.ThreadCount));
+	cnthandle_label_->setText(tr("Handles:") + QString("%1").arg(perf.HandleCount));
 }
 
 void ProcessMgr::onCopyActionTriggerd(QAction* action)
@@ -391,7 +391,7 @@ void ProcessMgr::onSendtoScanner()
 	} else if (IsContainAction(mod_menu_, action)) {
 		path = BottomCurViewItemData(MOD.path);
 	}
-	parent_->ActivateTab(2);
+	parent_->ActivateTab(TAB_SCANNER);
 	emit signalOpen(path);
 }
 

@@ -30,7 +30,6 @@ Scanner::Scanner(QWidget *parent) :
 
 	ui.tabWidget->setTabPosition(QTabWidget::West);
 	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
-	ui.tabWidget->setStyleSheet("background-color: white;");
 	setAcceptDrops(true);
 
 	sumup_model_ = new QStandardItemModel;

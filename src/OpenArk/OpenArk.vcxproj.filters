@@ -110,6 +110,9 @@
     <ClCompile Include="common\config\config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="kernel\kernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="process-mgr\process-mgr.h">
@@ -145,6 +148,9 @@
     <QtMoc Include="common\qt-wrapper\qt-wrapper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="kernel\kernel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\process-mgr.ui">
@@ -172,6 +178,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ui\settings.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\kernel.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -240,6 +249,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="common\config\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_kernel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

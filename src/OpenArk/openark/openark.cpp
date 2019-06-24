@@ -22,6 +22,7 @@
 #include "settings/settings.h"
 #include "about/about.h"
 #include "cmds/cmds.h"
+#include "kernel/kernel.h"
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
@@ -150,7 +151,8 @@ OpenArk::OpenArk(QWidget *parent) :
 	CreateTabPage(new Scanner(this), ui.tabScanner);
 	CreateTabPage(new CoderKit(this), ui.tabCoderKit);
 	CreateTabPage(new Bundler(this), ui.tabBundler);
-	ActivateTab(0);
+	CreateTabPage(new Kernel(this), ui.tabKernel);
+	ActivateTab(TAB_PROCESS);
 
 	chkupt_timer_ = new QTimer();
 	chkupt_timer_->setInterval(5000);
@@ -373,17 +375,17 @@ void OpenArk::onActionLanguage(QAction *act)
 
 void OpenArk::onActionCoderKit(bool checked)
 {
-	ActivateTab(1);
+	ActivateTab(TAB_CODERKIT);
 }
 
 void OpenArk::onActionScanner(bool checked)
 {
-	ActivateTab(2);
+	ActivateTab(TAB_SCANNER);
 }
 
 void OpenArk::onActionBundler(bool checked)
 {
-	ActivateTab(3);
+	ActivateTab(TAB_BUNDLER);
 }
 
 void OpenArk::onLogOutput(QString log)

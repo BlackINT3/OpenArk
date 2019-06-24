@@ -45,7 +45,6 @@ CoderKit::CoderKit(QWidget* parent) :
 
 	ui.tabWidget->setTabPosition(QTabWidget::West);
 	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
-	ui.tabWidget->setStyleSheet("background-color: white;");
 
 	connect(ui.textEdit, SIGNAL(textChanged()), this, SLOT(onCodeTextChanged()));
 	connect(ui.defaultEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onCodeTextChanged(const QString &)));
