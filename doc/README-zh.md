@@ -2,13 +2,13 @@
 
 ![License](https://img.shields.io/badge/License-LGPL-green.svg)
 
-### Official Links
+### 官方链接
 * 官方网站: https://openark.blackint3.com/
 * 项目地址: https://github.com/BlackINT3/OpenArk/
 * 帮助手册: https://openark.blackint3.com/manuals/
 * QQ群: 836208099
 
-### Introduction
+### 简介
 * [英文说明](https://github.com/BlackINT3/OpenArk/blob/master/README.md)
 
 &ensp;&ensp;OpenArk是一款Windows平台上的开源工具. Ark是Anti-Rootkit（对抗恶意程序）的简写, OpenArk目标成为逆向工程师、编程人员的工具，同时也能为那些希望清理恶意软件的用户服务。以后也将会支持更多功能和命令。
