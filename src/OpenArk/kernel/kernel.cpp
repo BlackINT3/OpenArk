@@ -32,10 +32,11 @@ struct {
 
 bool DriversSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
+	bool ok;
 	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
 	auto column = left.column();
 	if ((column == DRV.base || column == DRV.number)) 
-		return UNONE::StrToHex64W(s1.toString().toStdWString()) < UNONE::StrToHex64W(s2.toString().toStdWString());
+		return s1.toString().toULongLong(&ok, 16) < s2.toString().toULongLong(&ok, 16);
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
 

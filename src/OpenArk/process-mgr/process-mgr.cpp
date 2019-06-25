@@ -73,22 +73,23 @@ bool ProcSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelInd
 {
 	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
 	auto column = left.column();
-	if ((column == 1 || column == 2)) return s1.toUInt() < s2.toUInt();
+	if ((column == PS.pid || column == PS.ppid)) return s1.toUInt() < s2.toUInt();
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
 bool ModSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
 	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
 	auto column = left.column();
+	bool ok;
 	if (bottom_idx_ == BOTTOM_MOD) {
 		if ((column == MOD.base || column == MOD.size))
-			return UNONE::StrToHex64W(s1.toString().toStdWString()) < UNONE::StrToHex64W(s2.toString().toStdWString());
+			return s1.toString().toULongLong(&ok, 16) < s2.toString().toULongLong(&ok, 16);
 	} else if (bottom_idx_ == BOTTOM_HD) {
 		if ((column == HD.value || column == HD.access || column == HD.obj))
-			return UNONE::StrToHex64W(s1.toString().toStdWString()) < UNONE::StrToHex64W(s2.toString().toStdWString());
+			return s1.toString().toULongLong(&ok, 16) < s2.toString().toULongLong(&ok, 16);
 	} else if (bottom_idx_ == BOTTOM_MEM) {
 		if ((column == MEM.addr || column == MEM.size || column == MEM.base))
-			return UNONE::StrToHex64W(s1.toString().toStdWString()) < UNONE::StrToHex64W(s2.toString().toStdWString());
+			return s1.toString().toULongLong(&ok, 16) < s2.toString().toULongLong(&ok, 16);
 	}
 
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
@@ -916,6 +917,8 @@ void ProcessMgr::InitModuleView()
 	} else {
 		bottom_model_->clear();
 		bottom_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Base") << tr("Size") << tr("Path") << tr("Description") << tr("Version") << tr("Company Name")<<tr("Signature"));
+		auto bview = ui.moduleView;
+		bview->header()->setSortIndicator(-1, Qt::AscendingOrder);
 	}
 }
 
@@ -932,6 +935,7 @@ void ProcessMgr::InitHandleView()
 		auto bview = ui.moduleView;
 		bview->setColumnWidth(HD.type, 170);
 		bview->setColumnWidth(HD.name, 700);
+		bview->header()->setSortIndicator(-1, Qt::AscendingOrder);
 	}
 }
 
@@ -956,6 +960,7 @@ void ProcessMgr::InitMemoryView()
 		bview->setColumnWidth(MEM.state, 180);
 		bview->setColumnWidth(MEM.type, 180);
 		bview->setColumnWidth(MEM.base, 150);
+		bview->header()->setSortIndicator(-1, Qt::AscendingOrder);
 	}
 }
 
