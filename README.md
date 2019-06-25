@@ -9,21 +9,25 @@
 * QQ Qun: 836208099
 
 ### Introduction
+* [中文说明](https://github.com/BlackINT3/OpenArk/blob/master/doc/README-zh.md)
+
 &ensp;&ensp;OpenArk is a open source toolkit on Windows. Ark is Anti Rootkit abbreviated, it aimmed at reversing/programming helper and also users can find out malwares in the OS. More and more commands will be supported in future.
 
-![image](doc/resources/snapshot.png)
+![image](doc/resources/snapshot-en-v102.png)
 
 ### Features
-* Process - Process/Thread/Module information view, Dll Injector x86/x64.
-* Scanner - PE file parsers.
+* Process - Process/Thread/Module/Handles/Memory/Window... information view, Dll Injector x86/x64.
+* Kernel - OS Kernel internal toolkit, eg: Drivers, Callback, Filters, IDT/SDT, WFP and more in future.
 * CoderKit - Helper for coders.
+* Scanner - PE file parsers, evolved to virus analyzer in future.
 * Bundler - Directory and files could be bundled to one executable file, it also support scripts.
 * Commands - Many useful coammands in there.
+* Language - support English and Chinese now, more languages in future.
 * More features in developing...
 
 ### Requirement
-* [UNONE](https://github.com/BlackINT3/none)
-* [Qt 5.6.2](https://download.qt.io/official_releases/qt/5.6/5.6.2/)
+* [UNONE & KNONE](https://github.com/BlackINT3/none) - User & Kernel mode BaseLibrary
+* [Qt 5.6.2](https://download.qt.io/official_releases/qt/5.6/5.6.2/) - GUI Framework
 
 ### Distributions
 * Binary (exe)
