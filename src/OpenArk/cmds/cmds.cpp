@@ -307,12 +307,13 @@ Q_INVOKABLE void Cmds::CmdTimeStamp(QStringList argv)
 
 Q_INVOKABLE void Cmds::CmdErrorShow(QStringList argv)
 {
-	auto OutErrorMsg = [&](DWORD err) {
+	auto OutErrorMsg = [&](DWORD err, DWORD status = -1) {
 		auto msg = UNONE::OsDosErrorMsgW(err);
 		if (msg.empty()) {
 			CmdOutput(L"%d is invalid error value", err);
 		} else {
-			CmdOutput(L"%s", msg.c_str());
+			if (status != -1)	CmdOutput(L"%X: %s", status, msg.c_str());
+			else CmdOutput(L"%d: %s", err, msg.c_str());
 		}
 	};
 
@@ -325,7 +326,7 @@ Q_INVOKABLE void Cmds::CmdErrorShow(QStringList argv)
 	if (argc == 2) {
 		if (argv[0] == "-s") {
 			int64_t val = VariantInt64(argv[1].toStdString());
-			OutErrorMsg(UNONE::OsNtToDosError(val));
+			OutErrorMsg(UNONE::OsNtToDosError(val), val);
 			return;
 		}
 	}
@@ -781,64 +782,4 @@ void Cmds::CmdDispatcher(const std::wstring &cmdline)
 		}
 	}
 	CmdException(ECMD_NOSUCH_CMD);
-}
-
-int Cmds::VariantInt(std::string val, int radix)
-{
-	if (val.empty()) {
-		return 0;
-	}
-	if (val.find("0n") == 0) {
-		UNONE::StrReplaceA(val, "0n");
-		return UNONE::StrToDecimalA(val);
-	}
-	if (val.find("0x") == 0 || val[val.size() - 1] == 'h') {
-		UNONE::StrReplaceA(val, "0x");
-		return UNONE::StrToHexA(val);
-	}
-	if (val.find("0t") == 0) {
-		UNONE::StrReplaceA(val, "0t");
-		return UNONE::StrToOctalA(val);
-	}
-	if (val.find("0y") == 0) {
-		UNONE::StrReplaceA(val, "0y");
-		return UNONE::StrToBinaryA(val);
-	}
-	switch (radix) {
-	case 2: return UNONE::StrToBinaryA(val);
-	case 8: return UNONE::StrToOctalA(val);
-	case 10: return UNONE::StrToDecimalA(val);
-	case 16: return UNONE::StrToHexA(val);
-	default: return UNONE::StrToHexA(val);
-	}
-}
-
-int64_t Cmds::VariantInt64(std::string val, int radix)
-{
-	if (val.empty()) {
-		return 0;
-	}
-	if (val.find("0n") == 0) {
-		UNONE::StrReplaceA(val, "0n");
-		return UNONE::StrToDecimal64A(val);
-	}
-	if (val.find("0x") == 0 || val[val.size() - 1] == 'h') {
-		UNONE::StrReplaceA(val, "0x");
-		return UNONE::StrToHex64A(val);
-	}
-	if (val.find("0t") == 0) {
-		UNONE::StrReplaceA(val, "0t");
-		return UNONE::StrToOctal64A(val);
-	}
-	if (val.find("0y") == 0) {
-		UNONE::StrReplaceA(val, "0y");
-		return UNONE::StrToBinary64A(val);
-	}
-	switch (radix) {
-	case 2: return UNONE::StrToBinary64A(val);
-	case 8: return UNONE::StrToOctal64A(val);
-	case 10: return UNONE::StrToDecimal64A(val);
-	case 16: return UNONE::StrToHex64A(val);
-	default: return UNONE::StrToHex64A(val);
-	}
 }

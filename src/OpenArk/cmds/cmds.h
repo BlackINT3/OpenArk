@@ -55,10 +55,6 @@ public:
 	void CmdOutput(const wchar_t* format, ...);
 	void CmdDispatcher(const std::wstring &cmdline);
 
-private:
-	int VariantInt(std::string val, int radix = 16);
-	int64_t VariantInt64(std::string val, int radix = 16);
-
 	size_t cmd_cursor_;
 	QStringList cmd_history_;
 	QTextBrowser *cmd_window_;

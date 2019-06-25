@@ -64,6 +64,7 @@ struct {
 	int mod = s++;
 } MEM;
 
+#define BOTTOM_HIDE -1
 #define BOTTOM_MOD 0
 #define BOTTOM_HD 1
 #define BOTTOM_MEM 2
@@ -99,6 +100,7 @@ ProcessMgr::ProcessMgr(QWidget* parent) :
 	proxy_proc_(nullptr),
 	proc_header_idx_(0),
 	bottom_header_idx_(0),
+	bottom_idx_(BOTTOM_HIDE),
 	mod_menu_(nullptr),
 	hd_menu_(nullptr),
 	mem_menu_(nullptr)

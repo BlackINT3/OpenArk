@@ -14,3 +14,64 @@
 **
 ****************************************************************************/
 #include "cpp-wrapper.h"
+#include "../common/common.h"
+
+int VariantInt(std::string val, int radix)
+{
+	if (val.empty()) {
+		return 0;
+	}
+	if (val.find("0n") == 0) {
+		UNONE::StrReplaceA(val, "0n");
+		return UNONE::StrToDecimalA(val);
+	}
+	if (val.find("0x") == 0 || val[val.size() - 1] == 'h') {
+		UNONE::StrReplaceA(val, "0x");
+		return UNONE::StrToHexA(val);
+	}
+	if (val.find("0t") == 0) {
+		UNONE::StrReplaceA(val, "0t");
+		return UNONE::StrToOctalA(val);
+	}
+	if (val.find("0y") == 0) {
+		UNONE::StrReplaceA(val, "0y");
+		return UNONE::StrToBinaryA(val);
+	}
+	switch (radix) {
+	case 2: return UNONE::StrToBinaryA(val);
+	case 8: return UNONE::StrToOctalA(val);
+	case 10: return UNONE::StrToDecimalA(val);
+	case 16: return UNONE::StrToHexA(val);
+	default: return UNONE::StrToHexA(val);
+	}
+}
+
+int64_t VariantInt64(std::string val, int radix)
+{
+	if (val.empty()) {
+		return 0;
+	}
+	if (val.find("0n") == 0) {
+		UNONE::StrReplaceA(val, "0n");
+		return UNONE::StrToDecimal64A(val);
+	}
+	if (val.find("0x") == 0 || val[val.size() - 1] == 'h') {
+		UNONE::StrReplaceA(val, "0x");
+		return UNONE::StrToHex64A(val);
+	}
+	if (val.find("0t") == 0) {
+		UNONE::StrReplaceA(val, "0t");
+		return UNONE::StrToOctal64A(val);
+	}
+	if (val.find("0y") == 0) {
+		UNONE::StrReplaceA(val, "0y");
+		return UNONE::StrToBinary64A(val);
+	}
+	switch (radix) {
+	case 2: return UNONE::StrToBinary64A(val);
+	case 8: return UNONE::StrToOctal64A(val);
+	case 10: return UNONE::StrToDecimal64A(val);
+	case 16: return UNONE::StrToHex64A(val);
+	default: return UNONE::StrToHex64A(val);
+	}
+}

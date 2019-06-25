@@ -182,12 +182,12 @@ BundleError BundleUnpack(const std::wstring &outdir, const char *bdata, std::wst
 		return err;
 	}
 	dirname = (wchar_t*)bhdr.dirname;
-	size_t oribuflen = bhdr.orisize + 64;
-	size_t cpbuflen = bhdr.cpsize;
+	uint64_t oribuflen = bhdr.orisize + 64;
+	uint64_t cpbuflen = bhdr.cpsize;
 	std::string cpdata, oridata;
 	cpdata.resize(cpbuflen);
 	oridata.resize(oribuflen);
-	BundleReadMemory(bdata, (LPVOID)cpdata.data(), bhdr.cpsize);
+	BundleReadMemory(bdata, (LPVOID)cpdata.data(), (DWORD)bhdr.cpsize);
 	int size = LZ4_decompress_safe(cpdata.data(), (char*)oridata.data(), cpbuflen, oribuflen);
 	if (size == 0) {
 		return BERR_FAIL_DECOMPRESSED;
@@ -200,9 +200,9 @@ BundleError BundleUnpack(const std::wstring &outdir, const char *bdata, std::wst
 	script.assign((wchar_t*)sptr->buf, sptr->len);
 
 	BundleRecord *rptr = (BundleRecord*)((char*)sptr + sizeof(BundleScript) - 2 + sptr->len*2);
-	for (int i = 0; i < bhdr.recordcnt; i++) {
+	for (int i = 0; i < (int)bhdr.recordcnt; i++) {
 		if (rptr->size != 0) {
-			if (crc32(rptr->data, rptr->size) != rptr->crc32) {
+			if (crc32(rptr->data, (uint32_t)rptr->size) != rptr->crc32) {
 				err = BERR_INVALID_RECORDCRC32;
 				break;
 			}
@@ -220,7 +220,7 @@ BundleError BundleUnpack(const std::wstring &outdir, const char *bdata, std::wst
 		}
 		if (rptr->size != 0) {
 			DWORD wlen;
-			if (!WriteFile(fd, rptr->data, rptr->size, &wlen, NULL)) {
+			if (!WriteFile(fd, rptr->data, (DWORD)rptr->size, &wlen, NULL)) {
 				err = BERR_FAIL_WRITE;
 				CloseHandle(fd);
 				break;

@@ -48,3 +48,6 @@ private: // noncopyable
 #define SCOPEGUARD_LINENAME_CAT(name, line) name##line
 #define SCOPEGUARD_LINENAME(name, line) SCOPEGUARD_LINENAME_CAT(name, line)
 #define ON_SCOPE_EXIT(callback) ScopeGuard SCOPEGUARD_LINENAME(EXIT, __LINE__)(callback)
+
+int VariantInt(std::string val, int radix = 16);
+int64_t VariantInt64(std::string val, int radix = 16);

@@ -272,9 +272,9 @@
     <ResourceCompile Include="res\OpenArk.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="openark_zh.ts">
       <Filter>Translation Files</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

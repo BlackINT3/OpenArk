@@ -149,20 +149,24 @@ void CoderKit::onCodeTextChanged(const QString & text)
 
 void CoderKit::onWindowsErrorTextChanged(const QString & text)
 {
-	DWORD doserr;
 	std::string number = text.toStdString();
 	QLineEdit* sender = qobject_cast<QLineEdit*>(QObject::sender());
 	if (sender == ui.doserrEdit) {
-		ui.msgEdit->setText(WStrToQ(UNONE::OsDosErrorMsgW(UNONE::StrToIntegerA(number))));
+		auto err = VariantInt(number, 10);
+		auto msg = UNONE::StrFormatW(L"%d: %s", err, UNONE::OsDosErrorMsgW(err).c_str());
+		ui.msgEdit->setText(WStrToQ(msg));
 	}	else if (sender == ui.ntstatusEdit) {
-		doserr = UNONE::OsNtToDosError((UNONE::StrToHexA(number)));
+		auto err = VariantInt(number, 16);
+		auto doserr = UNONE::OsNtToDosError((VariantInt(number, 16)));
+		auto msg = UNONE::StrFormatW(L"%X: %s", err, UNONE::OsDosErrorMsgW(doserr).c_str());
 		ui.doserrEdit->setText(QString("%1").arg(doserr));
-		ui.msgEdit->setText(WStrToQ(UNONE::OsDosErrorMsgW(doserr)));
+		ui.msgEdit->setText(WStrToQ(msg));
 	}	else if (sender == ui.hresultEdit) {
-		auto hr = UNONE::StrToHexA(number);
-		doserr = hr & 0xFFFF;
+		auto hr = VariantInt(number, 16);
+		auto doserr = hr & 0xFFFF;
 		ui.doserrEdit->setText(QString("%1").arg(doserr));
-		ui.msgEdit->setText(WStrToQ(UNONE::OsDosErrorMsgW(hr)));
+		auto msg = UNONE::StrFormatW(L"%X: %s", hr, UNONE::OsDosErrorMsgW(doserr).c_str());
+		ui.msgEdit->setText(WStrToQ(msg));
 	}
 }
 
