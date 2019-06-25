@@ -877,7 +877,7 @@ void ProcessMgr::InitProcessView()
 	pview->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	pview->setExpandsOnDoubleClick(false);
 	pview->setColumnWidth(PS.name, 250);
-	pview->setColumnWidth(PS.path, 440);
+	pview->setColumnWidth(PS.path, 400);
 	pview->setColumnWidth(PS.desc, 190);
 	pview->setColumnWidth(PS.corp, 155);
 	connect(pview->header(), SIGNAL(sectionClicked(int)), this, SLOT(onSectionClicked(int)));

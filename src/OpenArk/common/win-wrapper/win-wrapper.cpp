@@ -15,8 +15,8 @@
 ****************************************************************************/
 #include "win-wrapper.h"
 #include "../common/common.h"
-#include <Dbghelp.h>
-#pragma comment(lib, "Dbghelp.lib")
+#include <QString>
+#include <QtCore>
 
 std::wstring FormatFileTime(FILETIME *file_tm)
 {
@@ -85,6 +85,8 @@ std::wstring ProcessCreateTime(__in DWORD pid)
 	return FormatFileTime(&create_tm);
 }
 
+#include <Dbghelp.h>
+#pragma comment(lib, "Dbghelp.lib")
 bool CreateDump(DWORD pid, const std::wstring& path, bool mini)
 {
 	if (UNONE::PsIsX64(pid) && !UNONE::PsIsX64(GetCurrentProcessId())) {
@@ -113,10 +115,9 @@ bool CreateDump(DWORD pid, const std::wstring& path, bool mini)
 	CloseHandle(fd);
 	CloseHandle(phd);
 	if (ret) {
-		MsgBoxInfo("Create dump ok.");
-	}
-	else {
-		MsgBoxError("Create dump failed.");
+		MsgBoxInfo(QObject::tr("Create dump ok."));
+	}	else {
+		MsgBoxError(QObject::tr("Create dump failed."));
 	}
 	return ret == TRUE;
 }
