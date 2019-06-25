@@ -1,4 +1,4 @@
-# OpenArk ![image](doc/resources/logo.png)
+# OpenArk ![image](resources/logo.png)
 
 ![License](https://img.shields.io/badge/License-LGPL-green.svg)
 
