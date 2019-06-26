@@ -297,6 +297,12 @@ void ProcessMgr::onKillProcessTree()
 	}
 }
 
+void ProcessMgr::onRestartProcess()
+{
+	UNONE::PsRestartProcess(ProcCurPid());
+	onRefresh();
+}
+
 void ProcessMgr::onSuspendProcess()
 {
 
@@ -742,6 +748,7 @@ void ProcessMgr::onSectionClicked(int idx)
 			ui.moduleView->header()->setSortIndicator(-1, Qt::AscendingOrder);
 		}
 	}
+	onProcSelection(DWordToDecQ(cur_pid_));
 }
 
 void ProcessMgr::onProcDoubleClicked( const QModelIndex &idx )
@@ -749,8 +756,12 @@ void ProcessMgr::onProcDoubleClicked( const QModelIndex &idx )
 	onShowProperties();
 }
 
-void ProcessMgr::onProcChanged( const QModelIndex &current, const QModelIndex &previous )
+void ProcessMgr::onProcChanged(const QModelIndex &current, const QModelIndex &previous)
 {
+	if (current.isValid()) {
+		//auto row = current.row();
+		cur_pid_ = current.sibling(current.row(), PS.pid).data().toUInt();
+	}
 	onShowBottom(bottom_idx_);
 }
 
@@ -792,9 +803,9 @@ void ProcessMgr::onProcSelection(QString pid)
 
 DWORD ProcessMgr::ProcCurPid()
 {
-	auto idx = ui.processView->currentIndex();
-	DWORD pid = idx.sibling(idx.row(), PS.pid).data().toString().toUInt();
-	return pid;
+	//auto idx = ui.processView->currentIndex();
+	//DWORD pid = idx.sibling(idx.row(), PS.pid).data().toUInt();
+	return cur_pid_;
 }
 
 int ProcessMgr::ProcCurRow()
@@ -850,6 +861,7 @@ void ProcessMgr::InitProcessView()
 	proc_menu_->addAction(copy_menu_->menuAction());
 	proc_menu_->addAction(tr("Kill Process"), this, SLOT(onKillProcess()), QKeySequence::Delete);
 	proc_menu_->addAction(tr("Kill Process Tree"), this, SLOT(onKillProcessTree()), QKeySequence("SHIFT+Delete"));
+	proc_menu_->addAction(tr("Restart Process"), this, SLOT(onRestartProcess()));
 	//proc_menu_->addAction(tr("Suspend"), this, SLOT(onSuspendProcess()));
 	proc_menu_->addAction(tr("Select PID"), this, SLOT(onSelectPid()), QKeySequence("CTRL+G"));
 	proc_menu_->addAction(tr("Explore File"), this, SLOT(onExploreFile()), QKeySequence("CTRL+L"));

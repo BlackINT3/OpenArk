@@ -70,6 +70,7 @@ private slots:
 	void onCopyActionTriggerd(QAction* action);
 	void onKillProcess();
 	void onKillProcessTree();
+	void onRestartProcess();
 	void onSuspendProcess();
 	void onInjectDll();
 	void onSelectPid();
@@ -124,6 +125,8 @@ private:
 	bool uncommed_checked_;
 	bool nonexec_checked_;
 	bool imaged_checked_;
+	DWORD cur_pid_;
+
 private:
 	Ui::ProcessMgr ui;
 	OpenArk *parent_;

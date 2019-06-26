@@ -917,89 +917,89 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">隐藏模块内存</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="836"/>
+        <location filename="process-mgr/process-mgr.cpp" line="847"/>
         <source>Process Name</source>
         <translation type="unfinished">进程名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="837"/>
+        <location filename="process-mgr/process-mgr.cpp" line="848"/>
         <source>Process ID</source>
         <translation type="unfinished">进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="838"/>
+        <location filename="process-mgr/process-mgr.cpp" line="849"/>
         <source>Parent ID</source>
         <translation type="unfinished">父进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="839"/>
+        <location filename="process-mgr/process-mgr.cpp" line="850"/>
         <source>Process Path</source>
         <translation type="unfinished">进程路径</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="840"/>
+        <location filename="process-mgr/process-mgr.cpp" line="851"/>
         <source>Created Time</source>
         <translation type="unfinished">启动时间</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="841"/>
+        <location filename="process-mgr/process-mgr.cpp" line="852"/>
         <source>Copy</source>
         <translation type="unfinished">复制</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="845"/>
+        <location filename="process-mgr/process-mgr.cpp" line="856"/>
         <source>Create Minidump...</source>
         <translation type="unfinished">创建 MiniDump...</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="846"/>
+        <location filename="process-mgr/process-mgr.cpp" line="857"/>
         <source>Create Fulldump...</source>
         <translation type="unfinished">创建 FullDump...</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="847"/>
+        <location filename="process-mgr/process-mgr.cpp" line="858"/>
         <source>Create Dump</source>
         <translation type="unfinished">创建Dump文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="849"/>
-        <location filename="process-mgr/process-mgr.cpp" line="911"/>
+        <location filename="process-mgr/process-mgr.cpp" line="860"/>
+        <location filename="process-mgr/process-mgr.cpp" line="923"/>
         <source>Refresh</source>
         <translation type="unfinished">刷新</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="851"/>
+        <location filename="process-mgr/process-mgr.cpp" line="862"/>
         <source>Kill Process</source>
         <translation type="unfinished">结束进程</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="852"/>
+        <location filename="process-mgr/process-mgr.cpp" line="863"/>
         <source>Kill Process Tree</source>
         <translation type="unfinished">结束进程树</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="854"/>
+        <location filename="process-mgr/process-mgr.cpp" line="866"/>
         <source>Select PID</source>
         <translation type="unfinished">选择进程(PID)</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="855"/>
-        <location filename="process-mgr/process-mgr.cpp" line="912"/>
+        <location filename="process-mgr/process-mgr.cpp" line="867"/>
+        <location filename="process-mgr/process-mgr.cpp" line="924"/>
         <source>Explore File</source>
         <translation type="unfinished">定位到文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="856"/>
+        <location filename="process-mgr/process-mgr.cpp" line="868"/>
         <source>Enum Thread</source>
         <translation type="unfinished">枚举线程</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="857"/>
+        <location filename="process-mgr/process-mgr.cpp" line="869"/>
         <source>Enum Window</source>
         <translation type="unfinished">枚举窗口</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="858"/>
+        <location filename="process-mgr/process-mgr.cpp" line="870"/>
         <source>Inject Dll</source>
         <translation type="unfinished">注入DLL</translation>
     </message>
@@ -1008,157 +1008,162 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">扫描</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="527"/>
+        <location filename="process-mgr/process-mgr.cpp" line="533"/>
         <source>Save to</source>
         <translation type="unfinished">生成程序</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="527"/>
+        <location filename="process-mgr/process-mgr.cpp" line="533"/>
         <source>DumpMemory(*)</source>
         <translation type="unfinished">转储文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="531"/>
+        <location filename="process-mgr/process-mgr.cpp" line="537"/>
         <source>Dump memory ok</source>
         <translation type="unfinished">内存转储成功</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="859"/>
-        <location filename="process-mgr/process-mgr.cpp" line="913"/>
+        <location filename="process-mgr/process-mgr.cpp" line="864"/>
+        <source>Restart Process</source>
+        <translation type="unfinished">重启进程</translation>
+    </message>
+    <message>
+        <location filename="process-mgr/process-mgr.cpp" line="871"/>
+        <location filename="process-mgr/process-mgr.cpp" line="925"/>
         <source>Sendto Scanner</source>
         <oldsource>Scanner</oldsource>
         <translation type="unfinished">扫描</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="861"/>
-        <location filename="process-mgr/process-mgr.cpp" line="916"/>
+        <location filename="process-mgr/process-mgr.cpp" line="873"/>
+        <location filename="process-mgr/process-mgr.cpp" line="928"/>
         <source>Properties...</source>
         <translation type="unfinished">属性...</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="864"/>
+        <location filename="process-mgr/process-mgr.cpp" line="876"/>
         <source>Process</source>
         <translation type="unfinished">进程</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="864"/>
+        <location filename="process-mgr/process-mgr.cpp" line="876"/>
         <source>PID</source>
         <translation type="unfinished">进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="864"/>
+        <location filename="process-mgr/process-mgr.cpp" line="876"/>
         <source>PPID</source>
         <translation type="unfinished">父进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="864"/>
-        <location filename="process-mgr/process-mgr.cpp" line="919"/>
+        <location filename="process-mgr/process-mgr.cpp" line="876"/>
+        <location filename="process-mgr/process-mgr.cpp" line="931"/>
         <source>Path</source>
         <translation type="unfinished">路径</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="864"/>
-        <location filename="process-mgr/process-mgr.cpp" line="919"/>
+        <location filename="process-mgr/process-mgr.cpp" line="876"/>
+        <location filename="process-mgr/process-mgr.cpp" line="931"/>
         <source>Description</source>
         <translation type="unfinished">描述</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="864"/>
-        <location filename="process-mgr/process-mgr.cpp" line="919"/>
+        <location filename="process-mgr/process-mgr.cpp" line="876"/>
+        <location filename="process-mgr/process-mgr.cpp" line="931"/>
         <source>Company Name</source>
         <translation type="unfinished">公司名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="864"/>
+        <location filename="process-mgr/process-mgr.cpp" line="876"/>
         <source>CreatedTime</source>
         <translation type="unfinished">启动时间</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="914"/>
+        <location filename="process-mgr/process-mgr.cpp" line="926"/>
         <source>Verify Signature</source>
         <translation type="unfinished">校验签名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="915"/>
+        <location filename="process-mgr/process-mgr.cpp" line="927"/>
         <source>Verify All Signature</source>
         <translation type="unfinished">校验所有签名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="919"/>
-        <location filename="process-mgr/process-mgr.cpp" line="934"/>
+        <location filename="process-mgr/process-mgr.cpp" line="931"/>
+        <location filename="process-mgr/process-mgr.cpp" line="946"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="919"/>
-        <location filename="process-mgr/process-mgr.cpp" line="956"/>
+        <location filename="process-mgr/process-mgr.cpp" line="931"/>
+        <location filename="process-mgr/process-mgr.cpp" line="968"/>
         <source>Base</source>
         <translation type="unfinished">基址</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="919"/>
-        <location filename="process-mgr/process-mgr.cpp" line="956"/>
+        <location filename="process-mgr/process-mgr.cpp" line="931"/>
+        <location filename="process-mgr/process-mgr.cpp" line="968"/>
         <source>Size</source>
         <translation type="unfinished">大小</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="919"/>
+        <location filename="process-mgr/process-mgr.cpp" line="931"/>
         <source>Version</source>
         <translation type="unfinished">版本</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="919"/>
+        <location filename="process-mgr/process-mgr.cpp" line="931"/>
         <source>Signature</source>
         <translation type="unfinished">签名校验</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="929"/>
+        <location filename="process-mgr/process-mgr.cpp" line="941"/>
         <source>Close Handle</source>
         <translation type="unfinished">关闭句柄</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="934"/>
-        <location filename="process-mgr/process-mgr.cpp" line="956"/>
+        <location filename="process-mgr/process-mgr.cpp" line="946"/>
+        <location filename="process-mgr/process-mgr.cpp" line="968"/>
         <source>Type</source>
         <translation type="unfinished">类型</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="934"/>
+        <location filename="process-mgr/process-mgr.cpp" line="946"/>
         <source>Value</source>
         <translation type="unfinished">值</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="934"/>
+        <location filename="process-mgr/process-mgr.cpp" line="946"/>
         <source>Access</source>
         <translation type="unfinished">访问权限</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="934"/>
+        <location filename="process-mgr/process-mgr.cpp" line="946"/>
         <source>Object Address</source>
         <translation type="unfinished">对象地址</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="950"/>
+        <location filename="process-mgr/process-mgr.cpp" line="962"/>
         <source>Dump Memory</source>
         <translation type="unfinished">内存转储</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="956"/>
+        <location filename="process-mgr/process-mgr.cpp" line="968"/>
         <source>Address</source>
         <translation type="unfinished">地址</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="956"/>
+        <location filename="process-mgr/process-mgr.cpp" line="968"/>
         <source>Property</source>
         <translation type="unfinished">属性</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="956"/>
+        <location filename="process-mgr/process-mgr.cpp" line="968"/>
         <source>State</source>
         <translation type="unfinished">状态</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="956"/>
+        <location filename="process-mgr/process-mgr.cpp" line="968"/>
         <source>Module</source>
         <translation type="unfinished">模块</translation>
     </message>
@@ -1202,49 +1207,49 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="307"/>
+        <location filename="process-mgr/process-mgr.cpp" line="313"/>
         <source>Select Dll</source>
         <translation type="unfinished">选择DLL</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="307"/>
+        <location filename="process-mgr/process-mgr.cpp" line="313"/>
         <source>Dll Files (*.dll);;All Files (*.*)</source>
         <translation type="unfinished">DLL文件 (*.dll);;所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="313"/>
+        <location filename="process-mgr/process-mgr.cpp" line="319"/>
         <source>Dll file invalid.</source>
         <translation type="unfinished">DLL文件无效.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="320"/>
+        <location filename="process-mgr/process-mgr.cpp" line="326"/>
         <source>Can&apos;t inject 32-bit dll to 64-bit process.</source>
         <translation type="unfinished">32位DLL不能注入到64位进程中.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="324"/>
+        <location filename="process-mgr/process-mgr.cpp" line="330"/>
         <source>Inject 64-bit dll to 32-bit process, maybe fail.</source>
         <translation type="unfinished">64位模块注入到32位进程，可能会失败.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="328"/>
+        <location filename="process-mgr/process-mgr.cpp" line="334"/>
         <source>Inject ok.</source>
         <translation type="unfinished">注入成功.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="330"/>
+        <location filename="process-mgr/process-mgr.cpp" line="336"/>
         <source>Inject failed.</source>
         <translation type="unfinished">注入失败.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="374"/>
-        <location filename="process-mgr/process-mgr.cpp" line="383"/>
+        <location filename="process-mgr/process-mgr.cpp" line="380"/>
+        <location filename="process-mgr/process-mgr.cpp" line="389"/>
         <source>Save dump file</source>
         <translation type="unfinished">保存Dump文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="374"/>
-        <location filename="process-mgr/process-mgr.cpp" line="383"/>
+        <location filename="process-mgr/process-mgr.cpp" line="380"/>
+        <location filename="process-mgr/process-mgr.cpp" line="389"/>
         <source>DumpFile(*.dmp)</source>
         <translation type="unfinished">Dump文件(*.dmp)</translation>
     </message>
