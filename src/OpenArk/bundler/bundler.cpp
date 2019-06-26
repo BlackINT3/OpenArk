@@ -37,7 +37,7 @@ bool Bundler::eventFilter(QObject *obj, QEvent *e)
 {
 	if (obj == ui.folderLabel) {
 		if (e->type() == QEvent::MouseButtonPress) {
-			ShellExecuteA(NULL, "open", files_folder_.toStdString().c_str(), NULL, NULL, SW_SHOW);
+			ShellExecuteW(NULL, L"open", files_folder_.toStdWString().c_str(), NULL, NULL, SW_SHOW);
 		}
 	}	else if (obj == ui.filesView->viewport()) {
 		if (e->type() == QEvent::ContextMenu) {
