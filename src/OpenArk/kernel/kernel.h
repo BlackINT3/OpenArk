@@ -29,7 +29,6 @@ class DriversSortFilterProxyModel : public QSortFilterProxyModel {
 public:
 	DriversSortFilterProxyModel(QWidget *parent) {};
 	~DriversSortFilterProxyModel() {};
-	int bottom_idx_;
 protected:
 	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
 };
@@ -37,7 +36,7 @@ protected:
 class Kernel : public QWidget {
 	Q_OBJECT
 public:
-	Kernel(QWidget* parent);
+	Kernel(QWidget *parent);
 	~Kernel();
 
 protected:
@@ -51,9 +50,17 @@ signals:
 private slots:
 	void onTabChanged(int index);
 	void onOpenFile(QString path);
+	void onSignDriver();
+	void onInstallNormallyDriver();
+	void onInstallUnsignedDriver();
+	void onInstallExpiredDriver();
+	void onUninstallDriver();
 
 private:
-	void InstallDriver(QString driver);
+	void InitDriversView();
+	void InitDriverKitView();
+	bool InstallDriver(QString driver);
+	bool UninstallDriver(QString service);
 	void ShowDrivers();
 	int DriversCurRow();
 	QString DriversCurViewItemData(int column);

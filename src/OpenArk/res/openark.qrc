@@ -15,5 +15,7 @@
         <file>module.ico</file>
         <file>memory.ico</file>
         <file>CSignTool.exe</file>
+        <file>CSignTool.pfx</file>
+        <file>Config.xml</file>
     </qresource>
 </RCC>

@@ -26,7 +26,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabDrivers">
       <attribute name="title">
@@ -126,6 +126,25 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QPushButton" name="installExpiredBtn">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>110</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Install Expired</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
@@ -179,9 +198,28 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="installBtn">
+             <widget class="QPushButton" name="signBtn">
               <property name="text">
-               <string>Install</string>
+               <string>Sign</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="installUnsignedBtn">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>110</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Install Unsigned</string>
               </property>
              </widget>
             </item>
@@ -211,7 +249,46 @@
             <item>
              <widget class="QLabel" name="infoLabel">
               <property name="text">
-               <string>You can drag drvier file to here...</string>
+               <string>You can drag driver file to here...</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="uninstallBtn">
+              <property name="text">
+               <string>Uninstall</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="installNormallyBtn">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>110</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Install Normally</string>
               </property>
              </widget>
             </item>

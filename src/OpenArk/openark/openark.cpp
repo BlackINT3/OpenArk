@@ -60,7 +60,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	ui.splitter->setStretchFactor(0, 1);
 	ui.splitter->setStretchFactor(1, 5);
 	QString title = QString(tr("OpenArk v%1 ").arg(AppVersion()));
-	title.append(tr(" [build:%1]  ").arg(AppBdTime()));
+	title.append(tr(" [build:%1]  ").arg(AppBuildTime()));
 
 	UNONE::PeX64((CHAR*)GetModuleHandleW(NULL)) ? title.append(tr("64-Bit")) : title.append(tr("32-Bit"));
 
@@ -152,7 +152,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	CreateTabPage(new CoderKit(this), ui.tabCoderKit);
 	CreateTabPage(new Bundler(this), ui.tabBundler);
 	CreateTabPage(new Kernel(this), ui.tabKernel);
-	ActivateTab(TAB_PROCESS);
+	ActivateTab(TAB_KERNEL);
 
 	chkupt_timer_ = new QTimer();
 	chkupt_timer_->setInterval(5000);
@@ -328,7 +328,7 @@ void OpenArk::onActionCheckUpdate(bool checked)
 			return;
 		}
 		auto local_ver = AppVersion();
-		auto local_bd = AppBdTime();
+		auto local_bd = AppBuildTime();
 		INFO(L"local appver:%s, build:%s", local_ver.toStdWString().c_str(), local_bd.toStdWString().c_str());
 		if (local_ver.isEmpty() || local_bd.isEmpty()) {
 			return;

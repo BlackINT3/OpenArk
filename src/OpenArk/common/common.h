@@ -14,60 +14,13 @@
 **
 ****************************************************************************/
 #pragma once
-#include <QString>
-#include "../openark/openark.h"
-
-extern QApplication *app;
-extern QTranslator *app_tr;
-extern OpenArk *openark;
-
-void MsgBoxInfo(QString msg);
-void MsgBoxWarn(QString msg);
-void MsgBoxError(QString msg);
-
-enum LogOuputLevel {
-	LevelInfo,
-	LevelWarn,
-	LevelErr,
-	LevelDbg
-};
-bool LogOutput(LogOuputLevel lev, const char* func, const char* format, ...);
-bool LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...);
-#define INFO(format, ...)  \
-	LogOutput(LevelInfo, __FUNCTION__, (format), __VA_ARGS__)
-#define WARN(format, ...)  \
-	LogOutput(LevelWarn, __FUNCTION__, (format), __VA_ARGS__)
-#define ERR(format, ...)  \
-	LogOutput(LevelErr, __FUNCTION__, (format), __VA_ARGS__)
-#define DBG(format, ...)  \
-	LogOutput(LevelDbg, __FUNCTION__, (format), __VA_ARGS__)
+#include <unone.h>
+using namespace UNONE::Plugins;
 
 #include "win-wrapper/win-wrapper.h"
 #include "qt-wrapper/qt-wrapper.h"
 #include "cpp-wrapper/cpp-wrapper.h"
+#include "app/app.h"
 #include "cache/cache.h"
 #include "config/config.h"
 
-
-__inline QString AppVersion()
-{
-	std::wstring ver;
-	UNONE::FsGetFileInfoW(UNONE::PsGetProcessPathW(), L"ProductVersion", ver);
-	if (!ver.empty()) {
-		ver = ver.substr(0, ver.find_last_of(L"."));
-	}
-	return WStrToQ(ver);
-}
-
-__inline QString AppBdTime()
-{
-	QString stamp = StrToQ(UNONE::TmFormatUnixTimeA(UNONE::PeGetTimeStamp((CHAR*)GetModuleHandleW(NULL)), "YMDHW"));
-	return stamp;
-}
-
-// disable logger, exit recover
-#define DISABLE_RECOVER() \
-	UNONE::LogCallback routine;\
-	bool regok = UNONE::InterCurrentLogger(routine);\
-	if (regok) UNONE::InterRegisterLogger([&](const std::wstring &) {});\
-	ON_SCOPE_EXIT([&] {if (regok) UNONE::InterUnregisterLogger(); });

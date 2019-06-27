@@ -357,3 +357,18 @@ bool ObGetObjectName(HANDLE hd, std::string& obj_name)
 	CloseHandle(alloc_evt);
 	return ret;
 }
+
+bool ExtractResource(const QString &res, const QString &path)
+{
+	QFile f(res);
+	if (!f.open(QIODevice::ReadOnly)) {
+		return false;
+	}
+	auto &&data = f.readAll().toStdString();
+	auto &&dst = path.toStdWString();
+	UNONE::FsCreateDirW(UNONE::FsPathToDirW(dst));
+	if (!UNONE::FsWriteFileDataW(dst, data)) {
+		return false;
+	}
+	return true;
+}

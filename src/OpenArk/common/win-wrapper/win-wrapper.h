@@ -17,10 +17,8 @@
 #include <vector>
 #include <map>
 #include <string>
-#include <unone.h>
-using namespace UNONE::Plugins;
-
 #include <QString>
+#include "../common.h"
 
 bool RetrieveThreadTimes(DWORD tid, std::wstring& ct, std::wstring& kt, std::wstring& ut);
 std::wstring FormatFileTime(FILETIME *file_tm);
@@ -36,3 +34,4 @@ void SetWindowOnTop(HWND wnd, bool ontop);
 void WinShowProperties(const std::wstring &path);
 bool GetCertOwner(const QString &path, QString &owner);
 bool ObGetObjectName(HANDLE hd, std::string& obj_name);
+bool ExtractResource(const QString &res, const QString &path);

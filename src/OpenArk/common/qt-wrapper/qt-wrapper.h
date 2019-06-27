@@ -57,7 +57,13 @@ private:
 	static OpenArkLanguage *langobj_;
 	int curlang_;
 };
-
+#define TR(str) QObject::tr(str)
+#define TRA(str) QObject::tr(str).toStdString().c_str()
+#define TRW(str) QObject::tr(str).toStdWString().c_str()
+#define QToChars(qstr) qstr.toStdString().c_str()
+#define QToWChars(qstr) qstr.toStdWString().c_str()
+#define QToStr(qstr) qstr.toStdString()
+#define QToWStr(qstr) qstr.toStdWString()
 #define CharsToQ(chars) QString::fromLocal8Bit(chars)
 #define WCharsToQ(wchars) QString::fromWCharArray(wchars)
 #define StrToQ(str) QString::fromStdString(str)
@@ -68,6 +74,20 @@ private:
 #define DWordToHexQ(w) StrToQ(UNONE::StrFormatA("%08X", w))
 #define QWordToDecQ(w) StrToQ(UNONE::StrFormatA("%lld", w))
 #define QWordToHexQ(w) StrToQ(UNONE::StrFormatA("%016llX", w))
+
+inline void MsgBoxInfo(QString msg)
+{
+	QMessageBox::information(nullptr, QObject::tr("OpenArk Information"), msg);
+}
+inline void MsgBoxWarn(QString msg)
+{
+	QMessageBox::warning(nullptr, QObject::tr("OpenArk Warning"), msg);
+}
+inline void MsgBoxError(QString msg)
+{
+	QMessageBox::critical(nullptr, QObject::tr("OpenArk Error"), msg);
+}
+
 inline QStringList VectorToQList(const std::vector<std::string>& vec)
 {
 	QStringList result;

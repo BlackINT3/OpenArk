@@ -16,6 +16,7 @@
 #include "kernel.h"
 #include "../common/common.h"
 #include "../openark/openark.h"
+#include "driver/driver.h"
 
 #define KernelTabDrivers 0
 
@@ -40,66 +41,22 @@ bool DriversSortFilterProxyModel::lessThan(const QModelIndex &left, const QModel
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
 
-Kernel::Kernel(QWidget* parent) :
+Kernel::Kernel(QWidget *parent) :
 	parent_((OpenArk*)parent)
 {
 	ui.setupUi(this);
 	ui.tabWidget->setTabPosition(QTabWidget::West);
 	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
 	setAcceptDrops(true);
-
-	drivers_model_ = new QStandardItemModel;
-	QTreeView *dview = ui.driverView;
-	proxy_drivers_ = new DriversSortFilterProxyModel(dview);
-	proxy_drivers_->setSourceModel(drivers_model_);
-	proxy_drivers_->setDynamicSortFilter(true);
-	proxy_drivers_->setFilterKeyColumn(1);
-	dview->setModel(proxy_drivers_);
-	dview->selectionModel()->setModel(proxy_drivers_);
-	dview->header()->setSortIndicator(-1, Qt::AscendingOrder);
-	dview->setSortingEnabled(true);
-	dview->viewport()->installEventFilter(this);
-	dview->installEventFilter(this);
-	drivers_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Base") << tr("Path") << tr("Number") << tr("Description") << tr("Version") << tr("Company"));
-	dview->setColumnWidth(DRV.name, 138);
-	dview->setColumnWidth(DRV.base, 135);
-	dview->setColumnWidth(DRV.path, 285);
-	dview->setColumnWidth(DRV.number, 60);
-	dview->setColumnWidth(DRV.desc, 180);
-	//dview->setColumnWidth(DRV.corp, 155);
-	dview->setColumnWidth(DRV.ver, 120);
-	dview->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	drivers_menu_ = new QMenu();
-	drivers_menu_->addAction(tr("Refresh"), this, [&] { ShowDrivers(); });
-	drivers_menu_->addAction(tr("Explore File"), this, [&] { 
-		auto path = DriversCurViewItemData(DRV.path);
-		ExploreFile(path);
-	});
-	drivers_menu_->addAction(tr("Sendto Scanner"), this, [&] { 
-		auto path = DriversCurViewItemData(DRV.path);
-		parent_->ActivateTab(TAB_SCANNER);
-		emit signalOpen(path);
-	});
-	drivers_menu_->addAction(tr("Properties..."), this, [&]() {
-		auto path = DriversCurViewItemData(DRV.path);
-		WinShowProperties(path.toStdWString());
-	});
-
-	connect(ui.installBtn, &QPushButton::clicked, this, [&]() {
-		InstallDriver(ui.driverFileEdit->text());
-	});
-	connect(ui.browseBtn, &QPushButton::clicked, this, [&]() {
-		QString file = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Driver Files (*.sys);;All Files (*.*)"));
-		onOpenFile(file);
-	});
 	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
-	connect(this, SIGNAL(signalOpen(QString)), parent_, SLOT(onOpen(QString)));
+
+	InitDriversView();
+	InitDriverKitView();
 }
 
 Kernel::~Kernel()
 {
 }
-
 
 bool Kernel::eventFilter(QObject *obj, QEvent *e)
 {
@@ -130,7 +87,7 @@ void Kernel::dropEvent(QDropEvent *event)
 {
 	if (!event->mimeData()->hasUrls())
 		return;
-	QString& path = event->mimeData()->urls()[0].toLocalFile();
+	QString path = event->mimeData()->urls()[0].toLocalFile();
 	onOpenFile(path);
 }
 
@@ -138,6 +95,7 @@ void Kernel::onOpenFile(QString path)
 {
 	if (!UNONE::FsIsFileW(path.toStdWString()))
 		return;
+	path = WStrToQ(UNONE::FsPathStandardW(path.toStdWString()));
 	ui.driverFileEdit->setText(path);
 	auto &&name = UNONE::FsPathToPureNameW(path.toStdWString());
 	ui.serviceEdit->setText(WStrToQ(name));
@@ -150,18 +108,125 @@ void Kernel::onTabChanged(int index)
 	}
 }
 
-void Kernel::InstallDriver(QString driver)
+void Kernel::onSignDriver()
 {
-	if (driver.isEmpty()) return;
-	auto &&path = driver.toStdWString();
-	auto &&name = UNONE::FsPathToPureNameW(path);
-	if (UNONE::ObLoadDriverW(path, name)) {
+	QString driver = ui.driverFileEdit->text();
+	if (SignExpiredDriver(driver)) {
+		ui.infoLabel->setText(tr("Sign ok..."));
+		ui.infoLabel->setStyleSheet("color:green");
+	} else {
+		ui.infoLabel->setText(tr("Sign failed, open console window to view detail..."));
+		ui.infoLabel->setStyleSheet("color:red");
+	}
+}
+
+void Kernel::onInstallNormallyDriver()
+{
+	if (InstallDriver(ui.driverFileEdit->text())) {
 		ui.infoLabel->setText(tr("Install ok..."));
 		ui.infoLabel->setStyleSheet("color:green");
 	} else {
 		ui.infoLabel->setText(tr("Install failed, open console window to view detail..."));
 		ui.infoLabel->setStyleSheet("color:red");
 	}
+}
+
+void Kernel::onInstallUnsignedDriver()
+{
+	onSignDriver();
+	RECOVER_SIGN_TIME();
+	onInstallNormallyDriver();
+}
+
+void Kernel::onInstallExpiredDriver()
+{
+	RECOVER_SIGN_TIME();
+	onInstallNormallyDriver();
+}
+
+void Kernel::onUninstallDriver()
+{
+	if (UninstallDriver(ui.serviceEdit->text())) {
+		ui.infoLabel->setText(tr("Uninstall ok..."));
+		ui.infoLabel->setStyleSheet("color:green");
+	} else {
+		ui.infoLabel->setText(tr("Uninstall failed, open console window to view detail..."));
+		ui.infoLabel->setStyleSheet("color:red");
+	}
+}
+
+void Kernel::InitDriversView()
+{
+	drivers_model_ = new QStandardItemModel;
+	QTreeView *dview = ui.driverView;
+	proxy_drivers_ = new DriversSortFilterProxyModel(dview);
+	proxy_drivers_->setSourceModel(drivers_model_);
+	proxy_drivers_->setDynamicSortFilter(true);
+	proxy_drivers_->setFilterKeyColumn(1);
+	dview->setModel(proxy_drivers_);
+	dview->selectionModel()->setModel(proxy_drivers_);
+	dview->header()->setSortIndicator(-1, Qt::AscendingOrder);
+	dview->setSortingEnabled(true);
+	dview->viewport()->installEventFilter(this);
+	dview->installEventFilter(this);
+	drivers_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Base") << tr("Path") << tr("Number") << tr("Description") << tr("Version") << tr("Company"));
+	dview->setColumnWidth(DRV.name, 138);
+	dview->setColumnWidth(DRV.base, 135);
+	dview->setColumnWidth(DRV.path, 285);
+	dview->setColumnWidth(DRV.number, 60);
+	dview->setColumnWidth(DRV.desc, 180);
+	//dview->setColumnWidth(DRV.corp, 155);
+	dview->setColumnWidth(DRV.ver, 120);
+	dview->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	drivers_menu_ = new QMenu();
+	drivers_menu_->addAction(tr("Refresh"), this, [&] { ShowDrivers(); });
+	drivers_menu_->addAction(tr("Explore File"), this, [&] {
+		auto path = DriversCurViewItemData(DRV.path);
+		ExploreFile(path);
+	});
+	drivers_menu_->addAction(tr("Sendto Scanner"), this, [&] {
+		auto path = DriversCurViewItemData(DRV.path);
+		parent_->ActivateTab(TAB_SCANNER);
+		emit signalOpen(path);
+	});
+	drivers_menu_->addAction(tr("Properties..."), this, [&]() {
+		auto path = DriversCurViewItemData(DRV.path);
+		WinShowProperties(path.toStdWString());
+	});
+}
+
+void Kernel::InitDriverKitView()
+{
+	connect(ui.browseBtn, &QPushButton::clicked, this, [&]() {
+		QString file = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Driver Files (*.sys);;All Files (*.*)"));
+		onOpenFile(file);
+	});
+	connect(ui.signBtn, SIGNAL(clicked()), this, SLOT(onSignDriver()));
+	connect(ui.installNormallyBtn, SIGNAL(clicked()), this, SLOT(onInstallNormallyDriver()));
+	connect(ui.installUnsignedBtn, SIGNAL(clicked()), this, SLOT(onInstallUnsignedDriver()));
+	connect(ui.installExpiredBtn, SIGNAL(clicked()), this, SLOT(onInstallExpiredDriver()));
+	connect(ui.uninstallBtn, SIGNAL(clicked()), this, SLOT(onUninstallDriver()));
+	connect(this, SIGNAL(signalOpen(QString)), parent_, SLOT(onOpen(QString)));
+}
+
+bool Kernel::InstallDriver(QString driver)
+{
+	if (driver.isEmpty()) {
+		QERR_W("driver path is empty");
+		return false;
+	}
+	auto &&path = driver.toStdWString();
+	auto &&name = ui.serviceEdit->text().toStdWString();
+	return UNONE::ObLoadDriverW(path, name);
+}
+
+bool Kernel::UninstallDriver(QString service)
+{
+	if (service.isEmpty()) {
+		QERR_W("service is empty");
+		return false;
+	}
+	return UNONE::ObUnloadDriverW(service.toStdWString());
 }
 
 void Kernel::ShowDrivers()

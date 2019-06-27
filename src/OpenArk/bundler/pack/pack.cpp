@@ -185,10 +185,10 @@ BundleError BundleUnpack(const std::wstring &outdir, const char *bdata, std::wst
 	uint64_t oribuflen = bhdr.orisize + 64;
 	uint64_t cpbuflen = bhdr.cpsize;
 	std::string cpdata, oridata;
-	cpdata.resize(cpbuflen);
-	oridata.resize(oribuflen);
+	cpdata.resize((unsigned int)cpbuflen);
+	oridata.resize((unsigned int)oribuflen);
 	BundleReadMemory(bdata, (LPVOID)cpdata.data(), (DWORD)bhdr.cpsize);
-	int size = LZ4_decompress_safe(cpdata.data(), (char*)oridata.data(), cpbuflen, oribuflen);
+	int size = LZ4_decompress_safe(cpdata.data(), (char*)oridata.data(), (int)cpbuflen, (int)oribuflen);
 	if (size == 0) {
 		return BERR_FAIL_DECOMPRESSED;
 	}
