@@ -66,7 +66,7 @@ Kernel::Kernel(QWidget* parent) :
 	dview->setColumnWidth(DRV.path, 285);
 	dview->setColumnWidth(DRV.number, 60);
 	dview->setColumnWidth(DRV.desc, 180);
-	dview->setColumnWidth(DRV.corp, 155);
+	//dview->setColumnWidth(DRV.corp, 155);
 	dview->setColumnWidth(DRV.ver, 120);
 	dview->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	drivers_menu_ = new QMenu();
@@ -175,11 +175,8 @@ void Kernel::ShowDrivers()
 	for (auto d : drivers) {
 		auto &&path = WStrToQ(UNONE::ObGetDriverPathW(d));
 		auto &&name = WStrToQ(UNONE::ObGetDriverNameW(d));
-		if (name.compare("ntdll.dll", Qt::CaseInsensitive) == 0 ||
-			name.compare("smss.exe", Qt::CaseInsensitive) == 0 ||
-			name.compare("apisetschema.dll", Qt::CaseInsensitive) == 0) {
-			continue;
-		}
+
+		bool microsoft = true;
 		bool existed = true;
 		auto info = CacheGetFileBaseInfo(path);
 		if (info.desc.isEmpty()) {
@@ -188,6 +185,10 @@ void Kernel::ShowDrivers()
 				existed = false;
 			}
 		}
+		if (info.corp != "Microsoft Corporation") {
+			microsoft = false;
+		}
+
 		QStandardItem *name_item = new QStandardItem(name);
 		QStandardItem *base_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", d)));
 		QStandardItem *path_item = new QStandardItem(path);
@@ -205,6 +206,7 @@ void Kernel::ShowDrivers()
 		drivers_model_->setItem(count, DRV.ver, ver_item);
 		drivers_model_->setItem(count, DRV.corp, corp_item);
 		if (!existed) SetLineBgColor(drivers_model_, count, Qt::red);
+		else if (!microsoft) SetLineBgColor(drivers_model_, count, QBrush(0xffffaa));
 		number++;
 	}
 }

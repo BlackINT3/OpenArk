@@ -22,7 +22,7 @@ QSize OpenArkTabStyle::sizeFromContents(ContentsType type, const QStyleOption *o
 	if (type == QStyle::CT_TabBarTab) {
 		s.transpose();
 		s.rwidth() = 140;
-		s.rheight() = 40;
+		s.rheight() = 30;
 	}
 	return s;
 }

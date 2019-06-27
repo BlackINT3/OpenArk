@@ -227,6 +227,9 @@
     <QtRcc>
       <ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription>
       <OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile>
+      <Compression>default</Compression>
+      <CompressThreshold>
+      </CompressThreshold>
     </QtRcc>
     <PostBuildEvent>
       <Command>$(SolutionDir)..\tools\upx-win64\upx.exe -7v "$(TargetPath)"</Command>

@@ -151,12 +151,13 @@ bool ProcessMgr::eventFilter(QObject *obj, QEvent *e)
 				DISABLE_RECOVER();
 				QModelIndex idx = ui.processView->indexAt(pt);
 				const QModelIndex &curidx = idx.sibling(idx.row(), 1);
+				if (!curidx.isValid()) return true;
 				auto pid = curidx.data(Qt::DisplayRole).toInt();
+				if (pid == 0 || pid == 4) return true;
 				auto info = CacheGetProcessBaseInfo(pid);
 				info.CommandLine = UNONE::StrInsertW(info.CommandLine, 120, L"\n    ");
 				info.ImagePathName = UNONE::StrInsertW(info.ImagePathName, 120, L"\n    ");
-				QString tips = QString("Command Line:\n    %1\nPath:\n    %2"
-				).arg(WStrToQ(info.CommandLine)).arg(WStrToQ(info.ImagePathName));
+				QString tips = QString("Command Line:\n    %1\nPath:\n    %2").arg(WStrToQ(info.CommandLine)).arg(WStrToQ(info.ImagePathName));
 				QToolTip::showText(mouse->globalPos(), tips);
 				return true;
 			}
