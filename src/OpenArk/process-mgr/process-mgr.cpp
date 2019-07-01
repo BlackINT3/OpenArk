@@ -526,7 +526,7 @@ void ProcessMgr::onDumpMemory()
 	SIZE_T readlen;
 	bool ret = ReadProcessMemory(phd, (LPCVOID)addr, (LPVOID)data.data(), size, &readlen);
 	if (!ret && size != readlen) {
-		ERR(L"ReadProcessMemory pid:%d err:%d", pid, GetLastError());
+		ERR(L"ReadProcessMemory pid:%d err:%d, expect:%d readlen:%d", pid, GetLastError(), size, readlen);
 		CloseHandle(phd);
 		return;
 	}
@@ -647,7 +647,10 @@ void ProcessMgr::onShowHandle()
 					break;
 				}
 				case 8: {
-					DWORD tid = GetThreadId(dup);
+					typedef DWORD (WINAPI *__GetThreadId)(HANDLE Thread);
+					auto pGetThreadId = (__GetThreadId)GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "GetThreadId");
+					DWORD tid = 0;
+					if (pGetThreadId) tid = pGetThreadId(dup);
 					DWORD pid = UNONE::PsGetPidByThread(tid);
 					name = UNONE::StrFormatA("%s(%d) %d", UNONE::PsGetProcessNameA(pid).c_str(), pid, tid);
 				}

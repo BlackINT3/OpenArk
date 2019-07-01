@@ -57,6 +57,7 @@ private slots:
 	void onUninstallDriver();
 
 private:
+	void InitKernelEntryView();
 	void InitDriversView();
 	void InitDriverKitView();
 	bool InstallDriver(QString driver);
@@ -66,9 +67,13 @@ private:
 	QString DriversCurViewItemData(int column);
 
 private:
+	bool arkdrv_conn_;
+
+private:
 	Ui::Kernel ui;
 	OpenArk *parent_;
 	QMenu *drivers_menu_;
+	QStandardItemModel *kerninfo_model_;
 	QStandardItemModel *drivers_model_;
 	DriversSortFilterProxyModel *proxy_drivers_;
 };

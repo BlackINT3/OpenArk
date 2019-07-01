@@ -17,5 +17,7 @@
         <file>CSignTool.exe</file>
         <file>CSignTool.pfx</file>
         <file>Config.xml</file>
+        <file>OpenArkDrv32.sys</file>
+        <file>OpenArkDrv64.sys</file>
     </qresource>
 </RCC>

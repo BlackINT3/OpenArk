@@ -17,6 +17,7 @@
 #include "../common/common.h"
 #include "../openark/openark.h"
 #include "driver/driver.h"
+#include "../../../OpenArkDrv/iarkdrv/iarkdrv.h"
 
 #define KernelTabDrivers 0
 
@@ -50,6 +51,7 @@ Kernel::Kernel(QWidget *parent) :
 	setAcceptDrops(true);
 	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 
+	InitKernelEntryView();
 	InitDriversView();
 	InitDriverKitView();
 }
@@ -153,6 +155,91 @@ void Kernel::onUninstallDriver()
 		ui.infoLabel->setText(tr("Uninstall failed, open console window to view detail..."));
 		ui.infoLabel->setStyleSheet("color:red");
 	}
+}
+
+void Kernel::InitKernelEntryView()
+{
+	kerninfo_model_ = new QStandardItemModel;
+	SetDefaultTableViewStyle(ui.kernelInfoView, kerninfo_model_);
+	kerninfo_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Value"));
+	ui.kernelInfoView->setColumnWidth(0, 120);
+
+	int up_seq = 0;
+	auto AddSummaryUpItem = [&](QString name, QString value) {
+		kerninfo_model_->setItem(up_seq, 0, new QStandardItem(name));
+		kerninfo_model_->setItem(up_seq, 1, new QStandardItem(value));
+		up_seq++;
+	};
+
+	SYSTEM_INFO sys;
+	GetSystemInfo(&sys);
+	sys.dwNumberOfProcessors;
+
+	OSVERSIONINFOEXW info;
+	info.dwOSVersionInfoSize = sizeof(info);
+	GetVersionExW((LPOSVERSIONINFOW)&info);
+
+	AddSummaryUpItem(tr("MajorVersion"), DWordToDecQ(UNONE::OsMajorVer()));
+	AddSummaryUpItem(tr("MiniorVersion"), DWordToDecQ(UNONE::OsMinorVer()));
+	AddSummaryUpItem(tr("BuildNumber"), DWordToDecQ(UNONE::OsBuildNumber()));
+	AddSummaryUpItem(tr("MajorServicePack"), DWordToDecQ(info.wServicePackMajor));
+	AddSummaryUpItem(tr("MiniorServicePack"), DWordToDecQ(info.wServicePackMinor));
+	AddSummaryUpItem(tr("R3 AddressRange"), StrToQ(UNONE::StrFormatA("%p - %p", sys.lpMinimumApplicationAddress, sys.lpMaximumApplicationAddress)));
+	AddSummaryUpItem(tr("Page Size"), StrToQ(UNONE::StrFormatA("0x%X", sys.dwPageSize)));
+	AddSummaryUpItem(tr("CPU Count"), DWordToDecQ(sys.dwNumberOfProcessors));
+	AddSummaryUpItem(tr("SystemRoot"), WStrToQ(UNONE::OsWinDirW()));
+
+	connect(ui.kernelModeBtn, &QPushButton::clicked, this, [&]() {
+		if (!arkdrv_conn_) {
+			QString driver;
+			if (UNONE::OsIs64()) {
+				driver = WStrToQ(UNONE::OsEnvironmentW(L"%Temp%\\OpenArkDrv64.sys"));
+				ExtractResource(":/OpenArk/OpenArkDrv64.sys", driver);
+			}
+			else {
+				driver = WStrToQ(UNONE::OsEnvironmentW(L"%Temp%\\OpenArkDrv32.sys"));
+				ExtractResource(":/OpenArk/OpenArkDrv32.sys", driver);
+			}
+			{
+				SignExpiredDriver(driver);
+				RECOVER_SIGN_TIME();
+				if (!InstallDriver(driver)) {
+					QERR_W("InstallDriver %s err", driver);
+					return;
+				}
+			}
+			bool ret = IArkDrv::ConnectDriver();
+			if (!ret) {
+				ERR("ConnectDriver err");
+				return;
+			}
+			std::vector<DRIVER_ITEM> infos;
+			IArkDrv::DriverEnumInfo(infos);
+			for (auto &d : infos) {
+				INFO(L"%llx %x %x %d %d %s", d.base, d.size, d.flags, d.init_seq, d.load_seq, UNONE::StrToW((char*)d.path).c_str());
+			}
+		}		
+	});
+
+	arkdrv_conn_ = false;
+	auto timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, this, [&]() {
+		bool conn = IArkDrv::HeartBeatPulse();
+		if (conn && !arkdrv_conn_) {
+			ui.kernelModeStatus->setText(tr("[KernelMode] Connect successfully..."));
+			ui.kernelModeStatus->setStyleSheet("color:green");
+			ui.kernelModeBtn->setEnabled(false);
+			arkdrv_conn_ = true;
+		}
+		if (!conn && arkdrv_conn_) {
+			ui.kernelModeStatus->setText(tr("[KernelMode] Disconnected..."));
+			ui.kernelModeStatus->setStyleSheet("color:red");
+			ui.kernelModeBtn->setEnabled(true);
+			arkdrv_conn_ = false;
+		}
+	});
+	timer->setInterval(1000);
+	timer->start();
 }
 
 void Kernel::InitDriversView()

@@ -23,4 +23,3 @@ using namespace UNONE::Plugins;
 #include "app/app.h"
 #include "cache/cache.h"
 #include "config/config.h"
-
