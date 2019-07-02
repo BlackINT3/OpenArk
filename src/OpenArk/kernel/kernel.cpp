@@ -19,7 +19,10 @@
 #include "driver/driver.h"
 #include "../../../OpenArkDrv/iarkdrv/iarkdrv.h"
 
-#define KernelTabDrivers 0
+#define KernelTabEntry 0
+#define KernelTabDrivers 1
+#define KernelTabDriverKit 2
+#define KernelTabNotify 3
 
 struct {
 	int s = 0;
@@ -32,12 +35,31 @@ struct {
 	int corp = s++;
 } DRV;
 
+struct {
+	int s = 0;
+	int addr = s++;
+	int type = s++;
+	int path = s++;
+	int desc = s++;
+	int ver = s++;
+	int corp = s++;
+} NOTIFY;
+
 bool DriversSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
 	bool ok;
 	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
 	auto column = left.column();
-	if ((column == DRV.base || column == DRV.number)) 
+	if ((column == DRV.base || column == DRV.number))
+		return s1.toString().toULongLong(&ok, 16) < s2.toString().toULongLong(&ok, 16);
+	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
+}
+
+bool NotifySortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const {
+	bool ok;
+	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
+	auto column = left.column();
+	if ((column == NOTIFY.addr))
 		return s1.toString().toULongLong(&ok, 16) < s2.toString().toULongLong(&ok, 16);
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
@@ -54,6 +76,7 @@ Kernel::Kernel(QWidget *parent) :
 	InitKernelEntryView();
 	InitDriversView();
 	InitDriverKitView();
+	InitNotifyView();
 }
 
 Kernel::~Kernel()
@@ -65,13 +88,22 @@ bool Kernel::eventFilter(QObject *obj, QEvent *e)
 	bool filtered = false;
 	if (obj == ui.driverView->viewport()) {
 		if (e->type() == QEvent::ContextMenu) {
-			QContextMenuEvent* ctxevt = dynamic_cast<QContextMenuEvent*>(e);
-			if (ctxevt != nullptr) {
+			QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
+			if (ctxevt) {
 				drivers_menu_->move(ctxevt->globalPos());
 				drivers_menu_->show();
 			}
 		}
+	} else if (obj == ui.notifyView->viewport()) {
+		if (e->type() == QEvent::ContextMenu) {
+			QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
+			if (ctxevt) {
+				notify_menu_->move(ctxevt->globalPos());
+				notify_menu_->show();
+			}
+		}
 	}
+
 	if (filtered) {
 		dynamic_cast<QKeyEvent*>(e)->ignore();
 		return true;
@@ -105,8 +137,15 @@ void Kernel::onOpenFile(QString path)
 
 void Kernel::onTabChanged(int index)
 {
-	if (index == KernelTabDrivers) {
+	switch (index) {
+	case KernelTabDrivers:
 		ShowDrivers();
+		break;
+	case KernelTabNotify:
+		ShowSystemNotify();
+		break;
+	default:
+		break;
 	}
 }
 
@@ -195,8 +234,7 @@ void Kernel::InitKernelEntryView()
 			if (UNONE::OsIs64()) {
 				driver = WStrToQ(UNONE::OsEnvironmentW(L"%Temp%\\OpenArkDrv64.sys"));
 				ExtractResource(":/OpenArk/OpenArkDrv64.sys", driver);
-			}
-			else {
+			} else {
 				driver = WStrToQ(UNONE::OsEnvironmentW(L"%Temp%\\OpenArkDrv32.sys"));
 				ExtractResource(":/OpenArk/OpenArkDrv32.sys", driver);
 			}
@@ -213,11 +251,7 @@ void Kernel::InitKernelEntryView()
 				ERR("ConnectDriver err");
 				return;
 			}
-			std::vector<DRIVER_ITEM> infos;
-			IArkDrv::DriverEnumInfo(infos);
-			for (auto &d : infos) {
-				INFO(L"%llx %x %x %d %d %s", d.base, d.size, d.flags, d.init_seq, d.load_seq, UNONE::StrToW((char*)d.path).c_str());
-			}
+			INFO("Enter KernelMode ok");
 		}		
 	});
 
@@ -268,17 +302,14 @@ void Kernel::InitDriversView()
 	drivers_menu_ = new QMenu();
 	drivers_menu_->addAction(tr("Refresh"), this, [&] { ShowDrivers(); });
 	drivers_menu_->addAction(tr("Explore File"), this, [&] {
-		auto path = DriversCurViewItemData(DRV.path);
-		ExploreFile(path);
+		ExploreFile(DriversCurViewItemData(DRV.path));
 	});
 	drivers_menu_->addAction(tr("Sendto Scanner"), this, [&] {
-		auto path = DriversCurViewItemData(DRV.path);
 		parent_->ActivateTab(TAB_SCANNER);
-		emit signalOpen(path);
+		emit signalOpen(DriversCurViewItemData(DRV.path));
 	});
 	drivers_menu_->addAction(tr("Properties..."), this, [&]() {
-		auto path = DriversCurViewItemData(DRV.path);
-		WinShowProperties(path.toStdWString());
+		WinShowProperties(DriversCurViewItemData(DRV.path).toStdWString());
 	});
 }
 
@@ -294,6 +325,41 @@ void Kernel::InitDriverKitView()
 	connect(ui.installExpiredBtn, SIGNAL(clicked()), this, SLOT(onInstallExpiredDriver()));
 	connect(ui.uninstallBtn, SIGNAL(clicked()), this, SLOT(onUninstallDriver()));
 	connect(this, SIGNAL(signalOpen(QString)), parent_, SLOT(onOpen(QString)));
+}
+
+void Kernel::InitNotifyView()
+{
+	notify_model_ = new QStandardItemModel;
+	QTreeView *view = ui.notifyView;
+	proxy_notify_ = new DriversSortFilterProxyModel(view);
+	proxy_notify_->setSourceModel(notify_model_);
+	proxy_notify_->setDynamicSortFilter(true);
+	proxy_notify_->setFilterKeyColumn(1);
+	view->setModel(proxy_notify_);
+	view->selectionModel()->setModel(proxy_notify_);
+	view->header()->setSortIndicator(-1, Qt::AscendingOrder);
+	view->setSortingEnabled(true);
+	view->viewport()->installEventFilter(this);
+	view->installEventFilter(this);
+	notify_model_->setHorizontalHeaderLabels(QStringList() << tr("Callback Entry") << tr("Type") << tr("Path") << tr("Description") << tr("Version") << tr("Company"));
+	view->setColumnWidth(NOTIFY.addr, 138);
+	view->setColumnWidth(NOTIFY.type, 135);
+	view->setColumnWidth(NOTIFY.path, 285);
+	view->setColumnWidth(NOTIFY.desc, 180);
+	view->setColumnWidth(NOTIFY.ver, 120);
+	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	notify_menu_ = new QMenu();
+	notify_menu_->addAction(tr("Refresh"), this, [&] { ShowSystemNotify(); });
+	notify_menu_->addAction(tr("Explore File"), this, [&] {
+		ExploreFile(DriversCurViewItemData(NOTIFY.path));
+	});
+	notify_menu_->addAction(tr("Sendto Scanner"), this, [&] {
+		parent_->ActivateTab(TAB_SCANNER);
+		emit signalOpen(DriversCurViewItemData(NOTIFY.path));
+	});
+	notify_menu_->addAction(tr("Properties..."), this, [&]() {
+		WinShowProperties(DriversCurViewItemData(NOTIFY.path).toStdWString());
+	});
 }
 
 bool Kernel::InstallDriver(QString driver)
@@ -360,6 +426,61 @@ void Kernel::ShowDrivers()
 		if (!existed) SetLineBgColor(drivers_model_, count, Qt::red);
 		else if (!microsoft) SetLineBgColor(drivers_model_, count, QBrush(0xffffaa));
 		number++;
+	}
+}
+
+void Kernel::ShowSystemNotify()
+{
+	DISABLE_RECOVER();
+	ClearItemModelData(notify_model_, 0);
+	std::vector<ULONG64> routines;
+	if (!IArkDrv::NotifyEnumProcess(routines)) {
+		QERR_W("NotifyEnumProcess err");
+		return;
+	}
+
+	std::vector<DRIVER_ITEM> infos;
+	IArkDrv::DriverEnumInfo(infos);
+	
+	for (auto routine : routines) {
+
+		QString path;
+		for (auto info : infos) { 
+			if (IN_RANGE(routine, info.base, info.size)) {
+				path = WStrToQ(ParseDriverPath(info.path));
+				break;
+			}
+		}
+
+		bool microsoft = true;
+		bool existed = true;
+		auto info = CacheGetFileBaseInfo(path);
+		if (info.desc.isEmpty()) {
+			if (!UNONE::FsIsExistedW(info.path.toStdWString())) {
+				info.desc = tr("[-] Driver file not existed!");
+				existed = false;
+			}
+		}
+		if (info.corp != "Microsoft Corporation") {
+			microsoft = false;
+		}
+
+		QStandardItem *addr_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", routine)));
+		QStandardItem *type_item = new QStandardItem(tr("CreateProcess"));
+		QStandardItem *path_item = new QStandardItem(path);
+		QStandardItem *desc_item = new QStandardItem(info.desc);
+		QStandardItem *ver_item = new QStandardItem(info.ver);
+		QStandardItem *corp_item = new QStandardItem(info.corp);
+
+		auto count = notify_model_->rowCount();
+		notify_model_->setItem(count, NOTIFY.addr, addr_item);
+		notify_model_->setItem(count, NOTIFY.type, type_item);
+		notify_model_->setItem(count, NOTIFY.path, path_item);
+		notify_model_->setItem(count, NOTIFY.desc, desc_item);
+		notify_model_->setItem(count, NOTIFY.ver, ver_item);
+		notify_model_->setItem(count, NOTIFY.corp, corp_item);
+		if (!existed) SetLineBgColor(notify_model_, count, Qt::red);
+		else if (!microsoft) SetLineBgColor(notify_model_, count, QBrush(0xffffaa));
 	}
 }
 

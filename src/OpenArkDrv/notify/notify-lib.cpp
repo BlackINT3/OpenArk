@@ -96,7 +96,7 @@ PEX_CALLBACK GetProcessNotifyCallback()
 				//Win Vista SP1 4c 8d 35   lea r14
 				//Win Vista SP2 4c 8d 35   lea r14
 				for (PUCHAR ptr2 = psp_routine; ptr2 <= psp_routine + 0x50; ptr2++) {
-					if (*ptr2 == 0x4c && *(ptr2 + 1) == 0x8d && *(ptr2 + 2) == 0x35) {
+					if (*ptr2 == 0x4c && *(ptr2 + 1) == 0x8d && (*(ptr2 + 2) == 0x25 || *(ptr2 + 2) == 0x35)) {
 						callback = (PEX_CALLBACK)(ptr2 + (*(LONG*)(ptr2 + 3)) + 7);
 						if (!MmIsAddressValid(callback))  callback = NULL;
 						break;
@@ -110,9 +110,9 @@ PEX_CALLBACK GetProcessNotifyCallback()
 			if (*ptr1 == 0xe9) {
 				PUCHAR psp_routine = *(LONG*)(ptr1 + 1) + ptr1 + 5;
 				if (!MmIsAddressValid((PVOID)psp_routine)) break;
-				// c7 8d 35 lea r14
+				// lea r14
 				for (PUCHAR ptr2 = psp_routine; ptr2 <= psp_routine + 0x50; ptr2++) {
-					if (*ptr2 == 0xc7 && *(ptr2 + 1) == 0x8d && (*(ptr2 + 2) == 0x25 || *(ptr2 + 2) == 0x35)) {
+					if (*ptr2 == 0x4c && *(ptr2 + 1) == 0x8d && *(ptr2 + 2) == 0x35) {
 						callback = (PEX_CALLBACK)(ptr2 + (*(LONG*)(ptr2 + 3)) + 7);
 						if (!MmIsAddressValid(callback))  callback = NULL;
 						break;
@@ -203,7 +203,10 @@ PEX_CALLBACK GetProcessNotifyCallback()
 
 BOOLEAN GetProcessNotifyInfo(ULONG &count, PULONG64 &items)
 {
-	PEX_CALLBACK callback = GetProcessNotifyCallback();
+	if (!ArkDrv.ps_notify) {
+		ArkDrv.ps_notify = GetProcessNotifyCallback();
+	}
+	PEX_CALLBACK callback = (PEX_CALLBACK)ArkDrv.ps_notify;
 	if (!callback) return FALSE;
 	ULONG maxinum = GetProcessNotifyMaximum();
 	if (!maxinum) return FALSE;

@@ -65,7 +65,7 @@ NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp)
 	ULONG inlen = 0;
 	ULONG outlen = 0;
 	ULONG ctlcode = 0;
-	ULONG ops = 0;
+	ULONG op = 0;
 
 	irpstack = IoGetCurrentIrpStackLocation(irp);
 	ctlcode = irpstack->Parameters.DeviceIoControl.IoControlCode;
@@ -75,17 +75,17 @@ NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp)
 	if (inlen < 4) return STATUS_INVALID_PARAMETER;
 	inbuf = irp->AssociatedIrp.SystemBuffer;
 	if (!inbuf) return STATUS_INVALID_PARAMETER;
-	ops = *(ULONG*)inbuf;
+	op = *(ULONG*)inbuf;
 
 	switch (ctlcode) {
 	case IOCTL_ARK_HEARTBEAT:
 		status = STATUS_SUCCESS;
 		break;
 	case IOCTL_ARK_DRIVER:
-		status = DriverDispatcher(ops, devobj, irp);
+		status = DriverDispatcher(op, devobj, irp);
 		break;
 	case IOCTL_ARK_NOTIFY:
-		status = NotifyDispatcher(ops, devobj, irp);
+		status = NotifyDispatcher(op, devobj, irp);
 		break;
 	default:
 		status = STATUS_INVALID_DEVICE_REQUEST;

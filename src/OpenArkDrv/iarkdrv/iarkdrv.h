@@ -71,7 +71,7 @@ typedef struct _NOTIFY_INFO {
 namespace IArkDrv {
 bool ConnectDriver();
 bool HeartBeatPulse();
-bool DriverEnumInfo(std::vector<DRIVER_ITEM> &info);
+bool DriverEnumInfo(std::vector<DRIVER_ITEM> &infos);
 bool NotifyPatch(NOTIFY_TYPE type, ULONG64 routine);
 bool NotifyPatchRegularly(NOTIFY_TYPE type, ULONG64 routine, int interval);
 bool NotifyRemove(NOTIFY_TYPE type, ULONG64 routine);

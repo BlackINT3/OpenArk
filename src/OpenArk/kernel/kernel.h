@@ -18,20 +18,12 @@
 #include <QtWidgets>
 #include <Windows.h>
 #include "ui_kernel.h"
+#include "../common/qt-wrapper/qt-wrapper.h"
 
 class OpenArk;
-
-namespace Ui {
-	class Kernel;
-}
-class DriversSortFilterProxyModel : public QSortFilterProxyModel {
-	Q_OBJECT
-public:
-	DriversSortFilterProxyModel(QWidget *parent) {};
-	~DriversSortFilterProxyModel() {};
-protected:
-	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
-};
+class Ui::Kernel;
+PROXY_FILTER(DriversSortFilterProxyModel);
+PROXY_FILTER(NotifySortFilterProxyModel);
 
 class Kernel : public QWidget {
 	Q_OBJECT
@@ -60,9 +52,11 @@ private:
 	void InitKernelEntryView();
 	void InitDriversView();
 	void InitDriverKitView();
+	void InitNotifyView();
 	bool InstallDriver(QString driver);
 	bool UninstallDriver(QString service);
 	void ShowDrivers();
+	void ShowSystemNotify();
 	int DriversCurRow();
 	QString DriversCurViewItemData(int column);
 
@@ -73,7 +67,10 @@ private:
 	Ui::Kernel ui;
 	OpenArk *parent_;
 	QMenu *drivers_menu_;
+	QMenu *notify_menu_;
 	QStandardItemModel *kerninfo_model_;
 	QStandardItemModel *drivers_model_;
+	QStandardItemModel *notify_model_;
 	DriversSortFilterProxyModel *proxy_drivers_;
+	DriversSortFilterProxyModel *proxy_notify_;
 };

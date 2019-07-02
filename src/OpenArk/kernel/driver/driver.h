@@ -18,6 +18,7 @@
 #include <QString>
 
 bool SignExpiredDriver(QString driver);
+std::wstring ParseDriverPath(UCHAR *symlnk);
 
 #define RECOVER_SIGN_TIME() \
 		SYSTEMTIME saved = { 0 };\

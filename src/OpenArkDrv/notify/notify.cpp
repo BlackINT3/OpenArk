@@ -1,3 +1,4 @@
+#include "../common/common.h"
 #include "notify.h"
 #include "notify-lib.h"
 
@@ -42,6 +43,7 @@ NTSTATUS GetNotifyInfo(NOTIFY_TYPE type, PVOID inbuf, ULONG inlen, PVOID outbuf,
 
 BOOLEAN InitNotifyDispatcher()
 {
+	ArkDrv.ps_notify = NULL;
 	return TRUE;
 }
 

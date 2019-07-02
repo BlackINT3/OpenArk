@@ -110,3 +110,13 @@ bool SignExpiredDriver(QString driver)
 	CloseHandle(pi.hThread);
 	return true;
 }
+
+std::wstring ParseDriverPath(UCHAR *symlnk)
+{
+	std::wstring &&path = UNONE::StrToW((char*)symlnk);
+	std::wstring sysroot = L"\\SystemRoot";
+	auto pos = path.find(sysroot);
+	if (pos == 0) path.replace(0, sysroot.size(), UNONE::OsWinDirW());
+	UNONE::StrReplaceW(path, L"\\??\\");
+	return path;
+}

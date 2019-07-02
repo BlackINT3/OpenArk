@@ -57,6 +57,18 @@ private:
 	static OpenArkLanguage *langobj_;
 	int curlang_;
 };
+
+#define PROXY_FILTER(classname) \
+class classname : public QSortFilterProxyModel {\
+	Q_OBJECT \
+public: \
+	classname(QWidget *parent) {};\
+	~classname() {}; \
+protected: \
+	bool lessThan(const QModelIndex &left, const QModelIndex &right) const; \
+};
+
+
 #define TR(str) QObject::tr(str)
 #define TRA(str) QObject::tr(str).toStdString().c_str()
 #define TRW(str) QObject::tr(str).toStdWString().c_str()

@@ -110,9 +110,6 @@
     <ClCompile Include="common\config\config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="kernel\kernel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="kernel\driver\driver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -123,6 +120,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\OpenArkDrv\iarkdrv\iarkdrv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\kernel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
