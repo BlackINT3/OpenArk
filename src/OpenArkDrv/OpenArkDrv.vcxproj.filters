@@ -4,9 +4,6 @@
     <ClCompile Include="driver\driver.cpp">
       <Filter>driver</Filter>
     </ClCompile>
-    <ClCompile Include="iarkdrv\iarkdrv.cpp">
-      <Filter>iarkdrv</Filter>
-    </ClCompile>
     <ClCompile Include="common\common.cpp">
       <Filter>common</Filter>
     </ClCompile>
@@ -17,6 +14,9 @@
     <ClCompile Include="notify\notify-lib.cpp">
       <Filter>notify</Filter>
     </ClCompile>
+    <ClCompile Include="arkdrv-api\arkdrv-api.cpp">
+      <Filter>arkdrv-api</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="notify">
@@ -25,19 +25,19 @@
     <Filter Include="driver">
       <UniqueIdentifier>{0524cfde-14fa-471f-84f3-8226224d739b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="iarkdrv">
-      <UniqueIdentifier>{d8bf34f2-ae20-4728-bd7f-b28c2ac54789}</UniqueIdentifier>
-    </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{9ae18d72-5aa6-4324-bfb8-f072171e9d02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="arkdrv-api">
+      <UniqueIdentifier>{d8bf34f2-ae20-4728-bd7f-b28c2ac54789}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{8842c31c-3e11-4d24-a5d1-b85db5f4f9f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="driver\driver.h">
       <Filter>driver</Filter>
-    </ClInclude>
-    <ClInclude Include="iarkdrv\iarkdrv.h">
-      <Filter>iarkdrv</Filter>
     </ClInclude>
     <ClInclude Include="common\common.h">
       <Filter>common</Filter>
@@ -48,8 +48,17 @@
     <ClInclude Include="notify\notify-lib.h">
       <Filter>notify</Filter>
     </ClInclude>
+    <ClInclude Include="arkdrv-api\arkdrv-api.h">
+      <Filter>arkdrv-api</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <Filter>res</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OpenArkDrv.rc" />
   </ItemGroup>
 </Project>

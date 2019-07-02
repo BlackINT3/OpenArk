@@ -245,7 +245,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\OpenArkDrv\iarkdrv\iarkdrv.cpp" />
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\arkdrv-api.cpp" />
     <ClCompile Include="about\about.cpp" />
     <ClCompile Include="bundler\bundler.cpp" />
     <ClCompile Include="bundler\crc32\crc32.cpp" />
@@ -307,7 +307,7 @@
     </QtRcc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\OpenArkDrv\iarkdrv\iarkdrv.h" />
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\arkdrv-api.h" />
     <ClInclude Include="common\app\app.h" />
     <ClInclude Include="common\cache\cache.h" />
     <ClInclude Include="common\config\config.h" />

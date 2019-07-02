@@ -17,7 +17,7 @@
 #include "../common/common.h"
 #include "../openark/openark.h"
 #include "driver/driver.h"
-#include "../../../OpenArkDrv/iarkdrv/iarkdrv.h"
+#include "../../../OpenArkDrv/arkdrv-api/arkdrv-api.h"
 
 #define KernelTabEntry 0
 #define KernelTabDrivers 1
@@ -246,7 +246,7 @@ void Kernel::InitKernelEntryView()
 					return;
 				}
 			}
-			bool ret = IArkDrv::ConnectDriver();
+			bool ret = ArkDrvApi::ConnectDriver();
 			if (!ret) {
 				ERR("ConnectDriver err");
 				return;
@@ -258,7 +258,7 @@ void Kernel::InitKernelEntryView()
 	arkdrv_conn_ = false;
 	auto timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, [&]() {
-		bool conn = IArkDrv::HeartBeatPulse();
+		bool conn = ArkDrvApi::HeartBeatPulse();
 		if (conn && !arkdrv_conn_) {
 			ui.kernelModeStatus->setText(tr("[KernelMode] Connect successfully..."));
 			ui.kernelModeStatus->setStyleSheet("color:green");
@@ -434,13 +434,13 @@ void Kernel::ShowSystemNotify()
 	DISABLE_RECOVER();
 	ClearItemModelData(notify_model_, 0);
 	std::vector<ULONG64> routines;
-	if (!IArkDrv::NotifyEnumProcess(routines)) {
+	if (!ArkDrvApi::NotifyEnumProcess(routines)) {
 		QERR_W("NotifyEnumProcess err");
 		return;
 	}
 
 	std::vector<DRIVER_ITEM> infos;
-	IArkDrv::DriverEnumInfo(infos);
+	ArkDrvApi::DriverEnumInfo(infos);
 	
 	for (auto routine : routines) {
 

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BundlerShell", "OpenArk\bundler\bundler-shell\bundler-shell.vcxproj", "{D5E931E8-3376-4EA2-B869-01B175E8A1AA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BundlerShell", "openark\bundler\bundler-shell\bundler-shell.vcxproj", "{D5E931E8-3376-4EA2-B869-01B175E8A1AA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenArk", "OpenArk\OpenArk.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenArk", "openark\OpenArk.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D5E931E8-3376-4EA2-B869-01B175E8A1AA} = {D5E931E8-3376-4EA2-B869-01B175E8A1AA}
 	EndProjectSection

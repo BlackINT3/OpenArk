@@ -1,23 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
-      <Extensions>qrc;*</Extensions>
-      <ParseFiles>false</ParseFiles>
-    </Filter>
-    <Filter Include="Form Files">
-      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
-      <Extensions>ui</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
       <Extensions>qrc;*</Extensions>
@@ -28,277 +11,365 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Translation Files">
-      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
-      <Extensions>ts</Extensions>
-      <ParseFiles>false</ParseFiles>
+    <Filter Include="res">
+      <UniqueIdentifier>{aa3c8352-74a6-4216-84e1-beee4b3b3959}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="openark">
+      <UniqueIdentifier>{a3e0656d-147b-490f-97ba-576572264258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{1cfab7ae-f911-4fbd-869c-a2a6abd7508b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\app">
+      <UniqueIdentifier>{34d6cbb5-12a9-44f7-aef9-fb6756d88788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\cache">
+      <UniqueIdentifier>{6f60cec9-d238-4133-ad8e-def3abca7803}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\config">
+      <UniqueIdentifier>{c6f1c004-7c5b-4955-aeee-447e1fc01885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\cpp-wrapper">
+      <UniqueIdentifier>{78c0a61e-e99f-4024-b200-c7076320a86e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\qt-wrapper">
+      <UniqueIdentifier>{da7f0953-8ce0-4c5d-9534-18d8186a971a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\win-wrapper">
+      <UniqueIdentifier>{7635c6ba-589a-4d03-a2c2-34dbc87a623a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cmds">
+      <UniqueIdentifier>{89efb3cb-c16c-4f7e-bd47-23a49729d320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="about">
+      <UniqueIdentifier>{9cbeabb0-f9a1-44e0-8231-d453d1303757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scanner">
+      <UniqueIdentifier>{6eff79e7-a9ed-47b8-9597-fabb7d16c7e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="process-mgr">
+      <UniqueIdentifier>{8b53e1e0-f48f-4a18-afc2-ffccc5912d7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bundler">
+      <UniqueIdentifier>{932c60b2-5fec-4787-ab63-beed6c860003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel">
+      <UniqueIdentifier>{e56698ec-c898-43f9-980f-9bf578c9974a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="coderkit">
+      <UniqueIdentifier>{dc4bcf8e-bd1e-44f3-8fef-a31100b2d5e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="settings">
+      <UniqueIdentifier>{b1cc463c-9a15-4737-9f11-064ee800d181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cmds\constants">
+      <UniqueIdentifier>{c6373b9b-6fd5-48eb-a606-225027d8a449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bundler\lz4">
+      <UniqueIdentifier>{f8c67570-680a-4632-82e0-c05ff0a23955}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bundler\pack">
+      <UniqueIdentifier>{f179d167-1065-42b2-8c6d-67e0bf7899ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bundler\crc32">
+      <UniqueIdentifier>{03fbb783-e94d-4acd-918c-4079377320f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bundler\icons">
+      <UniqueIdentifier>{6684c234-ee49-4193-88fa-d7f810e7be65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel\driver">
+      <UniqueIdentifier>{2ef8c266-5605-4403-ab58-a5443e644f79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel\notify">
+      <UniqueIdentifier>{1e537615-298e-4f33-bce2-cc5ef18cdd72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel\arkdrv-api">
+      <UniqueIdentifier>{7b10ff49-60ab-4364-b1e1-080c0aeedee4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="openark\openark.cpp">
+      <Filter>openark</Filter>
     </ClCompile>
     <ClCompile Include="common\common.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="openark\openark.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="process-mgr\process-mgr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="process-mgr\process-properties.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="about\about.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="scanner\scanner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="coderkit\coderkit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cmds\cmds.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bundler\bundler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bundler\icons\icons.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bundler\crc32\crc32.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bundler\lz4\lz4.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bundler\lz4\lz4frame.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bundler\lz4\lz4hc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bundler\lz4\xxhash.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bundler\pack\pack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cmds\constants\constants.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="process-mgr\process-selection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="common\qt-wrapper\qt-wrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="common\win-wrapper\win-wrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="common\cpp-wrapper\cpp-wrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="common\cache\cache.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="settings\settings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="common\config\config.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="kernel\driver\driver.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="common\app\app.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>common\app</Filter>
     </ClCompile>
-    <ClCompile Include="kernel\notify\notify.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="common\cpp-wrapper\cpp-wrapper.cpp">
+      <Filter>common\cpp-wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="..\OpenArkDrv\iarkdrv\iarkdrv.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="common\config\config.cpp">
+      <Filter>common\config</Filter>
+    </ClCompile>
+    <ClCompile Include="common\cache\cache.cpp">
+      <Filter>common\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="common\win-wrapper\win-wrapper.cpp">
+      <Filter>common\win-wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="common\qt-wrapper\qt-wrapper.cpp">
+      <Filter>common\qt-wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="cmds\cmds.cpp">
+      <Filter>cmds</Filter>
+    </ClCompile>
+    <ClCompile Include="about\about.cpp">
+      <Filter>about</Filter>
+    </ClCompile>
+    <ClCompile Include="process-mgr\process-mgr.cpp">
+      <Filter>process-mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="process-mgr\process-properties.cpp">
+      <Filter>process-mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="process-mgr\process-selection.cpp">
+      <Filter>process-mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="bundler\bundler.cpp">
+      <Filter>bundler</Filter>
+    </ClCompile>
+    <ClCompile Include="coderkit\coderkit.cpp">
+      <Filter>coderkit</Filter>
     </ClCompile>
     <ClCompile Include="kernel\kernel.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="scanner\scanner.cpp">
+      <Filter>scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="settings\settings.cpp">
+      <Filter>settings</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="cmds\constants\constants.cpp">
+      <Filter>cmds\constants</Filter>
+    </ClCompile>
+    <ClCompile Include="bundler\pack\pack.cpp">
+      <Filter>bundler\pack</Filter>
+    </ClCompile>
+    <ClCompile Include="bundler\crc32\crc32.cpp">
+      <Filter>bundler\crc32</Filter>
+    </ClCompile>
+    <ClCompile Include="bundler\lz4\lz4.c">
+      <Filter>bundler\lz4</Filter>
+    </ClCompile>
+    <ClCompile Include="bundler\lz4\lz4frame.c">
+      <Filter>bundler\lz4</Filter>
+    </ClCompile>
+    <ClCompile Include="bundler\lz4\lz4hc.c">
+      <Filter>bundler\lz4</Filter>
+    </ClCompile>
+    <ClCompile Include="bundler\lz4\xxhash.c">
+      <Filter>bundler\lz4</Filter>
+    </ClCompile>
+    <ClCompile Include="bundler\icons\icons.cpp">
+      <Filter>bundler\icons</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\driver\driver.cpp">
+      <Filter>kernel\driver</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\notify\notify.cpp">
+      <Filter>kernel\notify</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\arkdrv-api.cpp">
+      <Filter>kernel\arkdrv-api</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="process-mgr\process-mgr.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="process-mgr\process-properties.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="openark\openark.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="about\about.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="scanner\scanner.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="coderkit\coderkit.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="cmds\cmds.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="bundler\bundler.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="process-mgr\process-selection.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="settings\settings.h">
-      <Filter>Header Files</Filter>
+      <Filter>openark</Filter>
     </QtMoc>
     <QtMoc Include="common\qt-wrapper\qt-wrapper.h">
-      <Filter>Header Files</Filter>
+      <Filter>common\qt-wrapper</Filter>
+    </QtMoc>
+    <QtMoc Include="cmds\cmds.h">
+      <Filter>cmds</Filter>
+    </QtMoc>
+    <QtMoc Include="about\about.h">
+      <Filter>about</Filter>
+    </QtMoc>
+    <QtMoc Include="process-mgr\process-mgr.h">
+      <Filter>process-mgr</Filter>
+    </QtMoc>
+    <QtMoc Include="process-mgr\process-properties.h">
+      <Filter>process-mgr</Filter>
+    </QtMoc>
+    <QtMoc Include="process-mgr\process-selection.h">
+      <Filter>process-mgr</Filter>
+    </QtMoc>
+    <QtMoc Include="scanner\scanner.h">
+      <Filter>scanner</Filter>
+    </QtMoc>
+    <QtMoc Include="bundler\bundler.h">
+      <Filter>bundler</Filter>
     </QtMoc>
     <QtMoc Include="kernel\kernel.h">
-      <Filter>Header Files</Filter>
+      <Filter>kernel</Filter>
+    </QtMoc>
+    <QtMoc Include="coderkit\coderkit.h">
+      <Filter>coderkit</Filter>
+    </QtMoc>
+    <QtMoc Include="settings\settings.h">
+      <Filter>settings</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\process-mgr.ui">
-      <Filter>Form Files</Filter>
+      <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\process-properties.ui">
-      <Filter>Form Files</Filter>
+      <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\openark.ui">
-      <Filter>Form Files</Filter>
+      <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\about.ui">
-      <Filter>Form Files</Filter>
+      <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\coderkit.ui">
-      <Filter>Form Files</Filter>
+      <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\scanner.ui">
-      <Filter>Form Files</Filter>
+      <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\bundler.ui">
-      <Filter>Form Files</Filter>
+      <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\process-selection.ui">
-      <Filter>Form Files</Filter>
+      <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\settings.ui">
-      <Filter>Form Files</Filter>
+      <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\kernel.ui">
-      <Filter>Form Files</Filter>
+      <Filter>ui</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common\common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_openark.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_process-mgr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_process-properties.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_about.h">
-      <Filter>Header Files</Filter>
+      <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_bundler.h">
-      <Filter>Header Files</Filter>
+      <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_coderkit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_scanner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bundler\icons\icons.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bundler\crc32\crc32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bundler\lz4\lz4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bundler\lz4\lz4frame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bundler\lz4\lz4frame_static.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bundler\lz4\lz4hc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bundler\lz4\xxhash.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bundler\pack\pack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cmds\constants\constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="common\win-wrapper\win-wrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="res\resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="common\cpp-wrapper\cpp-wrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="common\cache\cache.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="common\config\config.h">
-      <Filter>Header Files</Filter>
+      <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_kernel.h">
-      <Filter>Header Files</Filter>
+      <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="kernel\driver\driver.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GeneratedFiles\ui_openark.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_process-mgr.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_process-properties.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_scanner.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="common\app\app.h">
-      <Filter>Header Files</Filter>
+      <Filter>common\app</Filter>
+    </ClInclude>
+    <ClInclude Include="common\cache\cache.h">
+      <Filter>common\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="common\config\config.h">
+      <Filter>common\config</Filter>
+    </ClInclude>
+    <ClInclude Include="common\cpp-wrapper\cpp-wrapper.h">
+      <Filter>common\cpp-wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="common\win-wrapper\win-wrapper.h">
+      <Filter>common\win-wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="common\common.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="cmds\constants\constants.h">
+      <Filter>cmds\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="bundler\pack\pack.h">
+      <Filter>bundler\pack</Filter>
+    </ClInclude>
+    <ClInclude Include="bundler\crc32\crc32.h">
+      <Filter>bundler\crc32</Filter>
+    </ClInclude>
+    <ClInclude Include="bundler\lz4\lz4.h">
+      <Filter>bundler\lz4</Filter>
+    </ClInclude>
+    <ClInclude Include="bundler\lz4\lz4frame.h">
+      <Filter>bundler\lz4</Filter>
+    </ClInclude>
+    <ClInclude Include="bundler\lz4\lz4frame_static.h">
+      <Filter>bundler\lz4</Filter>
+    </ClInclude>
+    <ClInclude Include="bundler\lz4\lz4hc.h">
+      <Filter>bundler\lz4</Filter>
+    </ClInclude>
+    <ClInclude Include="bundler\lz4\xxhash.h">
+      <Filter>bundler\lz4</Filter>
+    </ClInclude>
+    <ClInclude Include="bundler\icons\icons.h">
+      <Filter>bundler\icons</Filter>
+    </ClInclude>
+    <ClInclude Include="res\resource.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\driver\driver.h">
+      <Filter>kernel\driver</Filter>
     </ClInclude>
     <ClInclude Include="kernel\notify\notify.h">
-      <Filter>Header Files</Filter>
+      <Filter>kernel\notify</Filter>
     </ClInclude>
-    <ClInclude Include="..\OpenArkDrv\iarkdrv\iarkdrv.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\arkdrv-api.h">
+      <Filter>kernel\arkdrv-api</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\gitub.ico" />
-    <Image Include="res\open.ico" />
-    <Image Include="res\OpenArk.ico" />
-    <Image Include="res\refresh.ico" />
-    <Image Include="res\save.ico" />
-    <Image Include="res\settings.ico" />
+    <Image Include="res\OpenArk.ico">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include="res\open.ico">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include="res\gitub.ico">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include="res\save.ico">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include="res\refresh.ico">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include="res\settings.ico">
+      <Filter>res</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <Filter>res</Filter>
+    </None>
+    <None Include="openark_zh.ts">
+      <Filter>res</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="res\openark.qrc">
-      <Filter>Resource Files</Filter>
+      <Filter>res</Filter>
     </QtRcc>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="res\OpenArk.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="openark_zh.ts">
-      <Filter>Translation Files</Filter>
-    </None>
-    <None Include="packages.config" />
+    <ResourceCompile Include="res\OpenArk.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -14,7 +14,7 @@
 **
 ****************************************************************************/
 #include "../../common/common.h"
-#include "../../../OpenArkDrv/iarkdrv/iarkdrv.h"
+#include "../../../OpenArkDrv/arkdrv-api/arkdrv-api.h"
 #include <Windows.h>
 #include <tchar.h>
 #include "driver.h"

@@ -224,22 +224,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="arkdrv-api\arkdrv-api.cpp" />
     <ClCompile Include="common\common.cpp" />
     <ClCompile Include="driver\driver.cpp" />
-    <ClCompile Include="iarkdrv\iarkdrv.cpp" />
     <ClCompile Include="driver-entry.cpp" />
     <ClCompile Include="notify\notify-lib.cpp" />
     <ClCompile Include="notify\notify.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="arkdrv-api\arkdrv-api.h" />
     <ClInclude Include="common\common.h" />
     <ClInclude Include="driver\driver.h" />
-    <ClInclude Include="iarkdrv\iarkdrv.h" />
     <ClInclude Include="notify\notify-lib.h" />
     <ClInclude Include="notify\notify.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OpenArkDrv.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
