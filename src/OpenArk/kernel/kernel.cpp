@@ -342,10 +342,10 @@ void Kernel::InitNotifyView()
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
 	notify_model_->setHorizontalHeaderLabels(QStringList() << tr("Callback Entry") << tr("Type") << tr("Path") << tr("Description") << tr("Version") << tr("Company"));
-	view->setColumnWidth(NOTIFY.addr, 138);
-	view->setColumnWidth(NOTIFY.type, 135);
+	view->setColumnWidth(NOTIFY.addr, 150);
+	view->setColumnWidth(NOTIFY.type, 100);
 	view->setColumnWidth(NOTIFY.path, 285);
-	view->setColumnWidth(NOTIFY.desc, 180);
+	view->setColumnWidth(NOTIFY.desc, 335);
 	view->setColumnWidth(NOTIFY.ver, 120);
 	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	notify_menu_ = new QMenu();
@@ -433,55 +433,59 @@ void Kernel::ShowSystemNotify()
 {
 	DISABLE_RECOVER();
 	ClearItemModelData(notify_model_, 0);
-	std::vector<ULONG64> routines;
-	if (!ArkDrvApi::NotifyEnumProcess(routines)) {
-		QERR_W("NotifyEnumProcess err");
-		return;
-	}
-
+	
 	std::vector<DRIVER_ITEM> infos;
 	ArkDrvApi::DriverEnumInfo(infos);
 	
-	for (auto routine : routines) {
-
-		QString path;
-		for (auto info : infos) { 
-			if (IN_RANGE(routine, info.base, info.size)) {
-				path = WStrToQ(ParseDriverPath(info.path));
-				break;
+	auto OutputNotify = [&](std::vector<ULONG64> &routines, QString type) {
+		for (auto routine : routines) {
+			QString path;
+			for (auto info : infos) {
+				if (IN_RANGE(routine, info.base, info.size)) {
+					path = WStrToQ(ParseDriverPath(info.path));
+					break;
+				}
 			}
-		}
-
-		bool microsoft = true;
-		bool existed = true;
-		auto info = CacheGetFileBaseInfo(path);
-		if (info.desc.isEmpty()) {
-			if (!UNONE::FsIsExistedW(info.path.toStdWString())) {
-				info.desc = tr("[-] Driver file not existed!");
-				existed = false;
+			bool microsoft = true;
+			bool existed = true;
+			auto info = CacheGetFileBaseInfo(path);
+			if (info.desc.isEmpty()) {
+				if (!UNONE::FsIsExistedW(info.path.toStdWString())) {
+					info.desc = tr("[-] Driver file not existed!");
+					existed = false;
+				}
 			}
+			if (info.corp != "Microsoft Corporation") { microsoft = false; }
+			QStandardItem *addr_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", routine)));
+			QStandardItem *type_item = new QStandardItem(type);
+			QStandardItem *path_item = new QStandardItem(path);
+			QStandardItem *desc_item = new QStandardItem(info.desc);
+			QStandardItem *ver_item = new QStandardItem(info.ver);
+			QStandardItem *corp_item = new QStandardItem(info.corp);
+			auto count = notify_model_->rowCount();
+			notify_model_->setItem(count, NOTIFY.addr, addr_item);
+			notify_model_->setItem(count, NOTIFY.type, type_item);
+			notify_model_->setItem(count, NOTIFY.path, path_item);
+			notify_model_->setItem(count, NOTIFY.desc, desc_item);
+			notify_model_->setItem(count, NOTIFY.ver, ver_item);
+			notify_model_->setItem(count, NOTIFY.corp, corp_item);
+			if (!existed) SetLineBgColor(notify_model_, count, Qt::red);
+			else if (!microsoft) SetLineBgColor(notify_model_, count, QBrush(0xffffaa));
 		}
-		if (info.corp != "Microsoft Corporation") {
-			microsoft = false;
-		}
+	};
 
-		QStandardItem *addr_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", routine)));
-		QStandardItem *type_item = new QStandardItem(tr("CreateProcess"));
-		QStandardItem *path_item = new QStandardItem(path);
-		QStandardItem *desc_item = new QStandardItem(info.desc);
-		QStandardItem *ver_item = new QStandardItem(info.ver);
-		QStandardItem *corp_item = new QStandardItem(info.corp);
+	std::vector<ULONG64> routines;
+	if (!ArkDrvApi::NotifyEnumProcess(routines)) QERR_W("NotifyEnumProcess err");
+	OutputNotify(routines, tr("CreateProcess"));
 
-		auto count = notify_model_->rowCount();
-		notify_model_->setItem(count, NOTIFY.addr, addr_item);
-		notify_model_->setItem(count, NOTIFY.type, type_item);
-		notify_model_->setItem(count, NOTIFY.path, path_item);
-		notify_model_->setItem(count, NOTIFY.desc, desc_item);
-		notify_model_->setItem(count, NOTIFY.ver, ver_item);
-		notify_model_->setItem(count, NOTIFY.corp, corp_item);
-		if (!existed) SetLineBgColor(notify_model_, count, Qt::red);
-		else if (!microsoft) SetLineBgColor(notify_model_, count, QBrush(0xffffaa));
-	}
+	if (!ArkDrvApi::NotifyEnumThread(routines)) QERR_W("NotifyEnumThread err");
+	OutputNotify(routines, tr("CreateThread"));
+
+	if (!ArkDrvApi::NotifyEnumImage(routines)) QERR_W("NotifyEnumImage err");
+	OutputNotify(routines, tr("LoadImage"));
+
+	if (!ArkDrvApi::NotifyEnumRegistry(routines)) QERR_W("NotifyEnumRegistry err");
+	OutputNotify(routines, tr("CmpCallback"));
 }
 
 int Kernel::DriversCurRow()

@@ -51,7 +51,9 @@
     <ClInclude Include="arkdrv-api\arkdrv-api.h">
       <Filter>arkdrv-api</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource.h">
+      <Filter>res</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -59,6 +61,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="OpenArkDrv.rc" />
+    <ResourceCompile Include="OpenArkDrv.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

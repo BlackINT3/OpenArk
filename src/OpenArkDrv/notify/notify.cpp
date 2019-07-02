@@ -29,10 +29,13 @@ NTSTATUS GetNotifyInfo(NOTIFY_TYPE type, PVOID inbuf, ULONG inlen, PVOID outbuf,
 		ret= GetProcessNotifyInfo(count, items);
 		break;
 	case CREATE_THREAD:
+		ret = GetThreadNotifyInfo(count, items);
 		break;
 	case LOAD_IMAGE:
+		ret = GetImageNotifyInfo(count, items);
 		break;
 	case CM_REGISTRY:
+		ret = GetRegistryNotifyInfo(count, items);
 		break;
 	default:
 		break;
@@ -58,7 +61,10 @@ NTSTATUS GetNotifyInfo(NOTIFY_TYPE type, PVOID inbuf, ULONG inlen, PVOID outbuf,
 
 BOOLEAN InitNotifyDispatcher()
 {
-	ArkDrv.ps_notify = NULL;
+	ArkDrv.process_notify = NULL;
+	ArkDrv.thread_notify = NULL;
+	ArkDrv.image_notify = NULL;
+	ArkDrv.registry_notify = NULL;
 	return TRUE;
 }
 
@@ -89,10 +95,13 @@ NTSTATUS NotifyDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, IN PIRP irp)
 		status = GetNotifyInfo(CREATE_PROCESS, inbuf, inlen, outbuf, outlen, irp);
 		break;
 	case NOTIFY_ENUM_THREAD:
+		status = GetNotifyInfo(CREATE_THREAD, inbuf, inlen, outbuf, outlen, irp);
 		break;
 	case NOTIFY_ENUM_IMAGE:
+		status = GetNotifyInfo(LOAD_IMAGE, inbuf, inlen, outbuf, outlen, irp);
 		break;
 	case NOTIFY_ENUM_REGISTRY:
+		status = GetNotifyInfo(CM_REGISTRY, inbuf, inlen, outbuf, outlen, irp);
 		break;
 	default:
 		break;

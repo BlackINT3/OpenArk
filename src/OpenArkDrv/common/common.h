@@ -24,9 +24,10 @@ typedef struct _ARK_DRIVER {
 	ULONG major;
 	ULONG minor;
 	ULONG build;
-	PVOID ps_notify;
-
-
+	PVOID process_notify;
+	PVOID thread_notify;
+	PVOID image_notify;
+	PVOID registry_notify;
 } ARK_DRIVER, *PARK_DRIVER;
 
 extern ARK_DRIVER ArkDrv;

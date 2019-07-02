@@ -65,7 +65,7 @@
          <item>
           <widget class="QLabel" name="kernelModeStatus">
            <property name="text">
-            <string>[KernelMode] Connect successfully...</string>
+            <string>[KernelMode] not initialized...</string>
            </property>
           </widget>
          </item>

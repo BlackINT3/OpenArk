@@ -17,3 +17,6 @@
 #include <ntifs.h>
 
 BOOLEAN GetProcessNotifyInfo(ULONG &count, PULONG64 &items);
+BOOLEAN GetThreadNotifyInfo(ULONG &count, PULONG64 &items);
+BOOLEAN GetImageNotifyInfo(ULONG &count, PULONG64 &items);
+BOOLEAN GetRegistryNotifyInfo(ULONG &count, PULONG64 &items);

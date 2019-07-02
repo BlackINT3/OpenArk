@@ -90,6 +90,11 @@
     <Filter Include="kernel\arkdrv-api">
       <UniqueIdentifier>{7b10ff49-60ab-4364-b1e1-080c0aeedee4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -355,11 +360,9 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <Filter>res</Filter>
-    </None>
+    <None Include="packages.config" />
     <None Include="openark_zh.ts">
-      <Filter>res</Filter>
+      <Filter>Translation Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

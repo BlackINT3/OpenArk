@@ -91,6 +91,7 @@ bool HeartBeatPulse()
 
 bool DriverEnumInfo(std::vector<DRIVER_ITEM> &infos)
 {
+	infos.clear();
 	DWORD op = DRIVER_ENUM_INFO;
 	PDRIVER_INFO drivers;
 	DWORD outlen;
@@ -106,9 +107,9 @@ bool NotifyPatch(NOTIFY_TYPE type, ULONG64 routine);
 bool NotifyPatchRegularly(NOTIFY_TYPE type, ULONG64 routine, int interval);
 bool NotifyRemove(NOTIFY_TYPE type, ULONG64 routine);
 bool NotifyRemoveRegularly(NOTIFY_TYPE type, ULONG64 routine, int interval);
-bool NotifyEnumProcess(std::vector<ULONG64> &routines)
+bool NotifyEnum(DWORD op, std::vector<ULONG64> &routines)
 {
-	DWORD op = NOTIFY_ENUM_PROCESS;
+	routines.clear();
 	PNOTIFY_INFO notify;
 	DWORD outlen;
 	bool ret = IoControlDriver(IOCTL_ARK_NOTIFY, &op, sizeof(op), (PVOID*)&notify, &outlen);
@@ -119,8 +120,21 @@ bool NotifyEnumProcess(std::vector<ULONG64> &routines)
 	free(notify);
 	return true;
 }
-bool NotifyEnumThread(std::vector<ULONG64> &routines);
-bool NotifyEnumImage(std::vector<ULONG64> &routines);
-bool NotifyEnumRegistry(std::vector<ULONG64> &routines);
+bool NotifyEnumProcess(std::vector<ULONG64> &routines)
+{
+	return NotifyEnum(NOTIFY_ENUM_PROCESS, routines);
+}
+bool NotifyEnumThread(std::vector<ULONG64> &routines)
+{
+	return NotifyEnum(NOTIFY_ENUM_THREAD, routines);
+}
+bool NotifyEnumImage(std::vector<ULONG64> &routines)
+{
+	return NotifyEnum(NOTIFY_ENUM_IMAGE, routines);
+}
+bool NotifyEnumRegistry(std::vector<ULONG64> &routines)
+{
+	return NotifyEnum(NOTIFY_ENUM_REGISTRY, routines);
+}
 } // namespace IArkDrv
 #endif
