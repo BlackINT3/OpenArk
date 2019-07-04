@@ -95,6 +95,21 @@
       <Extensions>ts</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="kernel\memory">
+      <UniqueIdentifier>{b60d1a0d-2198-4998-98ff-d96f1b1ac760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\utils">
+      <UniqueIdentifier>{473c45f0-307d-433e-801f-286a61257b36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\utils\disassembly">
+      <UniqueIdentifier>{f73e1438-e7bc-44d8-a7ce-d92068ae6d87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\utils\disassembly\udis86">
+      <UniqueIdentifier>{e0aed89a-f00e-427a-becb-0f6663f16194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\utils\disassembly\udis86\libudis86">
+      <UniqueIdentifier>{1792966e-8dc4-44ad-83d0-fe4ead41b315}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -184,6 +199,27 @@
     </ClCompile>
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\arkdrv-api.cpp">
       <Filter>kernel\arkdrv-api</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\disassembly\disassembly.cpp">
+      <Filter>common\utils\disassembly</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\disassembly\udis86\libudis86\decode.c">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\disassembly\udis86\libudis86\itab.c">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\disassembly\udis86\libudis86\syn.c">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\disassembly\udis86\libudis86\syn-att.c">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\disassembly\udis86\libudis86\syn-intel.c">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\disassembly\udis86\libudis86\udis86.c">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +373,30 @@
     </ClInclude>
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\arkdrv-api.h">
       <Filter>kernel\arkdrv-api</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\disassembly\disassembly.h">
+      <Filter>common\utils\disassembly</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\disassembly\udis86\udis86.h">
+      <Filter>common\utils\disassembly\udis86</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\disassembly\udis86\libudis86\decode.h">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\disassembly\udis86\libudis86\extern.h">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\disassembly\udis86\libudis86\itab.h">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\disassembly\udis86\libudis86\syn.h">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\disassembly\udis86\libudis86\types.h">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\disassembly\udis86\libudis86\udint.h">
+      <Filter>common\utils\disassembly\udis86\libudis86</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

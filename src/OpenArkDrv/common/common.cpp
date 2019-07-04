@@ -34,3 +34,10 @@ BOOLEAN InitArkDriver(PDRIVER_OBJECT drvobj, PDEVICE_OBJECT devobj)
 	
 	return TRUE;
 }
+
+PVOID GetNtRoutineAddress(IN PCWSTR name)
+{
+	UNICODE_STRING ustr;
+	RtlInitUnicodeString(&ustr, name);
+	return MmGetSystemRoutineAddress(&ustr);
+}

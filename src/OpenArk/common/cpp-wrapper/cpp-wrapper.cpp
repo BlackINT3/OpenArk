@@ -48,6 +48,7 @@ int VariantInt(std::string val, int radix)
 
 int64_t VariantInt64(std::string val, int radix)
 {
+	UNONE::StrReplaceA(val, "`");
 	if (val.empty()) {
 		return 0;
 	}

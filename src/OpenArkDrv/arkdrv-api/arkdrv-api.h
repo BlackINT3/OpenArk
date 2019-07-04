@@ -29,12 +29,12 @@
 #define IOCTL_ARK_HEARTBEAT CTL_CODE(ARK_DRV_TYPE, 0x800, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_ARK_DRIVER CTL_CODE(ARK_DRV_TYPE, 0x801, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_ARK_NOTIFY CTL_CODE(ARK_DRV_TYPE, 0x802, METHOD_BUFFERED, FILE_ANY_ACCESS)
+#define IOCTL_ARK_MEMORY CTL_CODE(ARK_DRV_TYPE, 0x803, METHOD_BUFFERED, FILE_ANY_ACCESS)
 
 // Driver
 enum DRIVER_OPS {
 	DRIVER_ENUM_INFO,
 };
-
 #pragma pack(push, 1)
 typedef struct _DRIVER_ITEM {
 	ULONG64 base;
@@ -67,13 +67,32 @@ enum NOTIFY_TYPE {
 	LOAD_IMAGE,
 	CM_REGISTRY,
 };
-
 #pragma pack(push, 1)
 typedef struct _NOTIFY_INFO {
 	ULONG count;
 	NOTIFY_TYPE type;
 	ULONG64 items[1];
 } NOTIFY_INFO, *PNOTIFY_INFO;
+#pragma pack(pop)
+
+// Memory
+enum MEMORY_OPS {
+	MEMORY_READ,
+	MEMORY_WRITE,
+};
+#pragma pack(push, 1)
+typedef struct _MEMORY_IN {
+	ULONG64 addr;
+	ULONG size;
+	union {
+		UCHAR dummy[1];
+		UCHAR writebuf[1];
+	} u;
+} MEMORY_IN, *PMEMORY_IN;
+typedef struct _MEMORY_OUT {
+	ULONG size;
+	UCHAR readbuf[1];
+} MEMORY_OUT, *PMEMORY_OUT;
 #pragma pack(pop)
 
 
@@ -95,5 +114,7 @@ bool NotifyEnumProcess(std::vector<ULONG64> &routines);
 bool NotifyEnumThread(std::vector<ULONG64> &routines);
 bool NotifyEnumImage(std::vector<ULONG64> &routines);
 bool NotifyEnumRegistry(std::vector<ULONG64> &routines);
+bool MemoryRead(ULONG64 addr, ULONG size, std::string &readbuf);
+bool MemoryWrite(std::string &writebuf, ULONG64 addr);
 } // namespace ArkDrvApi
 #endif //_NTDDK_

@@ -53,12 +53,15 @@ private:
 	void InitDriversView();
 	void InitDriverKitView();
 	void InitNotifyView();
+	void InitMemoryView();
 	bool InstallDriver(QString driver);
 	bool UninstallDriver(QString service);
 	void ShowDrivers();
 	void ShowSystemNotify();
+	void ShowDumpMemory(ULONG64 addr, ULONG size);
 	int DriversCurRow();
-	QString DriversCurViewItemData(int column);
+	QString DriversItemData(int column);
+	QString NotifyItemData(int column);
 
 private:
 	bool arkdrv_conn_;

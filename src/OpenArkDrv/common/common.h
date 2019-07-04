@@ -33,3 +33,5 @@ typedef struct _ARK_DRIVER {
 extern ARK_DRIVER ArkDrv;
 
 BOOLEAN InitArkDriver(PDRIVER_OBJECT drvobj, PDEVICE_OBJECT devobj);
+
+PVOID GetNtRoutineAddress(IN PCWSTR name);

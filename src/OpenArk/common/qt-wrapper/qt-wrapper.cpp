@@ -151,6 +151,11 @@ int GetCurViewRow(QAbstractItemView *view)
 	return view->currentIndex().row();
 }
 
+int GetCurViewColumn(QAbstractItemView *view)
+{
+	return view->currentIndex().column();
+}
+
 QString GetCurItemViewData(QAbstractItemView *view, int column)
 {
 	auto idx = view->currentIndex();

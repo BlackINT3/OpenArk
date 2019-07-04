@@ -17,6 +17,9 @@
     <ClCompile Include="arkdrv-api\arkdrv-api.cpp">
       <Filter>arkdrv-api</Filter>
     </ClCompile>
+    <ClCompile Include="memory\memory.cpp">
+      <Filter>memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="notify">
@@ -33,6 +36,9 @@
     </Filter>
     <Filter Include="res">
       <UniqueIdentifier>{8842c31c-3e11-4d24-a5d1-b85db5f4f9f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="memory">
+      <UniqueIdentifier>{c28bfcae-6bbe-4eee-a802-a10e966f708a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +59,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="memory\memory.h">
+      <Filter>memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -14,15 +14,17 @@
 **
 ****************************************************************************/
 #include "kernel.h"
-#include "../common/common.h"
-#include "../openark/openark.h"
 #include "driver/driver.h"
+#include "../common/common.h"
+#include "../common/utils/disassembly/disassembly.h"
+#include "../openark/openark.h"
 #include "../../../OpenArkDrv/arkdrv-api/arkdrv-api.h"
 
 #define KernelTabEntry 0
 #define KernelTabDrivers 1
 #define KernelTabDriverKit 2
 #define KernelTabNotify 3
+#define KernelTabMemory 4
 
 struct {
 	int s = 0;
@@ -77,6 +79,7 @@ Kernel::Kernel(QWidget *parent) :
 	InitDriversView();
 	InitDriverKitView();
 	InitNotifyView();
+	InitMemoryView();
 }
 
 Kernel::~Kernel()
@@ -279,37 +282,40 @@ void Kernel::InitKernelEntryView()
 void Kernel::InitDriversView()
 {
 	drivers_model_ = new QStandardItemModel;
-	QTreeView *dview = ui.driverView;
-	proxy_drivers_ = new DriversSortFilterProxyModel(dview);
+	QTreeView *view = ui.driverView;
+	proxy_drivers_ = new DriversSortFilterProxyModel(view);
 	proxy_drivers_->setSourceModel(drivers_model_);
 	proxy_drivers_->setDynamicSortFilter(true);
 	proxy_drivers_->setFilterKeyColumn(1);
-	dview->setModel(proxy_drivers_);
-	dview->selectionModel()->setModel(proxy_drivers_);
-	dview->header()->setSortIndicator(-1, Qt::AscendingOrder);
-	dview->setSortingEnabled(true);
-	dview->viewport()->installEventFilter(this);
-	dview->installEventFilter(this);
+	view->setModel(proxy_drivers_);
+	view->selectionModel()->setModel(proxy_drivers_);
+	view->header()->setSortIndicator(-1, Qt::AscendingOrder);
+	view->setSortingEnabled(true);
+	view->viewport()->installEventFilter(this);
+	view->installEventFilter(this);
 	drivers_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Base") << tr("Path") << tr("Number") << tr("Description") << tr("Version") << tr("Company"));
-	dview->setColumnWidth(DRV.name, 138);
-	dview->setColumnWidth(DRV.base, 135);
-	dview->setColumnWidth(DRV.path, 285);
-	dview->setColumnWidth(DRV.number, 60);
-	dview->setColumnWidth(DRV.desc, 180);
+	view->setColumnWidth(DRV.name, 138);
+	view->setColumnWidth(DRV.base, 135);
+	view->setColumnWidth(DRV.path, 285);
+	view->setColumnWidth(DRV.number, 60);
+	view->setColumnWidth(DRV.desc, 180);
 	//dview->setColumnWidth(DRV.corp, 155);
-	dview->setColumnWidth(DRV.ver, 120);
-	dview->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	view->setColumnWidth(DRV.ver, 120);
+	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	drivers_menu_ = new QMenu();
 	drivers_menu_->addAction(tr("Refresh"), this, [&] { ShowDrivers(); });
-	drivers_menu_->addAction(tr("Explore File"), this, [&] {
-		ExploreFile(DriversCurViewItemData(DRV.path));
+	drivers_menu_->addAction(tr("Copy"), this, [&] {
+		ClipboardCopyData(DriversItemData(GetCurViewColumn(ui.driverView)).toStdString());
 	});
 	drivers_menu_->addAction(tr("Sendto Scanner"), this, [&] {
 		parent_->ActivateTab(TAB_SCANNER);
-		emit signalOpen(DriversCurViewItemData(DRV.path));
+		emit signalOpen(DriversItemData(DRV.path));
 	});
-	drivers_menu_->addAction(tr("Properties..."), this, [&]() {
-		WinShowProperties(DriversCurViewItemData(DRV.path).toStdWString());
+	drivers_menu_->addAction(tr("Explore File"), this, [&] {
+		ExploreFile(DriversItemData(DRV.path));
+	});
+	drivers_menu_->addAction(tr("Properties..."), this, [&] {
+		WinShowProperties(DriversItemData(DRV.path).toStdWString());
 	});
 }
 
@@ -350,16 +356,54 @@ void Kernel::InitNotifyView()
 	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	notify_menu_ = new QMenu();
 	notify_menu_->addAction(tr("Refresh"), this, [&] { ShowSystemNotify(); });
-	notify_menu_->addAction(tr("Explore File"), this, [&] {
-		ExploreFile(DriversCurViewItemData(NOTIFY.path));
+	notify_menu_->addSeparator();
+	notify_menu_->addAction(tr("Delete Notify"), this, [&] {
+		ULONG64 addr;
+		addr = QHexToQWord(NotifyItemData(NOTIFY.addr));
+		NOTIFY_TYPE type;
+		auto &&qstr = NotifyItemData(NOTIFY.type);
+		if (qstr == tr("CreateProcess")) type = CREATE_PROCESS;
+		else if (qstr == tr("CreateThread")) type = CREATE_THREAD;
+		else if (qstr == tr("LoadImage")) type = LOAD_IMAGE;
+		else if (qstr == tr("CmpCallback")) type = CM_REGISTRY;
+		ArkDrvApi::NotifyRemove(type, addr);
+		ShowSystemNotify();
+	});
+	notify_menu_->addAction(tr("Disassemble Notify"), this, [&] {
+		QString &&qstr = NotifyItemData(NOTIFY.addr);
+		ULONG64 addr;
+		ULONG size;
+		addr = QHexToQWord(qstr);
+		size = 0x100;
+		ui.addrEdit->setText(qstr);
+		ui.sizeEdit->setText(DWordToHexQ(size));
+		ShowDumpMemory(addr, size);
+		ui.tabWidget->setCurrentIndex(KernelTabMemory);
+	});
+	notify_menu_->addSeparator();
+	notify_menu_->addAction(tr("Copy"), this, [&] {
+		ClipboardCopyData(NotifyItemData(GetCurViewColumn(ui.driverView)).toStdString());
 	});
 	notify_menu_->addAction(tr("Sendto Scanner"), this, [&] {
 		parent_->ActivateTab(TAB_SCANNER);
-		emit signalOpen(DriversCurViewItemData(NOTIFY.path));
+		emit signalOpen(NotifyItemData(NOTIFY.path));
+	});
+	notify_menu_->addAction(tr("Explore File"), this, [&] {
+		ExploreFile(NotifyItemData(NOTIFY.path));
 	});
 	notify_menu_->addAction(tr("Properties..."), this, [&]() {
-		WinShowProperties(DriversCurViewItemData(NOTIFY.path).toStdWString());
+		WinShowProperties(NotifyItemData(NOTIFY.path).toStdWString());
 	});
+}
+
+void Kernel::InitMemoryView()
+{
+	connect(ui.dumpmemBtn, &QPushButton::clicked, this, [&] {
+		ULONG64 addr = VariantInt64(ui.addrEdit->text().toStdString());
+		ULONG size = VariantInt(ui.sizeEdit->text().toStdString());
+		ShowDumpMemory(addr, size);
+	});
+
 }
 
 bool Kernel::InstallDriver(QString driver)
@@ -488,13 +532,43 @@ void Kernel::ShowSystemNotify()
 	OutputNotify(routines, tr("CmpCallback"));
 }
 
+void Kernel::ShowDumpMemory(ULONG64 addr, ULONG size)
+{
+	std::vector<DRIVER_ITEM> infos;
+	ArkDrvApi::DriverEnumInfo(infos);
+	QString path;
+	for (auto info : infos) {
+		if (IN_RANGE(addr, info.base, info.size)) {
+			path = WStrToQ(ParseDriverPath(info.path));
+			break;
+		}
+	}
+	if (!path.isEmpty()) ui.regionLabel->setText(path);
+	char *mem = nullptr;
+	ULONG memsize = 0;
+	std::string buf;
+	if (ArkDrvApi::MemoryRead(addr, size, buf)) {
+		mem = (char*)buf.c_str();
+		memsize = buf.size();
+	}
+	auto hexdump = HexDumpMemory(addr, mem, size);
+	auto disasm = DisasmMemory(addr, mem, size);
+	ui.hexEdit->setText(StrToQ(hexdump));
+	ui.disasmEdit->setText(StrToQ(disasm));
+}
+
 int Kernel::DriversCurRow()
 {
 	auto idx = ui.driverView->currentIndex();
 	return idx.row();
 }
 
-QString Kernel::DriversCurViewItemData(int column)
+QString Kernel::DriversItemData(int column)
 {
 	return GetCurItemViewData(ui.driverView, column);
+}
+
+QString Kernel::NotifyItemData(int column)
+{
+	return GetCurItemViewData(ui.notifyView, column);
 }

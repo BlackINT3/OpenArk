@@ -89,13 +89,6 @@ PEX_CALLBACK_ROUTINE_BLOCK ExReferenceCallBackBlock(PEX_FAST_REF ref)
 	return (PEX_CALLBACK_ROUTINE_BLOCK)ExFastRefGetObject(ref);
 }
 
-PVOID GetNtRoutineAddress(IN PCWSTR FunctionName)
-{
-	UNICODE_STRING UsFunctionName;
-	RtlInitUnicodeString(&UsFunctionName, FunctionName);
-	return MmGetSystemRoutineAddress(&UsFunctionName);
-}
-
 FORCEINLINE ULONG GetProcessNotifyMaximum()
 {
 #ifdef _AMD64_
@@ -196,24 +189,24 @@ PEX_CALLBACK GetProcessNotifyCallback()
 		//Win10 1507 0xe9   jmp
 		for (PUCHAR ptr1 = routine; ptr1 <= routine + 0x10; ptr1++) {
 			PUCHAR psp_routine = NULL;
-			if (*ptr1 == 0xe8 || *ptr1 == 0xe9) {
+			if (ptr1[0] == 0xe8 || ptr1[0] == 0xe9) {
 				psp_routine = *(LONG*)(ptr1 + 1) + ptr1 + 5;
 				if (!MmIsAddressValid((PVOID)psp_routine)) break;
-			}
-			//Win10 1903 4c 8d 2d   lea  r13
-			//Win10 1809 4c 8d 2d   lea  r13
-			//Win10 1803 4c 8d 2d   lea  r13   48 8d 0d   lea  rcx
-			//Win10 1709 4c 8d 2d   lea  r13
-			//Win10 1703 4c 8d 25   lea  r12
-			//Win10 1607 4c 8d 25   lea  r12
-			//Win10 1511 4c 8d 3d   lea  r15
-			//Win10 1507 4c 8d 3d   lea  r15
-			for (PUCHAR ptr2 = psp_routine; ptr2 <= psp_routine + 0x100; ptr2++) {
-				if (*ptr2 == 0x4c && *(ptr2 + 1) == 0x8d &&
-					(*(ptr2 + 2) == 0x2d || *(ptr2 + 2) == 0x25 || *(ptr2 + 2) == 0x3d)) {
-					callback = (PEX_CALLBACK)(ptr2 + (*(LONG*)(ptr2 + 3)) + 7);
-					if (!MmIsAddressValid(callback))  callback = NULL;
-					break;
+				//Win10 1903 4c 8d 2d   lea  r13
+				//Win10 1809 4c 8d 2d   lea  r13
+				//Win10 1803 4c 8d 2d   lea  r13   48 8d 0d   lea  rcx
+				//Win10 1709 4c 8d 2d   lea  r13
+				//Win10 1703 4c 8d 25   lea  r12
+				//Win10 1607 4c 8d 25   lea  r12
+				//Win10 1511 4c 8d 3d   lea  r15
+				//Win10 1507 4c 8d 3d   lea  r15
+				for (PUCHAR ptr2 = psp_routine; ptr2 <= psp_routine + 0x100; ptr2++) {
+					if (ptr2[0] == 0x4c && ptr2[1] == 0x8d &&
+						(ptr2[2] == 0x2d || ptr2[2] == 0x25 || ptr2[2]  == 0x3d)) {
+						callback = (PEX_CALLBACK)(ptr2 + (*(LONG*)(ptr2 + 3)) + 7);
+						if (!MmIsAddressValid(callback))  callback = NULL;
+						break;
+					}
 				}
 			}
 		}
@@ -310,20 +303,20 @@ PEX_CALLBACK GetThreadNotifyCallback()
 			if (*ptr1 == 0xe8 || *ptr1 == 0xe9) {
 				psp_routine = *(LONG*)(ptr1 + 1) + ptr1 + 5;
 				if (!MmIsAddressValid((PVOID)psp_routine)) break;
-			}
-			//Win10 1903 48 8d 0d   lea  rcx
-			//Win10 1809 48 8d 0d   lea  rcx
-			//Win10 1803 48 8d 0d   lea  rcx
-			//Win10 1709 48 8d 0d   lea  rcx
-			//Win10 1703 48 8d 0d   lea  rcx
-			//Win10 1607 48 8d 0d   lea  rcx
-			//Win10 1511 48 8d 0d   lea  rcx
-			//Win10 1507 48 8d 0d   lea  rcx
-			for (PUCHAR ptr2 = psp_routine; ptr2 <= psp_routine + 0x40; ptr2++) {
-				if (*ptr2 == 0x48 && *(ptr2 + 1) == 0x8d && *(ptr2 + 2) == 0x0d) {
-					callback = (PEX_CALLBACK)(ptr2 + (*(LONG*)(ptr2 + 3)) + 7);
-					if (!MmIsAddressValid(callback))  callback = NULL;
-					break;
+				//Win10 1903 48 8d 0d   lea  rcx
+				//Win10 1809 48 8d 0d   lea  rcx
+				//Win10 1803 48 8d 0d   lea  rcx
+				//Win10 1709 48 8d 0d   lea  rcx
+				//Win10 1703 48 8d 0d   lea  rcx
+				//Win10 1607 48 8d 0d   lea  rcx
+				//Win10 1511 48 8d 0d   lea  rcx
+				//Win10 1507 48 8d 0d   lea  rcx
+				for (PUCHAR ptr2 = psp_routine; ptr2 <= psp_routine + 0x40; ptr2++) {
+					if (*ptr2 == 0x48 && *(ptr2 + 1) == 0x8d && *(ptr2 + 2) == 0x0d) {
+						callback = (PEX_CALLBACK)(ptr2 + (*(LONG*)(ptr2 + 3)) + 7);
+						if (!MmIsAddressValid(callback))  callback = NULL;
+						break;
+					}
 				}
 			}
 		}
@@ -387,7 +380,7 @@ PEX_CALLBACK GetImageNotifyCallback()
 	PEX_CALLBACK callback = NULL;
 #ifdef _AMD64_
 	// lea rcx
-	for (PUCHAR ptr1 = routine; ptr1 <= routine + 0x40; ptr1++) {
+	for (PUCHAR ptr1 = routine; ptr1 <= routine + 0x60; ptr1++) {
 		if (*ptr1 == 0x48 && *(ptr1 + 1) == 0x8d && *(ptr1 + 2) == 0x0d) {
 			callback = (PEX_CALLBACK)(ptr1 + (*(LONG*)(ptr1 + 3)) + 7);
 			if (!MmIsAddressValid(callback))  callback = NULL;

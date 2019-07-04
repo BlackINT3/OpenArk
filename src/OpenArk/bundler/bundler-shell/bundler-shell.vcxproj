@@ -76,24 +76,28 @@
     <Linkages-UNONE>static</Linkages-UNONE>
     <Linkages-vs2015-unone>static</Linkages-vs2015-unone>
     <OutDir>$(SolutionDir)OpenArk\res</OutDir>
+    <IntDir>intermediate-files\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <Linkages-UNONE>static</Linkages-UNONE>
     <Linkages-vs2015-unone>static</Linkages-vs2015-unone>
     <OutDir>$(SolutionDir)OpenArk\res</OutDir>
+    <IntDir>intermediate-files\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <Linkages-UNONE>static</Linkages-UNONE>
     <OutDir>$(SolutionDir)OpenArk\res</OutDir>
     <Linkages-vs2015-unone>static</Linkages-vs2015-unone>
+    <IntDir>intermediate-files\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <Linkages-UNONE>static</Linkages-UNONE>
     <Linkages-vs2015-unone>static</Linkages-vs2015-unone>
     <OutDir>$(SolutionDir)OpenArk\res</OutDir>
+    <IntDir>intermediate-files\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

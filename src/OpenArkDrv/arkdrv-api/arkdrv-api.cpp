@@ -36,26 +36,37 @@ bool ConnectDriver()
 	return true;
 }
 
-bool IoControlDriver(DWORD ctlcode, PVOID inbuf, DWORD inlen, PVOID *outbuf, DWORD *outlen)
+bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *outbuf, DWORD *outlen)
 {
 	DWORD retlen = 0;
 
 	if (arkdrv == INVALID_HANDLE_VALUE)
 		return false;
 
+	DWORD wrap_inlen = sizeof(op) + inlen;
+	PUCHAR wrap_inbuf = (PUCHAR)malloc(wrap_inlen);
+	if (!wrap_inbuf) return false;
+	memcpy(wrap_inbuf, &op, sizeof(op));
+	if (inbuf) memcpy(wrap_inbuf + sizeof(op), inbuf, inlen);
+
 	bool ret = DeviceIoControl(
 				arkdrv,
 				ctlcode,
-				inbuf,
-				inlen,
+				wrap_inbuf,
+				wrap_inlen,
 				NULL,
 				0,
 				&retlen,
 				NULL);
-	if (ret) return true;
+	if (ret) {
+		free(wrap_inbuf);
+		return true;
+	}
 
-	if (GetLastError() != ERROR_MORE_DATA)
+	if (GetLastError() != ERROR_MORE_DATA) {
+		free(wrap_inbuf);
 		return false;
+	}
 
 	*outbuf = NULL;
 	auto bufsize = retlen;
@@ -64,17 +75,19 @@ bool IoControlDriver(DWORD ctlcode, PVOID inbuf, DWORD inlen, PVOID *outbuf, DWO
 	if (!DeviceIoControl(
 		arkdrv,
 		ctlcode,
-		inbuf,
-		inlen,
+		wrap_inbuf,
+		wrap_inlen,
 		buf,
 		bufsize,
 		&retlen,
 		NULL)) {
 		free(buf);
+		free(wrap_inbuf);
 		return false;
 	}
 	*outbuf = buf;
 	*outlen = retlen;
+	free(wrap_inbuf);
 	return true;
 }
 
@@ -82,10 +95,9 @@ bool HeartBeatPulse()
 {
 	if (!ConnectDriver()) return false;
 
-	DWORD dummy = 0;
 	PVOID outbuf;
 	DWORD outlen;
-	bool ret = IoControlDriver(IOCTL_ARK_HEARTBEAT, &dummy, sizeof(dummy), &outbuf, &outlen);
+	bool ret = IoControlDriver(IOCTL_ARK_HEARTBEAT, 0, NULL, 0, &outbuf, &outlen);
 	return ret;
 }
 
@@ -95,7 +107,7 @@ bool DriverEnumInfo(std::vector<DRIVER_ITEM> &infos)
 	DWORD op = DRIVER_ENUM_INFO;
 	PDRIVER_INFO drivers;
 	DWORD outlen;
-	bool ret = IoControlDriver(IOCTL_ARK_DRIVER, &op, sizeof(op), (PVOID*)&drivers, &outlen);
+	bool ret = IoControlDriver(IOCTL_ARK_DRIVER, op, NULL, 0, (PVOID*)&drivers, &outlen);
 	if (!ret) return false;
 	for (int i = 0; i < drivers->count; i++) {
 		infos.push_back(drivers->items[i]);
@@ -105,14 +117,17 @@ bool DriverEnumInfo(std::vector<DRIVER_ITEM> &infos)
 }
 bool NotifyPatch(NOTIFY_TYPE type, ULONG64 routine);
 bool NotifyPatchRegularly(NOTIFY_TYPE type, ULONG64 routine, int interval);
-bool NotifyRemove(NOTIFY_TYPE type, ULONG64 routine);
+bool NotifyRemove(NOTIFY_TYPE type, ULONG64 routine)
+{
+	return true;
+}
 bool NotifyRemoveRegularly(NOTIFY_TYPE type, ULONG64 routine, int interval);
 bool NotifyEnum(DWORD op, std::vector<ULONG64> &routines)
 {
 	routines.clear();
 	PNOTIFY_INFO notify;
 	DWORD outlen;
-	bool ret = IoControlDriver(IOCTL_ARK_NOTIFY, &op, sizeof(op), (PVOID*)&notify, &outlen);
+	bool ret = IoControlDriver(IOCTL_ARK_NOTIFY, op, NULL, 0, (PVOID*)&notify, &outlen);
 	if (!ret) return false;
 	for (int i = 0; i < notify->count; i++) {
 		routines.push_back(notify->items[i]);
@@ -135,6 +150,21 @@ bool NotifyEnumImage(std::vector<ULONG64> &routines)
 bool NotifyEnumRegistry(std::vector<ULONG64> &routines)
 {
 	return NotifyEnum(NOTIFY_ENUM_REGISTRY, routines);
+}
+bool MemoryRead(ULONG64 addr, ULONG size, std::string &readbuf)
+{
+	if (!size) return false;
+	MEMORY_IN memin;
+	memin.addr = addr;
+	memin.size = size;
+	DWORD outlen;
+	PMEMORY_OUT memout;
+	bool ret = IoControlDriver(IOCTL_ARK_MEMORY, MEMORY_READ, &memin, sizeof(memin), (PVOID*)&memout, &outlen);
+	if (!ret)	 return false;
+	readbuf.resize(memout->size);
+	memcpy(&readbuf[0], memout->readbuf, memout->size);
+	free(memout);
+	return true;
 }
 } // namespace IArkDrv
 #endif

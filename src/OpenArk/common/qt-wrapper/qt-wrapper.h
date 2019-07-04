@@ -76,6 +76,10 @@ protected: \
 #define QToWChars(qstr) qstr.toStdWString().c_str()
 #define QToStr(qstr) qstr.toStdString()
 #define QToWStr(qstr) qstr.toStdWString()
+#define QDecToDWord(qstr) UNONE::StrToDecimalW(qstr.toStdWString());
+#define QHexToDWord(qstr) UNONE::StrToHexW(qstr.toStdWString());
+#define QDecToQWord(qstr) UNONE::StrToDecimal64W(qstr.toStdWString());
+#define QHexToQWord(qstr) UNONE::StrToHex64W(qstr.toStdWString());
 #define CharsToQ(chars) QString::fromLocal8Bit(chars)
 #define WCharsToQ(wchars) QString::fromWCharArray(wchars)
 #define StrToQ(str) QString::fromStdString(str)
@@ -183,6 +187,7 @@ QString GetItemViewData(QAbstractItemView *view, int row, int column);
 QString GetCurItemViewData(QAbstractItemView *view, int column);
 void SetCurItemViewData(QAbstractItemView *view, int column, QString val);
 int GetCurViewRow(QAbstractItemView *view);
+int GetCurViewColumn(QAbstractItemView *view);
 void ClearItemModelData(QStandardItemModel* model, int pos = 0);
 void ExpandTreeView(const QModelIndex& index, QTreeView* view);
 void SetDefaultTableViewStyle(QTableView* view, QStandardItemModel* model);
