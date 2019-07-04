@@ -148,7 +148,7 @@ PEX_CALLBACK GetProcessNotifyCallback()
 			// e9 jmp
 			if (*ptr1 == 0xe9) {
 				PUCHAR psp_routine = *(LONG*)(ptr1 + 1) + ptr1 + 5;
-				if (!MmIsAddressValid((PVOID)psp_routine)) break;
+				if (!MmIsAddressValid(psp_routine)) break;
 				// lea r14
 				for (PUCHAR ptr2 = psp_routine; ptr2 <= psp_routine + 0x50; ptr2++) {
 					if (*ptr2 == 0x4c && *(ptr2 + 1) == 0x8d && *(ptr2 + 2) == 0x35) {
@@ -168,9 +168,9 @@ PEX_CALLBACK GetProcessNotifyCallback()
 			}	else if (*ptr1 == 0xe9) { //Win8.1 e9 jmp
 				psp_routine = *(LONG*)(ptr1 + 1) + ptr1 + 5;
 			}
-			if (!psp_routine || !MmIsAddressValid((PVOID)psp_routine)) break;
+			if (!psp_routine || !MmIsAddressValid(psp_routine)) break;
 			// 4c 8d 3d lea r15
-			for (PUCHAR ptr2 = psp_routine; ptr2 <= psp_routine + 0x50; ptr2++) {
+			for (PUCHAR ptr2 = psp_routine; ptr2 <= psp_routine + 0x60; ptr2++) {
 				if (*ptr2 == 0x4c && *(ptr2 + 1) == 0x8d && *(ptr2 + 2) == 0x3d) {
 					callback = (PEX_CALLBACK)(ptr2 + (*(LONG*)(ptr2 + 3)) + 7);
 					if (!MmIsAddressValid(callback))  callback = NULL;
@@ -271,6 +271,13 @@ BOOLEAN GetProcessNotifyInfo(ULONG &count, PULONG64 &items)
 	}
 	return TRUE;
 }
+BOOLEAN RemoveProcessNotify(ULONG64 routine)
+{
+	NTSTATUS status;
+	if (!MmIsAddressValid((PVOID)routine)) return false;
+	status = PsSetCreateProcessNotifyRoutine((PCREATE_PROCESS_NOTIFY_ROUTINE)routine, TRUE);
+	return NT_SUCCESS(status);
+}
 
 // Thread Notify
 PEX_CALLBACK GetThreadNotifyCallback()
@@ -365,6 +372,13 @@ BOOLEAN GetThreadNotifyInfo(ULONG &count, PULONG64 &items)
 	}
 	return TRUE;
 }
+BOOLEAN RemoveThreadNotify(ULONG64 routine)
+{
+	NTSTATUS status;
+	if (!MmIsAddressValid((PVOID)routine)) return false;
+	status = PsRemoveCreateThreadNotifyRoutine((PCREATE_THREAD_NOTIFY_ROUTINE)routine);
+	return NT_SUCCESS(status);
+}
 
 // Image Notify
 PEX_CALLBACK GetImageNotifyCallback()
@@ -438,6 +452,13 @@ BOOLEAN GetImageNotifyInfo(ULONG &count, PULONG64 &items)
 		return FALSE;
 	}
 	return TRUE;
+}
+BOOLEAN RemoveImageNotify(ULONG64 routine)
+{
+	NTSTATUS status;
+	if (!MmIsAddressValid((PVOID)routine)) return false;
+	status = PsRemoveLoadImageNotifyRoutine((PLOAD_IMAGE_NOTIFY_ROUTINE)routine);
+	return NT_SUCCESS(status);
 }
 
 // Registry Notify
@@ -527,4 +548,29 @@ BOOLEAN GetRegistryNotifyInfo(ULONG &count, PULONG64 &items)
 		return FALSE;
 	}
 	return TRUE;
+}
+BOOLEAN RemoveRegistryNotify(ULONG64 routine)
+{
+	// [TODO] NT5 cookie
+	if (ArkDrv.major <= 5) return false;
+
+	if (!ArkDrv.registry_notify) {
+		ArkDrv.registry_notify = GetRegistryNotifyCallback();
+	}
+	PEX_CALLBACK callback = (PEX_CALLBACK)ArkDrv.registry_notify;
+	if (!callback) return FALSE;
+	ULONG maxinum = GetRegistryNotifyMaximum();
+	if (!maxinum) return FALSE;
+
+	PLIST_ENTRY head = (PLIST_ENTRY)callback;
+	PCM_CALLBACK_CONTEXT_BLOCKEX ctx;
+	for (PLIST_ENTRY entry = head->Flink; entry != head;) {
+		ctx = CONTAINING_RECORD(entry, CM_CALLBACK_CONTEXT_BLOCKEX, ListEntry);
+		entry = entry->Flink;
+		if (routine == (ULONG64)ctx->Function) {
+			CmUnRegisterCallback(ctx->Cookie);
+			return TRUE;
+		}
+	}
+	return FALSE;
 }

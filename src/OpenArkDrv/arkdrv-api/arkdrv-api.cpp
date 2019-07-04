@@ -119,7 +119,12 @@ bool NotifyPatch(NOTIFY_TYPE type, ULONG64 routine);
 bool NotifyPatchRegularly(NOTIFY_TYPE type, ULONG64 routine, int interval);
 bool NotifyRemove(NOTIFY_TYPE type, ULONG64 routine)
 {
-	return true;
+	if (routine == 0) return false;
+	NOTIFY_REMOVE_INFO info;
+	info.type = type;
+	info.item = routine;
+	bool ret = IoControlDriver(IOCTL_ARK_NOTIFY, NOTIFY_REMOVE, &info, sizeof(info), NULL, 0);
+	return ret;
 }
 bool NotifyRemoveRegularly(NOTIFY_TYPE type, ULONG64 routine, int interval);
 bool NotifyEnum(DWORD op, std::vector<ULONG64> &routines)

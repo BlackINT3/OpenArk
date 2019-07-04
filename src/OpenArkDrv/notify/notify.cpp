@@ -59,6 +59,33 @@ NTSTATUS GetNotifyInfo(NOTIFY_TYPE type, PVOID inbuf, ULONG inlen, PVOID outbuf,
 	return STATUS_SUCCESS;
 }
 
+NTSTATUS RemoveNotifyInfo(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
+{
+	auto removed = (PNOTIFY_REMOVE_INFO)inbuf;
+	auto type = removed->type;
+	auto routine = removed->item;
+	BOOLEAN ret = FALSE;
+	switch (type) {
+	case CREATE_PROCESS:
+		ret = RemoveProcessNotify(routine);
+		break;
+	case CREATE_THREAD:
+		ret = RemoveThreadNotify(routine);
+		break;
+	case LOAD_IMAGE:
+		ret = RemoveImageNotify(routine);
+		break;
+	case CM_REGISTRY:
+		ret = RemoveRegistryNotify(routine);
+		break;
+	default:
+		break;
+	}
+	if (!ret) return STATUS_UNSUCCESSFUL;
+	irp->IoStatus.Information = 0;
+	return STATUS_SUCCESS;
+}
+
 BOOLEAN InitNotifyDispatcher()
 {
 	ArkDrv.process_notify = NULL;
@@ -88,6 +115,7 @@ NTSTATUS NotifyDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, IN PIRP irp)
 	case NOTIFY_PATCH_REGULARLY:
 		break;
 	case NOTIFY_REMOVE:
+		status = RemoveNotifyInfo(inbuf, inlen, outbuf, outlen, irp);
 		break;
 	case NOTIFY_REMOVE_REGULARLY:
 		break;

@@ -25,47 +25,6 @@ NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp);
 NTSTATUS DefaultDispatcher(PDEVICE_OBJECT devobj, PIRP irp);
 VOID DriverUnload(PDRIVER_OBJECT drvobj);
 
-BOOL ReadMemory(IN PVOID Address, OUT PVOID Buffer, SIZE_T Size)
-{
-	PMDL Mdl = IoAllocateMdl(Address, Size, NULL, NULL, 0);
-	if (!Mdl) return FALSE;
-
-	__try {
-		MmProbeAndLockPages(Mdl, KernelMode, IoReadAccess);
-	}
-	__except (EXCEPTION_EXECUTE_HANDLER) {
-		IoFreeMdl(Mdl);
-		return FALSE;
-	}
-
-	PVOID Mapping = MmMapLockedPagesSpecifyCache(
-		Mdl,
-		KernelMode,
-		MmNonCached,
-		NULL,
-		FALSE,
-		NormalPagePriority
-	);
-
-	if (Mapping) {
-		__try {
-			RtlCopyMemory(Buffer, Mapping, Size);
-		}
-		__except (EXCEPTION_EXECUTE_HANDLER) {
-			MmUnmapLockedPages(Mapping, Mdl);
-			MmUnlockPages(Mdl);
-			IoFreeMdl(Mdl);
-			return FALSE;
-		}
-
-		MmUnmapLockedPages(Mapping, Mdl);
-	}
-
-	MmUnlockPages(Mdl);
-	IoFreeMdl(Mdl);
-	return TRUE;
-}
-
 NTSTATUS DriverEntry(PDRIVER_OBJECT drvobj, PUNICODE_STRING registry)
 {
 	NTSTATUS status;

@@ -42,7 +42,6 @@ PRTL_PROCESS_MODULES QueryModuleInformation()
 
 NTSTATUS DriverEnumInfo(PVOID	inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
 {
-	NTSTATUS status;
 	PRTL_PROCESS_MODULES mods = QueryModuleInformation();
 	if (!mods) {
 		return STATUS_UNSUCCESSFUL;
@@ -59,7 +58,11 @@ NTSTATUS DriverEnumInfo(PVOID	inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PI
 	for (ULONG i = 0; i < count; i++) {
 		auto &item = info->items[i];
 		auto &mod = mods->Modules[i];
+#ifdef _AMD64_
 		item.base = (ULONG64)mod.ImageBase;
+#else
+		item.base = (ULONG64)(ULONG)mod.ImageBase;
+#endif
 		item.size = mod.ImageSize;
 		item.flags = mod.Flags;
 		item.init_seq = mod.InitOrderIndex;

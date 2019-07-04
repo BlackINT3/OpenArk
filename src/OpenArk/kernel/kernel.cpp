@@ -435,7 +435,19 @@ void Kernel::ShowDrivers()
 	UNONE::ObGetDriverList(drivers);
 	int number = 0;
 	for (auto d : drivers) {
-		auto &&path = WStrToQ(UNONE::ObGetDriverPathW(d));
+		static int major = UNONE::OsMajorVer();
+		auto &&w_path = UNONE::ObGetDriverPathW(d);
+		if (major <= 5) {
+			if (UNONE::StrIndexIW(w_path, L"\\Windows") == 0) {
+				static auto &&drive = UNONE::OsEnvironmentW(L"%SystemDrive%");
+				w_path = drive + w_path;
+			} else if (w_path.find(L'\\') == std::wstring::npos && w_path.find(L'/') == std::wstring::npos) {
+				static auto &&driverdir = UNONE::OsSystem32DirW() + L"\\drivers\\";
+				w_path = driverdir + w_path;
+			}
+		}
+
+		auto &&path = WStrToQ(w_path);
 		auto &&name = WStrToQ(UNONE::ObGetDriverNameW(d));
 
 		bool microsoft = true;
@@ -447,12 +459,10 @@ void Kernel::ShowDrivers()
 				existed = false;
 			}
 		}
-		if (info.corp != "Microsoft Corporation") {
-			microsoft = false;
-		}
+		if (!info.corp.contains("Microsoft", Qt::CaseInsensitive)) { microsoft = false; }
 
 		QStandardItem *name_item = new QStandardItem(name);
-		QStandardItem *base_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", d)));
+		QStandardItem *base_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", d)));
 		QStandardItem *path_item = new QStandardItem(path);
 		QStandardItem *number_item = new QStandardItem(QString("%1").arg(number));
 		QStandardItem *desc_item = new QStandardItem(info.desc);
@@ -499,7 +509,7 @@ void Kernel::ShowSystemNotify()
 					existed = false;
 				}
 			}
-			if (info.corp != "Microsoft Corporation") { microsoft = false; }
+			if (!info.corp.contains("Microsoft", Qt::CaseInsensitive)) { microsoft = false; }
 			QStandardItem *addr_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%llX", routine)));
 			QStandardItem *type_item = new QStandardItem(type);
 			QStandardItem *path_item = new QStandardItem(path);

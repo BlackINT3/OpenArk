@@ -17,6 +17,13 @@
 #include <ntifs.h>
 
 BOOLEAN GetProcessNotifyInfo(ULONG &count, PULONG64 &items);
+BOOLEAN RemoveProcessNotify(ULONG64 routine);
+
 BOOLEAN GetThreadNotifyInfo(ULONG &count, PULONG64 &items);
+BOOLEAN RemoveThreadNotify(ULONG64 routine);
+
 BOOLEAN GetImageNotifyInfo(ULONG &count, PULONG64 &items);
+BOOLEAN RemoveImageNotify(ULONG64 routine);
+
 BOOLEAN GetRegistryNotifyInfo(ULONG &count, PULONG64 &items);
+BOOLEAN RemoveRegistryNotify(ULONG64 routine);

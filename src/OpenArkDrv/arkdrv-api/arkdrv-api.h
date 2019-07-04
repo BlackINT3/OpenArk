@@ -73,6 +73,10 @@ typedef struct _NOTIFY_INFO {
 	NOTIFY_TYPE type;
 	ULONG64 items[1];
 } NOTIFY_INFO, *PNOTIFY_INFO;
+typedef struct _NOTIFY_REMOVE_INFO {
+	NOTIFY_TYPE type;
+	ULONG64 item;
+} NOTIFY_REMOVE_INFO, *PNOTIFY_REMOVE_INFO;
 #pragma pack(pop)
 
 // Memory
