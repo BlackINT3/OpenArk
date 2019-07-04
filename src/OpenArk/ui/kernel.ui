@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabKernelEntry">
       <attribute name="title">
@@ -395,7 +395,13 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QTreeView" name="notifyView"/>
+        <widget class="QTreeView" name="notifyView">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

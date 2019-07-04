@@ -221,13 +221,18 @@ void Kernel::InitKernelEntryView()
 	info.dwOSVersionInfoSize = sizeof(info);
 	GetVersionExW((LPOSVERSIONINFOW)&info);
 
+	PERFORMANCE_INFORMATION perf = { 0 };
+	GetPerformanceInfo(&perf, sizeof(perf));
+	double gb = round((double)(perf.PhysicalTotal*perf.PageSize) / 1024 / 1024 / 1024);
+
 	AddSummaryUpItem(tr("MajorVersion"), DWordToDecQ(UNONE::OsMajorVer()));
 	AddSummaryUpItem(tr("MiniorVersion"), DWordToDecQ(UNONE::OsMinorVer()));
 	AddSummaryUpItem(tr("BuildNumber"), DWordToDecQ(UNONE::OsBuildNumber()));
 	AddSummaryUpItem(tr("MajorServicePack"), DWordToDecQ(info.wServicePackMajor));
 	AddSummaryUpItem(tr("MiniorServicePack"), DWordToDecQ(info.wServicePackMinor));
 	AddSummaryUpItem(tr("R3 AddressRange"), StrToQ(UNONE::StrFormatA("%p - %p", sys.lpMinimumApplicationAddress, sys.lpMaximumApplicationAddress)));
-	AddSummaryUpItem(tr("Page Size"), StrToQ(UNONE::StrFormatA("0x%X", sys.dwPageSize)));
+	AddSummaryUpItem(tr("Page Size"), StrToQ(UNONE::StrFormatA("%d KB", sys.dwPageSize/1024)));
+	AddSummaryUpItem(tr("Physical Memory"), StrToQ(UNONE::StrFormatA("%d GB", (int)gb)));
 	AddSummaryUpItem(tr("CPU Count"), DWordToDecQ(sys.dwNumberOfProcessors));
 	AddSummaryUpItem(tr("SystemRoot"), WStrToQ(UNONE::OsWinDirW()));
 
@@ -350,8 +355,8 @@ void Kernel::InitNotifyView()
 	notify_model_->setHorizontalHeaderLabels(QStringList() << tr("Callback Entry") << tr("Type") << tr("Path") << tr("Description") << tr("Version") << tr("Company"));
 	view->setColumnWidth(NOTIFY.addr, 150);
 	view->setColumnWidth(NOTIFY.type, 100);
-	view->setColumnWidth(NOTIFY.path, 285);
-	view->setColumnWidth(NOTIFY.desc, 335);
+	view->setColumnWidth(NOTIFY.path, 360);
+	view->setColumnWidth(NOTIFY.desc, 230);
 	view->setColumnWidth(NOTIFY.ver, 120);
 	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	notify_menu_ = new QMenu();

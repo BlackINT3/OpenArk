@@ -327,7 +327,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">内核入口</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="266"/>
+        <location filename="kernel/kernel.cpp" line="271"/>
         <source>[KernelMode] Connect successfully...</source>
         <translation type="unfinished">[内核模式] 连接成功...</translation>
     </message>
@@ -398,42 +398,42 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">系统回调</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="404"/>
+        <location filename="ui/kernel.ui" line="410"/>
         <source>Memory View</source>
         <translation type="unfinished">内存查看</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="415"/>
+        <location filename="ui/kernel.ui" line="421"/>
         <source>Address:</source>
         <translation type="unfinished">地址:</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="434"/>
+        <location filename="ui/kernel.ui" line="440"/>
         <source>0xfffff780`00000000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="441"/>
+        <location filename="ui/kernel.ui" line="447"/>
         <source>Size:</source>
         <translation type="unfinished">大小:</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="454"/>
+        <location filename="ui/kernel.ui" line="460"/>
         <source>0x200</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="461"/>
+        <location filename="ui/kernel.ui" line="467"/>
         <source>DumpMemory</source>
         <translation type="unfinished">读取内存</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="474"/>
+        <location filename="ui/kernel.ui" line="480"/>
         <source>Region:</source>
         <translation type="unfinished">区域:</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="487"/>
+        <location filename="ui/kernel.ui" line="493"/>
         <source>Unknown...</source>
         <translation type="unfinished">未知...</translation>
     </message>
@@ -462,7 +462,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="kernel/kernel.cpp" line="206"/>
-        <location filename="kernel/kernel.cpp" line="296"/>
+        <location filename="kernel/kernel.cpp" line="301"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
@@ -472,150 +472,155 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">值</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="224"/>
+        <location filename="kernel/kernel.cpp" line="228"/>
         <source>MajorVersion</source>
         <translation type="unfinished">主版本号</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="225"/>
+        <location filename="kernel/kernel.cpp" line="229"/>
         <source>MiniorVersion</source>
         <translation type="unfinished">副版本号</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="226"/>
+        <location filename="kernel/kernel.cpp" line="230"/>
         <source>BuildNumber</source>
         <translation type="unfinished">编译号</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="227"/>
+        <location filename="kernel/kernel.cpp" line="231"/>
         <source>MajorServicePack</source>
         <translation type="unfinished">主服务包</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="228"/>
+        <location filename="kernel/kernel.cpp" line="232"/>
         <source>MiniorServicePack</source>
         <translation type="unfinished">副服务包</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="229"/>
+        <location filename="kernel/kernel.cpp" line="233"/>
         <source>R3 AddressRange</source>
         <translation type="unfinished">R3地址空间</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="230"/>
+        <location filename="kernel/kernel.cpp" line="234"/>
         <source>Page Size</source>
         <translation type="unfinished">页面大小</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="231"/>
+        <location filename="kernel/kernel.cpp" line="235"/>
+        <source>Physical Memory</source>
+        <translation type="unfinished">物理内存</translation>
+    </message>
+    <message>
+        <location filename="kernel/kernel.cpp" line="236"/>
         <source>CPU Count</source>
         <translation type="unfinished">CPU核数</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="232"/>
+        <location filename="kernel/kernel.cpp" line="237"/>
         <source>SystemRoot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="272"/>
+        <location filename="kernel/kernel.cpp" line="277"/>
         <source>[KernelMode] Disconnected...</source>
         <translation type="unfinished">[内核模式] 已断开...</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="296"/>
+        <location filename="kernel/kernel.cpp" line="301"/>
         <source>Base</source>
         <translation type="unfinished">基址</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="296"/>
-        <location filename="kernel/kernel.cpp" line="350"/>
+        <location filename="kernel/kernel.cpp" line="301"/>
+        <location filename="kernel/kernel.cpp" line="355"/>
         <source>Path</source>
         <translation type="unfinished">路径</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="296"/>
+        <location filename="kernel/kernel.cpp" line="301"/>
         <source>Number</source>
         <translation type="unfinished">顺序</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="296"/>
-        <location filename="kernel/kernel.cpp" line="350"/>
+        <location filename="kernel/kernel.cpp" line="301"/>
+        <location filename="kernel/kernel.cpp" line="355"/>
         <source>Description</source>
         <translation type="unfinished">描述</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="296"/>
-        <location filename="kernel/kernel.cpp" line="350"/>
+        <location filename="kernel/kernel.cpp" line="301"/>
+        <location filename="kernel/kernel.cpp" line="355"/>
         <source>Version</source>
         <translation type="unfinished">版本</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="296"/>
-        <location filename="kernel/kernel.cpp" line="350"/>
+        <location filename="kernel/kernel.cpp" line="301"/>
+        <location filename="kernel/kernel.cpp" line="355"/>
         <source>Company</source>
         <translation type="unfinished">公司</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="306"/>
-        <location filename="kernel/kernel.cpp" line="358"/>
+        <location filename="kernel/kernel.cpp" line="311"/>
+        <location filename="kernel/kernel.cpp" line="363"/>
         <source>Refresh</source>
         <translation type="unfinished">刷新</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="307"/>
-        <location filename="kernel/kernel.cpp" line="384"/>
+        <location filename="kernel/kernel.cpp" line="312"/>
+        <location filename="kernel/kernel.cpp" line="389"/>
         <source>Copy</source>
         <translation type="unfinished">复制</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="314"/>
-        <location filename="kernel/kernel.cpp" line="391"/>
+        <location filename="kernel/kernel.cpp" line="319"/>
+        <location filename="kernel/kernel.cpp" line="396"/>
         <source>Explore File</source>
         <translation type="unfinished">定位到文件</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="310"/>
-        <location filename="kernel/kernel.cpp" line="387"/>
+        <location filename="kernel/kernel.cpp" line="315"/>
+        <location filename="kernel/kernel.cpp" line="392"/>
         <source>Sendto Scanner</source>
         <translation type="unfinished">扫描</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="317"/>
-        <location filename="kernel/kernel.cpp" line="394"/>
+        <location filename="kernel/kernel.cpp" line="322"/>
+        <location filename="kernel/kernel.cpp" line="399"/>
         <source>Properties...</source>
         <translation type="unfinished">属性...</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="325"/>
+        <location filename="kernel/kernel.cpp" line="330"/>
         <source>Open File</source>
         <translation type="unfinished">打开文件</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="325"/>
+        <location filename="kernel/kernel.cpp" line="330"/>
         <source>Driver Files (*.sys);;All Files (*.*)</source>
         <translation type="unfinished">驱动文件 (*.sys);;所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="365"/>
-        <location filename="kernel/kernel.cpp" line="523"/>
+        <location filename="kernel/kernel.cpp" line="370"/>
+        <location filename="kernel/kernel.cpp" line="538"/>
         <source>CreateProcess</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="366"/>
-        <location filename="kernel/kernel.cpp" line="526"/>
+        <location filename="kernel/kernel.cpp" line="371"/>
+        <location filename="kernel/kernel.cpp" line="541"/>
         <source>CreateThread</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="367"/>
-        <location filename="kernel/kernel.cpp" line="529"/>
+        <location filename="kernel/kernel.cpp" line="372"/>
+        <location filename="kernel/kernel.cpp" line="544"/>
         <source>LoadImage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="368"/>
-        <location filename="kernel/kernel.cpp" line="532"/>
+        <location filename="kernel/kernel.cpp" line="373"/>
+        <location filename="kernel/kernel.cpp" line="547"/>
         <source>CmpCallback</source>
         <translation type="unfinished"></translation>
     </message>
@@ -650,28 +655,28 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">卸载失败,打开控制台窗口查看详情...</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="350"/>
+        <location filename="kernel/kernel.cpp" line="355"/>
         <source>Callback Entry</source>
         <translation type="unfinished">回调入口</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="350"/>
+        <location filename="kernel/kernel.cpp" line="355"/>
         <source>Type</source>
         <translation type="unfinished">类型</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="360"/>
+        <location filename="kernel/kernel.cpp" line="365"/>
         <source>Delete Notify</source>
         <translation type="unfinished">删除回调</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="372"/>
+        <location filename="kernel/kernel.cpp" line="377"/>
         <source>Disassemble Notify</source>
         <translation type="unfinished">反汇编回调入口</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="446"/>
-        <location filename="kernel/kernel.cpp" line="498"/>
+        <location filename="kernel/kernel.cpp" line="463"/>
+        <location filename="kernel/kernel.cpp" line="513"/>
         <source>[-] Driver file not existed!</source>
         <translation type="unfinished">[-] 驱动文件不存在!</translation>
     </message>
