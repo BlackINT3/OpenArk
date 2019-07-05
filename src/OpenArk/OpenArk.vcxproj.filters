@@ -420,7 +420,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="openark_zh.ts">
       <Filter>Translation Files</Filter>
     </None>

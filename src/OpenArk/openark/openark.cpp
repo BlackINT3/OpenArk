@@ -152,7 +152,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	CreateTabPage(new CoderKit(this), ui.tabCoderKit);
 	CreateTabPage(new Bundler(this), ui.tabBundler);
 	CreateTabPage(new Kernel(this), ui.tabKernel);
-	ActivateTab(TAB_KERNEL);
+	ActivateTab(TAB_PROCESS);
 
 	chkupt_timer_ = new QTimer();
 	chkupt_timer_->setInterval(5000);
