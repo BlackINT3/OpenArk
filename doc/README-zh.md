@@ -11,7 +11,7 @@
 ### 简介
 * [英文说明](https://github.com/BlackINT3/OpenArk/blob/master/README.md)
 
-&ensp;&ensp;OpenArk是一款Windows平台上的开源工具. Ark是Anti-Rootkit（对抗恶意程序）的简写, OpenArk目标成为逆向工程师、编程人员的工具，同时也能为那些希望清理恶意软件的用户服务。以后也将会支持更多功能和命令。
+&ensp;&ensp;OpenArk是一款Windows平台上的开源Ark工具. Ark是Anti-Rootkit（对抗恶意程序）的简写, OpenArk目标成为逆向工程师、编程人员的工具，同时也能为那些希望清理恶意软件的用户服务。以后也将会支持更多功能和命令。
 
 ![image](resources/snapshot-zh-v102.png)
 
