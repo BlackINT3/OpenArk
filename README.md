@@ -11,7 +11,7 @@
 ### Introduction
 * [中文说明](https://github.com/BlackINT3/OpenArk/blob/master/doc/README-zh.md)
 
-* OpenArk is a open source anti-rookit(Ark) tool on Windows. Ark is Anti Rootkit abbreviated, it aimmed at reversing/programming helper and also users can find out malwares in the OS. More and more commands will be supported in future.
+* OpenArk is a open source anti-rookit(Ark) tool on Windows. Ark is Anti Rootkit abbreviated, it aimmed at reversing and programming helper, users also can use it to find out malwares in the OS. More and more commands will be supported in future.
 
 ![image](doc/resources/snapshot-en-v102.png)
 
