@@ -399,6 +399,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="openark_zh.ts" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

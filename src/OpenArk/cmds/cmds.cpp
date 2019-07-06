@@ -15,6 +15,7 @@
 ****************************************************************************/
 #include "cmds.h"
 #include "constants/constants.h"
+#include "../common/utils/disassembly/disassembly.h"
 #include <time.h>	
 
 struct CommandHelpItem {
@@ -81,9 +82,17 @@ LR"(.ps [show processes list]
 LR"(.pstree [show process tree]
 .pstree 1234/0x3200 [show process tree parent id = 1234 or 0x3200])" },
 
-{ L".mm", "CmdMemoryInfo", LR"(show memory information)",
+{ L".mm", "CmdMemoryEditor", LR"(memory editor)",
 LR"(.mm [show os memory]
-.mm -pid 1234 [show process pid=1234 memory information])" },
+.mm i 1234 [show process pid=1234 memory information]
+.mm r 1234 40000 100 [read process(pid=1234) memory, 0x40000:0x100]
+.mm w 1234 40000 cccc9090 [write process(pid=1234) memory, 0x40000=>0xcc 0xcc 0x90 0x90)" },
+
+{ L".fs", "CmdFileEditor", LR"(file editor)",
+LR"(.fs [show os memory]
+.fs i c:\my.txt [show my.txt information]
+.fs r c:\my.txt 0 100/all [read my.txt, 0:0x100/all]
+.fs w c:\my.txt 0 cccc9090 [write my.txt, 0x0=>0xcc 0xcc 0x90 0x90)" },
 };
 
 Cmds::Cmds(QTextBrowser *parent) :
@@ -151,12 +160,14 @@ Q_INVOKABLE void Cmds::CmdCls(QStringList argv)
 Q_INVOKABLE void Cmds::CmdCmd(QStringList argv)
 {
 	std::wstring line;
+	if (argv.size() == 1)
+		line = VariantFilePath(line);
 	for (size_t i = 0; i < argv.size(); i++) {
 		line.append(argv[i].toStdWString());
 		if (i != (argv.size()-1))
 			line.append(L" ");
 	}
-	auto cmd = L"cmd.exe /c " + line;
+	auto &&cmd = L"cmd.exe /c " + line;
 	std::string out;
 	DWORD code;
 	ReadConsoleOutput(UNONE::StrToA(cmd), out, code);
@@ -170,6 +181,8 @@ Q_INVOKABLE void Cmds::CmdCmd(QStringList argv)
 Q_INVOKABLE void Cmds::CmdStart(QStringList argv)
 {
 	std::wstring line;
+	if (argv.size() == 1)
+		line = VariantFilePath(line);
 	for (size_t i = 0; i < argv.size(); i++) {
 		line.append(argv[i].toStdWString());
 		if (i != (argv.size() - 1))
@@ -609,7 +622,7 @@ Q_INVOKABLE void Cmds::CmdProcessTree(QStringList argv)
 	CmdException(ECMD_PARAM_INVALID);
 }
 
-Q_INVOKABLE void Cmds::CmdMemoryInfo(QStringList argv)
+Q_INVOKABLE void Cmds::CmdMemoryEditor(QStringList argv)
 {
 	SIZE_T PageSize;
 	auto OutMemoryInfoStyle1 = [&](wchar_t* name, SIZE_T size) {
@@ -644,7 +657,7 @@ Q_INVOKABLE void Cmds::CmdMemoryInfo(QStringList argv)
 		return;
 	}
 	if (argc == 2) {
-		if (argv[0] == "-pid") {
+		if (argv[0] == "i") {
 			DWORD pid = VariantInt(argv[1].toStdString(), 10);
 			PROCESS_MEMORY_COUNTERS_EX mm_info;
 			if (!UNONE::MmGetProcessMemoryInfo(pid, mm_info))
@@ -665,7 +678,86 @@ Q_INVOKABLE void Cmds::CmdMemoryInfo(QStringList argv)
 			return;
 		}
 	}
+	if (argc == 4) {
+		DWORD pid = VariantInt(argv[1].toStdString(), 10);
+		if (argv[0] == "r") {
+			HANDLE phd = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+			ON_SCOPE_EXIT([&phd] {if (phd) CloseHandle(phd); });
+			if (!phd) return ERR(L"OpenProcess pid:%d err:%d", pid, GetLastError());
+			DWORD64 addr = VariantInt64(argv[2].toStdString());
+			DWORD size = VariantInt(argv[3].toStdString());
+			std::string buf;
+			buf.resize(size);
+			SIZE_T readlen;
+			bool ret = ReadProcessMemory(phd, (LPCVOID)addr, (LPVOID)buf.data(), size, &readlen);
+			if (!ret && size != readlen) {
+				return ERR(L"ReadProcessMemory pid:%d err:%d, expect:%d readlen:%d", pid, GetLastError(), size, readlen);
+			}
+			auto &&hexdump = HexDumpMemory(addr, (char*)buf.data(), buf.size());
+			UNONE::StrReplaceA(hexdump, "<", "&lt;");
+			return CmdOutput("%s", hexdump.c_str());
+		}
+		if (argv[0] == "w") {
+			HANDLE phd = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_WRITE, FALSE, pid);
+			ON_SCOPE_EXIT([&phd] {if (phd) CloseHandle(phd); });
+			if (!phd) return ERR(L"OpenProcess pid:%d err:%d", pid, GetLastError());
+			DWORD64 addr = VariantInt64(argv[2].toStdString());
+			auto &&buf = argv[3].toStdString();
+			UNONE::StrReplaceA(buf, ".");
+			buf = UNONE::StrHexStrToStreamA(buf);
+			SIZE_T writelen;
+			bool ret = WriteProcessMemory(phd, (LPVOID)addr, (LPVOID)buf.data(), buf.size(), &writelen);
+			if (!ret && buf.size() != writelen) {
+				return ERR(L"WriteProcessMemory pid:%d err:%d, expect:%d readlen:%d", pid, GetLastError(), buf.size(), writelen);
+			}
+			return CmdOutput("WriteProcessMemory addr:%llx size:%d ok", addr, writelen);
+		}
+	}
 
+	CmdException(ECMD_PARAM_INVALID);
+}
+
+Q_INVOKABLE void Cmds::CmdFileEditor(QStringList argv)
+{
+	auto argc = argv.size();
+	if (argc == 2) {
+		if (argv[0] == "i") {
+			DWORD64 size;
+			auto &&path = argv[1].toStdWString();
+			UNONE::FsGetFileSizeW(path, size);
+			CmdOutput(L"FilePath: %s", path.c_str());
+			CmdOutput(L"FileSize: %lld", size);
+			return;
+		}
+	}
+	if (argc == 4 || argc == 2) {
+		if (argv[0] == "r") {
+			auto &&path = argv[1].toStdWString();
+			std::string buf;
+			DWORD64 offset  = 0;
+			if (argc == 2) {
+				UNONE::FsReadFileDataW(path, buf);
+			} else {
+				offset = VariantInt64(argv[2].toStdString());
+				DWORD64 size = VariantInt(argv[3].toStdString());
+				ReadFileDataW(path, offset, size, buf);
+			}
+			auto &&hexdump = HexDumpMemory(offset, (char*)buf.data(), buf.size());
+			UNONE::StrReplaceA(hexdump, "<", "&lt;");
+			return CmdOutput("%s", hexdump.c_str());
+		}
+		if (argv[0] == "w") {
+			auto &&path = argv[1].toStdWString();
+			auto &&buf = argv[3].toStdString();
+			DWORD64 offset = VariantInt64(argv[2].toStdString());
+			UNONE::StrReplaceA(buf, ".");
+			buf = UNONE::StrHexStrToStreamA(buf);
+			if (WriteFileDataW(path, offset, buf)) {
+				CmdOutput("WriteFile offset:%llx size:%d ok", offset, buf.size());
+			}
+			return;
+		}
+	}
 	CmdException(ECMD_PARAM_INVALID);
 }
 

@@ -22,8 +22,8 @@ extern QTranslator *app_tr;
 extern OpenArk *openark;
 
 enum LogOuputLevel { LevelInfo, LevelWarn, LevelErr, LevelDbg };
-bool LogOutput(LogOuputLevel lev, const char* func, const char* format, ...);
-bool LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...);
+void LogOutput(LogOuputLevel lev, const char* func, const char* format, ...);
+void LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...);
 #define INFO(format, ...)  \
 	LogOutput(LevelInfo, __FUNCTION__, (format), __VA_ARGS__)
 #define WARN(format, ...)  \

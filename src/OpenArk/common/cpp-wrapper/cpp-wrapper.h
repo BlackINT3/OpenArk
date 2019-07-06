@@ -51,3 +51,4 @@ private: // noncopyable
 
 int VariantInt(std::string val, int radix = 16);
 int64_t VariantInt64(std::string val, int radix = 16);
+std::wstring VariantFilePath(std::wstring path);

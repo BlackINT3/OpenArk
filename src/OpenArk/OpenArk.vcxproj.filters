@@ -423,6 +423,7 @@
     <None Include="openark_zh.ts">
       <Filter>Translation Files</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="res\openark.qrc">

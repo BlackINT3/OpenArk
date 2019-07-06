@@ -21,7 +21,7 @@ QApplication *app = nullptr;
 QTranslator *app_tr = nullptr;
 OpenArk *openark = nullptr;
 
-bool LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...)
+void LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...)
 {
 	QString levelstr;
 	struct { int lev; QString levstr; } levels[] = {
@@ -48,16 +48,13 @@ bool LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...)
 	va_end(lst);
 
 	openark->onLogOutput(QString::fromStdWString(str));
-
-	return true;
 }
 
-bool LogOutput(LogOuputLevel lev, const char* func, const char* format, ...)
+void LogOutput(LogOuputLevel lev, const char* func, const char* format, ...)
 {
 	va_list lst;
 	va_start(lst, format);
 	std::wstring&& wstr = UNONE::StrToW(UNONE::StrFormatVaListA(format, lst));
 	LogOutput(lev, func, L"%s", wstr.c_str());
 	va_end(lst);
-	return true;
 }

@@ -45,7 +45,8 @@ public:
 	Q_INVOKABLE void CmdWndInfo(QStringList argv);
 	Q_INVOKABLE void CmdProcessInfo(QStringList argv);
 	Q_INVOKABLE void CmdProcessTree(QStringList argv);
-	Q_INVOKABLE void CmdMemoryInfo(QStringList argv);
+	Q_INVOKABLE void CmdMemoryEditor(QStringList argv);
+	Q_INVOKABLE void CmdFileEditor(QStringList argv);
 
 	QString CmdGetLast();
 	QString CmdGetNext();

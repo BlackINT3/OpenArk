@@ -35,3 +35,5 @@ void WinShowProperties(const std::wstring &path);
 bool GetCertOwner(const QString &path, QString &owner);
 bool ObGetObjectName(HANDLE hd, std::string& obj_name);
 bool ExtractResource(const QString &res, const QString &path);
+bool WriteFileDataW(__in const std::wstring& fpath, __in int64_t offset, __in const std::string& fdata);
+bool ReadFileDataW(__in const std::wstring &fpath, __in int64_t offset, __in int64_t readsize, __out std::string &fdata);

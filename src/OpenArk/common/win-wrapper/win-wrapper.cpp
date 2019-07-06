@@ -372,3 +372,90 @@ bool ExtractResource(const QString &res, const QString &path)
 	}
 	return true;
 }
+
+bool WriteFileDataW(__in const std::wstring& fpath, __in int64_t offset, __in const std::string& fdata)
+{
+	bool result = false;
+	bool read_only = false;
+	DWORD saved_attr = GetFileAttributesW(fpath.c_str());
+	if (saved_attr != INVALID_FILE_ATTRIBUTES) {
+		if (saved_attr & FILE_ATTRIBUTE_READONLY) {
+			read_only = true;
+			SetFileAttributesW(fpath.c_str(), saved_attr&(~FILE_ATTRIBUTE_READONLY));
+		}
+	}
+	HANDLE fd = CreateFileW(fpath.c_str(), GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (fd != INVALID_HANDLE_VALUE) {
+		DWORD writelen;
+		LARGE_INTEGER li;
+		li.QuadPart = offset;
+		SetFilePointer(fd, li.LowPart, &li.HighPart, FILE_BEGIN);
+		if (WriteFile(fd, fdata.data(), (DWORD)fdata.size(), &writelen, NULL)) {
+			if (fdata.size() == writelen) {
+				result = true;
+			} else {
+				ERR(L"WriteFile %s err, expected-size:%d actual-size:%d", fpath.c_str(), fdata.size(), writelen);
+			}
+		} else {
+			ERR(L"WriteFile %s err:%d", fpath.c_str(), GetLastError());
+		}
+		CloseHandle(fd);
+	} else {
+		ERR(L"CreateFileW %s err:%d", fpath.c_str(), GetLastError());
+	}
+	if (read_only)
+		SetFileAttributesW(fpath.c_str(), saved_attr);
+	return result;
+}
+
+bool ReadFileDataW(__in const std::wstring &fpath, __in int64_t offset, __in int64_t readsize, __out std::string &fdata)
+{
+	bool result = false;
+	DWORD fsize = 0;
+	HANDLE fd = CreateFileW(fpath.c_str(), GENERIC_READ, FILE_SHARE_READ|FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+	if (fd == INVALID_HANDLE_VALUE) {
+		ERR(L"CreateFileW %s err:%d", fpath.c_str(), GetLastError());
+		return false;
+	}
+	fsize = GetFileSize(fd, NULL);
+	if (fsize == INVALID_FILE_SIZE) {
+		ERR(L"GetFileSize %s err:%d", fpath.c_str(), GetLastError());
+		CloseHandle(fd);
+		return false;
+	}
+	if ((offset+readsize) > fsize) {
+		WARN(L"read offset out of bound");
+		readsize = fsize - offset;
+	}
+	LARGE_INTEGER li;
+	li.QuadPart = offset;
+	SetFilePointer(fd, li.LowPart, &li.HighPart, FILE_BEGIN);
+	char* buff = new(std::nothrow) char[readsize];
+	if (buff == NULL) {
+		ERR(L"alloc memory err");
+		CloseHandle(fd);
+		return false;
+	}
+	DWORD readlen;
+	if (ReadFile(fd, buff, readsize, &readlen, NULL)) {
+		if (readlen == readsize) {
+			try {
+				fdata.assign(buff, readsize);
+				result = true;
+			} catch (std::exception& e) {
+				fdata.clear();
+				ERR("c++ exception: %s", e.what());
+			} catch (...) {
+				fdata.clear();
+				ERR("c++ exception: unknown");
+			}
+		} else {
+			ERR(L"ReadFile %s err, expected-size:%d actual-size:%d", fpath.c_str(), readsize, readlen);
+		}
+	} else {
+		ERR(L"ReadFile %s err:%d", fpath.c_str(), GetLastError());
+	}
+	delete[] buff;
+	CloseHandle(fd);
+	return result;
+} 

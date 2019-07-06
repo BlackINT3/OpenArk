@@ -76,3 +76,9 @@ int64_t VariantInt64(std::string val, int radix)
 	default: return UNONE::StrToHex64A(val);
 	}
 }
+
+std::wstring VariantFilePath(std::wstring path)
+{
+	UNONE::StrReplaceIW(path, L"file:///");
+	return std::move(path);
+}
