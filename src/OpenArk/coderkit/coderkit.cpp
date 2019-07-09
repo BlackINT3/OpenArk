@@ -37,6 +37,13 @@ struct {
 	int rc4 = s++;
 } IDX;
 
+struct {
+	int s = 0;
+	int bits64 = s++;
+	int bits32 = s++;
+	int bits16 = s++;
+} BITS_IDX;
+
 CoderKit::CoderKit(QWidget* parent) :
 	parent_((OpenArk*)parent)
 {
@@ -77,6 +84,26 @@ CoderKit::CoderKit(QWidget* parent) :
 	connect(ui.plainEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
 	connect(ui.cipherEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
 	//connect(ui.keyEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
+
+	ui.splitter->setStretchFactor(0, 1);
+	ui.splitter->setStretchFactor(1, 2);
+	ui.nullRadio->setChecked(true);
+	connect(ui.asmBtn, &QPushButton::clicked, this, [&](){
+		int bits = 64;
+		auto idx = ui.platformBox->currentIndex();
+		if (idx == BITS_IDX.bits64) bits = 64;
+		else if (idx == BITS_IDX.bits32) bits = 32;
+		else if (idx == BITS_IDX.bits16) bits = 16;
+		auto &&in = ui.asmEdit->toPlainText().toStdString();
+
+		std::string formats;
+		if (ui.nullRadio->isChecked()) formats = "";
+		else if (ui.spaceRadio->isChecked()) formats = " ";
+		else if (ui.slashxRadio->isChecked()) formats = "\\x";
+
+		auto &&out = NasmAsm(in, bits, formats);
+		ui.disasmEdit->setText(out);
+	});
 }
  
 CoderKit::~CoderKit()
@@ -313,4 +340,37 @@ void CoderKit::UpdateEditCodeText(const std::wstring& data, QObject* ignored_obj
 
 	text = UNONE::StrStreamToHexStrA(UNONE::StrWideToCode(866, data));
 	SetText(ui.cp866Edit, text);
+}
+
+QString CoderKit::NasmAsm(std::string data, int bits, const std::string &format)
+{
+	if (bits == 64) data.insert(0, "[bits 64]\n");
+	else if (bits == 32) data.insert(0, "[bits 32]\n");
+	else if (bits == 16) data.insert(0, "[bits 16]\n");
+
+	auto &&nasm = AppConfigDir() + L"\\nasm\\nasm.exe";
+	if (!UNONE::FsIsExistedW(nasm)) {
+		ExtractResource(":/OpenArk/nasm/nasm.exe", WStrToQ(nasm));
+	}
+	auto &&tmp_out = UNONE::OsEnvironmentW(L"%Temp%\\temp-nasm-code.bin");
+	auto &&tmp_in = UNONE::OsEnvironmentW(L"%Temp%\\temp-nasm-code.asm");
+	UNONE::FsWriteFileDataW(tmp_in, data);
+	auto &&cmdline = UNONE::StrFormatW(L"%s -f bin -o \"%s\" \"%s\"", nasm.c_str(), tmp_out.c_str(), tmp_in.c_str());
+	std::wstring out;
+	DWORD exitcode;
+	QString err_prefix = tr("Compile Error:\n--------------------------------------------------------------\n");
+	auto ret = ReadStdout(cmdline, out, exitcode);
+	if (!ret) return err_prefix + tr("start nasm error");
+	if (exitcode != 0) return err_prefix + WStrToQ(out);
+	std::string bin;
+	UNONE::FsReadFileDataW(tmp_out, bin);
+
+	bin = UNONE::StrStreamToHexStrA(bin);
+	bin = format + UNONE::StrInsertA(bin, 2, format);
+	return StrToQ(bin);
+}
+
+std::string CoderKit::NasmDisasm(const std::string &data)
+{
+	return "";
 }

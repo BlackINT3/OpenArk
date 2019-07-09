@@ -27,4 +27,3 @@ int GetObjectTypeIndex(char* name);
 std::string MbiTypeToString(int type);
 std::string MbiStateToString(int type);
 std::string MbiPageProtectToString(int type);
-bool ReadConsoleOutput(const std::string& Cmdline, std::string& Output, DWORD& ExitCode, DWORD Timeout);

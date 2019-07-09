@@ -19,5 +19,7 @@
         <file>Config.xml</file>
         <file>OpenArkDrv32.sys</file>
         <file>OpenArkDrv64.sys</file>
+        <file>nasm/nasm.exe</file>
+        <file>nasm/ndisasm.exe</file>
     </qresource>
 </RCC>

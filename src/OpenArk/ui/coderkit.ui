@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>755</width>
-    <height>495</height>
+    <width>1131</width>
+    <height>797</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabCodePoints">
       <property name="sizePolicy">
@@ -556,6 +556,100 @@
            </layout>
           </item>
          </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabAsmTools">
+      <attribute name="title">
+       <string>AsmTools</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QPushButton" name="asmBtn">
+           <property name="text">
+            <string>Assemble</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="disasmBtn">
+           <property name="text">
+            <string>Disassemble</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_21">
+           <property name="text">
+            <string>Platform:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="platformBox">
+           <item>
+            <property name="text">
+             <string>64-bit</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>32-bit</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>16-bit</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="nullRadio">
+           <property name="text">
+            <string>null</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="spaceRadio">
+           <property name="text">
+            <string>space</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="slashxRadio">
+           <property name="text">
+            <string>\x</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QSplitter" name="splitter">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <widget class="QTextEdit" name="asmEdit"/>
+         <widget class="QTextEdit" name="disasmEdit"/>
         </widget>
        </item>
       </layout>

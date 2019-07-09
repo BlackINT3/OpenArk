@@ -17,5 +17,5 @@
 #include <string>
 #include <Windows.h>
 
-std::string DisasmMemory(ULONG64 pc, char *mem, ULONG memsize);
+std::string DisasmMemory(ULONG64 pc, char *mem, ULONG memsize, int bits = 64);
 std::string HexDumpMemory(ULONG64 pc, char *mem, ULONG memsize);

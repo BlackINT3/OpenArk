@@ -168,14 +168,13 @@ Q_INVOKABLE void Cmds::CmdCmd(QStringList argv)
 			line.append(L" ");
 	}
 	auto &&cmd = L"cmd.exe /c " + line;
-	std::string out;
+	std::wstring out;
 	DWORD code;
-	ReadConsoleOutput(UNONE::StrToA(cmd), out, code);
-	out = UNONE::StrTrimA(out);
-	UNONE::StrReplaceA(out, "\r");
+	ReadStdout(cmd, out, code);
+	out = UNONE::StrTrimW(out);
+	UNONE::StrReplaceW(out, L"\r");
 	//UNONE::StrReplaceA(out, "\n", "</br>");
-	std::wstring xxx = UNONE::StrToW(out);
-	CmdOutput(L"%s", xxx.c_str());
+	CmdOutput(L"%s", out.c_str());
 }
 
 Q_INVOKABLE void Cmds::CmdStart(QStringList argv)
@@ -723,16 +722,16 @@ Q_INVOKABLE void Cmds::CmdFileEditor(QStringList argv)
 	if (argc == 2) {
 		if (argv[0] == "i") {
 			DWORD64 size;
-			auto &&path = argv[1].toStdWString();
+			auto &&path = VariantFilePath(argv[1].toStdWString());
 			UNONE::FsGetFileSizeW(path, size);
 			CmdOutput(L"FilePath: %s", path.c_str());
-			CmdOutput(L"FileSize: %lld", size);
+			CmdOutput(L"FileSize: %f MB, %f KB, %lld Bytes", (double)size / 1024/1024, (double)size/1024, size);
 			return;
 		}
 	}
 	if (argc == 4 || argc == 2) {
 		if (argv[0] == "r") {
-			auto &&path = argv[1].toStdWString();
+			auto &&path = VariantFilePath(argv[1].toStdWString());
 			std::string buf;
 			DWORD64 offset  = 0;
 			if (argc == 2) {
@@ -747,7 +746,7 @@ Q_INVOKABLE void Cmds::CmdFileEditor(QStringList argv)
 			return CmdOutput("%s", hexdump.c_str());
 		}
 		if (argv[0] == "w") {
-			auto &&path = argv[1].toStdWString();
+			auto &&path = VariantFilePath(argv[1].toStdWString());
 			auto &&buf = argv[3].toStdString();
 			DWORD64 offset = VariantInt64(argv[2].toStdString());
 			UNONE::StrReplaceA(buf, ".");

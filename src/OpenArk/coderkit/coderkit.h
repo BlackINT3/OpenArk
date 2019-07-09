@@ -27,7 +27,6 @@ namespace Ui {
 	class OpenArkWindow;
 }
 
-
 class OpenArk;
 
 class CoderKit : public QWidget {
@@ -47,6 +46,8 @@ private slots:
 private:
 	void UpdateAlgorithmText(bool crypt);
 	void UpdateEditCodeText(const std::wstring& data, QObject* ignored_obj);
+	QString NasmAsm(std::string data, int bits, const std::string &format);
+	std::string NasmDisasm(const std::string &data);
 
 private:
 	Ui::CoderKit ui;

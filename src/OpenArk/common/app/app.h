@@ -53,6 +53,12 @@ inline QString AppBuildTime()
 	return stamp;
 }
 
+inline std::wstring AppConfigDir()
+{
+	auto &&dir = UNONE::OsEnvironmentW(L"%AppData%") + L"\\OpenArk";
+	return dir;
+}
+
 // disable logger, exit recover
 #define DISABLE_RECOVER() \
 	UNONE::LogCallback routine;\

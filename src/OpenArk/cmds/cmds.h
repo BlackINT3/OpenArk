@@ -16,8 +16,6 @@
 #pragma once
 #include "../common/common.h"
 
-bool ReadConsoleOutput(const std::string& Cmdline, std::string& Output, DWORD& ExitCode, DWORD Timeout = INFINITE);
-
 enum {
 	ECMD_PARAM_INVALID,
 	ECMD_NOSUCH_CMD,

@@ -17,7 +17,7 @@
 #include "disassembly.h"
 #include "udis86/udis86.h"
 
-std::string DisasmMemory(ULONG64 pc, char *mem, ULONG memsize)
+std::string DisasmMemory(ULONG64 pc, char *mem, ULONG memsize, int bits /*= 64*/)
 {
 	if (mem == nullptr) return "??";
 
@@ -26,7 +26,7 @@ std::string DisasmMemory(ULONG64 pc, char *mem, ULONG memsize)
 
 	/* initialize */
 	ud_init(&ud_obj);
-	ud_set_mode(&ud_obj, 64);
+	ud_set_mode(&ud_obj, bits);
 	ud_set_syntax(&ud_obj, UD_SYN_INTEL);
 
 	unsigned char o_do_off = 1;

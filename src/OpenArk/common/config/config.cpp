@@ -20,7 +20,7 @@ QSettings *appconf = nullptr;
 
 void ConfigInit()
 {
-	auto &&cpath = UNONE::OsEnvironmentW(L"%AppData%") + L"\\OpenArk\\openark.ini";
+	auto &&cpath = AppConfigDir() + L"\\openark.ini";
 	UNONE::FsCreateDirW(UNONE::FsPathToDirW(cpath));
 	appconf = new QSettings(WStrToQ(cpath), QSettings::IniFormat);
 }
@@ -33,7 +33,7 @@ QString ConfigGetConsole(const QString &name)
 		return appconf->value(key, "2000").toString();
 	}
 	if (name == "History.FilePath") {
-		auto &&default_path = UNONE::OsEnvironmentW(L"%AppData%") + L"\\OpenArk\\console\\history.txt";
+		auto &&default_path = AppConfigDir() + L"\\console\\history.txt";
 		if (!UNONE::FsIsExistedW(default_path)) {
 			UNONE::FsCreateDirW(UNONE::FsPathToDirW(default_path));
 			UNONE::FsWriteFileDataW(default_path, "");
