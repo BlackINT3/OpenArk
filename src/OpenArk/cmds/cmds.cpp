@@ -131,7 +131,7 @@ Cmds::~Cmds()
 	UNONE::FsWriteFileDataW(path, history);
 }
 
-Q_INVOKABLE void Cmds::CmdHelp(QStringList argv)
+Q_INVOKABLE void Cmds::CmdHelp(QString cmd, QStringList argv)
 {
 #define SHOW_HELP() \
 	if (!item.example.empty()) CmdOutput(L"%s - %s\n%s", item.cmd.c_str(), item.doc.c_str(), item.example.c_str()); \
@@ -152,12 +152,12 @@ Q_INVOKABLE void Cmds::CmdHelp(QStringList argv)
 	}
 }
 
-Q_INVOKABLE void Cmds::CmdCls(QStringList argv)
+Q_INVOKABLE void Cmds::CmdCls(QString cmd, QStringList argv)
 {
 	cmd_window_->clear();
 }
 
-Q_INVOKABLE void Cmds::CmdCmd(QStringList argv)
+Q_INVOKABLE void Cmds::CmdCmd(QString cmd, QStringList argv)
 {
 	std::wstring line;
 	if (argv.size() == 1)
@@ -167,17 +167,17 @@ Q_INVOKABLE void Cmds::CmdCmd(QStringList argv)
 		if (i != (argv.size()-1))
 			line.append(L" ");
 	}
-	auto &&cmd = L"cmd.exe /c " + line;
+	auto &&cmdline = L"cmd.exe /c " + line;
 	std::wstring out;
 	DWORD code;
-	ReadStdout(cmd, out, code);
+	ReadStdout(cmdline, out, code);
 	out = UNONE::StrTrimW(out);
 	UNONE::StrReplaceW(out, L"\r");
 	//UNONE::StrReplaceA(out, "\n", "</br>");
 	CmdOutput(L"%s", out.c_str());
 }
 
-Q_INVOKABLE void Cmds::CmdStart(QStringList argv)
+Q_INVOKABLE void Cmds::CmdStart(QString cmd, QStringList argv)
 {
 	std::wstring line;
 	if (argv.size() == 1)
@@ -190,7 +190,7 @@ Q_INVOKABLE void Cmds::CmdStart(QStringList argv)
 	UNONE::PsCreateProcessW(line);
 }
 
-Q_INVOKABLE void Cmds::CmdMsg(QStringList argv)
+Q_INVOKABLE void Cmds::CmdMsg(QString cmd, QStringList argv)
 {
 	if (MessageMapTable.empty()) {
 		std::vector<std::string> msgs;
@@ -232,10 +232,10 @@ Q_INVOKABLE void Cmds::CmdMsg(QStringList argv)
 		}
 	}
 
-	CmdException(ECMD_PARAM_INVALID);
+	CmdException(cmd,ECMD_PARAM_INVALID);
 }
 
-Q_INVOKABLE void Cmds::CmdWndInfo(QStringList argv)
+Q_INVOKABLE void Cmds::CmdWndInfo(QString cmd, QStringList argv)
 {
 	auto OutputWndInfo = [&](HWND w) {
 		DWORD pid, tid;
@@ -284,10 +284,10 @@ Q_INVOKABLE void Cmds::CmdWndInfo(QStringList argv)
 			return;
 		}
 	}
-	CmdException(ECMD_PARAM_INVALID);
+	CmdException(cmd,ECMD_PARAM_INVALID);
 }
 
-Q_INVOKABLE void Cmds::CmdHistory(QStringList argv)
+Q_INVOKABLE void Cmds::CmdHistory(QString cmd, QStringList argv)
 {
 	std::wstring pattern;
 	auto argc = argv.size();
@@ -303,7 +303,7 @@ Q_INVOKABLE void Cmds::CmdHistory(QStringList argv)
 	}
 }
 
-Q_INVOKABLE void Cmds::CmdTimeStamp(QStringList argv)
+Q_INVOKABLE void Cmds::CmdTimeStamp(QString cmd, QStringList argv)
 {
 	auto paramcnt = argv.size();
 	if (paramcnt == 0) {
@@ -314,10 +314,10 @@ Q_INVOKABLE void Cmds::CmdTimeStamp(QStringList argv)
 		CmdOutput("%s", UNONE::TmFormatUnixTimeA(VariantInt(argv[0].toStdString(), 10), "Y-M-D H:W:S").c_str());
 		return;
 	}
-	CmdException(ECMD_PARAM_INVALID);
+	CmdException(cmd,ECMD_PARAM_INVALID);
 }
 
-Q_INVOKABLE void Cmds::CmdErrorShow(QStringList argv)
+Q_INVOKABLE void Cmds::CmdErrorShow(QString cmd, QStringList argv)
 {
 	auto OutErrorMsg = [&](DWORD err, DWORD status = -1) {
 		auto msg = UNONE::OsDosErrorMsgW(err);
@@ -342,10 +342,10 @@ Q_INVOKABLE void Cmds::CmdErrorShow(QStringList argv)
 			return;
 		}
 	}
-	CmdException(ECMD_PARAM_INVALID);
+	CmdException(cmd,ECMD_PARAM_INVALID);
 }
 
-Q_INVOKABLE void Cmds::CmdFormats(QStringList argv)
+Q_INVOKABLE void Cmds::CmdFormats(QString cmd, QStringList argv)
 {
 	auto DecToBin = [](int64_t val)->std::string {
 		char bins[128] = { 0 };
@@ -367,21 +367,21 @@ Q_INVOKABLE void Cmds::CmdFormats(QStringList argv)
 		CmdOutput("STR: %s", str.c_str());
 		return;
 	}
-	CmdException(ECMD_PARAM_INVALID);
+	CmdException(cmd,ECMD_PARAM_INVALID);
 }
 
-Q_INVOKABLE void Cmds::CmdExit(QStringList argv)
+Q_INVOKABLE void Cmds::CmdExit(QString cmd, QStringList argv)
 {
 	ExitProcess(0);
 }
 
-Q_INVOKABLE void Cmds::CmdRestart(QStringList argv)
+Q_INVOKABLE void Cmds::CmdRestart(QString cmd, QStringList argv)
 {
 	UNONE::PsCreateProcessW(UNONE::PsGetProcessPathW());
 	ExitProcess(0);
 }
 
-Q_INVOKABLE void Cmds::CmdProcessInfo(QStringList argv)
+Q_INVOKABLE void Cmds::CmdProcessInfo(QString cmd, QStringList argv)
 {
 	auto OuputProcessInfo = [&](std::vector<DWORD> pids) {
 		std::wstring out;
@@ -560,7 +560,7 @@ Q_INVOKABLE void Cmds::CmdProcessInfo(QStringList argv)
 		}
 	}
 
-	CmdException(ECMD_PARAM_INVALID);
+	CmdException(cmd,ECMD_PARAM_INVALID);
 }
 
 std::vector<DWORD> _PsGetChildPids(__in DWORD pid)
@@ -575,7 +575,7 @@ std::vector<DWORD> _PsGetChildPids(__in DWORD pid)
 	return childs;
 }
 
-Q_INVOKABLE void Cmds::CmdProcessTree(QStringList argv)
+Q_INVOKABLE void Cmds::CmdProcessTree(QString cmd, QStringList argv)
 {
 	DISABLE_RECOVER();
 
@@ -618,10 +618,10 @@ Q_INVOKABLE void Cmds::CmdProcessTree(QStringList argv)
 		return;
 	}
 
-	CmdException(ECMD_PARAM_INVALID);
+	CmdException(cmd,ECMD_PARAM_INVALID);
 }
 
-Q_INVOKABLE void Cmds::CmdMemoryEditor(QStringList argv)
+Q_INVOKABLE void Cmds::CmdMemoryEditor(QString cmd, QStringList argv)
 {
 	SIZE_T PageSize;
 	auto OutMemoryInfoStyle1 = [&](wchar_t* name, SIZE_T size) {
@@ -713,10 +713,10 @@ Q_INVOKABLE void Cmds::CmdMemoryEditor(QStringList argv)
 		}
 	}
 
-	CmdException(ECMD_PARAM_INVALID);
+	CmdException(cmd,ECMD_PARAM_INVALID);
 }
 
-Q_INVOKABLE void Cmds::CmdFileEditor(QStringList argv)
+Q_INVOKABLE void Cmds::CmdFileEditor(QString cmd, QStringList argv)
 {
 	auto argc = argv.size();
 	if (argc == 2) {
@@ -729,12 +729,12 @@ Q_INVOKABLE void Cmds::CmdFileEditor(QStringList argv)
 			return;
 		}
 	}
-	if (argc == 4 || argc == 2) {
+	if (argc == 4) {
 		if (argv[0] == "r") {
 			auto &&path = VariantFilePath(argv[1].toStdWString());
 			std::string buf;
 			DWORD64 offset  = 0;
-			if (argc == 2) {
+			if (argv[3] == "all") {
 				UNONE::FsReadFileDataW(path, buf);
 			} else {
 				offset = VariantInt64(argv[2].toStdString());
@@ -757,7 +757,7 @@ Q_INVOKABLE void Cmds::CmdFileEditor(QStringList argv)
 			return;
 		}
 	}
-	CmdException(ECMD_PARAM_INVALID);
+	CmdException(cmd,ECMD_PARAM_INVALID);
 }
 
 QString Cmds::CmdGetLast()
@@ -780,11 +780,12 @@ QString Cmds::CmdGetNext()
 	return cmdline;
 }
 
-void Cmds::CmdException(int type)
+void Cmds::CmdException(QString cmd, int type)
 {
 	switch (type) {
 	case ECMD_PARAM_INVALID:
-		CmdErrorOutput(L"[-] Command parameters invalid. (.help to show help-doc)");
+		CmdErrorOutput(L"[-] Command parameters invalid.");
+		CmdHelp(".help", QStringList()<<cmd);
 		break;
 	case ECMD_NOSUCH_CMD:
 		CmdErrorOutput(L"[-] No such command. (.help to show help-doc)");
@@ -868,9 +869,9 @@ void Cmds::CmdDispatcher(const std::wstring &cmdline)
 			UNONE::InterRegisterLogger([&](const std::wstring &log) { 
 				CmdOutput(log.c_str());
 			});
-			QMetaObject::invokeMethod(this, item.func.c_str(), Qt::QueuedConnection, Q_ARG(QStringList, pramlst));
+			QMetaObject::invokeMethod(this, item.func.c_str(), Qt::QueuedConnection, Q_ARG(QString, WStrToQ(item.cmd)), Q_ARG(QStringList, pramlst));
 			return;
 		}
 	}
-	CmdException(ECMD_NOSUCH_CMD);
+	CmdException(WStrToQ(cmd), ECMD_NOSUCH_CMD);
 }
