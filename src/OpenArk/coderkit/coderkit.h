@@ -44,10 +44,12 @@ private slots:
 	void onAlgPlainChanged();
 
 private:
+	void InitAsmToolsView();
+
 	void UpdateAlgorithmText(bool crypt);
 	void UpdateEditCodeText(const std::wstring& data, QObject* ignored_obj);
 	QString NasmAsm(std::string data, int bits, const std::string &format);
-	std::string NasmDisasm(const std::string &data);
+	QString NasmDisasm(const std::string &data, int bits);
 
 private:
 	Ui::CoderKit ui;

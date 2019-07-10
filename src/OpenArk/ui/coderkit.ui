@@ -608,6 +608,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QLabel" name="label_22">
+           <property name="text">
+            <string>Format:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QRadioButton" name="nullRadio">
            <property name="text">
             <string>null</string>

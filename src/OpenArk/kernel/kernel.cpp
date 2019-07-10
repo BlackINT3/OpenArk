@@ -241,10 +241,10 @@ void Kernel::InitKernelEntryView()
 			QString driver;
 			if (UNONE::OsIs64()) {
 				driver = WStrToQ(UNONE::OsEnvironmentW(L"%Temp%\\OpenArkDrv64.sys"));
-				ExtractResource(":/OpenArk/OpenArkDrv64.sys", driver);
+				ExtractResource(":/OpenArk/driver/OpenArkDrv64.sys", driver);
 			} else {
 				driver = WStrToQ(UNONE::OsEnvironmentW(L"%Temp%\\OpenArkDrv32.sys"));
-				ExtractResource(":/OpenArk/OpenArkDrv32.sys", driver);
+				ExtractResource(":/OpenArk/driver/OpenArkDrv32.sys", driver);
 			}
 			{
 				SignExpiredDriver(driver);

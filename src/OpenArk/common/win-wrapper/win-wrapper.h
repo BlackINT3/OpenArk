@@ -20,6 +20,11 @@
 #include <QString>
 #include "../common.h"
 
+#define KB		(1024)
+#define MB		(1024*KB)
+#define GB		(1024*MB)
+#define TB		(1024*GB)
+
 bool RetrieveThreadTimes(DWORD tid, std::wstring& ct, std::wstring& kt, std::wstring& ut);
 std::wstring FormatFileTime(FILETIME *file_tm);
 std::wstring ProcessCreateTime(__in DWORD pid);

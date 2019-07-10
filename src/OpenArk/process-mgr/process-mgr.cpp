@@ -290,9 +290,8 @@ void ProcessMgr::onKillProcessTree()
 		tips.append(WStrToQ(wstr));
 		tips.append("\n");
 	}
-	QMessageBox::StandardButton reply;
-	reply = QMessageBox::warning(this, tr("Warning"), tips, QMessageBox::Yes | QMessageBox::No);
-	if (reply == QMessageBox::Yes) {
+	auto msbox = QMessageBox::warning(this, tr("Warning"), tips, QMessageBox::Yes | QMessageBox::No);
+	if (msbox == QMessageBox::Yes) {
 		for (auto d : pids) { UNONE::PsKillProcess(d); };
 		onRefresh();
 	}

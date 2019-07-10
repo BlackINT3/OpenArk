@@ -10,16 +10,16 @@
         <file>gitub.ico</file>
         <file>console.ico</file>
         <file>BundlerShell.exe</file>
-        <file>lang/openark_zh.qm</file>
         <file>handle.ico</file>
         <file>module.ico</file>
         <file>memory.ico</file>
-        <file>CSignTool.exe</file>
-        <file>CSignTool.pfx</file>
-        <file>Config.xml</file>
-        <file>OpenArkDrv32.sys</file>
-        <file>OpenArkDrv64.sys</file>
         <file>nasm/nasm.exe</file>
         <file>nasm/ndisasm.exe</file>
+        <file>sign/Config.xml</file>
+        <file>sign/CSignTool.exe</file>
+        <file>sign/CSignTool.pfx</file>
+        <file>driver/OpenArkDrv32.sys</file>
+        <file>driver/OpenArkDrv64.sys</file>
+        <file>lang/openark_zh.qm</file>
     </qresource>
 </RCC>

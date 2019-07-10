@@ -85,25 +85,7 @@ CoderKit::CoderKit(QWidget* parent) :
 	connect(ui.cipherEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
 	//connect(ui.keyEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
 
-	ui.splitter->setStretchFactor(0, 1);
-	ui.splitter->setStretchFactor(1, 2);
-	ui.nullRadio->setChecked(true);
-	connect(ui.asmBtn, &QPushButton::clicked, this, [&](){
-		int bits = 64;
-		auto idx = ui.platformBox->currentIndex();
-		if (idx == BITS_IDX.bits64) bits = 64;
-		else if (idx == BITS_IDX.bits32) bits = 32;
-		else if (idx == BITS_IDX.bits16) bits = 16;
-		auto &&in = ui.asmEdit->toPlainText().toStdString();
-
-		std::string formats;
-		if (ui.nullRadio->isChecked()) formats = "";
-		else if (ui.spaceRadio->isChecked()) formats = " ";
-		else if (ui.slashxRadio->isChecked()) formats = "\\x";
-
-		auto &&out = NasmAsm(in, bits, formats);
-		ui.disasmEdit->setText(out);
-	});
+	InitAsmToolsView();
 }
  
 CoderKit::~CoderKit()
@@ -235,6 +217,57 @@ void CoderKit::onAlgPlainChanged()
 	} else if (sender == ui.keyEdit) {
 		UpdateAlgorithmText(true);
 	} 
+}
+
+void CoderKit::InitAsmToolsView()
+{
+	ui.splitter->setStretchFactor(0, 1);
+	ui.splitter->setStretchFactor(1, 2);
+	ui.nullRadio->setChecked(true);
+	connect(ui.asmBtn, &QPushButton::clicked, this, [&]() {
+		int bits = 64;
+		auto idx = ui.platformBox->currentIndex();
+		if (idx == BITS_IDX.bits64) bits = 64;
+		else if (idx == BITS_IDX.bits32) bits = 32;
+		else if (idx == BITS_IDX.bits16) bits = 16;
+		auto &&in = ui.asmEdit->toPlainText().toStdString();
+
+		std::string formats;
+		if (ui.nullRadio->isChecked()) formats = "";
+		else if (ui.spaceRadio->isChecked()) formats = " ";
+		else if (ui.slashxRadio->isChecked()) formats = "\\x";
+
+		auto &&out = NasmAsm(in, bits, formats);
+		ui.disasmEdit->setText(out);
+	});
+
+	connect(ui.disasmBtn, &QPushButton::clicked, this, [&]() {
+		int bits = 64;
+		auto idx = ui.platformBox->currentIndex();
+		if (idx == BITS_IDX.bits64) bits = 64;
+		else if (idx == BITS_IDX.bits32) bits = 32;
+		else if (idx == BITS_IDX.bits16) bits = 16;
+		auto &&in = ui.asmEdit->toPlainText().toStdString();
+		const char *pfx = "file:///";
+		auto pos = in.find(pfx);
+		if (pos == 0) {
+			auto file = in.substr(pos + strlen(pfx));
+			UNONE::FsReadFileDataA(file, in);
+		} else {
+			UNONE::StrReplaceA(in, " ");
+			UNONE::StrReplaceA(in, "\\x");
+			in = UNONE::StrHexStrToStreamA(in);
+		}
+		if (in.size() >= 10 * KB) {
+			auto msbox = QMessageBox::warning(this, tr("Warning"),
+				tr("Your input data so much(suggest less 10 KB), it'll be very slowly, continue?"),
+				QMessageBox::Yes | QMessageBox::No);
+			if (msbox == QMessageBox::No) return;
+		}
+
+		auto &&out = NasmDisasm(in, bits);
+		ui.disasmEdit->setText(out);
+	});
 }
 
 void CoderKit::UpdateAlgorithmText(bool crypt)
@@ -370,7 +403,19 @@ QString CoderKit::NasmAsm(std::string data, int bits, const std::string &format)
 	return StrToQ(bin);
 }
 
-std::string CoderKit::NasmDisasm(const std::string &data)
+QString CoderKit::NasmDisasm(const std::string &data, int bits)
 {
-	return "";
+	auto &&ndisasm = AppConfigDir() + L"\\nasm\\ndisasm.exe";
+	if (!UNONE::FsIsExistedW(ndisasm)) {
+		ExtractResource(":/OpenArk/nasm/ndisasm.exe", WStrToQ(ndisasm));
+	}
+	auto &&tmp_in = UNONE::OsEnvironmentW(L"%Temp%\\temp-ndisasm-code.bin");
+	UNONE::FsWriteFileDataW(tmp_in, data);
+	auto &&cmdline = UNONE::StrFormatW(L"%s -b %d \"%s\"", ndisasm.c_str(), bits, tmp_in.c_str());
+	std::wstring out;
+	DWORD exitcode;
+	auto ret = ReadStdout(cmdline, out, exitcode);
+	if (!ret) return tr("start ndisasm error");
+	UNONE::StrLowerW(out);
+	return WStrToQ(out);
 }

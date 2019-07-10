@@ -75,7 +75,7 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetExt>.sys</TargetExt>
     <TargetName>$(ProjectName)$(PlatformArchitecture)</TargetName>
-    <OutDir>$(SolutionDir)OpenArk\res</OutDir>
+    <OutDir>$(SolutionDir)OpenArk\res\driver</OutDir>
     <IncludePath>$(WDKPATH)\INC\api;$(WDKPATH)\INC\crt;$(WDKPATH)\INC\ddk;$(IncludePath)</IncludePath>
     <LibraryPath>$(WDKPATH)\lib\wxp\i386;$(WDKPATH)\lib\crt\i386;$(LibraryPath)</LibraryPath>
     <GenerateManifest>false</GenerateManifest>
@@ -86,7 +86,7 @@
     <TargetExt>.sys</TargetExt>
     <TargetName>$(ProjectName)$(PlatformArchitecture)</TargetName>
     <IntDir>intermediate-files\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)OpenArk\res</OutDir>
+    <OutDir>$(SolutionDir)OpenArk\res\driver</OutDir>
     <IncludePath>$(WDKPATH)\INC\api;$(WDKPATH)\INC\crt;$(WDKPATH)\INC\ddk;$(IncludePath)</IncludePath>
     <LibraryPath>$(WDKPATH)\lib\win7\amd64;$(WDKPATH)\lib\crt\amd64;$(LibraryPath)</LibraryPath>
     <GenerateManifest>false</GenerateManifest>
@@ -95,7 +95,7 @@
     <LinkIncremental>false</LinkIncremental>
     <TargetExt>.sys</TargetExt>
     <TargetName>$(ProjectName)$(PlatformArchitecture)</TargetName>
-    <OutDir>$(SolutionDir)OpenArk\res</OutDir>
+    <OutDir>$(SolutionDir)OpenArk\res\driver</OutDir>
     <IncludePath>$(WDKPATH)\INC\api;$(WDKPATH)\INC\crt;$(WDKPATH)\INC\ddk;$(IncludePath)</IncludePath>
     <LibraryPath>$(WDKPATH)\lib\wxp\i386;$(WDKPATH)\lib\crt\i386;$(LibraryPath)</LibraryPath>
     <GenerateManifest>false</GenerateManifest>
@@ -106,7 +106,7 @@
     <TargetExt>.sys</TargetExt>
     <TargetName>$(ProjectName)$(PlatformArchitecture)</TargetName>
     <IntDir>intermediate-files\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)OpenArk\res</OutDir>
+    <OutDir>$(SolutionDir)OpenArk\res\driver</OutDir>
     <IncludePath>$(WDKPATH)\INC\api;$(WDKPATH)\INC\crt;$(WDKPATH)\INC\ddk;$(IncludePath)</IncludePath>
     <LibraryPath>$(WDKPATH)\lib\win7\amd64;$(WDKPATH)\lib\crt\amd64;$(LibraryPath)</LibraryPath>
     <GenerateManifest>false</GenerateManifest>

@@ -77,7 +77,7 @@ bool SignExpiredDriver(QString driver)
 		return false;
 	}
 
-	QString res = ":/OpenArk/CSignTool.pfx";
+	QString res = ":/OpenArk/sign/CSignTool.pfx";
 	QFile pfx(res);
 	if (!pfx.open(QFileDevice::ReadOnly)) {
 		QERR_W("open resource file %s err", QToWChars(res));
@@ -92,8 +92,8 @@ bool SignExpiredDriver(QString driver)
 	auto &&signtool = toodir + L"\\CSignTool.exe";
 	auto &&signcfg = toodir + L"\\Config.xml";
 
-	ExtractResource(":/OpenArk/CSignTool.exe", WStrToQ(signtool));
-	ExtractResource(":/OpenArk/Config.xml", WStrToQ(signcfg));
+	ExtractResource(":/OpenArk/sign/CSignTool.exe", WStrToQ(signtool));
+	ExtractResource(":/OpenArk/sign/Config.xml", WStrToQ(signcfg));
 
 	RECOVER_SIGN_TIME();
 
