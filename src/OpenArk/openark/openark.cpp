@@ -23,6 +23,7 @@
 #include "about/about.h"
 #include "cmds/cmds.h"
 #include "kernel/kernel.h"
+#include "utilities/utilities.h"
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
@@ -152,6 +153,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	CreateTabPage(new CoderKit(this), ui.tabCoderKit);
 	CreateTabPage(new Bundler(this), ui.tabBundler);
 	CreateTabPage(new Kernel(this), ui.tabKernel);
+	CreateTabPage(new Utilities(this), ui.tabUtilities);
 	ActivateTab(TAB_PROCESS);
 
 	chkupt_timer_ = new QTimer();
@@ -284,12 +286,12 @@ void OpenArk::onActionPtool(bool checked)
 
 void OpenArk::onActionManuals(bool checked)
 {
-	OpenBrowserUrl("https://openark.blackint3.com/manuals/");
+	ShellOpenUrl("https://openark.blackint3.com/manuals/");
 }
 
 void OpenArk::onActionGithub(bool checked)
 {
-	OpenBrowserUrl("https://github.com/BlackINT3/OpenArk/");
+	ShellOpenUrl("https://github.com/BlackINT3/OpenArk/");
 }
 
 void OpenArk::onActionCheckUpdate(bool checked)
@@ -341,7 +343,7 @@ void OpenArk::onActionCheckUpdate(bool checked)
 			QMessageBox::StandardButton reply;
 			reply = QMessageBox::question(this, tr("App Updates"), tips, QMessageBox::Yes | QMessageBox::No);
 			if (reply == QMessageBox::Yes) {
-				OpenBrowserUrl(appurl.toString());
+				ShellOpenUrl(appurl.toString());
 			}
 			return;
 		}

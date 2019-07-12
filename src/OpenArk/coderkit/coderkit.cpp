@@ -251,8 +251,8 @@ void CoderKit::InitAsmToolsView()
 		const char *pfx = "file:///";
 		auto pos = in.find(pfx);
 		if (pos == 0) {
-			auto file = in.substr(pos + strlen(pfx));
-			UNONE::FsReadFileDataA(file, in);
+			auto file = UNONE::StrToW(in.substr(pos + strlen(pfx)));
+			UNONE::FsReadFileDataW(file, in);
 		} else {
 			UNONE::StrReplaceA(in, " ");
 			UNONE::StrReplaceA(in, "\\x");

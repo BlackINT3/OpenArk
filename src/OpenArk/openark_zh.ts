@@ -768,42 +768,42 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>OpenArk</name>
     <message>
-        <location filename="openark/openark.cpp" line="62"/>
+        <location filename="openark/openark.cpp" line="63"/>
         <source>OpenArk v%1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="63"/>
+        <location filename="openark/openark.cpp" line="64"/>
         <source> [build:%1]  </source>
         <translation type="unfinished"> [构建:%1]  </translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="65"/>
+        <location filename="openark/openark.cpp" line="66"/>
         <source>64-Bit</source>
         <translation type="unfinished">64位</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="65"/>
+        <location filename="openark/openark.cpp" line="66"/>
         <source>32-Bit</source>
         <translation type="unfinished">32位</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="72"/>
+        <location filename="openark/openark.cpp" line="73"/>
         <source>Project on Github</source>
         <translation type="unfinished">Github开源项目</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="206"/>
+        <location filename="openark/openark.cpp" line="208"/>
         <source>Open File</source>
         <translation type="unfinished">打开文件</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="206"/>
+        <location filename="openark/openark.cpp" line="208"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="337"/>
+        <location filename="openark/openark.cpp" line="339"/>
         <source>Found new version, app should be updated.
 appver: %1
 appbd: %2
@@ -814,37 +814,37 @@ appurl: %3</source>
 下载地址:%3</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="342"/>
+        <location filename="openark/openark.cpp" line="344"/>
         <source>App Updates</source>
         <translation type="unfinished">程序更新</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="348"/>
+        <location filename="openark/openark.cpp" line="350"/>
         <source>OpenArk is latest.</source>
         <translation type="unfinished">OpenArk是最新版本.</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="367"/>
+        <location filename="openark/openark.cpp" line="369"/>
         <source>Language changed ok, did you restart application now?</source>
         <translation type="unfinished">语言设置成功，现在是否重启进程？</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="370"/>
+        <location filename="openark/openark.cpp" line="372"/>
         <source>Information</source>
         <translation type="unfinished">信息</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="420"/>
+        <location filename="openark/openark.cpp" line="422"/>
         <source>History</source>
         <translation type="unfinished">历史记录</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="421"/>
+        <location filename="openark/openark.cpp" line="423"/>
         <source>Helps</source>
         <translation type="unfinished">帮助</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="422"/>
+        <location filename="openark/openark.cpp" line="424"/>
         <source>Clear</source>
         <translation type="unfinished">清空</translation>
     </message>
@@ -858,24 +858,24 @@ appurl: %3</source>
     </message>
     <message>
         <location filename="ui/openark.ui" line="85"/>
-        <location filename="ui/openark.ui" line="413"/>
+        <location filename="ui/openark.ui" line="418"/>
         <source>CoderKit</source>
         <translation type="unfinished">编程助手</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="90"/>
-        <location filename="ui/openark.ui" line="418"/>
+        <location filename="ui/openark.ui" line="423"/>
         <source>Scanner</source>
         <translation type="unfinished">扫描器</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="95"/>
-        <location filename="ui/openark.ui" line="428"/>
+        <location filename="ui/openark.ui" line="433"/>
         <source>Bundler</source>
         <translation type="unfinished">捆绑器</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="122"/>
+        <location filename="ui/openark.ui" line="127"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -885,43 +885,43 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="149"/>
+        <location filename="ui/openark.ui" line="154"/>
         <source>C:\&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="159"/>
+        <location filename="ui/openark.ui" line="164"/>
         <source>Command Help</source>
         <translation type="unfinished">命令帮助</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="182"/>
+        <location filename="ui/openark.ui" line="187"/>
         <source>&amp;File</source>
         <translation type="unfinished">文件(&amp;F)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="191"/>
+        <location filename="ui/openark.ui" line="196"/>
         <source>&amp;View</source>
         <translation type="unfinished">视图(&amp;V)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="200"/>
+        <location filename="ui/openark.ui" line="205"/>
         <source>&amp;Options</source>
         <translation type="unfinished">选项(&amp;O)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="214"/>
+        <location filename="ui/openark.ui" line="219"/>
         <source>&amp;Plugins</source>
         <translation type="unfinished">插件(&amp;P)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="234"/>
+        <location filename="ui/openark.ui" line="239"/>
         <source>&amp;Window</source>
         <oldsource>Window</oldsource>
         <translation type="unfinished">窗口(&amp;W)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="223"/>
+        <location filename="ui/openark.ui" line="228"/>
         <source>&amp;Help</source>
         <oldsource>Help</oldsource>
         <translation type="unfinished">帮助(&amp;H)</translation>
@@ -932,145 +932,150 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">内核</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="204"/>
+        <location filename="ui/openark.ui" line="100"/>
+        <source>Utilities</source>
+        <translation type="unfinished">实用工具</translation>
+    </message>
+    <message>
+        <location filename="ui/openark.ui" line="209"/>
         <source>&amp;Language</source>
         <translation type="unfinished">语言(&amp;L)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="246"/>
+        <location filename="ui/openark.ui" line="251"/>
         <source>toolBar</source>
         <translation type="unfinished">工具栏</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="289"/>
+        <location filename="ui/openark.ui" line="294"/>
         <source>&amp;Console</source>
         <translation type="unfinished">控制台(&amp;C)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="292"/>
+        <location filename="ui/openark.ui" line="297"/>
         <source>Open Console Window</source>
         <translation type="unfinished">打开控制台窗口</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="295"/>
+        <location filename="ui/openark.ui" line="300"/>
         <source>Alt+Shift+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="304"/>
+        <location filename="ui/openark.ui" line="309"/>
         <source>&amp;Open</source>
         <translation type="unfinished">打开(&amp;O)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="307"/>
+        <location filename="ui/openark.ui" line="312"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="312"/>
+        <location filename="ui/openark.ui" line="317"/>
         <source>Ex&amp;port</source>
         <translation type="unfinished">导出(&amp;P)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="321"/>
+        <location filename="ui/openark.ui" line="326"/>
         <source>&amp;Exit</source>
         <oldsource>Exit</oldsource>
         <translation type="unfinished">退出(&amp;E)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="326"/>
+        <location filename="ui/openark.ui" line="331"/>
         <source>Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="331"/>
+        <location filename="ui/openark.ui" line="336"/>
         <source>HelloCoder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="348"/>
-        <location filename="ui/openark.ui" line="351"/>
-        <location filename="ui/openark.ui" line="370"/>
+        <location filename="ui/openark.ui" line="353"/>
+        <location filename="ui/openark.ui" line="356"/>
+        <location filename="ui/openark.ui" line="375"/>
         <source>Project on Github</source>
         <translation type="unfinished">Github开源项目</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="360"/>
+        <location filename="ui/openark.ui" line="365"/>
         <source>About OpenArk</source>
         <translation type="unfinished">关于OpenArk</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="365"/>
+        <location filename="ui/openark.ui" line="370"/>
         <source>Check for Updates...</source>
         <translation type="unfinished">检查更新...</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="375"/>
+        <location filename="ui/openark.ui" line="380"/>
         <source>Manuals</source>
         <translation type="unfinished">文档手册</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="384"/>
+        <location filename="ui/openark.ui" line="389"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">刷新(&amp;R)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="387"/>
+        <location filename="ui/openark.ui" line="392"/>
         <source>F5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="396"/>
+        <location filename="ui/openark.ui" line="401"/>
         <source>&amp;Save</source>
         <translation type="unfinished">保存(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="399"/>
+        <location filename="ui/openark.ui" line="404"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="408"/>
+        <location filename="ui/openark.ui" line="413"/>
         <source>&amp;Settings</source>
         <translation type="unfinished">设置(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="457"/>
+        <location filename="ui/openark.ui" line="462"/>
         <source>&amp;Module</source>
         <translation type="unfinished">模块(&amp;M)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="460"/>
+        <location filename="ui/openark.ui" line="465"/>
         <source>Open Module Window</source>
         <translation type="unfinished">打开模块列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="472"/>
+        <location filename="ui/openark.ui" line="477"/>
         <source>&amp;Handle</source>
         <translation type="unfinished">句柄(&amp;H)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="475"/>
+        <location filename="ui/openark.ui" line="480"/>
         <source>Open Handle Window</source>
         <translation type="unfinished">打开句柄列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="487"/>
+        <location filename="ui/openark.ui" line="492"/>
         <source>&amp;Memory</source>
         <translation type="unfinished">内存(&amp;M)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="490"/>
+        <location filename="ui/openark.ui" line="495"/>
         <source>Open Memory Window</source>
         <translation type="unfinished">打开内存列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="498"/>
+        <location filename="ui/openark.ui" line="503"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="506"/>
+        <location filename="ui/openark.ui" line="511"/>
         <source>简体中文</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1079,22 +1084,22 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">编程助手</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="423"/>
+        <location filename="ui/openark.ui" line="428"/>
         <source>C&amp;leaner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="437"/>
+        <location filename="ui/openark.ui" line="442"/>
         <source>&amp;Allways On Top</source>
         <translation type="unfinished">置顶(&amp;A)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="442"/>
+        <location filename="ui/openark.ui" line="447"/>
         <source>Reset</source>
         <translation type="unfinished">重置</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="445"/>
+        <location filename="ui/openark.ui" line="450"/>
         <source>Reset Window</source>
         <translation type="unfinished">重置窗口</translation>
     </message>
@@ -2121,6 +2126,259 @@ p, li { white-space: pre-wrap; }
         <location filename="settings/settings.cpp" line="29"/>
         <source>Value</source>
         <translation type="unfinished">值</translation>
+    </message>
+</context>
+<context>
+    <name>Utilities</name>
+    <message>
+        <location filename="ui/utilities.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="33"/>
+        <source>Cleaner</source>
+        <translation type="unfinished">清理大师</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="41"/>
+        <source>FilesCount:</source>
+        <translation type="unfinished">文件数目:</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="54"/>
+        <source>150</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="61"/>
+        <source>FilesSize:</source>
+        <translation type="unfinished">文件大小:</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="74"/>
+        <source>1500M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="94"/>
+        <source>&amp;Scan</source>
+        <translation type="unfinished">&amp;扫描</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="101"/>
+        <source>&amp;Clean</source>
+        <translation type="unfinished">&amp;清理</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="114"/>
+        <source>SystemTools</source>
+        <translation type="unfinished">系统工具</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="120"/>
+        <source>Common</source>
+        <translation type="unfinished">常用</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="132"/>
+        <source>CMD</source>
+        <translation type="unfinished">命令提示符</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="145"/>
+        <source>Regedit</source>
+        <translation type="unfinished">注册表</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="158"/>
+        <source>Services</source>
+        <translation type="unfinished">服务</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="171"/>
+        <source>Powershell</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="184"/>
+        <source>Programs</source>
+        <translation type="unfinished">程序管理</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="197"/>
+        <source>WSL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="210"/>
+        <source>Taskmgr</source>
+        <translation type="unfinished">任务管理器</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="223"/>
+        <source>Environments</source>
+        <translation type="unfinished">环境变量</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="236"/>
+        <source>ComputerName</source>
+        <translation type="unfinished">计算机名</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="249"/>
+        <source>Calculator</source>
+        <translation type="unfinished">计算器</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="257"/>
+        <source>Configuration</source>
+        <translation type="unfinished">配置</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="269"/>
+        <source>Disk Managment</source>
+        <translation type="unfinished">磁盘管理</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="282"/>
+        <source>Date and Time</source>
+        <translation type="unfinished">日期时间</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="295"/>
+        <source>Desktop Icons</source>
+        <translation type="unfinished">桌面图标</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="308"/>
+        <source>Windows Version</source>
+        <translation type="unfinished">系统版本</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="321"/>
+        <source>SystemInfo</source>
+        <translation type="unfinished">系统信息</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="334"/>
+        <source>Wallpaper</source>
+        <translation type="unfinished">墙纸</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="347"/>
+        <source>Device Manager</source>
+        <translation type="unfinished">设备管理</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="360"/>
+        <source>Task Scheduler</source>
+        <translation type="unfinished">计划任务</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="368"/>
+        <source>Performance &amp;&amp; Security</source>
+        <translation type="unfinished">性能和安全</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="380"/>
+        <source>Performance</source>
+        <translation type="unfinished">性能监视</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="393"/>
+        <source>Resource Monitor</source>
+        <translation type="unfinished">资源监视</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="406"/>
+        <source>UAC Settings</source>
+        <translation type="unfinished">UAC设置</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="419"/>
+        <source>Perf Settings</source>
+        <translation type="unfinished">性能设置</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="432"/>
+        <source>Power Settings</source>
+        <translation type="unfinished">电源设置</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="445"/>
+        <source>Group Policy</source>
+        <translation type="unfinished">主策略</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="458"/>
+        <source>Users &amp;&amp; Groups</source>
+        <translation type="unfinished">用户和组</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="471"/>
+        <source>Credential</source>
+        <translation type="unfinished">凭据管理</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="484"/>
+        <source>Certificate</source>
+        <translation type="unfinished">证书管理</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="497"/>
+        <source>Security Policy</source>
+        <translation type="unfinished">安全策略</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="510"/>
+        <source>Event Viewer</source>
+        <translation type="unfinished">事件查看</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="518"/>
+        <source>Network</source>
+        <translation type="unfinished">网络</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="530"/>
+        <source>Firewall</source>
+        <translation type="unfinished">防火墙</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="543"/>
+        <source>Proxy Settings</source>
+        <translation type="unfinished">代理设置</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="556"/>
+        <source>Network Connections</source>
+        <translation type="unfinished">网络连接</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="569"/>
+        <source>Hosts</source>
+        <translation type="unfinished">Hosts文件</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="582"/>
+        <source>IP v4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="595"/>
+        <source>IP v6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="608"/>
+        <source>Route</source>
+        <translation type="unfinished">路由表</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="621"/>
+        <source>Shared Folders</source>
+        <translation type="unfinished">共享文件夹</translation>
     </message>
 </context>
 </TS>

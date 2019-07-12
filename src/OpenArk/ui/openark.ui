@@ -68,7 +68,7 @@
 </string>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>5</number>
        </property>
        <widget class="QWidget" name="tabProcessMgr">
         <attribute name="title">
@@ -93,6 +93,11 @@
        <widget class="QWidget" name="tabBundler">
         <attribute name="title">
          <string>Bundler</string>
+        </attribute>
+       </widget>
+       <widget class="QWidget" name="tabUtilities">
+        <attribute name="title">
+         <string>Utilities</string>
         </attribute>
        </widget>
       </widget>

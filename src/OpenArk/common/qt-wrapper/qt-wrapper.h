@@ -208,6 +208,7 @@ bool JsonGetValue(const QJsonObject &obj, const QString &key, QJsonValue &val);
 bool JsonGetValue(const QByteArray &data, const QString &key, QJsonValue &val);
 
 //
-void OpenBrowserUrl(QString url);
+void ShellOpenUrl(QString url);
+void ShellRun(QString cmdline, QString param);
 QString PidFormat(DWORD pid);
 QString NameFormat(QString name);

@@ -263,9 +263,14 @@ bool JsonGetValue(const QByteArray &data, const QString &key, QJsonValue &val)
 	return JsonGetValue(obj, key, val);
 }
 
-void OpenBrowserUrl(QString url)
+void ShellOpenUrl(QString url)
 {
 	ShellExecuteW(NULL, L"open", url.toStdWString().c_str(), NULL, NULL, SW_SHOW);
+}
+
+void ShellRun(QString cmdline, QString param)
+{
+	ShellExecuteW(NULL, L"open", cmdline.toStdWString().c_str(), param.toStdWString().c_str(), NULL, SW_SHOW);
 }
 
 QString PidFormat(DWORD pid)

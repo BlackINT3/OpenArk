@@ -1,11 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
-      <Extensions>qrc;*</Extensions>
-      <ParseFiles>false</ParseFiles>
-    </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
       <Extensions>moc;h;cpp</Extensions>
@@ -109,6 +104,9 @@
     </Filter>
     <Filter Include="common\utils\disassembly\udis86\libudis86">
       <UniqueIdentifier>{1792966e-8dc4-44ad-83d0-fe4ead41b315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utilities">
+      <UniqueIdentifier>{8ea4c836-5d7b-4572-a5fe-d0910ff6b9c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +219,9 @@
     <ClCompile Include="common\utils\disassembly\udis86\libudis86\udis86.c">
       <Filter>common\utils\disassembly\udis86\libudis86</Filter>
     </ClCompile>
+    <ClCompile Include="utilities\utilities.cpp">
+      <Filter>utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="openark\openark.h">
@@ -259,6 +260,9 @@
     <QtMoc Include="settings\settings.h">
       <Filter>settings</Filter>
     </QtMoc>
+    <QtMoc Include="utilities\utilities.h">
+      <Filter>utilities</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\process-mgr.ui">
@@ -289,6 +293,9 @@
       <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\kernel.ui">
+      <Filter>ui</Filter>
+    </QtUic>
+    <QtUic Include="ui\utilities.ui">
       <Filter>ui</Filter>
     </QtUic>
   </ItemGroup>
@@ -397,6 +404,9 @@
     </ClInclude>
     <ClInclude Include="common\utils\disassembly\udis86\libudis86\udint.h">
       <Filter>common\utils\disassembly\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_utilities.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
