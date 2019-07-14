@@ -22,16 +22,60 @@
 class OpenArk;
 class Ui::Utilities;
 
+class JunksSortFilterProxyModel : public QSortFilterProxyModel {
+	Q_OBJECT
+public:
+	JunksSortFilterProxyModel(QWidget *parent) {};
+	~JunksSortFilterProxyModel() {};
+protected:
+	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
+};
+
+struct JunkItem {
+	QString name;
+	QString path;
+	DWORD64 size;
+};
+
+class ScanJunksThread : public QThread {
+	Q_OBJECT
+signals:
+	void appendJunks(QList<JunkItem>);
+protected:
+	void run();
+};
+
+class CleanJunksThread : public QThread {
+	Q_OBJECT
+signals:
+	void cleanJunks(QList<JunkItem>);
+public:
+	void setJunks(QStringList junks) { junks_ = junks; };
+protected:
+	void run();
+private:
+	QStringList junks_;
+};
+
+
 class Utilities : public QWidget {
 	Q_OBJECT
 public:
 	Utilities(QWidget *parent);
 	~Utilities();
 
+private slots:
+	void onAppendJunkfiles(QList<JunkItem>);
+
 private:
+	void InitCleanerView();
 	void InitSystemToolsView();
 
 private:
+	QStandardItemModel *junks_model_;
+	JunksSortFilterProxyModel *proxy_junks_;
+	ScanJunksThread *scanjunks_thread_;
+	CleanJunksThread *cleanjunks_thread_;
 	Ui::Utilities ui;
 	OpenArk *parent_;
 };

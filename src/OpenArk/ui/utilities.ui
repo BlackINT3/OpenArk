@@ -26,7 +26,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabCleaner">
       <attribute name="title">
@@ -89,14 +89,14 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="scanBtn">
            <property name="text">
             <string>&amp;Scan</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="cleanBtn">
            <property name="text">
             <string>&amp;Clean</string>
            </property>
@@ -105,7 +105,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QTreeView" name="treeView"/>
+        <widget class="QTreeView" name="junksView"/>
        </item>
       </layout>
      </widget>
