@@ -21,5 +21,6 @@
         <file>driver/OpenArkDrv32.sys</file>
         <file>driver/OpenArkDrv64.sys</file>
         <file>lang/openark_zh.qm</file>
+        <file>systools/recyclebin.png</file>
     </qresource>
 </RCC>

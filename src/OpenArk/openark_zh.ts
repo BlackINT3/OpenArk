@@ -2138,247 +2138,280 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ui/utilities.ui" line="33"/>
         <source>Cleaner</source>
-        <translation type="unfinished">清理大师</translation>
+        <translation type="unfinished">清理工具</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="41"/>
         <source>FilesCount:</source>
-        <translation type="unfinished">文件数目:</translation>
+        <translation type="obsolete">文件数目:</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="54"/>
-        <source>150</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ui/utilities.ui" line="61"/>
         <source>FilesSize:</source>
-        <translation type="unfinished">文件大小:</translation>
+        <translation type="obsolete">文件大小:</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="74"/>
-        <source>1500M</source>
-        <translation type="unfinished"></translation>
+        <location filename="ui/utilities.ui" line="53"/>
+        <source>[STATUS] not started...</source>
+        <translation type="unfinished">[状态] 未开始...</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="94"/>
+        <location filename="ui/utilities.ui" line="73"/>
         <source>&amp;Scan</source>
-        <translation type="unfinished">&amp;扫描</translation>
+        <translation type="unfinished">扫描(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="101"/>
+        <location filename="ui/utilities.ui" line="80"/>
         <source>&amp;Clean</source>
-        <translation type="unfinished">&amp;清理</translation>
+        <translation type="unfinished">清理(&amp;C)</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="114"/>
+        <location filename="ui/utilities.ui" line="93"/>
         <source>SystemTools</source>
         <translation type="unfinished">系统工具</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="120"/>
+        <location filename="ui/utilities.ui" line="99"/>
         <source>Common</source>
         <translation type="unfinished">常用</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="132"/>
+        <location filename="ui/utilities.ui" line="111"/>
         <source>CMD</source>
         <translation type="unfinished">命令提示符</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="145"/>
+        <location filename="ui/utilities.ui" line="124"/>
         <source>Regedit</source>
         <translation type="unfinished">注册表</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="158"/>
+        <location filename="ui/utilities.ui" line="137"/>
         <source>Services</source>
         <translation type="unfinished">服务</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="171"/>
+        <location filename="ui/utilities.ui" line="150"/>
         <source>Powershell</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="184"/>
+        <location filename="ui/utilities.ui" line="163"/>
         <source>Programs</source>
         <translation type="unfinished">程序管理</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="197"/>
+        <location filename="ui/utilities.ui" line="176"/>
         <source>WSL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="210"/>
+        <location filename="ui/utilities.ui" line="189"/>
         <source>Taskmgr</source>
         <translation type="unfinished">任务管理器</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="223"/>
+        <location filename="ui/utilities.ui" line="202"/>
         <source>Environments</source>
         <translation type="unfinished">环境变量</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="236"/>
+        <location filename="ui/utilities.ui" line="215"/>
         <source>ComputerName</source>
         <translation type="unfinished">计算机名</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="249"/>
+        <location filename="ui/utilities.ui" line="228"/>
         <source>Calculator</source>
         <translation type="unfinished">计算器</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="257"/>
+        <location filename="ui/utilities.ui" line="236"/>
         <source>Configuration</source>
         <translation type="unfinished">配置</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="269"/>
+        <location filename="ui/utilities.ui" line="248"/>
         <source>Disk Managment</source>
         <translation type="unfinished">磁盘管理</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="282"/>
+        <location filename="ui/utilities.ui" line="261"/>
         <source>Date and Time</source>
         <translation type="unfinished">日期时间</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="295"/>
+        <location filename="ui/utilities.ui" line="274"/>
         <source>Desktop Icons</source>
         <translation type="unfinished">桌面图标</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="308"/>
+        <location filename="ui/utilities.ui" line="287"/>
         <source>Windows Version</source>
         <translation type="unfinished">系统版本</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="321"/>
+        <location filename="ui/utilities.ui" line="300"/>
         <source>SystemInfo</source>
         <translation type="unfinished">系统信息</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="334"/>
+        <location filename="ui/utilities.ui" line="313"/>
         <source>Wallpaper</source>
         <translation type="unfinished">墙纸</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="347"/>
+        <location filename="ui/utilities.ui" line="326"/>
         <source>Device Manager</source>
         <translation type="unfinished">设备管理</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="360"/>
+        <location filename="ui/utilities.ui" line="339"/>
         <source>Task Scheduler</source>
         <translation type="unfinished">计划任务</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="368"/>
+        <location filename="ui/utilities.ui" line="347"/>
         <source>Performance &amp;&amp; Security</source>
         <translation type="unfinished">性能和安全</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="380"/>
+        <location filename="ui/utilities.ui" line="359"/>
         <source>Performance</source>
         <translation type="unfinished">性能监视</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="393"/>
+        <location filename="ui/utilities.ui" line="372"/>
         <source>Resource Monitor</source>
         <translation type="unfinished">资源监视</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="406"/>
+        <location filename="ui/utilities.ui" line="385"/>
         <source>UAC Settings</source>
         <translation type="unfinished">UAC设置</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="419"/>
+        <location filename="ui/utilities.ui" line="398"/>
         <source>Perf Settings</source>
         <translation type="unfinished">性能设置</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="432"/>
+        <location filename="ui/utilities.ui" line="411"/>
         <source>Power Settings</source>
         <translation type="unfinished">电源设置</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="445"/>
+        <location filename="ui/utilities.ui" line="424"/>
         <source>Group Policy</source>
-        <translation type="unfinished">主策略</translation>
+        <translation type="unfinished">组策略</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="458"/>
+        <location filename="ui/utilities.ui" line="437"/>
         <source>Users &amp;&amp; Groups</source>
         <translation type="unfinished">用户和组</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="471"/>
+        <location filename="ui/utilities.ui" line="450"/>
         <source>Credential</source>
         <translation type="unfinished">凭据管理</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="484"/>
+        <location filename="ui/utilities.ui" line="463"/>
         <source>Certificate</source>
         <translation type="unfinished">证书管理</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="497"/>
+        <location filename="ui/utilities.ui" line="476"/>
         <source>Security Policy</source>
         <translation type="unfinished">安全策略</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="510"/>
+        <location filename="ui/utilities.ui" line="489"/>
         <source>Event Viewer</source>
         <translation type="unfinished">事件查看</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="518"/>
+        <location filename="ui/utilities.ui" line="497"/>
         <source>Network</source>
         <translation type="unfinished">网络</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="530"/>
+        <location filename="ui/utilities.ui" line="509"/>
         <source>Firewall</source>
         <translation type="unfinished">防火墙</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="543"/>
+        <location filename="ui/utilities.ui" line="522"/>
         <source>Proxy Settings</source>
         <translation type="unfinished">代理设置</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="556"/>
+        <location filename="ui/utilities.ui" line="535"/>
         <source>Network Connections</source>
         <translation type="unfinished">网络连接</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="569"/>
+        <location filename="ui/utilities.ui" line="548"/>
         <source>Hosts</source>
         <translation type="unfinished">Hosts文件</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="582"/>
+        <location filename="ui/utilities.ui" line="561"/>
         <source>IP v4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="595"/>
+        <location filename="ui/utilities.ui" line="574"/>
         <source>IP v6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="608"/>
+        <location filename="ui/utilities.ui" line="587"/>
         <source>Route</source>
         <translation type="unfinished">路由表</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="621"/>
+        <location filename="ui/utilities.ui" line="600"/>
         <source>Shared Folders</source>
         <translation type="unfinished">共享文件夹</translation>
+    </message>
+    <message>
+        <location filename="utilities/utilities.cpp" line="223"/>
+        <source>Directory</source>
+        <translation type="unfinished">文件夹</translation>
+    </message>
+    <message>
+        <location filename="utilities/utilities.cpp" line="223"/>
+        <source>FileCount</source>
+        <translation type="unfinished">文件数</translation>
+    </message>
+    <message>
+        <location filename="utilities/utilities.cpp" line="223"/>
+        <source>SumSize</source>
+        <translation type="unfinished">总大小</translation>
+    </message>
+    <message>
+        <location filename="utilities/utilities.cpp" line="223"/>
+        <source>Detail</source>
+        <translation type="unfinished">详细</translation>
+    </message>
+    <message>
+        <location filename="utilities/utilities.cpp" line="243"/>
+        <source>[STATUS] Scanning...</source>
+        <translation type="unfinished">[状态] 扫描中...</translation>
+    </message>
+    <message>
+        <location filename="utilities/utilities.cpp" line="251"/>
+        <source>[STATUS] Scan completed...</source>
+        <translation type="unfinished">[状态] 扫描完成...</translation>
+    </message>
+    <message>
+        <location filename="utilities/utilities.cpp" line="261"/>
+        <source>[STATUS] Cleaning...</source>
+        <translation type="unfinished">[状态] 清理中...</translation>
+    </message>
+    <message>
+        <location filename="utilities/utilities.cpp" line="270"/>
+        <source>[STATUS] Clean completed...</source>
+        <translation type="unfinished">[状态] 清理完成...</translation>
     </message>
 </context>
 </TS>

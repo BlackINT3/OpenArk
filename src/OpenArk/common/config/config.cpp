@@ -67,7 +67,6 @@ QStringList ConfGetJunksDir()
 
 	std::vector<std::wstring> junkdirs;
 	// Temp
-/*
 	junkdirs.push_back(UNONE::OsEnvironmentW(L"%Temp%"));
 	junkdirs.push_back(UNONE::OsEnvironmentW(L"%windir%\\Temp"));
 
@@ -78,10 +77,10 @@ QStringList ConfGetJunksDir()
 	junkdirs.push_back(appdata + L"\\Microsoft\\Office\\Recent");
 
 	// Chrome
-	junkdirs.push_back(appdata + L"\\Google\\Chrome\\Default\\Cache");
-	junkdirs.push_back(appdata + L"\\Google\\Chrome\\Default\\Code Cache");*/
+	junkdirs.push_back(localappdata + L"\\Google\\Chrome\\User Data\\Default\\Cache");
+	junkdirs.push_back(localappdata + L"\\Google\\Chrome\\User Data\\Default\\Code Cache");
 
-	junkdirs.push_back(L"C:\\AppData\\Roaming");
+	// junkdirs.push_back(L"C:\\AppData\\Roaming");
 
 	return WVectorToQList(junkdirs);
 }

@@ -36,25 +36,32 @@ struct JunkItem {
 	QString path;
 	DWORD64 size;
 };
+struct JunkCluster {
+	QString dir;
+	DWORD64 sumsize;
+	QList<JunkItem> items;
+};
 
 class ScanJunksThread : public QThread {
 	Q_OBJECT
 signals:
-	void appendJunks(QList<JunkItem>);
+	void appendJunks(JunkCluster);
 protected:
 	void run();
+public:
+	QList<JunkCluster> junks_cluster_;
 };
 
 class CleanJunksThread : public QThread {
 	Q_OBJECT
 signals:
-	void cleanJunks(QList<JunkItem>);
+	void cleanJunks(JunkCluster);
 public:
-	void setJunks(QStringList junks) { junks_ = junks; };
+	void setJunkCluster(QList<JunkCluster> clusters) { junks_cluster_ = clusters; };
 protected:
 	void run();
 private:
-	QStringList junks_;
+	QList<JunkCluster> junks_cluster_;
 };
 
 
@@ -65,11 +72,15 @@ public:
 	~Utilities();
 
 private slots:
-	void onAppendJunkfiles(QList<JunkItem>);
+	void onOpJunkfiles(int, JunkCluster);
+	void onAppendJunkfiles(JunkCluster);
+	void onCleanJunkfiles(JunkCluster);
 
 private:
 	void InitCleanerView();
 	void InitSystemToolsView();
+	void RemoveCleanerItems();
+	QVector<int> removed_rows_;
 
 private:
 	QStandardItemModel *junks_model_;

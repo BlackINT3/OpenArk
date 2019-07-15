@@ -17,17 +17,21 @@
 #include "../common/common.h"
 #include "../openark/openark.h"
 
+#define MODEL_STRING(model, row, columm) (model->index(row, columm).data(Qt::DisplayRole).toString())
+#define RECYCLEBIN "RecycleBin"
+
 struct {
 	int s = 0;
-	int name = s++;
-	int path = s++;
-	int size = s++;
+	int dir = s++;
+	int filecnt = s++;
+	int sumsize = s++;
+	int detail = s++;
 } JUNKS;
 bool JunksSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
 	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
 	auto column = left.column();
-	if ((column == JUNKS.size)) return s1.toUInt() < s2.toUInt();
+	if ((column == JUNKS.filecnt || column == JUNKS.sumsize)) return s1.toUInt() < s2.toUInt();
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
 
@@ -39,7 +43,7 @@ Utilities::Utilities(QWidget *parent) :
 	ui.setupUi(this);
 	ui.tabWidget->setTabPosition(QTabWidget::West);
 	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
-	qRegisterMetaType<QList<JunkItem>>("QList<JunkItem>");
+	qRegisterMetaType<JunkCluster>("JunkCluster");
 
 	InitCleanerView();
 	InitSystemToolsView();
@@ -51,58 +55,164 @@ Utilities::~Utilities()
 	scanjunks_thread_ = nullptr;
 }
 
-void Utilities::onAppendJunkfiles(QList<JunkItem> items)
+void Utilities::onOpJunkfiles(int op, JunkCluster cluster)
 {
-	for (auto &item : items) {
-		auto count = junks_model_->rowCount();
-		QStandardItem *name_item = new QStandardItem(LoadIcon(item.path), item.name);
-		QStandardItem *path_item = new QStandardItem(item.path);
-		QStandardItem *size_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%.02f MB", item.size / MB)));
-		junks_model_->setItem(count, JUNKS.name, name_item);
-		junks_model_->setItem(count, JUNKS.path, path_item);
-		junks_model_->setItem(count, JUNKS.size, size_item);
+	bool existed = false;
+	int rows = junks_model_->rowCount();
+	int seq = rows;
+	for (int i = 0; i < rows; i++) {
+		if (cluster.dir == MODEL_STRING(junks_model_, i, JUNKS.dir)) {
+			seq = i;
+			existed = true;
+			break;
+		}
 	}
+	
+	auto &items = cluster.items;
+	DWORD64 sumsize = cluster.sumsize;
+	DWORD filecnt = items.size();
+	if (existed) {
+		if (op == 0) {
+			filecnt += MODEL_STRING(junks_model_, seq, JUNKS.filecnt).toULong();
+			sumsize += MODEL_STRING(junks_model_, seq, JUNKS.sumsize).toULongLong();
+		}	else {
+			filecnt = MODEL_STRING(junks_model_, seq, JUNKS.filecnt).toULong() - filecnt;
+			sumsize = MODEL_STRING(junks_model_, seq, JUNKS.sumsize).toULongLong() - sumsize;
+		}
+	}
+
+	QStandardItem *dir_item;
+	if (cluster.dir == RECYCLEBIN) {
+		dir_item = new QStandardItem(QIcon(":/OpenArk/systools/recyclebin.png"), cluster.dir);
+	} else {
+		dir_item = new QStandardItem(LoadIcon(cluster.dir), cluster.dir);
+	}
+	dir_item->setCheckable(true);
+	dir_item->setCheckState(Qt::Checked);
+	QStandardItem *filecnt_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", filecnt)));
+	QStandardItem *sumsize_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%lld", sumsize)));
+	QStandardItem *detail_item;
+	if (sumsize > GB) {
+		detail_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%.2f GB", (double)sumsize / GB)));
+	} else if (sumsize > MB) {
+		detail_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%.2f MB", (double)sumsize / MB)));
+	} else if (sumsize > KB) {
+		detail_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%.2f KB", (double)sumsize/KB)));
+	} else {
+		detail_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%lld Bytes", sumsize)));
+	}
+	junks_model_->setItem(seq, JUNKS.dir, dir_item);
+	junks_model_->setItem(seq, JUNKS.filecnt, filecnt_item);
+	junks_model_->setItem(seq, JUNKS.sumsize, sumsize_item);
+	junks_model_->setItem(seq, JUNKS.detail, detail_item);
+}
+
+void Utilities::onAppendJunkfiles(JunkCluster cluster)
+{
+	onOpJunkfiles(0, cluster);
+}
+
+void Utilities::onCleanJunkfiles(JunkCluster cluster)
+{
+	onOpJunkfiles(1, cluster);
 }
 
 void ScanJunksThread::run()
 {
-	std::function<bool(wchar_t*, wchar_t*, void*)> ScanCallback;
 	QList<JunkItem> items;
+	auto SendToUI = [&](QString dir, DWORD64 sumsize = 0) {
+		JunkCluster cluster;
+		if (!sumsize) {
+			for (auto &item : items) { sumsize += item.size; }
+		}
+		cluster.dir = dir;
+		cluster.sumsize = sumsize;
+		cluster.items = items;
+		emit appendJunks(cluster);
+		bool existed = false;
+		for (auto &c : junks_cluster_) {
+			if (cluster.dir == c.dir) {
+				c.sumsize = sumsize;
+				c.items.append(items);
+				existed = true;
+			}
+		}
+		if (!existed)junks_cluster_.push_back(cluster);
+		items.clear();
+	};
+	std::function<bool(wchar_t*, wchar_t*, void*)> ScanCallback;
 	ScanCallback = [&](wchar_t* path, wchar_t* name, void* param)->bool {
 		if (UNONE::FsIsDirW(path)) {
-			return UNONE::FsEnumDirectoryW(path, ScanCallback);
+			UNONE::FsEnumDirectoryW(path, ScanCallback, param);
 		}
 		JunkItem item;
 		item.name = WCharsToQ(name);
 		item.path = WCharsToQ(path);
-		DWORD64 fsize;
+		DWORD64 fsize = 0;
 		UNONE::FsGetFileSizeW(path, fsize);
 		item.size = fsize;
 		items.push_back(item);
-		if (items.size() >= 2000) {
-			emit appendJunks(items);
-			items.clear();
-			Sleep(1000);
+		if (items.size() >= 199) {
+			SendToUI(*(QString*)param);
 		}
 		return true;
 	};
+	junks_cluster_.clear();
 	auto &&junkdirs = ConfGetJunksDir();
 	for (auto &dir : junkdirs) {
-		UNONE::FsEnumDirectoryW(dir.toStdWString(), ScanCallback);
+		if (!UNONE::FsIsExistedW(dir.toStdWString())) continue;
+		UNONE::FsEnumDirectoryW(dir.toStdWString(), ScanCallback, &dir);
+		if (items.size() >= 0) {
+			SendToUI(dir);
+		}
 	}
-	if (items.size() > 0) {
-		emit appendJunks(items);
+	// RecycleBin
+	SHQUERYRBINFO bi;
+	bi.cbSize = sizeof(SHQUERYRBINFO);
+	HRESULT hr = SHQueryRecycleBin(NULL, &bi);
+	if (hr == S_OK) {
 		items.clear();
+		auto nums = bi.i64NumItems;
+		while (nums--) {
+			JunkItem junk;
+			items.append(junk);
+		}
+		SendToUI(RECYCLEBIN, bi.i64Size);
 	}
 }
 
 void CleanJunksThread::run()
 {
-	for (auto &junk : junks_) {
-		auto &&path = junk.toStdWString();
-		auto ret = DeleteFileW(path.c_str());
-		if (!ret) {
-			ERR(L"DleteFile %s err:%d", path.c_str(), GetLastError());
+	for (auto &cluster : junks_cluster_) {
+		int cnt = 0;
+		JunkCluster c;
+		c.dir = cluster.dir;
+		c.sumsize = 0;
+		if (cluster.dir == RECYCLEBIN) {
+			auto flags = SHERB_NOCONFIRMATION | SHERB_NOPROGRESSUI | SHERB_NOSOUND;
+			SHEmptyRecycleBin(NULL, NULL, flags);
+			continue;
+		}
+		for (auto &item : cluster.items) {
+			bool ret;
+			auto &&path = item.path.toStdWString();
+			if (UNONE::FsIsDirW(path)) {
+				ret = UNONE::FsDeleteDirectoryW(path);
+			} else {
+				ret = DeleteFileW(path.c_str());
+			}
+			c.sumsize += item.size;
+			c.items.append(item);
+			if (c.items.size() > 199) {
+				emit cleanJunks(c);
+				c.sumsize = 0;
+				c.items.clear();
+			}
+		}
+		if (c.items.size() > 0) {
+			emit cleanJunks(c);
+			c.sumsize = 0;
+			c.items.clear();
 		}
 	}
 }
@@ -110,7 +220,7 @@ void CleanJunksThread::run()
 void Utilities::InitCleanerView()
 {
 	junks_model_ = new QStandardItemModel;
-	junks_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Path") << tr("Size"));
+	junks_model_->setHorizontalHeaderLabels(QStringList() << tr("Directory") << tr("FileCount") << tr("SumSize") << tr("Detail"));
 	QTreeView *view = ui.junksView;
 	proxy_junks_ = new JunksSortFilterProxyModel(view);
 	proxy_junks_->setSourceModel(junks_model_);
@@ -123,30 +233,60 @@ void Utilities::InitCleanerView()
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
 	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	view->setColumnWidth(JUNKS.name, 250);
-	view->setColumnWidth(JUNKS.path, 400);
-	
+	view->setColumnWidth(JUNKS.dir, 700);
+	view->setColumnWidth(JUNKS.filecnt, 100);
+	view->setColumnWidth(JUNKS.sumsize, 170);
 	connect(ui.scanBtn, &QPushButton::clicked, this, [&] {
 		ClearItemModelData(junks_model_);
+		ui.cleanBtn->setEnabled(false);
 		ui.scanBtn->setEnabled(false);
-		if (!scanjunks_thread_) scanjunks_thread_ = new ScanJunksThread();
-		connect(scanjunks_thread_, SIGNAL(appendJunks(QList<JunkItem>)), this, SLOT(onAppendJunkfiles(QList<JunkItem>)));
-		connect(scanjunks_thread_, &QThread::finished, this, [&] {ui.scanBtn->setEnabled(true); });
+		ui.statusLabel->setText(tr("[STATUS] Scanning..."));
+		ui.statusLabel->setStyleSheet("color:purple");
+		if (!scanjunks_thread_) {
+			scanjunks_thread_ = new ScanJunksThread();
+			connect(scanjunks_thread_, SIGNAL(appendJunks(JunkCluster)), this, SLOT(onAppendJunkfiles(JunkCluster)));
+			connect(scanjunks_thread_, &QThread::finished, this, [&] {
+				ui.cleanBtn->setEnabled(true);
+				ui.scanBtn->setEnabled(true); 
+				ui.statusLabel->setText(tr("[STATUS] Scan completed..."));
+				ui.statusLabel->setStyleSheet("color:green");
+			});
+		}
 		scanjunks_thread_->start(QThread::NormalPriority);
 	});
 
 	connect(ui.cleanBtn, &QPushButton::clicked, this, [&] {
 		ui.cleanBtn->setEnabled(false);
-		if (!cleanjunks_thread_) cleanjunks_thread_ = new CleanJunksThread();
-		QStringList junks;
+		ui.scanBtn->setEnabled(false);
+		ui.statusLabel->setText(tr("[STATUS] Cleaning..."));
+		ui.statusLabel->setStyleSheet("color:purple");
+		if (!cleanjunks_thread_) {
+			cleanjunks_thread_ = new CleanJunksThread();
+			connect(cleanjunks_thread_, SIGNAL(cleanJunks(JunkCluster)), this, SLOT(onCleanJunkfiles(JunkCluster)));
+			connect(cleanjunks_thread_, &QThread::finished, this, [&] {
+				ui.cleanBtn->setEnabled(true); 
+				ui.scanBtn->setEnabled(true);
+				RemoveCleanerItems();
+				ui.statusLabel->setText(tr("[STATUS] Clean completed..."));
+				ui.statusLabel->setStyleSheet("color:green");
+			});
+		}
+		removed_rows_.clear();
+		QList<JunkCluster> clusters;
 		int rows = junks_model_->rowCount();
 		for (int i = 0; i < rows; i++) {
-			QString qstr;
-			qstr = junks_model_->index(i, JUNKS.path).data(Qt::DisplayRole).toString();
-			junks.push_back(qstr);
+			auto stat = junks_model_->item(i, JUNKS.dir)->checkState();
+			if (stat == Qt::Checked) {
+				removed_rows_.push_back(i);
+				for (auto &c : scanjunks_thread_->junks_cluster_) {
+					if (c.dir == MODEL_STRING(junks_model_, i, JUNKS.dir)) {
+						clusters.append(c);
+						break;
+					}
+				}
+			}
 		}
-		cleanjunks_thread_->setJunks(junks);
-		connect(cleanjunks_thread_, &QThread::finished, this, [&] {ui.cleanBtn->setEnabled(true); ClearItemModelData(junks_model_); });
+		cleanjunks_thread_->setJunkCluster(clusters);
 		cleanjunks_thread_->start(QThread::NormalPriority);
 	});
 }
@@ -197,4 +337,14 @@ void Utilities::InitSystemToolsView()
 	connect(ui.ipv6Btn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c ipconfig|findstr /i ipv6 & pause"); });
 	connect(ui.routeBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c route print & pause"); });
 	connect(ui.sharedBtn, &QPushButton::clicked, [] {ShellRun("fsmgmt.msc", ""); });
+}
+
+void Utilities::RemoveCleanerItems()
+{
+	int delta = 0;
+	for (auto r : removed_rows_) {
+		junks_model_->removeRows(r - delta, 1);
+		delta++;
+	}
+	removed_rows_.clear();
 }
