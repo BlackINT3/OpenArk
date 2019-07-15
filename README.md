@@ -22,6 +22,7 @@
 * Scanner - PE file parsers, evolved to virus analyzer in future.
 * Bundler - Directory and files could be bundled to one executable file, it also support scripts.
 * Commands - Many useful coammands in there.
+* Utilities - Cleaner、System tools and more.
 * Language - support English and Chinese now, more languages in future.
 * More features in developing...
 
