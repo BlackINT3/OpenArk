@@ -166,7 +166,7 @@ void Kernel::onSignDriver()
 
 void Kernel::onInstallNormallyDriver()
 {
-	if (InstallDriver(ui.driverFileEdit->text())) {
+	if (InstallDriver(ui.driverFileEdit->text(), ui.serviceEdit->text())) {
 		ui.infoLabel->setText(tr("Install ok..."));
 		ui.infoLabel->setStyleSheet("color:green");
 	} else {
@@ -249,7 +249,8 @@ void Kernel::InitKernelEntryView()
 			{
 				SignExpiredDriver(driver);
 				RECOVER_SIGN_TIME();
-				if (!InstallDriver(driver)) {
+				auto &&name = UNONE::FsPathToPureNameW(driver.toStdWString());
+				if (!InstallDriver(driver, WStrToQ(name))) {
 					QERR_W("InstallDriver %s err", driver);
 					return;
 				}
@@ -411,15 +412,14 @@ void Kernel::InitMemoryView()
 
 }
 
-bool Kernel::InstallDriver(QString driver)
+bool Kernel::InstallDriver(QString driver, QString name)
 {
 	if (driver.isEmpty()) {
 		QERR_W("driver path is empty");
 		return false;
 	}
 	auto &&path = driver.toStdWString();
-	auto &&name = ui.serviceEdit->text().toStdWString();
-	return UNONE::ObLoadDriverW(path, name);
+	return UNONE::ObLoadDriverW(path, name.toStdWString());
 }
 
 bool Kernel::UninstallDriver(QString service)

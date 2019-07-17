@@ -54,7 +54,7 @@ private:
 	void InitDriverKitView();
 	void InitNotifyView();
 	void InitMemoryView();
-	bool InstallDriver(QString driver);
+	bool InstallDriver(QString driver, QString name);
 	bool UninstallDriver(QString service);
 	void ShowDrivers();
 	void ShowSystemNotify();
