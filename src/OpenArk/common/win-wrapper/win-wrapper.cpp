@@ -85,6 +85,23 @@ std::wstring ProcessCreateTime(__in DWORD pid)
 	return FormatFileTime(&create_tm);
 }
 
+LONGLONG ProcessCreateTimeValue(__in DWORD pid)
+{
+	HANDLE Process = OpenProcess(PROCESS_QUERY_INFORMATION, FALSE, pid);
+	if (!Process) return 0;
+
+	FILETIME create_tm;
+	FILETIME exit_tm;
+	FILETIME kern_tm;
+	FILETIME user_tm;
+	if (!GetProcessTimes(Process, &create_tm, &exit_tm, &kern_tm, &user_tm)) {
+		CloseHandle(Process);
+		return 0;
+	}
+	CloseHandle(Process);
+	return UNONE::TmFileTimeToMs(create_tm);
+}
+
 #include <Dbghelp.h>
 #pragma comment(lib, "Dbghelp.lib")
 bool CreateDump(DWORD pid, const std::wstring& path, bool mini)
@@ -97,8 +114,7 @@ bool CreateDump(DWORD pid, const std::wstring& path, bool mini)
 	if (mini) {
 		dmp_type = (MINIDUMP_TYPE)(MiniDumpWithThreadInfo | MiniDumpWithFullMemoryInfo |
 			MiniDumpWithProcessThreadData | MiniDumpWithHandleData | MiniDumpWithDataSegs);
-	}
-	else {
+	} else {
 		dmp_type = (MINIDUMP_TYPE)(MiniDumpWithThreadInfo | MiniDumpWithFullMemoryInfo | MiniDumpWithTokenInformation |
 			MiniDumpWithProcessThreadData | MiniDumpWithDataSegs | MiniDumpWithFullMemory | MiniDumpWithHandleData);
 	}

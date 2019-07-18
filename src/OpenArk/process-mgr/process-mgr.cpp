@@ -1030,7 +1030,7 @@ void ProcessMgr::ShowProcessTree()
 		auto ppid = info.ppid = entry.th32ParentProcessID;
 		info.name = WCharsToQ(entry.szExeFile);
 		CacheGetProcInfo(pid, info);
-		if (ppid == 0 || UNONE::PsIsDeleted(ppid)) {
+		if (ppid == 0 || !info.parent_existed) {
 			pis.push_back(info);
 		}
 		return true;

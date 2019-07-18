@@ -33,6 +33,15 @@ ProcInfo CacheGetProcInfo(unsigned int pid, ProcInfo& info)
 	static bool is_os64 = UNONE::OsIs64();
 	info.pid = pid;
 	if (info.ppid == -1) info.ppid = UNONE::PsGetParentPid(pid);
+	if (info.parent_existed == -1) {
+		// May be parent id occupied by someone implies parent not existed
+		info.parent_existed = 1;
+		auto ppid = info.ppid;
+		auto tm1 = ProcessCreateTimeValue(pid);
+		auto tm2 = ProcessCreateTimeValue(ppid);
+		if (UNONE::PsIsDeleted(ppid) || (tm1 && tm2 && tm1 < tm2))
+			info.parent_existed = 0;
+	}
 	auto &&path = UNONE::PsGetProcessPathW(pid);
 	info.path = WStrToQ(path);
 	std::wstring corp, desc;
@@ -54,7 +63,7 @@ void CacheGetProcChilds(unsigned int pid, QVector<ProcInfo>& infos)
 	}
 	QMutexLocker locker(&proc_info.lck);
 	for (auto &info : proc_info.d) {
-		if (info.ppid == pid) {
+		if (info.parent_existed == 1 && info.ppid == pid) {
 			infos.push_back(info);
 		}
 	}

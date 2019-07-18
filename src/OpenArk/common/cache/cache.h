@@ -23,7 +23,8 @@
 
 struct ProcInfo {
 	DWORD pid;
-	DWORD ppid;
+	DWORD ppid = -1;
+	DWORD parent_existed = -1;
 	QString name;
 	QString desc;
 	QString corp;

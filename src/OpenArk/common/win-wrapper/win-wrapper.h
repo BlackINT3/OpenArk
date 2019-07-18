@@ -28,6 +28,7 @@
 bool RetrieveThreadTimes(DWORD tid, std::wstring& ct, std::wstring& kt, std::wstring& ut);
 std::wstring FormatFileTime(FILETIME *file_tm);
 std::wstring ProcessCreateTime(__in DWORD pid);
+LONGLONG ProcessCreateTimeValue(__in DWORD pid);
 bool CreateDump(DWORD pid, const std::wstring& path, bool mini);
 void ClipboardCopyData(const std::string &data);
 std::vector<HWND> GetSystemWnds();
