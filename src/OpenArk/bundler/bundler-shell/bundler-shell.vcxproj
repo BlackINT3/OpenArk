@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\packages\vs2015-unone.1.0.2\build\native\vs2015-unone.props" Condition="Exists('..\..\..\packages\vs2015-unone.1.0.2\build\native\vs2015-unone.props')" />
+  <Import Project="..\..\..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.props" Condition="Exists('..\..\..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.props')" />
+  <Import Project="..\..\..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.props" Condition="Exists('..\..\..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -77,6 +78,7 @@
     <Linkages-vs2015-unone>static</Linkages-vs2015-unone>
     <OutDir>$(SolutionDir)OpenArk\res</OutDir>
     <IntDir>intermediate-files\$(Platform)\$(Configuration)\</IntDir>
+    <Linkages-unone-vs2015>static</Linkages-unone-vs2015>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -91,6 +93,7 @@
     <OutDir>$(SolutionDir)OpenArk\res</OutDir>
     <Linkages-vs2015-unone>static</Linkages-vs2015-unone>
     <IntDir>intermediate-files\$(Platform)\$(Configuration)\</IntDir>
+    <Linkages-unone-vs2015>static</Linkages-unone-vs2015>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -200,13 +203,16 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\..\..\packages\vs2015-unone.1.0.2\build\native\vs2015-unone.targets" Condition="Exists('..\..\..\packages\vs2015-unone.1.0.2\build\native\vs2015-unone.targets')" />
+    <Import Project="..\..\..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.targets" Condition="Exists('..\..\..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.targets')" />
+    <Import Project="..\..\..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.targets" Condition="Exists('..\..\..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\vs2015-unone.1.0.2\build\native\vs2015-unone.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\vs2015-unone.1.0.2\build\native\vs2015-unone.props'))" />
-    <Error Condition="!Exists('..\..\..\packages\vs2015-unone.1.0.2\build\native\vs2015-unone.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\vs2015-unone.1.0.2\build\native\vs2015-unone.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.targets'))" />
   </Target>
 </Project>

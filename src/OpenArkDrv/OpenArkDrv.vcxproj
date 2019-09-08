@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.props" Condition="Exists('..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.props')" />
   <Import Project="..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.props" Condition="Exists('..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -57,6 +58,7 @@
   </ImportGroup>
   <ImportGroup Label="Shared">
     <Import Project="..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.targets" Condition="Exists('..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.targets')" />
+    <Import Project="..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.targets" Condition="Exists('..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.targets')" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -254,5 +256,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.props'))" />
     <Error Condition="!Exists('..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\wdk71-knone.1.0.0\build\native\wdk71-knone.targets'))" />
+    <Error Condition="!Exists('..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.props'))" />
+    <Error Condition="!Exists('..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\unone-vs2015.1.0.2\build\native\unone-vs2015.targets'))" />
   </Target>
 </Project>
