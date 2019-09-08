@@ -28,7 +28,6 @@ class Settings : public QWidget {
 public:
 	Settings(QWidget *parent);
 	~Settings();
-
 protected:
 	void closeEvent(QCloseEvent *e);
 

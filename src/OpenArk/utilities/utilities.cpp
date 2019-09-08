@@ -157,27 +157,58 @@ void ScanJunksThread::run()
 		}
 		return true;
 	};
+
+	std::function<bool(wchar_t*, wchar_t*, void*)> ScanCallbackCustom;
+
+
+	QStringList clear_suffixes_list = custom_suffex_.split(",");
+	ScanCallbackCustom = [&](wchar_t* path, wchar_t* name, void* param)->bool {
+		if (UNONE::FsIsDirW(path)) {
+			UNONE::FsEnumDirectoryW(path, ScanCallbackCustom, param);
+		}
+		QFileInfo file_info = QFileInfo(WCharsToQ(path));
+		if (clear_suffixes_list.contains(file_info.suffix(), Qt::CaseInsensitive))
+		{
+			JunkItem item;
+			item.name = WCharsToQ(name);
+			item.path = WCharsToQ(path);
+			DWORD64 fsize = 0;
+			UNONE::FsGetFileSizeW(path, fsize);
+			item.size = fsize;
+			items.push_back(item);
+			SendToUI(*(QString*)param);
+		}
+		return true;
+	};
 	junks_cluster_.clear();
-	auto &&junkdirs = ConfGetJunksDir();
-	for (auto &dir : junkdirs) {
-		if (!UNONE::FsIsExistedW(dir.toStdWString())) continue;
-		UNONE::FsEnumDirectoryW(dir.toStdWString(), ScanCallback, &dir);
-		if (items.size() >= 0) {
-			SendToUI(dir);
-		}
+	if (is_custom_scan_)
+	{
+		for (int i = 0; i < custom_path_.size(); i++)
+			UNONE::FsEnumDirectoryW(custom_path_[i].toStdWString(), ScanCallbackCustom,&custom_path_[i]);
 	}
-	// RecycleBin
-	SHQUERYRBINFO bi;
-	bi.cbSize = sizeof(SHQUERYRBINFO);
-	HRESULT hr = SHQueryRecycleBin(NULL, &bi);
-	if (hr == S_OK) {
-		items.clear();
-		auto nums = bi.i64NumItems;
-		while (nums--) {
-			JunkItem junk;
-			items.append(junk);
+	else
+	{
+		auto &&junkdirs = ConfGetJunksDir();
+		for (auto &dir : junkdirs) {
+			if (!UNONE::FsIsExistedW(dir.toStdWString())) continue;
+			UNONE::FsEnumDirectoryW(dir.toStdWString(), ScanCallback, &dir);
+			if (items.size() >= 0) {
+				SendToUI(dir);
+			}
 		}
-		SendToUI(RECYCLEBIN, bi.i64Size);
+		// RecycleBin
+		SHQUERYRBINFO bi;
+		bi.cbSize = sizeof(SHQUERYRBINFO);
+		HRESULT hr = SHQueryRecycleBin(NULL, &bi);
+		if (hr == S_OK) {
+			items.clear();
+			auto nums = bi.i64NumItems;
+			while (nums--) {
+				JunkItem junk;
+				items.append(junk);
+			}
+			SendToUI(RECYCLEBIN, bi.i64Size);
+		}
 	}
 }
 
@@ -252,6 +283,9 @@ void Utilities::InitCleanerView()
 				ui.statusLabel->setStyleSheet("color:green");
 			});
 		}
+		scanjunks_thread_->is_custom_scan_ = (ui.custom_scan_check_box->checkState() == Qt::Checked);
+		scanjunks_thread_->custom_path_ = appconf->value("clean_path_list").toStringList();
+		scanjunks_thread_->custom_suffex_ = appconf->value("clean_file_suffix").toString();
 		scanjunks_thread_->start(QThread::NormalPriority);
 	});
 
@@ -289,6 +323,10 @@ void Utilities::InitCleanerView()
 		cleanjunks_thread_->setJunkCluster(clusters);
 		cleanjunks_thread_->start(QThread::NormalPriority);
 	});
+
+
+
+
 }
 
 void Utilities::InitSystemToolsView()

@@ -50,6 +50,9 @@ protected:
 	void run();
 public:
 	QList<JunkCluster> junks_cluster_;
+	bool is_custom_scan_ = false;
+	QStringList custom_path_;
+	QString custom_suffex_;
 };
 
 class CleanJunksThread : public QThread {

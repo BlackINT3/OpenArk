@@ -16,6 +16,8 @@
 #include "settings.h"
 #include "../common/common.h"
 
+#include <QMessageBox>
+
 Settings::Settings(QWidget *parent)
 {
 	ui.setupUi(this);
@@ -34,6 +36,46 @@ Settings::Settings(QWidget *parent)
 	QString name;
 	name = "History.MaxRecords"; AppendTableRowNameVaule(console_model_, name, ConfigGetConsole(name));
 	name = "History.FilePath"; AppendTableRowNameVaule(console_model_, name, ConfigGetConsole(name));
+
+
+
+	QString clean_file_suffix = ui.edit_file_suffix->text();
+	ui.edit_file_suffix->setText(appconf->value("clean_file_suffix").toString());
+	QStringList path_list = appconf->value("clean_path_list").toStringList();
+	for(int i = 0;i < path_list.size();i++)
+		ui.listWidget_path->addItem(path_list[i]);
+
+
+	connect(ui.add_path_btn, &QPushButton::clicked, [this]() {
+		QFileDialog dlg(this);
+		dlg.setAcceptMode(QFileDialog::AcceptOpen);
+		dlg.setFileMode(QFileDialog::Directory);
+		if (dlg.exec())
+		{
+			QString path = dlg.directory().absolutePath();
+			if (!path.isEmpty())
+			{
+				ui.listWidget_path->addItem(path);
+			}
+		}
+
+	});
+
+	connect(ui.del_path_btn, &QPushButton::clicked, [this]() {
+		QListWidgetItem *item = ui.listWidget_path->takeItem(ui.listWidget_path->currentRow());
+		delete item;
+	});
+	connect(ui.save_btn, &QPushButton::clicked, [this]() {
+		QStringList path_list;
+		for (int i = 0; i < ui.listWidget_path->count(); i++)
+		{
+			QListWidgetItem  * item = ui.listWidget_path->item(i);
+			path_list << item->text();
+		}
+		appconf->setValue("clean_file_suffix", ui.edit_file_suffix->text());
+		appconf->setValue("clean_path_list", path_list);
+		QMessageBox::information(NULL, "", tr("Save Success"));
+	});
 }
 
 Settings::~Settings()
@@ -52,3 +94,4 @@ void Settings::closeEvent(QCloseEvent *e)
 	}
 	appconf->sync();
 }
+
