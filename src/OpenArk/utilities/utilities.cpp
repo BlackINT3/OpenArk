@@ -167,8 +167,7 @@ void ScanJunksThread::run()
 			UNONE::FsEnumDirectoryW(path, ScanCallbackCustom, param);
 		}
 		QFileInfo file_info = QFileInfo(WCharsToQ(path));
-		if (clear_suffixes_list.contains(file_info.suffix(), Qt::CaseInsensitive))
-		{
+		if (clear_suffixes_list.contains(file_info.suffix(), Qt::CaseInsensitive)){
 			JunkItem item;
 			item.name = WCharsToQ(name);
 			item.path = WCharsToQ(path);
@@ -181,13 +180,11 @@ void ScanJunksThread::run()
 		return true;
 	};
 	junks_cluster_.clear();
-	if (is_custom_scan_)
-	{
+	if (is_custom_scan_){
 		for (int i = 0; i < custom_path_.size(); i++)
 			UNONE::FsEnumDirectoryW(custom_path_[i].toStdWString(), ScanCallbackCustom,&custom_path_[i]);
 	}
-	else
-	{
+	else{
 		auto &&junkdirs = ConfGetJunksDir();
 		for (auto &dir : junkdirs) {
 			if (!UNONE::FsIsExistedW(dir.toStdWString())) continue;
