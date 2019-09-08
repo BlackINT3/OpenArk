@@ -54,9 +54,7 @@ Settings::Settings(QWidget *parent)
 		{
 			QString path = dlg.directory().absolutePath();
 			if (!path.isEmpty())
-			{
 				ui.listWidget_path->addItem(path);
-			}
 		}
 
 	});
