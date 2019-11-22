@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BundlerShell", "OpenArk\bundler\bundler-shell\bundler-shell.vcxproj", "{D5E931E8-3376-4EA2-B869-01B175E8A1AA}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenArkDrv", "OpenArkDrv\OpenArkDrv.vcxproj", "{EB561C56-54CC-4CB1-94F5-A6E3429F6275}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenArk", "OpenArk\OpenArk.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
@@ -17,14 +15,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D5E931E8-3376-4EA2-B869-01B175E8A1AA}.Debug|x64.ActiveCfg = Debug|Win32
-		{D5E931E8-3376-4EA2-B869-01B175E8A1AA}.Debug|x64.Build.0 = Debug|Win32
-		{D5E931E8-3376-4EA2-B869-01B175E8A1AA}.Debug|x86.ActiveCfg = Debug|Win32
-		{D5E931E8-3376-4EA2-B869-01B175E8A1AA}.Debug|x86.Build.0 = Debug|Win32
-		{D5E931E8-3376-4EA2-B869-01B175E8A1AA}.Release|x64.ActiveCfg = Release|Win32
-		{D5E931E8-3376-4EA2-B869-01B175E8A1AA}.Release|x64.Build.0 = Release|Win32
-		{D5E931E8-3376-4EA2-B869-01B175E8A1AA}.Release|x86.ActiveCfg = Release|Win32
-		{D5E931E8-3376-4EA2-B869-01B175E8A1AA}.Release|x86.Build.0 = Release|Win32
 		{EB561C56-54CC-4CB1-94F5-A6E3429F6275}.Debug|x64.ActiveCfg = Debug|x64
 		{EB561C56-54CC-4CB1-94F5-A6E3429F6275}.Debug|x64.Build.0 = Debug|x64
 		{EB561C56-54CC-4CB1-94F5-A6E3429F6275}.Debug|x86.ActiveCfg = Debug|Win32

@@ -108,7 +108,7 @@ Cmds::Cmds(QTextBrowser *parent) :
 			item.example.append(tail);
 	}
 
-	auto path = ConfigGetConsole("History.FilePath").toStdWString();
+	auto path = OpenArkConfig::Instance()->GetConsole("History.FilePath").toStdWString();
 	std::string history;
 	std::vector<std::string> vec;
 	UNONE::FsReadFileDataW(path, history);
@@ -127,7 +127,7 @@ Cmds::~Cmds()
 		history.append(h.toStdString());
 		history.append("\r\n");
 	}
-	auto path = ConfigGetConsole("History.FilePath").toStdWString();
+	auto path = OpenArkConfig::Instance()->GetConsole("History.FilePath").toStdWString();
 	UNONE::FsWriteFileDataW(path, history);
 }
 
@@ -840,7 +840,7 @@ void Cmds::CmdDispatcher(const std::wstring &cmdline)
 	CmdOutput(LR"(<b><font color="black">C:\>%s</font></b>)", cmdline.c_str());
 
 	if (cmd_history_.empty() || QString::compare(WStrToQ(wstr), cmd_history_.back(), Qt::CaseInsensitive)!=0) {
-		auto cnt = ConfigGetConsole("History.MaxRecords").toInt();
+		auto cnt = OpenArkConfig::Instance()->GetConsole("History.MaxRecords").toInt();
 		if (cmd_history_.size() >= cnt) {
 			cmd_history_.pop_front();
 		}

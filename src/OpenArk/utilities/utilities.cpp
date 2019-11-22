@@ -185,7 +185,7 @@ void ScanJunksThread::run()
 			UNONE::FsEnumDirectoryW(custom_path_[i].toStdWString(), ScanCallbackCustom,&custom_path_[i]);
 	}
 	else{
-		auto &&junkdirs = ConfGetJunksDir();
+		auto &&junkdirs = OpenArkConfig::Instance()->GetJunkDirs();
 		for (auto &dir : junkdirs) {
 			if (!UNONE::FsIsExistedW(dir.toStdWString())) continue;
 			UNONE::FsEnumDirectoryW(dir.toStdWString(), ScanCallback, &dir);
@@ -281,8 +281,8 @@ void Utilities::InitCleanerView()
 			});
 		}
 		scanjunks_thread_->is_custom_scan_ = (ui.custom_scan_check_box->checkState() == Qt::Checked);
-		scanjunks_thread_->custom_path_ = appconf->value("clean_path_list").toStringList();
-		scanjunks_thread_->custom_suffex_ = appconf->value("clean_file_suffix").toString();
+		scanjunks_thread_->custom_path_ = OpenArkConfig::Instance()->GetValue("clean_path_list").toStringList();
+		scanjunks_thread_->custom_suffex_ = OpenArkConfig::Instance()->GetValue("clean_file_suffix").toString();
 		scanjunks_thread_->start(QThread::NormalPriority);
 	});
 

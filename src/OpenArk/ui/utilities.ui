@@ -70,14 +70,10 @@
          <item>
           <widget class="QCheckBox" name="custom_scan_check_box">
            <property name="text">
-<<<<<<< HEAD
             <string>Custom Clean</string>
            </property>
            <property name="checked">
             <bool>true</bool>
-=======
-            <string>custom_clean</string>
->>>>>>> d87086e2ec7fda543fd8d24d07f46d59ea2d219f
            </property>
           </widget>
          </item>

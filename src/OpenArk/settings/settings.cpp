@@ -34,29 +34,24 @@ Settings::Settings(QWidget *parent)
 	InitTableItem(console_model_);
 
 	QString name;
-	name = "History.MaxRecords"; AppendTableRowNameVaule(console_model_, name, ConfigGetConsole(name));
-	name = "History.FilePath"; AppendTableRowNameVaule(console_model_, name, ConfigGetConsole(name));
-
-
+	name = "History.MaxRecords"; AppendTableRowNameVaule(console_model_, name, OpenArkConfig::Instance()->GetConsole(name));
+	name = "History.FilePath"; AppendTableRowNameVaule(console_model_, name, OpenArkConfig::Instance()->GetConsole(name));
 
 	QString clean_file_suffix = ui.edit_file_suffix->text();
-	ui.edit_file_suffix->setText(appconf->value("clean_file_suffix").toString());
-	QStringList path_list = appconf->value("clean_path_list").toStringList();
+	ui.edit_file_suffix->setText(OpenArkConfig::Instance()->GetValue("clean_file_suffix").toString());
+	QStringList path_list = OpenArkConfig::Instance()->GetValue("clean_path_list").toStringList();
 	for(int i = 0;i < path_list.size();i++)
 		ui.listWidget_path->addItem(path_list[i]);
-
 
 	connect(ui.add_path_btn, &QPushButton::clicked, [this]() {
 		QFileDialog dlg(this);
 		dlg.setAcceptMode(QFileDialog::AcceptOpen);
 		dlg.setFileMode(QFileDialog::Directory);
-		if (dlg.exec())
-		{
+		if (dlg.exec()) {
 			QString path = dlg.directory().absolutePath();
 			if (!path.isEmpty())
 				ui.listWidget_path->addItem(path);
 		}
-
 	});
 
 	connect(ui.del_path_btn, &QPushButton::clicked, [this]() {
@@ -65,13 +60,12 @@ Settings::Settings(QWidget *parent)
 	});
 	connect(ui.save_btn, &QPushButton::clicked, [this]() {
 		QStringList path_list;
-		for (int i = 0; i < ui.listWidget_path->count(); i++)
-		{
+		for (int i = 0; i < ui.listWidget_path->count(); i++) {
 			QListWidgetItem  * item = ui.listWidget_path->item(i);
 			path_list << item->text();
 		}
-		appconf->setValue("clean_file_suffix", ui.edit_file_suffix->text());
-		appconf->setValue("clean_path_list", path_list);
+		OpenArkConfig::Instance()->SetValue("clean_file_suffix", ui.edit_file_suffix->text());
+		OpenArkConfig::Instance()->SetValue("clean_path_list", path_list);
 		QMessageBox::information(NULL, "", tr("Save Success"));
 	});
 }
@@ -88,8 +82,8 @@ void Settings::closeEvent(QCloseEvent *e)
 		auto name = console_model_->item(i, 0)->data(Qt::DisplayRole).toString();
 		auto value = console_model_->item(i, 1)->data(Qt::DisplayRole);
 		auto key = section + name;
-		appconf->setValue(key, value);
+		OpenArkConfig::Instance()->SetValue(key, value);
 	}
-	appconf->sync();
+	OpenArkConfig::Instance()->Sync();
 }
 

@@ -17,18 +17,33 @@
 #include <QString>
 #include <QSettings>
 
-// configration
-extern QSettings *appconf;
-
 enum ConfOp {
 	CONF_GET,
 	CONF_SET,
 };
 
-void ConfigInit();
-
 static int def_lang_ = -1;
-QString ConfigGetConsole(const QString &name);
-int ConfOpLang(ConfOp op, int &lang = def_lang_);
 
-QStringList ConfGetJunksDir();
+class OpenArkConfig {
+public:
+	void Init();
+	static OpenArkConfig* Instance();
+	int GetLang(ConfOp op, int &lang = def_lang_);
+	QStringList GetJunkDirs();
+	QString GetConsole(const QString &name);
+	void GetMainGeometry(int &x, int &y, int &w, int &h);
+	void SetMainGeometry(int x, int y, int w, int h);
+
+	QVariant GetValue(const QString &key, const QVariant &defaultValue = QVariant()) const { return appconf_->value(key, defaultValue); };
+	void SetValue(const QString &key, const QVariant &value) { return appconf_->setValue(key, value); };
+	bool Contains(const QString &key) const { return appconf_->contains(key); }
+	void Sync() { return appconf_->sync(); };
+
+private:
+	QSettings *appconf_;
+
+public:
+	static OpenArkConfig *confobj_;
+	OpenArkConfig();
+	~OpenArkConfig();
+};

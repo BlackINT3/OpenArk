@@ -16,52 +16,29 @@
 #include "config.h"
 #include "../common.h"
 
-QSettings *appconf = nullptr;
-
-void ConfigInit()
+void OpenArkConfig::Init()
 {
 	auto &&cpath = AppConfigDir() + L"\\openark.ini";
 	UNONE::FsCreateDirW(UNONE::FsPathToDirW(cpath));
-	appconf = new QSettings(WStrToQ(cpath), QSettings::IniFormat);
+	appconf_ = new QSettings(WStrToQ(cpath), QSettings::IniFormat);
 }
 
-QString ConfigGetConsole(const QString &name)
-{
-	QString section = "/Console/";
-	auto key = section + name;
-	if (name == "History.MaxRecords") {
-		return appconf->value(key, "2000").toString();
-	}
-	if (name == "History.FilePath") {
-		auto &&default_path = AppConfigDir() + L"\\console\\history.txt";
-		if (!UNONE::FsIsExistedW(default_path)) {
-			UNONE::FsCreateDirW(UNONE::FsPathToDirW(default_path));
-			UNONE::FsWriteFileDataW(default_path, "");
-		}
-		return appconf->value(key, WStrToQ(default_path)).toString();
-	}
-	return "";
-}
-
-int ConfOpLang(ConfOp op, int &lang)
+int OpenArkConfig::GetLang(ConfOp op, int &lang)
 {
 	QString section = "/Main/";
 	QString key = section + "lang";
-
 	if (op == CONF_GET) {
-		lang = appconf->value(key, -1).toInt();
+		lang = GetValue(key, -1).toInt();
 		return lang;
 	}
-
 	if (op == CONF_SET) {
-		appconf->setValue(key, lang);
+		SetValue(key, lang);
 		return lang;
 	}
-
 	return -1;
 }
 
-QStringList ConfGetJunksDir()
+QStringList OpenArkConfig::GetJunkDirs()
 {
 	QStringList dirs;
 
@@ -83,4 +60,74 @@ QStringList ConfGetJunksDir()
 	// junkdirs.push_back(L"C:\\AppData\\Roaming");
 
 	return WVectorToQList(junkdirs);
+}
+
+QString OpenArkConfig::GetConsole(const QString &name)
+{
+	QString section = "/Console/";
+	auto key = section + name;
+	if (name == "History.MaxRecords") {
+		return GetValue(key, "2000").toString();
+	}
+	if (name == "History.FilePath") {
+		auto &&default_path = AppConfigDir() + L"\\console\\history.txt";
+		if (!UNONE::FsIsExistedW(default_path)) {
+			UNONE::FsCreateDirW(UNONE::FsPathToDirW(default_path));
+			UNONE::FsWriteFileDataW(default_path, "");
+		}
+		return GetValue(key, WStrToQ(default_path)).toString();
+	}
+	return "";
+}
+
+void OpenArkConfig::GetMainGeometry(int &x, int &y, int &w, int &h)
+{
+	QString section = "/Main/";
+	auto key = section + "x";
+	
+	if (!Contains(section + "x") || Contains(section + "y") ||
+		Contains(section + "witdh") || Contains(section + "height")) {
+		QRect desk = QApplication::desktop()->availableGeometry();
+		double scale = (double)desk.height() / desk.width();
+		double width = desk.width() / 1.7;
+		double height = width * scale;
+		double pos_x = desk.width() / 8;
+		double pos_y = desk.height() / 8;
+		x = (int)pos_x;
+		y = (int)pos_y;
+		w = (int)width;
+		h = (int)height;
+		return;
+	}
+
+	x = GetValue(section + "x").toInt();
+	y = GetValue(section + "y").toInt();
+	w = GetValue(section + "w").toInt();
+	h = GetValue(section + "h").toInt();
+}
+
+void OpenArkConfig::SetMainGeometry(int x, int y, int w, int h)
+{
+	QString section = "/Main/";
+	if (x != -1) SetValue(section + "x", x);
+	if (y != -1) SetValue(section + "y", y);
+	if (w != -1) SetValue(section + "w", w);
+	if (h != -1) SetValue(section + "h", h);
+	Sync();
+}
+
+OpenArkConfig* OpenArkConfig::confobj_ = nullptr;
+OpenArkConfig* OpenArkConfig::Instance()
+{
+	if (confobj_) return confobj_;
+	confobj_ = new OpenArkConfig;
+	return confobj_;
+}
+
+OpenArkConfig::OpenArkConfig() {
+
+}
+
+OpenArkConfig::~OpenArkConfig() {
+
 }

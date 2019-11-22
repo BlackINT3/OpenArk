@@ -38,8 +38,8 @@ int OpenArkInit(int argc, char *argv[])
 	app->setWindowIcon(QIcon(":/OpenArk/OpenArk.ico"));
 	app_tr = new QTranslator();
 
-	ConfigInit();
-	OpenArkLanguage::Instance()->ChangeLanguage(ConfOpLang(CONF_GET));
+	OpenArkConfig::Instance()->Init();
+	OpenArkLanguage::Instance()->ChangeLanguage(OpenArkConfig::Instance()->GetLang(CONF_GET));
 
 	return 0;
 }

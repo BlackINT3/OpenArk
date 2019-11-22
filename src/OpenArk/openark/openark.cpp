@@ -56,8 +56,11 @@ OpenArk::OpenArk(QWidget *parent) :
 		onLogOutput(WStrToQ(log));
 	});
 	ui.setupUi(this);
-
-	resize(1300, 820);
+	
+	int x, y, w, h;
+	OpenArkConfig::Instance()->GetMainGeometry(x, y, w, h);
+	move(x, y);
+	resize(w, h);
 	ui.splitter->setStretchFactor(0, 1);
 	ui.splitter->setStretchFactor(1, 5);
 	QString title = QString(tr("OpenArk v%1 ").arg(AppVersion()));
@@ -184,7 +187,7 @@ bool OpenArk::eventFilter(QObject *obj, QEvent *e)
 				filtered = false;
 			}
 		}
-	}	else if (obj == ui.cmdOutWindow) {
+	} else if (obj == ui.cmdOutWindow) {
 		if (e->type() == QEvent::KeyPress) {
 			filtered = true;
 			QKeyEvent* keyevt = dynamic_cast<QKeyEvent*>(e);
@@ -194,7 +197,17 @@ bool OpenArk::eventFilter(QObject *obj, QEvent *e)
 				filtered = false;
 			}
 		}
+	} else if (obj == this) {
+		if (e->type() == QEvent::Resize) {
+			auto evt = dynamic_cast<QResizeEvent*>(e);
+			OpenArkConfig::Instance()->SetMainGeometry(-1, -1, evt->size().width(), evt->size().height());
+		} else if (e->type() == QEvent::Move) {
+			auto evt = dynamic_cast<QMoveEvent*>(e);
+			OpenArkConfig::Instance()->SetMainGeometry(evt->pos().x(), evt->pos().y(), -1, -1);
+		}
 	}
+	
+
 	if (filtered) {
 		QKeyEvent* keyevt = dynamic_cast<QKeyEvent*>(e);
 		keyevt->ignore();
@@ -367,7 +380,7 @@ void OpenArk::onActionLanguage(QAction *act)
 		return; 
 	}
 	QString tips = tr("Language changed ok, did you restart application now?");
-	ConfOpLang(CONF_SET, lang);
+	OpenArkConfig::Instance()->GetLang(CONF_SET, lang);
 	QMessageBox::StandardButton reply;
 	reply = QMessageBox::information(this, tr("Information"), tips, QMessageBox::Yes | QMessageBox::No);
 	if (reply == QMessageBox::Yes) {
