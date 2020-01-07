@@ -85,8 +85,8 @@ void OpenArkConfig::GetMainGeometry(int &x, int &y, int &w, int &h)
 	QString section = "/Main/";
 	auto key = section + "x";
 	
-	if (!Contains(section + "x") || Contains(section + "y") ||
-		Contains(section + "witdh") || Contains(section + "height")) {
+	if (!(Contains(section + "x") || Contains(section + "y") ||
+		Contains(section + "w") || Contains(section + "h"))) {
 		QRect desk = QApplication::desktop()->availableGeometry();
 		double scale = (double)desk.height() / desk.width();
 		double width = desk.width() / 1.7;

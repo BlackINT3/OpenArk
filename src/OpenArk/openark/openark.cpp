@@ -168,6 +168,8 @@ OpenArk::OpenArk(QWidget *parent) :
 	});
 
 	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
+
+	this->installEventFilter(this);
 }
 
 bool OpenArk::eventFilter(QObject *obj, QEvent *e)
