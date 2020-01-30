@@ -30,6 +30,7 @@ Scanner::Scanner(QWidget *parent) :
 
 	ui.tabWidget->setTabPosition(QTabWidget::West);
 	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
+	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 	setAcceptDrops(true);
 
 	sumup_model_ = new QStandardItemModel;
@@ -93,6 +94,11 @@ Scanner::Scanner(QWidget *parent) :
 
 Scanner::~Scanner()
 {
+}
+
+void Scanner::ActivateTab(int idx)
+{
+	ui.tabWidget->setCurrentIndex(idx);
 }
 
 bool Scanner::eventFilter(QObject *obj, QEvent *e)
@@ -330,6 +336,11 @@ __raw:
 	}
 	catch (...) {
 	}
+}
+
+void Scanner::onTabChanged(int index)
+{
+	OpenArkConfig::Instance()->SetPrefLevel2Tab(index);
 }
 
 void Scanner::onOpenFile(const QString& file)

@@ -33,6 +33,10 @@ public:
 	QString GetConsole(const QString &name);
 	void GetMainGeometry(int &x, int &y, int &w, int &h);
 	void SetMainGeometry(int x, int y, int w, int h);
+	void GetPrefMainTab(int &idx);
+	void SetPrefMainTab(int idx);
+	void GetPrefLevel2Tab(int &idx);
+	void SetPrefLevel2Tab(int idx);
 
 	QVariant GetValue(const QString &key, const QVariant &defaultValue = QVariant()) const { return appconf_->value(key, defaultValue); };
 	void SetValue(const QString &key, const QVariant &value) { return appconf_->setValue(key, value); };

@@ -31,6 +31,9 @@ public:
 	Kernel(QWidget *parent);
 	~Kernel();
 
+public:
+	void ActivateTab(int idx);
+
 protected:
 	bool eventFilter(QObject *obj, QEvent *e);
 	void dragEnterEvent(QDragEnterEvent *event);

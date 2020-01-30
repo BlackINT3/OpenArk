@@ -36,10 +36,14 @@ public:
 	Scanner(QWidget *parent);
 	~Scanner();
 
+public:
+	void ActivateTab(int idx);
+
 protected:
 	bool eventFilter(QObject *obj, QEvent *e);
 
 public slots:
+	void onTabChanged(int index);
 	void onOpenFile(const QString& file);
 	void onRefresh();
 

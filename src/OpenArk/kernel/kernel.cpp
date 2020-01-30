@@ -86,6 +86,11 @@ Kernel::~Kernel()
 {
 }
 
+void Kernel::ActivateTab(int idx)
+{
+	ui.tabWidget->setCurrentIndex(idx);
+}
+
 bool Kernel::eventFilter(QObject *obj, QEvent *e)
 {
 	bool filtered = false;
@@ -150,6 +155,7 @@ void Kernel::onTabChanged(int index)
 	default:
 		break;
 	}
+	OpenArkConfig::Instance()->SetPrefLevel2Tab(index);
 }
 
 void Kernel::onSignDriver()

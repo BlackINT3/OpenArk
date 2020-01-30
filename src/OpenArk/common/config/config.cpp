@@ -116,6 +116,29 @@ void OpenArkConfig::SetMainGeometry(int x, int y, int w, int h)
 	Sync();
 }
 
+void OpenArkConfig::GetPrefMainTab(int &idx)
+{
+	QString section = "/Preference/";
+	idx = GetValue(section + "main_tab").toInt();
+}
+void OpenArkConfig::SetPrefMainTab(int idx)
+{
+	QString section = "/Preference/";
+	SetValue(section + "main_tab", idx);
+	Sync();
+}
+void OpenArkConfig::GetPrefLevel2Tab(int &idx)
+{
+	QString section = "/Preference/";
+	idx = GetValue(section + "level2_tab").toInt();
+}
+void OpenArkConfig::SetPrefLevel2Tab(int idx)
+{
+	QString section = "/Preference/";
+	SetValue(section + "level2_tab", idx);
+	Sync();
+}
+
 OpenArkConfig* OpenArkConfig::confobj_ = nullptr;
 OpenArkConfig* OpenArkConfig::Instance()
 {

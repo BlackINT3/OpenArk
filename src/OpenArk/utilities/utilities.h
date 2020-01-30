@@ -74,7 +74,11 @@ public:
 	Utilities(QWidget *parent);
 	~Utilities();
 
+public:
+	void ActivateTab(int idx);
+
 private slots:
+	void onTabChanged(int index);
 	void onOpJunkfiles(int, JunkCluster);
 	void onAppendJunkfiles(JunkCluster);
 	void onCleanJunkfiles(JunkCluster);

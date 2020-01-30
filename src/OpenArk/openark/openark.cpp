@@ -141,9 +141,13 @@ OpenArk::OpenArk(QWidget *parent) :
 	ui.cmdOutWindow->setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(ui.cmdInput, SIGNAL(returnPressed()), this, SLOT(onCmdInput()));
 	connect(ui.cmdButton, SIGNAL(clicked()), this, SLOT(onCmdHelp()));
-	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged()));
+	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 	connect(ui.cmdOutWindow, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onShowConsoleMenu(const QPoint &)));
 
+	int main_idx = 0;
+	int level2_idx = 0;
+	OpenArkConfig::Instance()->GetPrefMainTab(main_idx);
+	OpenArkConfig::Instance()->GetPrefLevel2Tab(level2_idx);
 	auto CreateTabPage = [&](QWidget *widget, QWidget *origin) {
 		int idx = ui.tabWidget->indexOf(origin);
 		QString text = ui.tabWidget->tabText(idx);
@@ -151,13 +155,32 @@ OpenArk::OpenArk(QWidget *parent) :
 		ui.tabWidget->insertTab(idx, widget, text);
 	};
 
-	CreateTabPage(new ProcessMgr(this), ui.tabProcessMgr);
-	CreateTabPage(new Scanner(this), ui.tabScanner);
-	CreateTabPage(new CoderKit(this), ui.tabCoderKit);
-	CreateTabPage(new Bundler(this), ui.tabBundler);
-	CreateTabPage(new Kernel(this), ui.tabKernel);
-	CreateTabPage(new Utilities(this), ui.tabUtilities);
-	ActivateTab(TAB_PROCESS);
+	auto processmgr = new ProcessMgr(this);
+	CreateTabPage(processmgr, ui.tabProcessMgr);
+
+	auto scanner = new Scanner(this);
+	CreateTabPage(scanner, ui.tabScanner);
+	
+	auto coderkit = new CoderKit(this);
+	CreateTabPage(coderkit, ui.tabCoderKit);
+
+	auto bundler = new Bundler(this);
+	CreateTabPage(bundler, ui.tabBundler);
+	
+	auto kernel = new Kernel(this);
+	CreateTabPage(kernel, ui.tabKernel);
+
+	auto utilities = new Utilities(this);
+	CreateTabPage(utilities, ui.tabUtilities);
+
+	switch (main_idx) {
+	case TAB_SCANNER: scanner->ActivateTab(level2_idx); break;
+	case TAB_CODERKIT: coderkit->ActivateTab(level2_idx); break;
+	case TAB_KERNEL: kernel->ActivateTab(level2_idx); break;
+	case TAB_UTILITIES: utilities->ActivateTab(level2_idx); break;
+	}
+
+	ActivateTab(main_idx);
 
 	chkupt_timer_ = new QTimer();
 	chkupt_timer_->setInterval(5000);
@@ -467,8 +490,11 @@ void OpenArk::onCmdInput()
 	sender->clear();
 }
 
-void OpenArk::onTabChanged()
+void OpenArk::onTabChanged(int idx)
 {
+	if (idx == TAB_PROCESS) onActionRefresh(true);
+
+	OpenArkConfig::Instance()->SetPrefMainTab(idx);
 }
 
 void OpenArk::StatusBarClear()

@@ -898,7 +898,6 @@ void ProcessMgr::InitProcessView()
 	connect(pview->header(), SIGNAL(sectionClicked(int)), this, SLOT(onSectionClicked(int)));
 	connect(pview, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onProcDoubleClicked(const QModelIndex&)));
 	connect(pview->selectionModel(), &QItemSelectionModel::currentRowChanged, this, &ProcessMgr::onProcChanged);
-	onShowProcess();
 }
 
 void ProcessMgr::InitBottomCommon()

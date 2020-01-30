@@ -43,6 +43,8 @@ Utilities::Utilities(QWidget *parent) :
 	ui.setupUi(this);
 	ui.tabWidget->setTabPosition(QTabWidget::West);
 	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
+	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
+
 	qRegisterMetaType<JunkCluster>("JunkCluster");
 
 	InitCleanerView();
@@ -53,6 +55,16 @@ Utilities::~Utilities()
 {
 	if (scanjunks_thread_) scanjunks_thread_->terminate();
 	scanjunks_thread_ = nullptr;
+}
+
+void Utilities::ActivateTab(int idx)
+{
+	ui.tabWidget->setCurrentIndex(idx);
+}
+
+void Utilities::onTabChanged(int index)
+{
+	OpenArkConfig::Instance()->SetPrefLevel2Tab(index);
 }
 
 void Utilities::onOpJunkfiles(int op, JunkCluster cluster)

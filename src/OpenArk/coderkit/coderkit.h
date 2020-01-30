@@ -35,7 +35,11 @@ public:
 	CoderKit(QWidget* parent);
 	~CoderKit();
 
+public:
+	void ActivateTab(int idx);
+
 private slots:
+	void onTabChanged(int index);
 	void onCodeTextChanged();
 	void onCodeTextChanged(const QString &text);
 	void onWindowsErrorTextChanged(const QString &text);
