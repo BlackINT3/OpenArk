@@ -228,7 +228,7 @@ bool OpenArk::eventFilter(QObject *obj, QEvent *e)
 			OpenArkConfig::Instance()->SetMainGeometry(-1, -1, evt->size().width(), evt->size().height());
 		} else if (e->type() == QEvent::Move) {
 			auto evt = dynamic_cast<QMoveEvent*>(e);
-			OpenArkConfig::Instance()->SetMainGeometry(evt->pos().x(), evt->pos().y(), -1, -1);
+			OpenArkConfig::Instance()->SetMainGeometry(evt->pos().x(), evt->pos().y()-31, -1, -1);
 		}
 	}
 	
