@@ -76,6 +76,7 @@ public:
 
 public:
 	void ActivateTab(int idx);
+	void RecordAppServer(const QString &svr);
 
 private slots:
 	void onTabChanged(int index);
@@ -90,6 +91,7 @@ private:
 	QVector<int> removed_rows_;
 
 private:
+	QString app_server_;
 	QStandardItemModel *junks_model_;
 	JunksSortFilterProxyModel *proxy_junks_;
 	ScanJunksThread *scanjunks_thread_;

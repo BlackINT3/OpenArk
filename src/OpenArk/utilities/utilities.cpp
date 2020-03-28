@@ -62,6 +62,11 @@ void Utilities::ActivateTab(int idx)
 	ui.tabWidget->setCurrentIndex(idx);
 }
 
+void Utilities::RecordAppServer(const QString &svr)
+{
+	app_server_ = svr;
+}
+
 void Utilities::onTabChanged(int index)
 {
 	OpenArkConfig::Instance()->SetPrefLevel2Tab(index);
@@ -117,6 +122,8 @@ void Utilities::onOpJunkfiles(int op, JunkCluster cluster)
 	junks_model_->setItem(seq, JUNKS.filecnt, filecnt_item);
 	junks_model_->setItem(seq, JUNKS.sumsize, sumsize_item);
 	junks_model_->setItem(seq, JUNKS.detail, detail_item);
+
+	ui.fileLabel->setText(items.first().path);
 }
 
 void Utilities::onAppendJunkfiles(JunkCluster cluster)
@@ -164,14 +171,13 @@ void ScanJunksThread::run()
 		UNONE::FsGetFileSizeW(path, fsize);
 		item.size = fsize;
 		items.push_back(item);
-		if (items.size() >= 199) {
+		if (items.size() >= 50) {
 			SendToUI(*(QString*)param);
 		}
 		return true;
 	};
 
 	std::function<bool(wchar_t*, wchar_t*, void*)> ScanCallbackCustom;
-
 
 	QStringList clear_suffixes_list = custom_suffex_.split(",");
 	ScanCallbackCustom = [&](wchar_t* path, wchar_t* name, void* param)->bool {
@@ -194,30 +200,28 @@ void ScanJunksThread::run()
 	junks_cluster_.clear();
 	if (is_custom_scan_){
 		for (int i = 0; i < custom_path_.size(); i++)
-			UNONE::FsEnumDirectoryW(custom_path_[i].toStdWString(), ScanCallbackCustom,&custom_path_[i]);
+			UNONE::FsEnumDirectoryW(custom_path_[i].toStdWString(), ScanCallbackCustom, &custom_path_[i]);
 	}
-	else{
-		auto &&junkdirs = OpenArkConfig::Instance()->GetJunkDirs();
-		for (auto &dir : junkdirs) {
-			if (!UNONE::FsIsExistedW(dir.toStdWString())) continue;
-			UNONE::FsEnumDirectoryW(dir.toStdWString(), ScanCallback, &dir);
-			if (items.size() >= 0) {
-				SendToUI(dir);
-			}
+	auto &&junkdirs = OpenArkConfig::Instance()->GetJunkDirs();
+	for (auto &dir : junkdirs) {
+		if (!UNONE::FsIsExistedW(dir.toStdWString())) continue;
+		UNONE::FsEnumDirectoryW(dir.toStdWString(), ScanCallback, &dir);
+		if (items.size() >= 0) {
+			SendToUI(dir);
 		}
-		// RecycleBin
-		SHQUERYRBINFO bi;
-		bi.cbSize = sizeof(SHQUERYRBINFO);
-		HRESULT hr = SHQueryRecycleBin(NULL, &bi);
-		if (hr == S_OK) {
-			items.clear();
-			auto nums = bi.i64NumItems;
-			while (nums--) {
-				JunkItem junk;
-				items.append(junk);
-			}
-			SendToUI(RECYCLEBIN, bi.i64Size);
+	}
+	// RecycleBin
+	SHQUERYRBINFO bi;
+	bi.cbSize = sizeof(SHQUERYRBINFO);
+	HRESULT hr = SHQueryRecycleBin(NULL, &bi);
+	if (hr == S_OK) {
+		items.clear();
+		auto nums = bi.i64NumItems;
+		while (nums--) {
+			JunkItem junk;
+			items.append(junk);
 		}
+		SendToUI(RECYCLEBIN, bi.i64Size);
 	}
 }
 
@@ -292,7 +296,7 @@ void Utilities::InitCleanerView()
 				ui.statusLabel->setStyleSheet("color:green");
 			});
 		}
-		scanjunks_thread_->is_custom_scan_ = (ui.custom_scan_check_box->checkState() == Qt::Checked);
+		scanjunks_thread_->is_custom_scan_ = (ui.customScanCheckBox->checkState() == Qt::Checked);
 		scanjunks_thread_->custom_path_ = OpenArkConfig::Instance()->GetValue("clean_path_list").toStringList();
 		scanjunks_thread_->custom_suffex_ = OpenArkConfig::Instance()->GetValue("clean_file_suffix").toString();
 		scanjunks_thread_->start(QThread::NormalPriority);

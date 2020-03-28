@@ -172,6 +172,8 @@ p, li { white-space: pre-wrap; }
      </widget>
     </item>
    </layout>
+   <zorder>splitter</zorder>
+   <zorder>cmdOutWindow</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

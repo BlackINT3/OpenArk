@@ -108,6 +108,9 @@
     <Filter Include="utilities">
       <UniqueIdentifier>{8ea4c836-5d7b-4572-a5fe-d0910ff6b9c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="reverse">
+      <UniqueIdentifier>{7bf7941e-b8b8-4915-83e2-acb7019b3697}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">

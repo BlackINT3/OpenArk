@@ -38,19 +38,38 @@
          <item>
           <widget class="QLabel" name="statusLabel">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="minimumSize">
             <size>
-             <width>400</width>
+             <width>0</width>
              <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
             </size>
            </property>
            <property name="text">
             <string>[STATUS] not started...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="fileLabel">
+           <property name="maximumSize">
+            <size>
+             <width>300</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </item>
@@ -68,9 +87,9 @@
           </spacer>
          </item>
          <item>
-          <widget class="QCheckBox" name="custom_scan_check_box">
+          <widget class="QCheckBox" name="customScanCheckBox">
            <property name="text">
-            <string>Custom Clean</string>
+            <string>CustomFolder</string>
            </property>
            <property name="checked">
             <bool>true</bool>
