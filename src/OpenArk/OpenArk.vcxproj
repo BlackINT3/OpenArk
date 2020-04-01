@@ -303,6 +303,7 @@
     <ClCompile Include="process-mgr\process-mgr.cpp" />
     <ClCompile Include="process-mgr\process-properties.cpp" />
     <ClCompile Include="process-mgr\process-selection.cpp" />
+    <ClCompile Include="reverse\reverse.cpp" />
     <ClCompile Include="scanner\scanner.cpp" />
     <ClCompile Include="settings\settings.cpp" />
     <ClCompile Include="utilities\utilities.cpp" />
@@ -340,6 +341,12 @@
     <ClInclude Include="common\utils\disassembly\udis86\libudis86\udint.h" />
     <ClInclude Include="common\utils\disassembly\udis86\udis86.h" />
     <ClInclude Include="GeneratedFiles\ui_kernel.h" />
+    <ClInclude Include="reverse\reverse.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets</IncludePath>
+    </ClInclude>
     <QtMoc Include="utilities\utilities.h" />
     <QtMoc Include="kernel\kernel.h" />
     <ClInclude Include="GeneratedFiles\ui_utilities.h" />

@@ -231,8 +231,10 @@ void Kernel::InitKernelEntryView()
 	GetPerformanceInfo(&perf, sizeof(perf));
 	double gb = round((double)(perf.PhysicalTotal*perf.PageSize) / 1024 / 1024 / 1024);
 
-	AddSummaryUpItem(tr("MajorVersion"), DWordToDecQ(UNONE::OsMajorVer()));
+	auto major = UNONE::OsMajorVer();
+	AddSummaryUpItem(tr("MajorVersion"), DWordToDecQ(major));
 	AddSummaryUpItem(tr("MiniorVersion"), DWordToDecQ(UNONE::OsMinorVer()));
+	if (major >= 10) AddSummaryUpItem(tr("ReleaseNumber"), DWordToDecQ(UNONE::OsReleaseNumber()));
 	AddSummaryUpItem(tr("BuildNumber"), DWordToDecQ(UNONE::OsBuildNumber()));
 	AddSummaryUpItem(tr("MajorServicePack"), DWordToDecQ(info.wServicePackMajor));
 	AddSummaryUpItem(tr("MiniorServicePack"), DWordToDecQ(info.wServicePackMinor));

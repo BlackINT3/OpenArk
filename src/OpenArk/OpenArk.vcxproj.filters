@@ -225,6 +225,9 @@
     <ClCompile Include="utilities\utilities.cpp">
       <Filter>utilities</Filter>
     </ClCompile>
+    <ClCompile Include="reverse\reverse.cpp">
+      <Filter>reverse</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="openark\openark.h">
@@ -410,6 +413,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_utilities.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="reverse\reverse.h">
+      <Filter>reverse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
