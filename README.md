@@ -6,7 +6,7 @@
 * Website: https://openark.blackint3.com/
 * Source: https://github.com/BlackINT3/OpenArk/
 * Manuals: https://openark.blackint3.com/manuals/
-* QQ Qun: 836208099
+* QQ Group: 836208099
 
 ### Introduction
 * [中文说明](https://github.com/BlackINT3/OpenArk/blob/master/doc/README-zh.md)
@@ -45,7 +45,3 @@
 
 ### Contributing
   * Issues and Push request is welcome.
-
-  * QQ Qun: 836208099
-
-  ![](doc/resources/qq-qun.png)
