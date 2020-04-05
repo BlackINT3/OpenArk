@@ -317,6 +317,7 @@
     <QtUic Include="ui\process-mgr.ui" />
     <QtUic Include="ui\process-properties.ui" />
     <QtUic Include="ui\process-selection.ui" />
+    <QtUic Include="ui\reverse.ui" />
     <QtUic Include="ui\scanner.ui" />
     <QtUic Include="ui\settings.ui" />
     <QtUic Include="ui\utilities.ui" />

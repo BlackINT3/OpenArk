@@ -22,5 +22,44 @@
         <file>driver/OpenArkDrv64.sys</file>
         <file>lang/openark_zh.qm</file>
         <file>systools/recyclebin.png</file>
+        <file>systools/cmd.ico</file>
+        <file>systools/powershell.ico</file>
+        <file>systools/wsl.ico</file>
+        <file>systools/calc.ico</file>
+        <file>systools/firewall.ico</file>
+        <file>systools/performance.ico</file>
+        <file>systools/regedit.ico</file>
+        <file>systools/tasksch.ico</file>
+        <file>systools/credential.ico</file>
+        <file>systools/datetime.ico</file>
+        <file>systools/deskicon.ico</file>
+        <file>systools/powercfg.ico</file>
+        <file>systools/program.ico</file>
+        <file>systools/services.ico</file>
+        <file>systools/share.ico</file>
+        <file>systools/taskmgr.ico</file>
+        <file>systools/uac.ico</file>
+        <file>systools/users.ico</file>
+        <file>systools/systeminfo.ico</file>
+        <file>systools/wallpaper.ico</file>
+        <file>systools/devmgr.ico</file>
+        <file>systools/poweroff.ico</file>
+        <file>systools/reboot.ico</file>
+        <file>systools/netconnections.ico</file>
+        <file>systools/resmon.ico</file>
+        <file>systools/certmgr.ico</file>
+        <file>systools/eventlog.ico</file>
+        <file>systools/gpedit.ico</file>
+        <file>systools/secpolicy.ico</file>
+        <file>systools/proxy.ico</file>
+        <file>systools/version.ico</file>
+        <file>systools/disks.ico</file>
+        <file>systools/hosts.ico</file>
+        <file>systools/env.ico</file>
+        <file>systools/ipv4.ico</file>
+        <file>systools/ipv6.ico</file>
+        <file>systools/pcname.ico</file>
+        <file>systools/route.ico</file>
+        <file>systools/perfsettings.ico</file>
     </qresource>
 </RCC>

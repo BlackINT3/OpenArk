@@ -111,6 +111,9 @@
     <Filter Include="reverse">
       <UniqueIdentifier>{7bf7941e-b8b8-4915-83e2-acb7019b3697}</UniqueIdentifier>
     </Filter>
+    <Filter Include="common\utils\compress">
+      <UniqueIdentifier>{d891b85d-c413-47df-9f0a-096555a8e4ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -302,6 +305,9 @@
       <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\utilities.ui">
+      <Filter>ui</Filter>
+    </QtUic>
+    <QtUic Include="ui\reverse.ui">
       <Filter>ui</Filter>
     </QtUic>
   </ItemGroup>
