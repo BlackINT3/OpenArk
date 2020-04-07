@@ -1,3 +1,6 @@
+#ifndef _CRT_RAND_S
+#define _CRT_RAND_S
+#endif
 #include <windows.h>
 #include <stdlib.h>
 #include <malloc.h>
@@ -10,6 +13,26 @@
 #include "../pack/pack.h"
 
 typedef std::tuple<std::wstring, std::wstring> DirectiveSeq;
+
+#include <stdlib.h>
+std::string TmRandHexString(int count)
+{
+	char str_temp[2] = { 0 };
+	std::string str;
+	int i, x;
+	unsigned int randnum = 0;
+	const char charset[] = "0123456789ABCDEF";
+	if (count <= 0)
+		return "";
+	for (i = 0; i < count; ++i)
+	{
+		rand_s(&randnum);
+		x = randnum % (unsigned)(sizeof(charset) - 1);
+		sprintf_s(str_temp, "%c", charset[x]);
+		str.append(str_temp);
+	}
+	return str;
+}
 
 void BundleExecStart(std::wstring param, std::wstring root)
 {
@@ -81,8 +104,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		BundleOutputError(L"Directory name invalid.");
 		return 1;
 	}
-	std::wstring outdir, script;
-	outdir = UNONE::OsEnvironmentW(L"%temp%\\BUDE\\") + dirname;
+	std::wstring parentdir, outdir, script;
+	parentdir = UNONE::OsEnvironmentW(L"%temp%\\BUDE\\") + UNONE::StrToW(TmRandHexString(12));
+	outdir = parentdir + L"\\" + dirname;
 	UNONE::FsCreateDirW(outdir);
 	err = BundleUnpack(outdir, (const char*)bdata, script, dirname);
 	if (err != BERR_OK) {
@@ -117,7 +141,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		}	else if (UNONE::StrCompareIW(cmd, L"cmd")) {
 			BundleExecCmd(param, outdir);
 		} else if (UNONE::StrCompareIW(cmd, L"clean")) {
-			BundleExecClean(param, outdir);
+			BundleExecClean(param, parentdir);
 		}
 	}
 	for (auto &t : async_tasks) {
