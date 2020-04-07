@@ -545,3 +545,41 @@ bool ReadStdout(const std::wstring& cmdline, std::wstring& output, DWORD& exitco
 	return result;
 }
 
+typedef enum _SHUTDOWN_ACTION {
+	ShutdownNoReboot,
+	ShutdownReboot,
+	ShutdownPowerOff
+} SHUTDOWN_ACTION;
+typedef NTSTATUS(NTAPI *__NtShutdownSystem)(
+	__in SHUTDOWN_ACTION Action
+	);
+bool OsFastReboot()
+{
+	NTSTATUS status;
+	__NtShutdownSystem shutdown_api = (__NtShutdownSystem)
+		GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtShutdownSystem");
+	if (shutdown_api == NULL) {
+		return false;
+	}
+	UNONE::SeEnablePrivilege(SE_SHUTDOWN_NAME);
+	status = shutdown_api(ShutdownReboot);
+	if (!NT_SUCCESS(status)) {
+		return false;
+	}
+	return true;
+}
+bool OsFastPoweroff()
+{
+	NTSTATUS status;
+	__NtShutdownSystem shutdown_api = (__NtShutdownSystem)
+		GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtShutdownSystem");
+	if (shutdown_api == NULL) {
+		return false;
+	}
+	UNONE::SeEnablePrivilege(SE_SHUTDOWN_NAME);
+	status = shutdown_api(ShutdownPowerOff);
+	if (!NT_SUCCESS(status)) {
+		return false;
+	}
+	return true;
+}

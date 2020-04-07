@@ -354,6 +354,9 @@ void Utilities::InitSystemToolsView()
 	connect(ui.programsBtn, &QPushButton::clicked, [] {ShellRun("control.exe", "appwiz.cpl"); });
 	connect(ui.envBtn, &QPushButton::clicked, [] {ShellRun("SystemPropertiesAdvanced.exe", ""); });
 	connect(ui.pcnameBtn, &QPushButton::clicked, [] {ShellRun("SystemPropertiesComputerName.exe", ""); });
+	connect(ui.fastrebootBtn, &QPushButton::clicked, [] {OsFastReboot(); });
+	connect(ui.fastpoweroffBtn, &QPushButton::clicked, [] {OsFastPoweroff(); });
+
 
 	connect(ui.sysinfoBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c systeminfo |more & pause"); });
 	connect(ui.datetimeBtn, &QPushButton::clicked, [] {ShellRun("control.exe", "date/time"); });
