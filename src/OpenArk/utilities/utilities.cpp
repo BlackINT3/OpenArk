@@ -354,8 +354,18 @@ void Utilities::InitSystemToolsView()
 	connect(ui.programsBtn, &QPushButton::clicked, [] {ShellRun("control.exe", "appwiz.cpl"); });
 	connect(ui.envBtn, &QPushButton::clicked, [] {ShellRun("SystemPropertiesAdvanced.exe", ""); });
 	connect(ui.pcnameBtn, &QPushButton::clicked, [] {ShellRun("SystemPropertiesComputerName.exe", ""); });
-	connect(ui.fastrebootBtn, &QPushButton::clicked, [] {OsFastReboot(); });
-	connect(ui.fastpoweroffBtn, &QPushButton::clicked, [] {OsFastPoweroff(); });
+	connect(ui.fastrebootBtn, &QPushButton::clicked, [&] {
+		if (QMessageBox::warning(this, tr("Warning"), tr("Are you sure to reboot?"), 
+			QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+			OsFastReboot();
+		}
+	});
+	connect(ui.fastpoweroffBtn, &QPushButton::clicked, [&] {
+		if (QMessageBox::warning(this, tr("Warning"), tr("Are you sure to poweroff?"),
+			QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+			OsFastPoweroff();
+		}
+	});
 
 
 	connect(ui.sysinfoBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c systeminfo |more & pause"); });

@@ -59,6 +59,17 @@ inline std::wstring AppConfigDir()
 	return dir;
 }
 
+inline QString AppFsUrl(QString url = "")
+{
+	static QString fsurl;
+	if (url.isEmpty()) {
+		return fsurl;
+	}
+	fsurl = url;
+	return "http://192.168.2.106:50200/openark/files";
+	return fsurl;
+}
+
 // disable logger, exit recover
 #define DISABLE_RECOVER() \
 	UNONE::LogCallback routine;\

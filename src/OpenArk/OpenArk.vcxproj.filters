@@ -114,6 +114,9 @@
     <Filter Include="common\utils\compress">
       <UniqueIdentifier>{d891b85d-c413-47df-9f0a-096555a8e4ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="common\utils\compress\xzip">
+      <UniqueIdentifier>{fd40b3a5-37fd-4c06-acf2-2821a176b7aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -231,6 +234,15 @@
     <ClCompile Include="reverse\reverse.cpp">
       <Filter>reverse</Filter>
     </ClCompile>
+    <ClCompile Include="common\utils\compress\zip_utils.cpp">
+      <Filter>common\utils\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\compress\xzip\XUnzip.cpp">
+      <Filter>common\utils\compress\xzip</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\compress\xzip\XZip.cpp">
+      <Filter>common\utils\compress\xzip</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="openark\openark.h">
@@ -271,6 +283,9 @@
     </QtMoc>
     <QtMoc Include="utilities\utilities.h">
       <Filter>utilities</Filter>
+    </QtMoc>
+    <QtMoc Include="reverse\reverse.h">
+      <Filter>reverse</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -420,8 +435,17 @@
     <ClInclude Include="GeneratedFiles\ui_utilities.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="reverse\reverse.h">
-      <Filter>reverse</Filter>
+    <ClInclude Include="GeneratedFiles\ui_reverse.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\compress\zip_utils.h">
+      <Filter>common\utils\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\compress\xzip\XUnzip.h">
+      <Filter>common\utils\compress\xzip</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\compress\xzip\XZip.h">
+      <Filter>common\utils\compress\xzip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,7 @@
 #include "about/about.h"
 #include "cmds/cmds.h"
 #include "kernel/kernel.h"
+#include "reverse/reverse.h"
 #include "utilities/utilities.h"
 
 #include <QtNetwork/QNetworkAccessManager>
@@ -173,17 +174,21 @@ OpenArk::OpenArk(QWidget *parent) :
 	auto utilities = new Utilities(this);
 	CreateTabPage(utilities, ui.tabUtilities);
 
+	auto reverse = new Reverse(this);
+	CreateTabPage(reverse, ui.tabReverse);
+
 	switch (main_idx) {
-	case TAB_SCANNER: scanner->ActivateTab(level2_idx); break;
-	case TAB_CODERKIT: coderkit->ActivateTab(level2_idx); break;
 	case TAB_KERNEL: kernel->ActivateTab(level2_idx); break;
+	case TAB_CODERKIT: coderkit->ActivateTab(level2_idx); break;
+	case TAB_SCANNER: scanner->ActivateTab(level2_idx); break;
 	case TAB_UTILITIES: utilities->ActivateTab(level2_idx); break;
+	case TAB_REVERSE: reverse->ActivateTab(level2_idx); break;
 	}
 
 	ActivateTab(main_idx);
 
 	chkupt_timer_ = new QTimer();
-	chkupt_timer_->setInterval(5000);
+	chkupt_timer_->setInterval(100);
 	chkupt_timer_->start();
 	connect(chkupt_timer_, &QTimer::timeout, this, [&]() {
 		onActionCheckUpdate(false);
@@ -362,11 +367,16 @@ void OpenArk::onActionCheckUpdate(bool checked)
 			ERR(L"request app-err: %d", val.toInt());
 			return;
 		}
-		QJsonValue appver, appbd, appurl;
+		QJsonValue appver, appbd, appurl, appfsurl;
 		if (!JsonGetValue(obj, "appver", appver) || !JsonGetValue(obj, "appbd", appbd) || !JsonGetValue(obj, "appurl", appurl)) {
 			ERR(L"request json err: %d", val.toInt());
 			return;
 		}
+
+		if (JsonGetValue(obj, "appfsurl", appfsurl)) {
+			AppFsUrl(appfsurl.toString());
+		}
+
 		auto local_ver = AppVersion();
 		auto local_bd = AppBuildTime();
 		INFO(L"local appver:%s, build:%s", local_ver.toStdWString().c_str(), local_bd.toStdWString().c_str());

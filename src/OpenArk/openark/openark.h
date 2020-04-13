@@ -25,6 +25,7 @@ class Cmds;
 #define TAB_SCANNER 3
 #define TAB_BUNDLER 4
 #define TAB_UTILITIES 5
+#define TAB_REVERSE 6
 
 class OpenArk : public QMainWindow {
 	Q_OBJECT

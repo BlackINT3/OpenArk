@@ -14,45 +14,32 @@
 **
 ****************************************************************************/
 #pragma once
-#include <QtCore>
-#include <QtWidgets>
-#include <Windows.h>
-#include "ui_reverse.h"
+#include <string>
+#include <unone.h>
 
-#include <QString>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QUrl>
-#include <QFile>
-#include <QDebug>
-#include <QProgressBar>
-
-class OpenArk;
-class Ui::Reverse;
-
-class Reverse : public QWidget {
-	Q_OBJECT
+namespace Plugin {
+namespace Compressor {
+class ZipUtils {
 public:
-	Reverse(QWidget *parent);
-	~Reverse();
+	enum WRAPPER_TYPE {
+		UNPACK_CURRENT, //uncompress to /
+		UNPACK_SUBDIR,	//uncompress to /sub-dir
+		PACK_CURRENT, //compress /
+		PACK_SUBDIR, //compress /sub-dir
+	};
+
+	static bool UnpackToDir(const std::string& zip_path, 
+		WRAPPER_TYPE wrapper_type, const std::string& out_dir);
+
+	static bool PackDir(const std::string& dir, 
+		WRAPPER_TYPE  wrapper_type, const std::string& zip_path);
+
+	static bool PackFile(const std::string& file,
+		const std::string& zip_path);
 
 public:
-	void ActivateTab(int idx);
-
-private slots:
-	void onTabChanged(int index);
-	void onExecute();
-	void readContent();
-	void onProgress(qint64 bytesSent, qint64 bytesTotal);
-
-private:
-	void DownloadAndExecuteFile(QString path, QString exe, QString url);
-	void InitWinReverseToolsView();
-
-private:
-	Ui::Reverse ui;
-	OpenArk *parent_;
-	QNetworkReply *reply;
-	QFile *file;
+	ZipUtils(){};
+	~ZipUtils(){};
 };
+}	//namespace Compressor
+} //namespace Plugin

@@ -61,5 +61,14 @@
         <file>systools/pcname.ico</file>
         <file>systools/route.ico</file>
         <file>systools/perfsettings.ico</file>
+        <file>revtools/dbgview.ico</file>
+        <file>revtools/hxd.ico</file>
+        <file>revtools/pchunter.ico</file>
+        <file>revtools/procexp.ico</file>
+        <file>revtools/procmon.ico</file>
+        <file>revtools/winobj.ico</file>
+        <file>revtools/winspy.ico</file>
+        <file>help.ico</file>
+        <file>update.ico</file>
     </qresource>
 </RCC>
