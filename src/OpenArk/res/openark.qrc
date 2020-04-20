@@ -70,5 +70,35 @@
         <file>revtools/winspy.ico</file>
         <file>help.ico</file>
         <file>update.ico</file>
+        <file>revtools/apimon32.ico</file>
+        <file>revtools/apimon64.ico</file>
+        <file>revtools/nirsoft.ico</file>
+        <file>revtools/sysinternals.ico</file>
+        <file>revtools/ida32.ico</file>
+        <file>revtools/ida64.ico</file>
+        <file>revtools/od52pj.ico</file>
+        <file>revtools/ollydbg.ico</file>
+        <file>revtools/ollyice.ico</file>
+        <file>revtools/windbg.ico</file>
+        <file>revtools/x64dbg.ico</file>
+        <file>systools/resetexplorer.ico</file>
+        <file>systools/killexplorer.ico</file>
+        <file>revtools/cffexplorer.ico</file>
+        <file>revtools/cheatengine.ico</file>
+        <file>revtools/default.ico</file>
+        <file>revtools/exeinfope.ico</file>
+        <file>revtools/hcd.ico</file>
+        <file>revtools/peid.ico</file>
+        <file>revtools/reshacker.ico</file>
+        <file>revtools/anydesk.ico</file>
+        <file>revtools/editor010.ico</file>
+        <file>revtools/fiddler.ico</file>
+        <file>revtools/notepadxx.ico</file>
+        <file>revtools/spyxx.ico</file>
+        <file>revtools/sunlogin.ico</file>
+        <file>revtools/teamviewer.ico</file>
+        <file>revtools/winhex.ico</file>
+        <file>revtools/wireshark.ico</file>
+        <file>revtools/everything.ico</file>
     </qresource>
 </RCC>

@@ -46,3 +46,5 @@ bool ReadFileDataW(__in const std::wstring &fpath, __in int64_t offset, __in int
 bool ReadStdout(const std::wstring& cmdline, std::wstring& output, DWORD& exitcode, DWORD timeout = INFINITE);
 bool OsFastReboot();
 bool OsFastPoweroff();
+DWORD PsGetPidByWindowW(wchar_t *cls, wchar_t *title);
+DWORD OsGetExplorerPid();

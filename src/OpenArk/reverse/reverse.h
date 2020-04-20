@@ -47,7 +47,7 @@ private slots:
 	void onProgress(qint64 bytesSent, qint64 bytesTotal);
 
 private:
-	void DownloadAndExecuteFile(QString path, QString exe, QString url);
+	void DownloadAndExecuteFile(int type, QString path, QString exe, QString url);
 	void InitWinReverseToolsView();
 
 private:

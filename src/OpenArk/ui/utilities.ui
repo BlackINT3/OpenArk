@@ -310,7 +310,7 @@
            </rect>
           </property>
           <property name="text">
-           <string>FastPoweroff</string>
+           <string>FastPoweroff </string>
           </property>
           <property name="icon">
            <iconset resource="../res/openark.qrc">
@@ -327,11 +327,45 @@
            </rect>
           </property>
           <property name="text">
-           <string>FastReboot</string>
+           <string>FastReboot   </string>
           </property>
           <property name="icon">
            <iconset resource="../res/openark.qrc">
             <normaloff>:/OpenArk/systools/reboot.ico</normaloff>:/OpenArk/systools/reboot.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="killexplorerBtn">
+          <property name="geometry">
+           <rect>
+            <x>370</x>
+            <y>80</y>
+            <width>111</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>KillExplorer </string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/killexplorer.ico</normaloff>:/OpenArk/systools/killexplorer.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="resetexplorerBtn">
+          <property name="geometry">
+           <rect>
+            <x>370</x>
+            <y>110</y>
+            <width>111</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ResetExplorer</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/resetexplorer.ico</normaloff>:/OpenArk/systools/resetexplorer.ico</iconset>
           </property>
          </widget>
         </widget>

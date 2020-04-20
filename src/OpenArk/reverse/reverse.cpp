@@ -19,19 +19,64 @@
 #include "../openark/openark.h"
 using namespace Plugin::Compressor;
 
+enum {
+	RUN_EXE,
+	RUN_DIR,
+	RUN_CMD_DIR
+};
+
 struct {
+	int type;
 	QString name;
 	QString exec;
 	QString uri;
 } WinReverseTools[] = {
-	{"procexp", "procexp/procexp.exe", "procexp.zip" },
-	{"procmon", "procmon/procmon.exe", "procmon.zip" },
-	{"winobj", "winobj/winobj.exe", "winobj.zip"},
-	{"pchunter32", "pchunter/pchunter32.exe", "pchunter32.zip" },
-	{"pchunter64", "pchunter/pchunter64.exe", "pchunter64.zip" },
-	{"dbgview", "dbgview/dbgview.exe", "dbgview.zip" },
-	{"winspy", "winspy/winspy.exe", "winspy.zip" },
-	{"hxd", "hxd/hxd.exe", "hxd.zip" }
+	{ RUN_EXE, "procexp", "procexp/procexp.exe", "procexp.zip" },
+	{ RUN_EXE, "procmon", "Procmon/Procmon.exe", "Procmon.zip" },
+	{ RUN_EXE, "pchunter32", "PCHunter/PCHunter32.exe", "PCHunter32.zip" },
+	{ RUN_EXE, "pchunter64", "PCHunter/PCHunter64.exe", "PCHunter64.zip" },
+	{ RUN_EXE, "winobj", "Winobj/Winobj.exe", "Winobj.zip" },
+	{ RUN_EXE, "dbgview", "Dbgview/Dbgview.exe", "Dbgview.zip" },
+	{ RUN_EXE, "apimonitor32", "API Monitor/apimonitor-x86.exe", "API Monitor.zip" },
+	{ RUN_EXE, "apimonitor64", "API Monitor/apimonitor-x64.exe", "API Monitor.zip" },
+	{ RUN_CMD_DIR, "sysinternals", "SysinternalsSuite/", "SysinternalsSuite.zip" },
+	{ RUN_EXE, "nirsoft", "nirsoft_package/NirLauncher.exe", "nirsoft_package.zip" },
+
+	{ RUN_EXE, "windbg32", "Windbg/x86/windbg.exe", "Windbg32.zip" },
+	{ RUN_EXE, "windbg64", "Windbg/x64/windbg.exe", "Windbg64.zip" },
+	{ RUN_EXE, "x64dbg32", "x64dbg/x32/x32dbg.exe", "x64dbg.zip" },
+	{ RUN_EXE, "x64dbg64", "x64dbg/x64/x64dbg.exe", "x64dbg.zip" },
+	{ RUN_EXE, "ida32", "IDA/ida.exe", "IDA.zip" },
+	{ RUN_EXE, "ida64", "IDA/ida64.exe", "IDA.zip" },
+	{ RUN_EXE, "ollydbg", "OllyDBG/OllyDBG.exe", "OllyDBG.zip" },
+	{ RUN_EXE, "ollyice", "OllyICE/OllyICE.exe", "OllyICE.zip" },
+	{ RUN_EXE, "od52pj", "OD 52pj/OD.exe", "OD 52pj.zip" },
+
+	{ RUN_EXE, "exeinfope", "ExeinfoPe/exeinfope.exe", "ExeinfoPe.zip" },
+	{ RUN_EXE, "reshacker", "ResourceHacker/ResourceHacker.exe", "ResourceHacker.zip" },
+	{ RUN_EXE, "cffexplorer", "CFF Explorer/CFF Explorer.exe", "CFF Explorer.zip" },
+	{ RUN_EXE, "cheatengine", "Cheat Engine/Cheat Engine.exe", "Cheat Engine.zip" },
+	{ RUN_EXE, "peid", "PEID/PEID.exe", "PEID.zip" },
+	{ RUN_EXE, "hcd", "HCD/HCD.exe", "HCD.zip" },
+	{ RUN_CMD_DIR, "radare", "radare2/bin/", "radare2.zip" },
+
+
+	{ RUN_EXE, "notepadxx", "Notepad++/notepad++.exe", "Notepadxx.zip" },
+	{ RUN_EXE, "editor010", "010Editor/010Editor.exe", "010Editor.zip" },
+	{ RUN_EXE, "winhex", "Winhex/winhex.exe", "Winhex.zip" },
+	{ RUN_EXE, "hxd", "HxD/HxD.exe", "HxD.zip" },
+
+	{ RUN_EXE, "winspy", "WinSpy/WinSpy.exe", "WinSpy.zip" },
+	{ RUN_EXE, "spyxx32", "Spy++/spyxx.exe", "Spyxx32.zip" },
+	{ RUN_EXE, "spyxx64", "Spy++/spyxx_amd64.exe", "Spyxx64.zip" },
+	{ RUN_EXE, "fiddler2", "Fiddler2/Fiddler.exe", "Fiddler2.zip" },
+	{ RUN_EXE, "fiddler4", "Fiddler4/Fiddler.exe", "Fiddler4.zip" },
+	{ RUN_EXE, "wiresharkv1", "Wireshark/Wireshark-win32-1.10.14.exe", "Wireshark-v1.zip" },
+	{ RUN_EXE, "wiresharkv3", "Wireshark/Wireshark-win32-3.2.3.exe", "Wireshark-v3.zip" },
+	{ RUN_EXE, "everything", "Everything/Everything.exe", "Everything.zip" },
+	{ RUN_EXE, "teamviewer", "Teamviewer/Teamviewer.exe", "Teamviewer.zip" },
+	{ RUN_EXE, "anydesk", "AnyDesk/AnyDesk.exe", "AnyDesk.zip" },
+	{ RUN_EXE, "sunlogin", "Sunlogin/SunloginClient_10.3.0.27372.exe", "Sunlogin.zip" },
 };
 
 Reverse::Reverse(QWidget *parent) :
@@ -64,28 +109,21 @@ void Reverse::onTabChanged(int index)
 void Reverse::onExecute()
 {
 	QString name;
-	
-	auto sender = QObject::sender();
-	if (sender == ui.pchunterBtn)
-		name = UNONE::OsIs64() ? "pchunter64" : "pchunter32";
-	else if (sender == ui.procexpBtn)
-		name = "procexp";
-	else if (sender == ui.procmonBtn)
-		name = "procmon";
-	else if (sender == ui.winobjBtn)
-		name = "winobj";
-	else if (sender == ui.dbgviewBtn)
-		name = "dbgview";
-	else if (sender == ui.winspyBtn)
-		name = "winspy";
-	else if (sender == ui.hxdBtn)
-		name = "hxd";
 
+	auto sender = QObject::sender();
+	name = sender->objectName().replace("Btn", "");
+
+	if (sender == ui.pchunterBtn) {
+		name = UNONE::OsIs64() ? "pchunter64" : "pchunter32";
+	}
+
+	int type;
 	QString uri, exec;
 	for (int i = 0; i < _countof(WinReverseTools); i++)	{
 		if (WinReverseTools[i].name == name) {
 			uri = WinReverseTools[i].uri;
 			exec = WinReverseTools[i].exec;
+			type = WinReverseTools[i].type;
 			break;
 		}
 	}
@@ -95,37 +133,62 @@ void Reverse::onExecute()
 	}
 	auto &&file = filebase + uri;
 	auto &&url = AppFsUrl() + "/" + uri;
-	INFO(L"fsurl appver:%s", url.toStdWString().c_str());
 	exec = filebase + exec;
-	DownloadAndExecuteFile(file, exec, url);
+	DownloadAndExecuteFile(type, file, exec, url);
 }
 
-void Reverse::DownloadAndExecuteFile(QString path, QString exec, QString url)
+void ShellRunCmdDir(QString dir)
 {
-	if (UNONE::FsIsExistedW(QToWStr(exec))) {
-		ShellRun(exec, "");
+	auto cmdline = "cmd /k cd /D" + dir;
+	UNONE::PsCreateProcessW(cmdline.toStdWString());
+}
+
+void Reverse::DownloadAndExecuteFile(int type, QString path, QString exe, QString url)
+{
+	auto Run = [&](int type, QString exe)->bool {
+		if (UNONE::FsIsExistedW(QToWStr(exe))) {
+			if (type == RUN_EXE)
+				ShellRun(exe, "");
+			else if (type == RUN_CMD_DIR)
+				ShellRunCmdDir(exe);
+			else if (type == RUN_DIR)
+				ExploreFile(exe);
+			return true;
+		}
+		return false;
+	};
+
+	static bool pending = false;
+	
+	if (Run(type, exe))
+		return;
+
+	if (pending) {
+		QMessageBox::critical(NULL, tr("Error"), tr("Download pending, wait for a while..."));
 		return;
 	}
+	pending = true;
 
 	file = new QFile(path);
 	file->open(QIODevice::WriteOnly);
 
-	QNetworkAccessManager *accessManager = new QNetworkAccessManager(this);
-	accessManager->setNetworkAccessible(QNetworkAccessManager::Accessible);
+	QNetworkAccessManager *accessmgr = new QNetworkAccessManager(this);
+	accessmgr->setNetworkAccessible(QNetworkAccessManager::Accessible);
 	QUrl qurl(url);
 
 	QNetworkRequest request(qurl);
 	request.setHeader(QNetworkRequest::ContentTypeHeader, "application/octet-stream");
-	reply = accessManager->get(request);
+	reply = accessmgr->get(request);
 
 	connect((QObject *)reply, SIGNAL(readyRead()), this, SLOT(readContent()));
-	connect(accessManager, &QNetworkAccessManager::finished, [&, path, exec](QNetworkReply*) {
+	connect(accessmgr, &QNetworkAccessManager::finished, [&, Run, type, path, exe](QNetworkReply*) {
 		if (reply->error() != QNetworkReply::NoError) {
 			QMessageBox::critical(NULL, tr("Error"), tr("Download failed, err:%1").arg(reply->error()));
 			ui.progressBar->setValue(0);
 			ui.progressBar->setMaximum(100);
 			file->close();
 			DeleteFileW(QToWStr(path).c_str());
+			pending = false;
 			return;
 		}
 		reply->deleteLater();
@@ -136,10 +199,14 @@ void Reverse::DownloadAndExecuteFile(QString path, QString exec, QString url)
 		auto filepath = path.toStdString();
 		auto dir = UNONE::FsPathToDirA(filepath);
 		ZipUtils::UnpackToDir(filepath, ZipUtils::UNPACK_CURRENT, dir);
-		
-		//Execute
-		ShellRun(exec, "");
+	
+		//Run
+		Run(type, exe);
 
+		//Clean
+		DeleteFileA(filepath.c_str());
+
+		pending = false;
 	});
 	connect(reply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(onProgress(qint64, qint64)));
 }
@@ -157,11 +224,13 @@ void Reverse::onProgress(qint64 bytesSent, qint64 bytesTotal)
 
 void Reverse::InitWinReverseToolsView()
 {
-	connect(ui.procexpBtn, SIGNAL(clicked()), this, SLOT(onExecute()));
-	connect(ui.procmonBtn, SIGNAL(clicked()), this, SLOT(onExecute()));
-	connect(ui.winobjBtn, SIGNAL(clicked()), this, SLOT(onExecute()));
-	connect(ui.pchunterBtn, SIGNAL(clicked()), this, SLOT(onExecute()));
-	connect(ui.winspyBtn, SIGNAL(clicked()), this, SLOT(onExecute()));
-	connect(ui.dbgviewBtn, SIGNAL(clicked()), this, SLOT(onExecute()));
-	connect(ui.hxdBtn, SIGNAL(clicked()), this, SLOT(onExecute()));
+	QList<QPushButton*> buttons = ui.groupBox->findChildren<QPushButton*>();
+	for (auto &btn : buttons) {
+		connect(btn, SIGNAL(clicked()), this, SLOT(onExecute()));
+	}
+
+	connect(ui.toolsfolderBtn, &QPushButton::clicked, [] {
+		auto folder = AppConfigDir() + L"\\files";
+		ShellRun(WStrToQ(folder), "");
+	});
 }

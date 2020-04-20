@@ -583,3 +583,17 @@ bool OsFastPoweroff()
 	}
 	return true;
 }
+#define INVALID_PID -1
+DWORD PsGetPidByWindowW(wchar_t *cls, wchar_t *title)
+{
+	DWORD pid = INVALID_PID;
+	HWND wnd = FindWindowW(cls, title);
+	if (wnd != NULL) {
+		GetWindowThreadProcessId(wnd, &pid);
+	}
+	return pid;
+}
+DWORD OsGetExplorerPid()
+{
+	return PsGetPidByWindowW(L"Progman", L"Program Manager");
+}

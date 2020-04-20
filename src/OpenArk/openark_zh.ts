@@ -863,19 +863,19 @@ appurl: %3</source>
     </message>
     <message>
         <location filename="ui/openark.ui" line="85"/>
-        <location filename="ui/openark.ui" line="423"/>
+        <location filename="ui/openark.ui" line="431"/>
         <source>CoderKit</source>
         <translation type="unfinished">编程助手</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="90"/>
-        <location filename="ui/openark.ui" line="428"/>
+        <location filename="ui/openark.ui" line="436"/>
         <source>Scanner</source>
         <translation type="unfinished">扫描器</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="95"/>
-        <location filename="ui/openark.ui" line="438"/>
+        <location filename="ui/openark.ui" line="446"/>
         <source>Bundler</source>
         <translation type="unfinished">捆绑器</translation>
     </message>
@@ -1005,7 +1005,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ui/openark.ui" line="358"/>
         <location filename="ui/openark.ui" line="361"/>
-        <location filename="ui/openark.ui" line="380"/>
+        <location filename="ui/openark.ui" line="384"/>
         <source>Project on Github</source>
         <translation type="unfinished">Github开源项目</translation>
     </message>
@@ -1015,77 +1015,77 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">关于OpenArk</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="375"/>
+        <location filename="ui/openark.ui" line="379"/>
         <source>Check for Updates...</source>
         <translation type="unfinished">检查更新...</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="385"/>
+        <location filename="ui/openark.ui" line="393"/>
         <source>Manuals</source>
         <translation type="unfinished">文档手册</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="394"/>
+        <location filename="ui/openark.ui" line="402"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">刷新(&amp;R)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="397"/>
+        <location filename="ui/openark.ui" line="405"/>
         <source>F5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="406"/>
+        <location filename="ui/openark.ui" line="414"/>
         <source>&amp;Save</source>
         <translation type="unfinished">保存(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="409"/>
+        <location filename="ui/openark.ui" line="417"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="418"/>
+        <location filename="ui/openark.ui" line="426"/>
         <source>&amp;Settings</source>
         <translation type="unfinished">设置(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="467"/>
+        <location filename="ui/openark.ui" line="475"/>
         <source>&amp;Module</source>
         <translation type="unfinished">模块(&amp;M)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="470"/>
+        <location filename="ui/openark.ui" line="478"/>
         <source>Open Module Window</source>
         <translation type="unfinished">打开模块列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="482"/>
+        <location filename="ui/openark.ui" line="490"/>
         <source>&amp;Handle</source>
         <translation type="unfinished">句柄(&amp;H)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="485"/>
+        <location filename="ui/openark.ui" line="493"/>
         <source>Open Handle Window</source>
         <translation type="unfinished">打开句柄列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="497"/>
+        <location filename="ui/openark.ui" line="505"/>
         <source>&amp;Memory</source>
         <translation type="unfinished">内存(&amp;M)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="500"/>
+        <location filename="ui/openark.ui" line="508"/>
         <source>Open Memory Window</source>
         <translation type="unfinished">打开内存列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="508"/>
+        <location filename="ui/openark.ui" line="516"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="516"/>
+        <location filename="ui/openark.ui" line="524"/>
         <source>简体中文</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1094,22 +1094,22 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">编程助手</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="433"/>
+        <location filename="ui/openark.ui" line="441"/>
         <source>C&amp;leaner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="447"/>
+        <location filename="ui/openark.ui" line="455"/>
         <source>&amp;Allways On Top</source>
         <translation type="unfinished">置顶(&amp;A)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="452"/>
+        <location filename="ui/openark.ui" line="460"/>
         <source>Reset</source>
         <translation type="unfinished">重置</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="455"/>
+        <location filename="ui/openark.ui" line="463"/>
         <source>Reset Window</source>
         <translation type="unfinished">重置窗口</translation>
     </message>
@@ -1726,62 +1726,243 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Windows平台</translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="41"/>
         <source>Common</source>
-        <translation type="unfinished">常用</translation>
+        <translation type="obsolete">常用</translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="53"/>
+        <location filename="ui/reverse.ui" line="47"/>
+        <source>Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="59"/>
         <source>Procexp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="70"/>
+        <location filename="ui/reverse.ui" line="76"/>
         <source>Procmon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="87"/>
+        <location filename="ui/reverse.ui" line="93"/>
         <source>Winobj</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="104"/>
+        <location filename="ui/reverse.ui" line="110"/>
         <source>Dbgview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="121"/>
+        <location filename="ui/reverse.ui" line="127"/>
         <source>HxD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="138"/>
+        <location filename="ui/reverse.ui" line="144"/>
         <source>PCHunter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="155"/>
+        <location filename="ui/reverse.ui" line="161"/>
+        <source>APIMonitor32</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="178"/>
+        <source>Notepad++</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="195"/>
+        <source>010Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="212"/>
         <source>WinSpy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="187"/>
+        <location filename="ui/reverse.ui" line="229"/>
+        <source>Windbg *32</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="246"/>
+        <source>IDA *32</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="263"/>
+        <source>x64dbg *32</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="280"/>
+        <source>OllyICE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="297"/>
+        <source>ExeinfoPe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="314"/>
+        <source>ResHacker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="331"/>
+        <source>Winhex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="348"/>
+        <source>Windbg *64</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="365"/>
+        <source>x64dbg *64</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="382"/>
+        <source>IDA *64</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="399"/>
+        <source>OD 52pj</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="416"/>
+        <source>HCD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="433"/>
+        <source>Cheat Engine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="450"/>
+        <source>Fiddler 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="467"/>
+        <source>Everything</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="484"/>
+        <source>Spy++ *32</source>
+        <oldsource>Spy++</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="501"/>
+        <source>Teamviewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="518"/>
+        <source>AnyDesk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="535"/>
+        <source>Sunlogin</source>
+        <translation type="unfinished">向日葵</translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="552"/>
+        <source>PEID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="569"/>
+        <source>Sysinternals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="586"/>
+        <source>CFF Explorer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="603"/>
+        <source>NirSoft</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="620"/>
+        <source>Radare</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="637"/>
+        <source>APIMonitor64</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="654"/>
+        <source>OllyDBG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="671"/>
+        <source>Spy++ *64</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="688"/>
+        <source>Wireshark v1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="705"/>
+        <source>Wireshark v3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="722"/>
+        <source>Fiddler 4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="751"/>
+        <source>ToolsFolder</source>
+        <translation type="unfinished">工具目录</translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="761"/>
         <source>Placeholder</source>
         <translation type="unfinished">空白占位</translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="199"/>
+        <location filename="ui/reverse.ui" line="773"/>
         <source>It&apos;s a placeholder used for future.</source>
-        <translation type="unfinished">这是一个占位，为后续的功能更新。</translation>
+        <translation type="unfinished">这是一个占位，用于后续功能更新。</translation>
     </message>
     <message>
-        <location filename="reverse/reverse.cpp" line="121"/>
+        <location filename="reverse/reverse.cpp" line="159"/>
+        <location filename="reverse/reverse.cpp" line="178"/>
         <source>Error</source>
         <translation type="unfinished">错误</translation>
     </message>
     <message>
-        <location filename="reverse/reverse.cpp" line="121"/>
+        <location filename="reverse/reverse.cpp" line="159"/>
+        <source>Download pending, wait for a while...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="reverse/reverse.cpp" line="178"/>
         <source>Download failed, err:%1</source>
         <translation type="unfinished">下载失败，错误:%1</translation>
     </message>
@@ -2326,67 +2507,77 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">环境变量</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="354"/>
+        <location filename="ui/utilities.ui" line="347"/>
+        <source>KillExplorer </source>
+        <translation type="unfinished">结束资源管理器</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="364"/>
+        <source>ResetExplorer</source>
+        <translation type="unfinished">重启资源管理器</translation>
+    </message>
+    <message>
+        <location filename="ui/utilities.ui" line="388"/>
         <source>Diskmgr</source>
         <translation type="unfinished">磁盘管理</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="371"/>
+        <location filename="ui/utilities.ui" line="405"/>
         <source>DateTime</source>
         <translation type="unfinished">时间日期</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="388"/>
+        <location filename="ui/utilities.ui" line="422"/>
         <source>DeskIcon</source>
         <translation type="unfinished">桌面图标</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="405"/>
+        <location filename="ui/utilities.ui" line="439"/>
         <source>OS Version</source>
         <translation type="unfinished">系统版本</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="456"/>
+        <location filename="ui/utilities.ui" line="490"/>
         <source>Devices</source>
         <translation type="unfinished">设备管理</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="473"/>
+        <location filename="ui/utilities.ui" line="507"/>
         <source>Tasks</source>
         <translation type="unfinished">计划任务</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="514"/>
+        <location filename="ui/utilities.ui" line="548"/>
         <source>ResourceMon</source>
         <translation type="unfinished">资源监视</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="548"/>
+        <location filename="ui/utilities.ui" line="582"/>
         <source>PerfConfig</source>
         <translation type="unfinished">性能设置</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="565"/>
+        <location filename="ui/utilities.ui" line="599"/>
         <source>Powers</source>
         <translation type="unfinished">电源设置</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="599"/>
+        <location filename="ui/utilities.ui" line="633"/>
         <source>UserGroups</source>
         <translation type="unfinished">用户管理</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="650"/>
+        <location filename="ui/utilities.ui" line="684"/>
         <source>Secur Policy</source>
         <translation type="unfinished">安全策略</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="708"/>
+        <location filename="ui/utilities.ui" line="742"/>
         <source>Proxy</source>
         <translation type="unfinished">代理设置</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="725"/>
+        <location filename="ui/utilities.ui" line="759"/>
         <source>NetConnections</source>
         <translation type="unfinished">网络连接</translation>
     </message>
@@ -2422,16 +2613,18 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="ui/utilities.ui" line="313"/>
-        <source>FastPoweroff</source>
+        <source>FastPoweroff </source>
+        <oldsource>FastPoweroff</oldsource>
         <translation type="unfinished">快速关机</translation>
     </message>
     <message>
         <location filename="ui/utilities.ui" line="330"/>
-        <source>FastReboot</source>
+        <source>FastReboot   </source>
+        <oldsource>FastReboot</oldsource>
         <translation type="unfinished">快速重启</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="342"/>
+        <location filename="ui/utilities.ui" line="376"/>
         <source>Configuration</source>
         <translation type="unfinished">配置</translation>
     </message>
@@ -2452,12 +2645,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">系统版本</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="422"/>
+        <location filename="ui/utilities.ui" line="456"/>
         <source>SystemInfo</source>
         <translation type="unfinished">系统信息</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="439"/>
+        <location filename="ui/utilities.ui" line="473"/>
         <source>Wallpaper</source>
         <translation type="unfinished">墙纸</translation>
     </message>
@@ -2470,12 +2663,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">计划任务</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="485"/>
+        <location filename="ui/utilities.ui" line="519"/>
         <source>Performance &amp;&amp; Security</source>
         <translation type="unfinished">性能和安全</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="497"/>
+        <location filename="ui/utilities.ui" line="531"/>
         <source>Performance</source>
         <translation type="unfinished">性能监视</translation>
     </message>
@@ -2484,7 +2677,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">资源监视</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="531"/>
+        <location filename="ui/utilities.ui" line="565"/>
         <source>UAC Settings</source>
         <translation type="unfinished">UAC设置</translation>
     </message>
@@ -2497,7 +2690,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">电源设置</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="582"/>
+        <location filename="ui/utilities.ui" line="616"/>
         <source>Group Policy</source>
         <translation type="unfinished">组策略</translation>
     </message>
@@ -2506,12 +2699,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">用户和组</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="616"/>
+        <location filename="ui/utilities.ui" line="650"/>
         <source>Credential</source>
         <translation type="unfinished">凭据管理</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="633"/>
+        <location filename="ui/utilities.ui" line="667"/>
         <source>Certificate</source>
         <translation type="unfinished">证书管理</translation>
     </message>
@@ -2520,17 +2713,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">安全策略</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="667"/>
+        <location filename="ui/utilities.ui" line="701"/>
         <source>Event Viewer</source>
         <translation type="unfinished">事件查看</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="679"/>
+        <location filename="ui/utilities.ui" line="713"/>
         <source>Network</source>
         <translation type="unfinished">网络</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="691"/>
+        <location filename="ui/utilities.ui" line="725"/>
         <source>Firewall</source>
         <translation type="unfinished">防火墙</translation>
     </message>
@@ -2543,27 +2736,27 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">网络连接</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="742"/>
+        <location filename="ui/utilities.ui" line="776"/>
         <source>Hosts</source>
         <translation type="unfinished">Hosts文件</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="759"/>
+        <location filename="ui/utilities.ui" line="793"/>
         <source>IP v4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="776"/>
+        <location filename="ui/utilities.ui" line="810"/>
         <source>IP v6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="793"/>
+        <location filename="ui/utilities.ui" line="827"/>
         <source>Route</source>
         <translation type="unfinished">路由表</translation>
     </message>
     <message>
-        <location filename="ui/utilities.ui" line="810"/>
+        <location filename="ui/utilities.ui" line="844"/>
         <source>Shared Folders</source>
         <translation type="unfinished">共享文件夹</translation>
     </message>
@@ -2608,18 +2801,18 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">[状态] 清理完成...</translation>
     </message>
     <message>
-        <location filename="utilities/utilities.cpp" line="358"/>
-        <location filename="utilities/utilities.cpp" line="364"/>
+        <location filename="utilities/utilities.cpp" line="370"/>
+        <location filename="utilities/utilities.cpp" line="376"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="utilities/utilities.cpp" line="358"/>
+        <location filename="utilities/utilities.cpp" line="370"/>
         <source>Are you sure to reboot?</source>
         <translation type="unfinished">确定要重启电脑吗？</translation>
     </message>
     <message>
-        <location filename="utilities/utilities.cpp" line="364"/>
+        <location filename="utilities/utilities.cpp" line="376"/>
         <source>Are you sure to poweroff?</source>
         <translation type="unfinished">确定要关机吗？</translation>
     </message>

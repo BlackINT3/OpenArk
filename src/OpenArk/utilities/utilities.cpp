@@ -342,6 +342,18 @@ void Utilities::InitCleanerView()
 
 }
 
+bool PsKillProcess(__in DWORD pid)
+{
+	bool result = false;
+	HANDLE phd = OpenProcess(PROCESS_TERMINATE, FALSE, pid);
+	if (phd) {
+		if (TerminateProcess(phd, 1))
+			result = true;
+		CloseHandle(phd);
+	}
+	return result;
+
+}
 void Utilities::InitSystemToolsView()
 {
 	connect(ui.cmdBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k cd /d %userprofile%"); });
@@ -366,7 +378,18 @@ void Utilities::InitSystemToolsView()
 			OsFastPoweroff();
 		}
 	});
-
+	connect(ui.resetexplorerBtn, &QPushButton::clicked, [&] {
+		auto pid = OsGetExplorerPid();
+		auto path = UNONE::OsWinDirW() + L"\\explorer.exe";
+		if (pid != -1) {
+			PsKillProcess(pid);
+		}
+		UNONE::PsCreateProcessW(path);
+	});
+	connect(ui.killexplorerBtn, &QPushButton::clicked, [&] {
+		auto pid = OsGetExplorerPid();
+		PsKillProcess(pid);
+	});
 
 	connect(ui.sysinfoBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c systeminfo |more & pause"); });
 	connect(ui.datetimeBtn, &QPushButton::clicked, [] {ShellRun("control.exe", "date/time"); });
@@ -397,9 +420,9 @@ void Utilities::InitSystemToolsView()
 	connect(ui.proxyBtn, &QPushButton::clicked, [] {ShellRun("rundll32.exe", "shell32.dll,Control_RunDLL inetcpl.cpl,,4"); });
 	connect(ui.netconnBtn, &QPushButton::clicked, [] {ShellRun("control.exe", "ncpa.cpl"); });
 	connect(ui.hostsBtn, &QPushButton::clicked, [&] {ShellRun("notepad.exe", WStrToQ(UNONE::OsSystem32DirW() + L"\\drivers\\etc\\hosts")); });
-	connect(ui.ipv4Btn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c ipconfig|findstr /i ipv4 & pause"); });
-	connect(ui.ipv6Btn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c ipconfig|findstr /i ipv6 & pause"); });
-	connect(ui.routeBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c route print & pause"); });
+	connect(ui.ipv4Btn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k ipconfig|findstr /i ipv4"); });
+	connect(ui.ipv6Btn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k ipconfig|findstr /i ipv6"); });
+	connect(ui.routeBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k route print"); });
 	connect(ui.sharedBtn, &QPushButton::clicked, [] {ShellRun("fsmgmt.msc", ""); });
 }
 
