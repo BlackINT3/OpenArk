@@ -191,6 +191,7 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="actionRun"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="actionExport"/>
@@ -522,6 +523,18 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>简体中文</string>
+   </property>
+  </action>
+  <action name="actionRun">
+   <property name="icon">
+    <iconset resource="../res/openark.qrc">
+     <normaloff>:/OpenArk/main/run.ico</normaloff>:/OpenArk/main/run.ico</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Run</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
  </widget>

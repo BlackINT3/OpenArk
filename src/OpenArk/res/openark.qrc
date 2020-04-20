@@ -100,5 +100,6 @@
         <file>revtools/winhex.ico</file>
         <file>revtools/wireshark.ico</file>
         <file>revtools/everything.ico</file>
+        <file>main/run.ico</file>
     </qresource>
 </RCC>

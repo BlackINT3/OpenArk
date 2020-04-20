@@ -798,17 +798,17 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Github开源项目</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="251"/>
+        <location filename="openark/openark.cpp" line="252"/>
         <source>Open File</source>
         <translation type="unfinished">打开文件</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="251"/>
+        <location filename="openark/openark.cpp" line="252"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="387"/>
+        <location filename="openark/openark.cpp" line="388"/>
         <source>Found new version, app should be updated.
 appver: %1
 appbd: %2
@@ -819,37 +819,37 @@ appurl: %3</source>
 下载地址:%3</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="392"/>
+        <location filename="openark/openark.cpp" line="393"/>
         <source>App Updates</source>
         <translation type="unfinished">程序更新</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="398"/>
+        <location filename="openark/openark.cpp" line="399"/>
         <source>OpenArk is latest.</source>
         <translation type="unfinished">OpenArk是最新版本.</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="417"/>
+        <location filename="openark/openark.cpp" line="418"/>
         <source>Language changed ok, did you restart application now?</source>
         <translation type="unfinished">语言设置成功，现在是否重启进程？</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="420"/>
+        <location filename="openark/openark.cpp" line="421"/>
         <source>Information</source>
         <translation type="unfinished">信息</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="470"/>
+        <location filename="openark/openark.cpp" line="471"/>
         <source>History</source>
         <translation type="unfinished">历史记录</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="471"/>
+        <location filename="openark/openark.cpp" line="472"/>
         <source>Helps</source>
         <translation type="unfinished">帮助</translation>
     </message>
     <message>
-        <location filename="openark/openark.cpp" line="472"/>
+        <location filename="openark/openark.cpp" line="473"/>
         <source>Clear</source>
         <translation type="unfinished">清空</translation>
     </message>
@@ -863,19 +863,19 @@ appurl: %3</source>
     </message>
     <message>
         <location filename="ui/openark.ui" line="85"/>
-        <location filename="ui/openark.ui" line="431"/>
+        <location filename="ui/openark.ui" line="432"/>
         <source>CoderKit</source>
         <translation type="unfinished">编程助手</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="90"/>
-        <location filename="ui/openark.ui" line="436"/>
+        <location filename="ui/openark.ui" line="437"/>
         <source>Scanner</source>
         <translation type="unfinished">扫描器</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="95"/>
-        <location filename="ui/openark.ui" line="446"/>
+        <location filename="ui/openark.ui" line="447"/>
         <source>Bundler</source>
         <translation type="unfinished">捆绑器</translation>
     </message>
@@ -905,28 +905,28 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">文件(&amp;F)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="201"/>
+        <location filename="ui/openark.ui" line="202"/>
         <source>&amp;View</source>
         <translation type="unfinished">视图(&amp;V)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="210"/>
+        <location filename="ui/openark.ui" line="211"/>
         <source>&amp;Options</source>
         <translation type="unfinished">选项(&amp;O)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="224"/>
+        <location filename="ui/openark.ui" line="225"/>
         <source>&amp;Plugins</source>
         <translation type="unfinished">插件(&amp;P)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="244"/>
+        <location filename="ui/openark.ui" line="245"/>
         <source>&amp;Window</source>
         <oldsource>Window</oldsource>
         <translation type="unfinished">窗口(&amp;W)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="233"/>
+        <location filename="ui/openark.ui" line="234"/>
         <source>&amp;Help</source>
         <oldsource>Help</oldsource>
         <translation type="unfinished">帮助(&amp;H)</translation>
@@ -947,146 +947,156 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">实用工具</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="214"/>
+        <location filename="ui/openark.ui" line="215"/>
         <source>&amp;Language</source>
         <translation type="unfinished">语言(&amp;L)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="256"/>
+        <location filename="ui/openark.ui" line="257"/>
         <source>toolBar</source>
         <translation type="unfinished">工具栏</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="299"/>
+        <location filename="ui/openark.ui" line="300"/>
         <source>&amp;Console</source>
         <translation type="unfinished">控制台(&amp;C)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="302"/>
+        <location filename="ui/openark.ui" line="303"/>
         <source>Open Console Window</source>
         <translation type="unfinished">打开控制台窗口</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="305"/>
+        <location filename="ui/openark.ui" line="306"/>
         <source>Alt+Shift+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="314"/>
+        <location filename="ui/openark.ui" line="315"/>
         <source>&amp;Open</source>
         <translation type="unfinished">打开(&amp;O)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="317"/>
+        <location filename="ui/openark.ui" line="318"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="322"/>
+        <location filename="ui/openark.ui" line="323"/>
         <source>Ex&amp;port</source>
         <translation type="unfinished">导出(&amp;P)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="331"/>
+        <location filename="ui/openark.ui" line="332"/>
         <source>&amp;Exit</source>
         <oldsource>Exit</oldsource>
         <translation type="unfinished">退出(&amp;E)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="336"/>
+        <location filename="ui/openark.ui" line="337"/>
         <source>Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="341"/>
+        <location filename="ui/openark.ui" line="342"/>
         <source>HelloCoder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="358"/>
-        <location filename="ui/openark.ui" line="361"/>
-        <location filename="ui/openark.ui" line="384"/>
+        <location filename="ui/openark.ui" line="359"/>
+        <location filename="ui/openark.ui" line="362"/>
+        <location filename="ui/openark.ui" line="385"/>
         <source>Project on Github</source>
         <translation type="unfinished">Github开源项目</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="370"/>
+        <location filename="ui/openark.ui" line="371"/>
         <source>About OpenArk</source>
         <translation type="unfinished">关于OpenArk</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="379"/>
+        <location filename="ui/openark.ui" line="380"/>
         <source>Check for Updates...</source>
         <translation type="unfinished">检查更新...</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="393"/>
+        <location filename="ui/openark.ui" line="394"/>
         <source>Manuals</source>
         <translation type="unfinished">文档手册</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="402"/>
+        <location filename="ui/openark.ui" line="403"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">刷新(&amp;R)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="405"/>
+        <location filename="ui/openark.ui" line="406"/>
         <source>F5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="414"/>
+        <location filename="ui/openark.ui" line="415"/>
         <source>&amp;Save</source>
         <translation type="unfinished">保存(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="417"/>
+        <location filename="ui/openark.ui" line="418"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="426"/>
+        <location filename="ui/openark.ui" line="427"/>
         <source>&amp;Settings</source>
         <translation type="unfinished">设置(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="475"/>
+        <location filename="ui/openark.ui" line="476"/>
         <source>&amp;Module</source>
         <translation type="unfinished">模块(&amp;M)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="478"/>
+        <location filename="ui/openark.ui" line="479"/>
         <source>Open Module Window</source>
         <translation type="unfinished">打开模块列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="490"/>
+        <location filename="ui/openark.ui" line="491"/>
         <source>&amp;Handle</source>
         <translation type="unfinished">句柄(&amp;H)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="493"/>
+        <location filename="ui/openark.ui" line="494"/>
         <source>Open Handle Window</source>
         <translation type="unfinished">打开句柄列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="505"/>
+        <location filename="ui/openark.ui" line="506"/>
         <source>&amp;Memory</source>
         <translation type="unfinished">内存(&amp;M)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="508"/>
+        <location filename="ui/openark.ui" line="509"/>
         <source>Open Memory Window</source>
         <translation type="unfinished">打开内存列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="516"/>
+        <location filename="ui/openark.ui" line="517"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="524"/>
+        <location filename="ui/openark.ui" line="525"/>
         <source>简体中文</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/openark.ui" line="534"/>
+        <source>&amp;Run</source>
+        <translation type="unfinished">运行(&amp;R)</translation>
+    </message>
+    <message>
+        <location filename="ui/openark.ui" line="537"/>
+        <source>Ctrl+R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1094,22 +1104,22 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">编程助手</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="441"/>
+        <location filename="ui/openark.ui" line="442"/>
         <source>C&amp;leaner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="455"/>
+        <location filename="ui/openark.ui" line="456"/>
         <source>&amp;Allways On Top</source>
         <translation type="unfinished">置顶(&amp;A)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="460"/>
+        <location filename="ui/openark.ui" line="461"/>
         <source>Reset</source>
         <translation type="unfinished">重置</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="463"/>
+        <location filename="ui/openark.ui" line="464"/>
         <source>Reset Window</source>
         <translation type="unfinished">重置窗口</translation>
     </message>
@@ -1951,18 +1961,18 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">这是一个占位，用于后续功能更新。</translation>
     </message>
     <message>
-        <location filename="reverse/reverse.cpp" line="159"/>
-        <location filename="reverse/reverse.cpp" line="178"/>
+        <location filename="reverse/reverse.cpp" line="167"/>
+        <location filename="reverse/reverse.cpp" line="186"/>
         <source>Error</source>
         <translation type="unfinished">错误</translation>
     </message>
     <message>
-        <location filename="reverse/reverse.cpp" line="159"/>
+        <location filename="reverse/reverse.cpp" line="167"/>
         <source>Download pending, wait for a while...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="reverse/reverse.cpp" line="178"/>
+        <location filename="reverse/reverse.cpp" line="186"/>
         <source>Download failed, err:%1</source>
         <translation type="unfinished">下载失败，错误:%1</translation>
     </message>

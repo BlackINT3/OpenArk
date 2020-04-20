@@ -120,6 +120,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	}
 	connect(langs, SIGNAL(triggered(QAction*)), this, SLOT(onActionLanguage(QAction*)));
 
+	connect(ui.actionRun, &QAction::triggered, this, [=]() { UNONE::PsCreateProcessW(L"rundll32.exe shell32.dll,#61"); });
 	connect(ui.actionExit, &QAction::triggered, this, [=]() { QApplication::quit(); });
 	connect(ui.actionAbout, SIGNAL(triggered(bool)), this, SLOT(onActionAbout(bool)));
 	connect(ui.actionSettings, SIGNAL(triggered(bool)), this, SLOT(onActionSettings(bool)));
