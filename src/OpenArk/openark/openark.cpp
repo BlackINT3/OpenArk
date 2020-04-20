@@ -189,7 +189,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	ActivateTab(main_idx);
 
 	chkupt_timer_ = new QTimer();
-	chkupt_timer_->setInterval(100);
+	chkupt_timer_->setInterval(1000);
 	chkupt_timer_->start();
 	connect(chkupt_timer_, &QTimer::timeout, this, [&]() {
 		onActionCheckUpdate(false);
