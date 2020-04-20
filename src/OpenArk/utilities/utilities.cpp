@@ -24,8 +24,8 @@ struct {
 	int s = 0;
 	int dir = s++;
 	int filecnt = s++;
-	int sumsize = s++;
 	int detail = s++;
+	int sumsize = s++;
 } JUNKS;
 bool JunksSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
@@ -107,7 +107,7 @@ void Utilities::onOpJunkfiles(int op, JunkCluster cluster)
 	dir_item->setCheckable(true);
 	dir_item->setCheckState(Qt::Checked);
 	QStandardItem *filecnt_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", filecnt)));
-	QStandardItem *sumsize_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%lld", sumsize)));
+	QStandardItem *sumsize_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%lld B", sumsize)));
 	QStandardItem *detail_item;
 	if (sumsize > GB) {
 		detail_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%.2f GB", (double)sumsize / GB)));
@@ -123,7 +123,19 @@ void Utilities::onOpJunkfiles(int op, JunkCluster cluster)
 	junks_model_->setItem(seq, JUNKS.sumsize, sumsize_item);
 	junks_model_->setItem(seq, JUNKS.detail, detail_item);
 
-	ui.fileLabel->setText(items.first().path);
+	if (items.size() > 0) {
+		auto path = items.first().path;
+		int maxcnt = 65;
+		int ellipsis = 5;
+		if (path.size() > maxcnt) {
+			int s1 = (maxcnt - ellipsis) / 2;
+			auto p1 = path.mid(0, s1);
+			auto p2 = QString(".").repeated(ellipsis);
+			auto p3 = path.right(s1);
+			path = p1 + p2 + p3;
+		}
+		ui.fileLabel->setText(path);
+	}
 }
 
 void Utilities::onAppendJunkfiles(JunkCluster cluster)
@@ -179,13 +191,14 @@ void ScanJunksThread::run()
 
 	std::function<bool(wchar_t*, wchar_t*, void*)> ScanCallbackCustom;
 
-	QStringList clear_suffixes_list = custom_suffex_.split(",");
+	QStringList clear_suffixes_list = custom_suffex_.split(QRegExp("[,;]"));
 	ScanCallbackCustom = [&](wchar_t* path, wchar_t* name, void* param)->bool {
 		if (UNONE::FsIsDirW(path)) {
 			UNONE::FsEnumDirectoryW(path, ScanCallbackCustom, param);
 		}
 		QFileInfo file_info = QFileInfo(WCharsToQ(path));
-		if (clear_suffixes_list.contains(file_info.suffix(), Qt::CaseInsensitive)){
+		QString suffix = "." + file_info.suffix();
+		if (custom_suffex_.isEmpty() || clear_suffixes_list.contains(suffix, Qt::CaseInsensitive)){
 			JunkItem item;
 			item.name = WCharsToQ(name);
 			item.path = WCharsToQ(path);
@@ -198,30 +211,34 @@ void ScanJunksThread::run()
 		return true;
 	};
 	junks_cluster_.clear();
-	if (is_custom_scan_){
-		for (int i = 0; i < custom_path_.size(); i++)
+	if (is_custom_scan_) {
+		for (int i = 0; i < custom_path_.size(); i++) {
+			SendToUI(custom_path_[i]);
 			UNONE::FsEnumDirectoryW(custom_path_[i].toStdWString(), ScanCallbackCustom, &custom_path_[i]);
-	}
-	auto &&junkdirs = OpenArkConfig::Instance()->GetJunkDirs();
-	for (auto &dir : junkdirs) {
-		if (!UNONE::FsIsExistedW(dir.toStdWString())) continue;
-		UNONE::FsEnumDirectoryW(dir.toStdWString(), ScanCallback, &dir);
-		if (items.size() >= 0) {
-			SendToUI(dir);
 		}
 	}
-	// RecycleBin
-	SHQUERYRBINFO bi;
-	bi.cbSize = sizeof(SHQUERYRBINFO);
-	HRESULT hr = SHQueryRecycleBin(NULL, &bi);
-	if (hr == S_OK) {
-		items.clear();
-		auto nums = bi.i64NumItems;
-		while (nums--) {
-			JunkItem junk;
-			items.append(junk);
+	if (is_builtin_scan_) {
+		auto &&junkdirs = OpenArkConfig::Instance()->GetJunkDirs();
+		for (auto &dir : junkdirs) {
+			if (!UNONE::FsIsExistedW(dir.toStdWString())) continue;
+			UNONE::FsEnumDirectoryW(dir.toStdWString(), ScanCallback, &dir);
+			if (items.size() >= 0) {
+				SendToUI(dir);
+			}
 		}
-		SendToUI(RECYCLEBIN, bi.i64Size);
+		// RecycleBin
+		SHQUERYRBINFO bi;
+		bi.cbSize = sizeof(SHQUERYRBINFO);
+		HRESULT hr = SHQueryRecycleBin(NULL, &bi);
+		if (hr == S_OK) {
+			items.clear();
+			auto nums = bi.i64NumItems;
+			while (nums--) {
+				JunkItem junk;
+				items.append(junk);
+			}
+			SendToUI(RECYCLEBIN, bi.i64Size);
+		}
 	}
 }
 
@@ -264,7 +281,7 @@ void CleanJunksThread::run()
 void Utilities::InitCleanerView()
 {
 	junks_model_ = new QStandardItemModel;
-	junks_model_->setHorizontalHeaderLabels(QStringList() << tr("Directory") << tr("FileCount") << tr("SumSize") << tr("Detail"));
+	junks_model_->setHorizontalHeaderLabels(QStringList() << tr("Directory") << tr("FileCount") << tr("Detail") << tr("SumSize"));
 	QTreeView *view = ui.junksView;
 	proxy_junks_ = new JunksSortFilterProxyModel(view);
 	proxy_junks_->setSourceModel(junks_model_);
@@ -297,6 +314,7 @@ void Utilities::InitCleanerView()
 			});
 		}
 		scanjunks_thread_->is_custom_scan_ = (ui.customScanCheckBox->checkState() == Qt::Checked);
+		scanjunks_thread_->is_builtin_scan_ = (ui.builtinScanCheckBox->checkState() == Qt::Checked);
 		scanjunks_thread_->custom_path_ = OpenArkConfig::Instance()->GetValue("clean_path_list").toStringList();
 		scanjunks_thread_->custom_suffex_ = OpenArkConfig::Instance()->GetValue("clean_file_suffix").toString();
 		scanjunks_thread_->start(QThread::NormalPriority);

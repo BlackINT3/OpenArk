@@ -44,14 +44,11 @@ Settings::Settings(QWidget *parent)
 		ui.listWidget_path->addItem(path_list[i]);
 
 	connect(ui.add_path_btn, &QPushButton::clicked, [this]() {
-		QFileDialog dlg(this);
-		dlg.setAcceptMode(QFileDialog::AcceptOpen);
-		dlg.setFileMode(QFileDialog::Directory);
-		if (dlg.exec()) {
-			QString path = dlg.directory().absolutePath();
-			if (!path.isEmpty())
-				ui.listWidget_path->addItem(path);
-		}
+		QString folder = QFileDialog::getExistingDirectory(this, tr("Open Folder"), "");
+		if (folder.isEmpty()) return;
+		QString path = folder.replace("/", "\\");
+		if (!path.isEmpty())
+			ui.listWidget_path->addItem(path);
 	});
 
 	connect(ui.del_path_btn, &QPushButton::clicked, [this]() {

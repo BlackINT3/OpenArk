@@ -51,6 +51,7 @@ protected:
 public:
 	QList<JunkCluster> junks_cluster_;
 	bool is_custom_scan_ = false;
+	bool is_builtin_scan_ = false;
 	QStringList custom_path_;
 	QString custom_suffex_;
 };
