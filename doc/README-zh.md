@@ -12,10 +12,9 @@
 * [英文说明](https://github.com/BlackINT3/OpenArk/blob/master/README.md)
 
 &ensp;&ensp;OpenArk是一款Windows平台上的开源Ark工具. Ark是Anti-Rootkit（对抗恶意程序）的简写, OpenArk目标成为逆向工程师、编程人员的工具，同时也能为那些希望清理恶意软件的用户服务。以后也将会支持更多功能和命令。
-
+![image](resources/snapshot-zh-v106.png)
 ![image](resources/snapshot-zh-01.png)
 ![image](resources/snapshot-zh-02.png)
-![image](resources/snapshot-zh-03.png)
 
 ### 功能
 * 进程 - 查看进程、线程、模块、句柄、内存、窗口等信息，提供进程注入器等功能。
