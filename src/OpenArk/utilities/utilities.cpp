@@ -57,11 +57,6 @@ Utilities::~Utilities()
 	scanjunks_thread_ = nullptr;
 }
 
-void Utilities::ActivateTab(int idx)
-{
-	ui.tabWidget->setCurrentIndex(idx);
-}
-
 void Utilities::RecordAppServer(const QString &svr)
 {
 	app_server_ = svr;

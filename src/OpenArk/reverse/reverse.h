@@ -38,7 +38,8 @@ public:
 	~Reverse();
 
 public:
-	void ActivateTab(int idx);
+	Q_INVOKABLE int GetActiveTab() { return ui.tabWidget->currentIndex(); };
+	Q_INVOKABLE void SetActiveTab(int idx) { ui.tabWidget->setCurrentIndex(idx); };
 
 private slots:
 	void onTabChanged(int index);

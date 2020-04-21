@@ -86,11 +86,6 @@ Kernel::~Kernel()
 {
 }
 
-void Kernel::ActivateTab(int idx)
-{
-	ui.tabWidget->setCurrentIndex(idx);
-}
-
 bool Kernel::eventFilter(QObject *obj, QEvent *e)
 {
 	bool filtered = false;
@@ -322,7 +317,7 @@ void Kernel::InitDriversView()
 		ClipboardCopyData(DriversItemData(GetCurViewColumn(ui.driverView)).toStdString());
 	});
 	drivers_menu_->addAction(tr("Sendto Scanner"), this, [&] {
-		parent_->ActivateTab(TAB_SCANNER);
+		parent_->SetActiveTab(TAB_SCANNER);
 		emit signalOpen(DriversItemData(DRV.path));
 	});
 	drivers_menu_->addAction(tr("Explore File"), this, [&] {
@@ -399,7 +394,7 @@ void Kernel::InitNotifyView()
 		ClipboardCopyData(NotifyItemData(GetCurViewColumn(ui.driverView)).toStdString());
 	});
 	notify_menu_->addAction(tr("Sendto Scanner"), this, [&] {
-		parent_->ActivateTab(TAB_SCANNER);
+		parent_->SetActiveTab(TAB_SCANNER);
 		emit signalOpen(NotifyItemData(NOTIFY.path));
 	});
 	notify_menu_->addAction(tr("Explore File"), this, [&] {

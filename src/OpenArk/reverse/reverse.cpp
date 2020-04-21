@@ -96,11 +96,6 @@ Reverse::~Reverse()
 {
 }
 
-void Reverse::ActivateTab(int idx)
-{
-	ui.tabWidget->setCurrentIndex(idx);
-}
-
 void Reverse::onTabChanged(int index)
 {
 	OpenArkConfig::Instance()->SetPrefLevel2Tab(index);

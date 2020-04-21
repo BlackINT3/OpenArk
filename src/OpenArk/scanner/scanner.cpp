@@ -96,11 +96,6 @@ Scanner::~Scanner()
 {
 }
 
-void Scanner::ActivateTab(int idx)
-{
-	ui.tabWidget->setCurrentIndex(idx);
-}
-
 bool Scanner::eventFilter(QObject *obj, QEvent *e)
 {
 	if (obj == ui.headersView->viewport()) {

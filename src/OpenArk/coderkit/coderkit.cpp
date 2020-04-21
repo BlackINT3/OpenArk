@@ -93,11 +93,6 @@ CoderKit::~CoderKit()
 {
 }
 
-void CoderKit::ActivateTab(int idx)
-{
-	ui.tabWidget->setCurrentIndex(idx);
-}
-
 void CoderKit::onTabChanged(int index)
 {
 	OpenArkConfig::Instance()->SetPrefLevel2Tab(index);

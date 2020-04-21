@@ -37,7 +37,8 @@ public:
 	~Scanner();
 
 public:
-	void ActivateTab(int idx);
+	Q_INVOKABLE int GetActiveTab() { return ui.tabWidget->currentIndex(); };
+	Q_INVOKABLE void SetActiveTab(int idx) { ui.tabWidget->setCurrentIndex(idx); };
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *e);

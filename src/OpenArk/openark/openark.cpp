@@ -179,14 +179,14 @@ OpenArk::OpenArk(QWidget *parent) :
 	CreateTabPage(reverse, ui.tabReverse);
 
 	switch (main_idx) {
-	case TAB_KERNEL: kernel->ActivateTab(level2_idx); break;
-	case TAB_CODERKIT: coderkit->ActivateTab(level2_idx); break;
-	case TAB_SCANNER: scanner->ActivateTab(level2_idx); break;
-	case TAB_UTILITIES: utilities->ActivateTab(level2_idx); break;
-	case TAB_REVERSE: reverse->ActivateTab(level2_idx); break;
+	case TAB_KERNEL: kernel->SetActiveTab(level2_idx); break;
+	case TAB_CODERKIT: coderkit->SetActiveTab(level2_idx); break;
+	case TAB_SCANNER: scanner->SetActiveTab(level2_idx); break;
+	case TAB_UTILITIES: utilities->SetActiveTab(level2_idx); break;
+	case TAB_REVERSE: reverse->SetActiveTab(level2_idx); break;
 	}
 
-	ActivateTab(main_idx);
+	SetActiveTab(main_idx);
 
 	chkupt_timer_ = new QTimer();
 	chkupt_timer_->setInterval(1000);
@@ -426,17 +426,17 @@ void OpenArk::onActionLanguage(QAction *act)
 
 void OpenArk::onActionCoderKit(bool checked)
 {
-	ActivateTab(TAB_CODERKIT);
+	SetActiveTab(TAB_CODERKIT);
 }
 
 void OpenArk::onActionScanner(bool checked)
 {
-	ActivateTab(TAB_SCANNER);
+	SetActiveTab(TAB_SCANNER);
 }
 
 void OpenArk::onActionBundler(bool checked)
 {
-	ActivateTab(TAB_BUNDLER);
+	SetActiveTab(TAB_BUNDLER);
 }
 
 void OpenArk::onLogOutput(QString log)
@@ -504,8 +504,24 @@ void OpenArk::onCmdInput()
 void OpenArk::onTabChanged(int idx)
 {
 	if (idx == TAB_PROCESS) onActionRefresh(true);
-
 	OpenArkConfig::Instance()->SetPrefMainTab(idx);
+
+	switch (idx) {
+	case TAB_KERNEL:
+	case TAB_CODERKIT:
+	case TAB_SCANNER:
+	case TAB_UTILITIES:
+	case TAB_REVERSE:
+		auto obj = ui.tabWidget->currentWidget();
+		if (obj->objectName().contains("tab")) break;
+		qint32 l2;
+		qRegisterMetaType<qint32>("qint32");
+		QMetaObject::invokeMethod(obj,
+			"GetActiveTab", Qt::DirectConnection, Q_RETURN_ARG(qint32, l2));
+		OpenArkConfig::Instance()->SetPrefLevel2Tab(l2);
+		break;
+	}
+
 }
 
 void OpenArk::StatusBarClear()
@@ -518,7 +534,7 @@ void OpenArk::StatusBarAdd(QWidget *label)
 	stool_->addWidget(label);
 }
 
-void OpenArk::ActivateTab(int idx)
+void OpenArk::SetActiveTab(int idx)
 {
 	ui.tabWidget->setCurrentIndex(idx);
 }

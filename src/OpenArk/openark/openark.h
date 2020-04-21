@@ -71,7 +71,7 @@ private slots:
 public:
 	void StatusBarClear();
 	void StatusBarAdd(QWidget *label);
-	void ActivateTab(int idx);
+	void SetActiveTab(int idx);
 
 private:
 	Cmds *cmds_;

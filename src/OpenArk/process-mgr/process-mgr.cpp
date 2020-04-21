@@ -400,7 +400,7 @@ void ProcessMgr::onSendtoScanner()
 	} else if (IsContainAction(mod_menu_, action)) {
 		path = BottomCurViewItemData(MOD.path);
 	}
-	parent_->ActivateTab(TAB_SCANNER);
+	parent_->SetActiveTab(TAB_SCANNER);
 	emit signalOpen(path);
 }
 
