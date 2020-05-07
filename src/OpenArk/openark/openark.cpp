@@ -31,8 +31,8 @@
 
 #define APP_CHKUPT_SERVER "http://upt.blackint3.com/openark/version.txt"
 #define APP_MESSAGE_PATTERN \
-"%{if-debug}<font color=blue>%{endif}"\
-"%{if-info}<font color=black>%{endif}"\
+"%{if-debug}<font color=#E0E2E4>%{endif}"\
+"%{if-info}<font color=#E0E2E4>%{endif}"\
 "%{if-warning}<font color=red>%{endif}"\
 "%{if-critical}<font color=red>%{endif}"\
 "[%{function}:%{line}]"\
