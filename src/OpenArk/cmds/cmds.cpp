@@ -89,7 +89,7 @@ LR"(.mm [show os memory]
 .mm w 1234 40000 cccc9090 [write process(pid=1234) memory, 0x40000=>0xcc 0xcc 0x90 0x90)" },
 
 { L".fs", "CmdFileEditor", LR"(file editor)",
-LR"(.fs [show os memory]
+LR"(.fs [edit file data]
 .fs i c:\my.txt [show my.txt information]
 .fs r c:\my.txt 0 100/all [read my.txt, 0:0x100/all]
 .fs w c:\my.txt 0 cccc9090 [write my.txt, 0x0=>0xcc 0xcc 0x90 0x90)" },

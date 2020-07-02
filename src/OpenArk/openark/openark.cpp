@@ -146,8 +146,8 @@ OpenArk::OpenArk(QWidget *parent) :
 	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 	connect(ui.cmdOutWindow, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onShowConsoleMenu(const QPoint &)));
 
-	int main_idx = 0;
-	int level2_idx = 0;
+	int main_idx = 1;
+	int level2_idx = 4;
 	OpenArkConfig::Instance()->GetPrefMainTab(main_idx);
 	OpenArkConfig::Instance()->GetPrefLevel2Tab(level2_idx);
 	auto CreateTabPage = [&](QWidget *widget, QWidget *origin) {
@@ -446,6 +446,7 @@ void OpenArk::onLogOutput(QString log)
 	log.replace("error", "<font color=red>error</font>");
 	log.replace("ERR", "<font color=red>ERR</font>");
 	log.replace("ERROR", "<font color=red>ERROR</font>");
+	log = QString("<font color=#E0E2E4>%1</font>").arg(log);
 	ui.cmdOutWindow->append(log);
 }
 

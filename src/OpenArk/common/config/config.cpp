@@ -119,7 +119,7 @@ void OpenArkConfig::SetMainGeometry(int x, int y, int w, int h)
 void OpenArkConfig::GetPrefMainTab(int &idx)
 {
 	QString section = "/Preference/";
-	idx = GetValue(section + "main_tab").toInt();
+	idx = GetValue(section + "main_tab", idx).toInt();
 }
 void OpenArkConfig::SetPrefMainTab(int idx)
 {
@@ -130,7 +130,7 @@ void OpenArkConfig::SetPrefMainTab(int idx)
 void OpenArkConfig::GetPrefLevel2Tab(int &idx)
 {
 	QString section = "/Preference/";
-	idx = GetValue(section + "level2_tab").toInt();
+	idx = GetValue(section + "level2_tab", idx).toInt();
 }
 void OpenArkConfig::SetPrefLevel2Tab(int idx)
 {

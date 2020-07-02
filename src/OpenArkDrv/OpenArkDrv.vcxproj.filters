@@ -20,6 +20,12 @@
     <ClCompile Include="memory\memory.cpp">
       <Filter>memory</Filter>
     </ClCompile>
+    <ClCompile Include="wingui\ops-hotkey\ops-hotkey.cpp">
+      <Filter>wingui\ops-hotkey</Filter>
+    </ClCompile>
+    <ClCompile Include="wingui\ops-hotkey\utils\utils.cpp">
+      <Filter>wingui\ops-hotkey\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="notify">
@@ -39,6 +45,15 @@
     </Filter>
     <Filter Include="memory">
       <UniqueIdentifier>{c28bfcae-6bbe-4eee-a802-a10e966f708a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wingui">
+      <UniqueIdentifier>{c1698fd3-ea9a-40aa-a0b4-94d1a6f2ac53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wingui\ops-hotkey">
+      <UniqueIdentifier>{29d67cd2-6ecb-468d-a966-9ef786e9616c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wingui\ops-hotkey\utils">
+      <UniqueIdentifier>{09ee9ed7-a9de-4f95-8f43-811d97aa7892}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +77,12 @@
     </ClInclude>
     <ClInclude Include="memory\memory.h">
       <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="wingui\ops-hotkey\ops-hotkey.h">
+      <Filter>wingui\ops-hotkey</Filter>
+    </ClInclude>
+    <ClInclude Include="wingui\ops-hotkey\utils\utils.h">
+      <Filter>wingui\ops-hotkey\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

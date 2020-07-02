@@ -182,6 +182,7 @@ __inline QString WordArrayToHexQ(WORD* arr, int len) {
 	root->setItem(count, 1, new QStandardItem(value)); \
 
 // MVC wrapper
+QModelIndex GetCurItemView(QAbstractItemView *view, int column);
 QString GetItemModelData(QAbstractItemModel *model, int row, int column);
 QString GetItemViewData(QAbstractItemView *view, int row, int column);
 QString GetCurItemViewData(QAbstractItemView *view, int column);

@@ -117,6 +117,9 @@
     <Filter Include="common\utils\compress\xzip">
       <UniqueIdentifier>{fd40b3a5-37fd-4c06-acf2-2821a176b7aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="kernel\wingui">
+      <UniqueIdentifier>{c53add09-42a1-4b50-8969-58d66167baa4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -242,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="common\utils\compress\xzip\XZip.cpp">
       <Filter>common\utils\compress\xzip</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\wingui\wingui.cpp">
+      <Filter>kernel\wingui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -446,6 +452,9 @@
     </ClInclude>
     <ClInclude Include="common\utils\compress\xzip\XZip.h">
       <Filter>common\utils\compress\xzip</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\wingui\wingui.h">
+      <Filter>kernel\wingui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -231,6 +231,8 @@
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="notify\notify-lib.cpp" />
     <ClCompile Include="notify\notify.cpp" />
+    <ClCompile Include="wingui\ops-hotkey\ops-hotkey.cpp" />
+    <ClCompile Include="wingui\ops-hotkey\utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arkdrv-api\arkdrv-api.h" />
@@ -240,6 +242,8 @@
     <ClInclude Include="notify\notify-lib.h" />
     <ClInclude Include="notify\notify.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="wingui\ops-hotkey\ops-hotkey.h" />
+    <ClInclude Include="wingui\ops-hotkey\utils\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="OpenArkDrv.rc" />

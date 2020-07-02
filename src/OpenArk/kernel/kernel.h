@@ -24,6 +24,7 @@ class OpenArk;
 class Ui::Kernel;
 PROXY_FILTER(DriversSortFilterProxyModel);
 PROXY_FILTER(NotifySortFilterProxyModel);
+PROXY_FILTER(HotkeySortFilterProxyModel);
 
 class Kernel : public QWidget {
 	Q_OBJECT
@@ -45,6 +46,8 @@ signals:
 
 private slots:
 	void onTabChanged(int index);
+	void onClickKernelMode();
+	void onRefreshKernelMode();
 	void onOpenFile(QString path);
 	void onSignDriver();
 	void onInstallNormallyDriver();
@@ -57,15 +60,18 @@ private:
 	void InitDriversView();
 	void InitDriverKitView();
 	void InitNotifyView();
+	void InitHotkeyView();
 	void InitMemoryView();
 	bool InstallDriver(QString driver, QString name);
 	bool UninstallDriver(QString service);
 	void ShowDrivers();
 	void ShowSystemNotify();
+	void ShowSystemHotkey();
 	void ShowDumpMemory(ULONG64 addr, ULONG size);
 	int DriversCurRow();
 	QString DriversItemData(int column);
 	QString NotifyItemData(int column);
+	QString HotkeyItemData(int column);
 
 private:
 	bool arkdrv_conn_;
@@ -75,9 +81,12 @@ private:
 	OpenArk *parent_;
 	QMenu *drivers_menu_;
 	QMenu *notify_menu_;
+	QMenu *hotkey_menu_;
 	QStandardItemModel *kerninfo_model_;
 	QStandardItemModel *drivers_model_;
 	QStandardItemModel *notify_model_;
+	QStandardItemModel *hotkey_model_;
 	DriversSortFilterProxyModel *proxy_drivers_;
-	DriversSortFilterProxyModel *proxy_notify_;
+	NotifySortFilterProxyModel *proxy_notify_;
+	HotkeySortFilterProxyModel *proxy_hotkey_;
 };

@@ -301,6 +301,7 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork</IncludePath>
     </ClCompile>
     <ClCompile Include="kernel\notify\notify.cpp" />
+    <ClCompile Include="kernel\wingui\wingui.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="openark\openark.cpp" />
     <ClCompile Include="process-mgr\process-mgr.cpp" />
@@ -323,7 +324,9 @@
     <QtUic Include="ui\reverse.ui" />
     <QtUic Include="ui\scanner.ui" />
     <QtUic Include="ui\settings.ui" />
-    <QtUic Include="ui\utilities.ui" />
+    <QtUic Include="ui\utilities.ui">
+      <SubType>Designer</SubType>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="res\openark.qrc">
@@ -360,6 +363,7 @@
     <ClInclude Include="GeneratedFiles\ui_utilities.h" />
     <ClInclude Include="kernel\driver\driver.h" />
     <ClInclude Include="kernel\notify\notify.h" />
+    <ClInclude Include="kernel\wingui\wingui.h" />
     <ClInclude Include="res\resource.h" />
     <QtMoc Include="settings\settings.h" />
     <QtMoc Include="process-mgr\process-selection.h" />

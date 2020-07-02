@@ -382,13 +382,13 @@ void Utilities::InitSystemToolsView()
 	connect(ui.fastrebootBtn, &QPushButton::clicked, [&] {
 		if (QMessageBox::warning(this, tr("Warning"), tr("Are you sure to reboot?"), 
 			QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
-			OsFastReboot();
+			UNONE::OsFastReboot();
 		}
 	});
 	connect(ui.fastpoweroffBtn, &QPushButton::clicked, [&] {
 		if (QMessageBox::warning(this, tr("Warning"), tr("Are you sure to poweroff?"),
 			QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
-			OsFastPoweroff();
+			UNONE::OsFastPoweroff();
 		}
 	});
 	connect(ui.resetexplorerBtn, &QPushButton::clicked, [&] {
