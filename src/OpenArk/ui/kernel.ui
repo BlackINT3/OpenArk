@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tabKernelEntry">
       <attribute name="title">
@@ -397,6 +397,13 @@
           <font>
            <pointsize>9</pointsize>
           </font>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Tips:If you not found the hotkeys,please check the shortcut keys of IME software.(eg:Microsoft/Sogou/Google IME, etc.)</string>
          </property>
         </widget>
        </item>
