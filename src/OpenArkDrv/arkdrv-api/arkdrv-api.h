@@ -102,7 +102,7 @@ typedef struct _MEMORY_OUT {
 #pragma pack(pop)
 
 // WinGUI
-#define HOTKEY_MAX_VK	0xFF
+#define HOTKEY_MAX_VK	0x80
 #define HOTKEY_PLACEHOLDER_ID 0x99887766
 enum HOTKEY_OPS {
 	HOTKEY_ENUM,
