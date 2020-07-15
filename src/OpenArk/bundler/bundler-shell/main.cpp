@@ -15,6 +15,22 @@
 typedef std::tuple<std::wstring, std::wstring> DirectiveSeq;
 
 #include <stdlib.h>
+bool ParseCmdline(const std::wstring& cmdline, std::vector<std::wstring>& vec)
+{
+	try {
+		int argc = 0;
+		LPWSTR* argv = CommandLineToArgvW(cmdline.c_str(), &argc);
+		for (int Index = 0; Index < argc; ++Index) {
+			vec.push_back(argv[Index]);
+		}
+		HeapFree(GetProcessHeap(), 0, argv);
+		return !vec.empty();
+	}
+	catch (...) {
+		vec.clear();
+		return false;
+	}
+}
 std::string TmRandHexString(int count)
 {
 	char str_temp[2] = { 0 };
@@ -40,20 +56,36 @@ void BundleExecStart(std::wstring param, std::wstring root)
 	UNONE::PsCreateProcessW(param);
 }
 
-void BundleExecCall(std::wstring param, std::wstring root)
+void BundleExecCall(std::wstring param, std::wstring root, int show = SW_SHOW, bool wait = true)
 {
 	UNONE::StrReplaceIW(param, L"%root%", root);
-	PROCESS_INFORMATION pi;
-	UNONE::PsCreateProcessW(param, SW_SHOW, &pi);
-	WaitForSingleObject(pi.hProcess, INFINITE);
-	CloseHandle(pi.hProcess);
-	CloseHandle(pi.hThread);
+	std::vector<std::wstring> vec;
+	ParseCmdline(param, vec);
+	if (vec.empty()) return;
+	param.clear();
+	for (auto i = 1; i < vec.size(); i++) {
+		param.append(vec[i]);
+		param.append(L" ");
+	}
+	SHELLEXECUTEINFOW sh = { 0 };
+	sh.cbSize = sizeof(SHELLEXECUTEINFOW);
+	sh.fMask = SEE_MASK_NOCLOSEPROCESS;
+	sh.hwnd = NULL;
+	sh.lpVerb = NULL;
+	sh.lpFile = vec[0].c_str();
+	sh.lpParameters = param.c_str();
+	sh.lpDirectory = NULL;
+	sh.nShow = show;
+	sh.hInstApp = NULL;
+	ShellExecuteExW(&sh);
+	if (wait) WaitForSingleObject(sh.hProcess, INFINITE);
+	CloseHandle(sh.hProcess);
 }
 
 void BundleExecCmd(std::wstring param, std::wstring root)
 {
 	UNONE::StrReplaceIW(param, L"%root%", root);
-	UNONE::PsCreateProcessW(L"cmd.exe /c " + param, SW_HIDE);
+	BundleExecCall(L"cmd.exe /c " + param, root, false);
 }
 
 void BundleExecClean(std::wstring param, std::wstring root)
@@ -135,7 +167,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		std::wstring cmd, param;
 		std::tie(cmd, param) = d;
 		if (UNONE::StrCompareIW(cmd, L"start")) {
-			async_tasks.push_back(std::thread(BundleExecCall, param, outdir));
+			async_tasks.push_back(std::thread(BundleExecCall, param, outdir, SW_SHOW, true));
 		}	else if (UNONE::StrCompareIW(cmd, L"call")) {
 			BundleExecCall(param, outdir);
 		}	else if (UNONE::StrCompareIW(cmd, L"cmd")) {
