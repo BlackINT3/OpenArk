@@ -700,7 +700,6 @@ void Kernel::ShowDumpMemory(ULONG64 addr, ULONG size)
 			break;
 		}
 	}
-	if (!path.isEmpty()) ui.regionLabel->setText(path);
 	char *mem = nullptr;
 	ULONG memsize = 0;
 	std::string buf;
@@ -712,6 +711,7 @@ void Kernel::ShowDumpMemory(ULONG64 addr, ULONG size)
 	auto disasm = DisasmMemory(addr, mem, size);
 	ui.hexEdit->setText(StrToQ(hexdump));
 	ui.disasmEdit->setText(StrToQ(disasm));
+	ui.regionLabel->setText(path);
 }
 
 int Kernel::DriversCurRow()
