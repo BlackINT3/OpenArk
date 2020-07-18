@@ -19,6 +19,9 @@
 #include <Windows.h>
 #include "ui_kernel.h"
 #include "../common/qt-wrapper/qt-wrapper.h"
+#include "network/network.h"
+
+class KernelNetwork;
 
 class OpenArk;
 class Ui::Kernel;
@@ -75,6 +78,7 @@ private:
 
 private:
 	bool arkdrv_conn_;
+	KernelNetwork *netowrk_;
 
 private:
 	Ui::Kernel ui;

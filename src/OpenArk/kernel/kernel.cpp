@@ -82,6 +82,9 @@ Kernel::Kernel(QWidget *parent) :
 	setAcceptDrops(true);
 	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 
+	netowrk_ = new KernelNetwork();
+	netowrk_->ModuleInit(&ui, this);
+
 	InitKernelEntryView();
 	InitDriversView();
 	InitDriverKitView();
@@ -122,6 +125,8 @@ bool Kernel::eventFilter(QObject *obj, QEvent *e)
 			}
 		}
 	}
+
+	netowrk_->EventFilter();
 
 	if (filtered) {
 		dynamic_cast<QKeyEvent*>(e)->ignore();

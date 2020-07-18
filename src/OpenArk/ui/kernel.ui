@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="tabKernelEntry">
       <attribute name="title">
@@ -520,6 +520,75 @@
          </property>
          <widget class="QTextEdit" name="hexEdit"/>
          <widget class="QTextEdit" name="disasmEdit"/>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Network</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QTabWidget" name="tabNetwork">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tabWfp">
+          <attribute name="title">
+           <string>WFP</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_9">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QTreeView" name="wfpView"/>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tabTdi">
+          <attribute name="title">
+           <string>TDI</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="tabNdis">
+          <attribute name="title">
+           <string>NDIS</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="tabPort">
+          <attribute name="title">
+           <string>Port</string>
+          </attribute>
+         </widget>
         </widget>
        </item>
       </layout>

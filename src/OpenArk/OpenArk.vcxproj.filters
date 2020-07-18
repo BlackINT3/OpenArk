@@ -120,6 +120,9 @@
     <Filter Include="kernel\wingui">
       <UniqueIdentifier>{c53add09-42a1-4b50-8969-58d66167baa4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="kernel\network">
+      <UniqueIdentifier>{ddbf08af-ae77-4de2-8538-830f00e18b7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -249,6 +252,9 @@
     <ClCompile Include="kernel\wingui\wingui.cpp">
       <Filter>kernel\wingui</Filter>
     </ClCompile>
+    <ClCompile Include="kernel\network\network.cpp">
+      <Filter>kernel\network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="openark\openark.h">
@@ -292,6 +298,9 @@
     </QtMoc>
     <QtMoc Include="reverse\reverse.h">
       <Filter>reverse</Filter>
+    </QtMoc>
+    <QtMoc Include="kernel\network\network.h">
+      <Filter>kernel\network</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
