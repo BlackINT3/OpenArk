@@ -123,6 +123,9 @@
     <Filter Include="kernel\network">
       <UniqueIdentifier>{ddbf08af-ae77-4de2-8538-830f00e18b7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="kernel\storage">
+      <UniqueIdentifier>{07792a43-7382-4302-b2f5-2f5a5bb3b4d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -255,6 +258,9 @@
     <ClCompile Include="kernel\network\network.cpp">
       <Filter>kernel\network</Filter>
     </ClCompile>
+    <ClCompile Include="kernel\storage\storage.cpp">
+      <Filter>kernel\storage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="openark\openark.h">
@@ -301,6 +307,9 @@
     </QtMoc>
     <QtMoc Include="kernel\network\network.h">
       <Filter>kernel\network</Filter>
+    </QtMoc>
+    <QtMoc Include="kernel\storage\storage.h">
+      <Filter>kernel\storage</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

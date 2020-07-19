@@ -20,8 +20,10 @@
 #include "ui_kernel.h"
 #include "../common/qt-wrapper/qt-wrapper.h"
 #include "network/network.h"
+#include "storage/storage.h"
 
 class KernelNetwork;
+class KernelStorage;
 
 class OpenArk;
 class Ui::Kernel;
@@ -78,7 +80,8 @@ private:
 
 private:
 	bool arkdrv_conn_;
-	KernelNetwork *netowrk_;
+	KernelNetwork *network_;
+	KernelStorage *storage_;
 
 private:
 	Ui::Kernel ui;
