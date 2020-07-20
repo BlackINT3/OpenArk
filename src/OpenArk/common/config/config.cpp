@@ -139,6 +139,83 @@ void OpenArkConfig::SetPrefLevel2Tab(int idx)
 	Sync();
 }
 
+
+
+void OpenArkConfig::SetMainTabMap(int seq, QVector<int> idx)
+{
+	QString section = "/Preference/";
+
+	if (seq >= maintab_map_.size()) return;
+	
+	QString s;
+	for (auto d : idx) {
+		s.append(QString("%1").arg(d, 2, 10, QChar('0')));
+	}
+	s = QString("%1%2").arg(idx.size()).arg(s);
+
+	maintab_map_[seq] = s;
+
+	QString serial;
+	for (int i = 0; i < maintab_map_.size(); i++) {
+		serial.append(maintab_map_[i]);
+		if (i == maintab_map_.size() - 1) break;
+		serial.append(":");
+	}
+
+	SetValue(section + "maintab_map", serial);
+	Sync();
+}
+
+void OpenArkConfig::GetMainTabMap(int seq, QVector<int> &idx)
+{
+	QString section = "/Preference/";
+	QString str;
+	str = GetValue(section + "maintab_map").toString();
+	if (str.isEmpty()) {
+		for (int i = 0; i < TAB_MAX; i++) {
+			str.append("0");
+			if (i == TAB_MAX - 1) break;
+			str.append(":");
+		}
+	}
+	maintab_map_ = str.split(":").toVector();
+	if (seq >= maintab_map_.size()) return;
+	int cnt = maintab_map_[seq].mid(0, 1).toInt();
+	if (!cnt) return;
+	
+	QString &back = maintab_map_[seq].mid(1);
+	for (int i = 0; i < back.size(); i+=2) {
+		idx.push_back(back.mid(i, 2).toInt());
+	}
+}
+
+void OpenArkConfig::GetMainTabAllMap(QVector<QVector<int>> &idxs)
+{
+	QString section = "/Preference/";
+	QString str;
+	str = GetValue(section + "maintab_map").toString();
+	if (str.isEmpty()) {
+		for (int i = 0; i < TAB_MAX; i++) {
+			str.append("0");
+			if (i == TAB_MAX - 1) break;
+			str.append(":");
+		}
+	}
+	for (int seq = 0; seq < maintab_map_.size(); seq++) {
+		QVector<int> idx;
+		maintab_map_ = str.split(":").toVector();
+		int cnt = maintab_map_[seq].mid(0, 1).toInt();
+		if (!cnt) return;
+
+		QString &back = maintab_map_[seq].mid(1);
+		for (int i = 0; i < back.size(); i += 2) {
+			idx.push_back(back.mid(i, 2).toInt());
+		}
+		idxs.push_back(idx);
+	}
+}
+
+
 OpenArkConfig* OpenArkConfig::confobj_ = nullptr;
 OpenArkConfig* OpenArkConfig::Instance()
 {

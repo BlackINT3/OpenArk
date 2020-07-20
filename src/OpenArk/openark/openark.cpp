@@ -148,8 +148,11 @@ OpenArk::OpenArk(QWidget *parent) :
 
 	int main_idx = 1;
 	int level2_idx = 4;
+	QVector<QVector<int>> idxs;
 	OpenArkConfig::Instance()->GetPrefMainTab(main_idx);
 	OpenArkConfig::Instance()->GetPrefLevel2Tab(level2_idx);
+	OpenArkConfig::Instance()->GetMainTabAllMap(idxs);
+
 	auto CreateTabPage = [&](QWidget *widget, QWidget *origin) {
 		int idx = ui.tabWidget->indexOf(origin);
 		QString text = ui.tabWidget->tabText(idx);
@@ -178,12 +181,14 @@ OpenArk::OpenArk(QWidget *parent) :
 	auto reverse = new Reverse(this);
 	CreateTabPage(reverse, ui.tabReverse);
 
-	switch (main_idx) {
-	case TAB_KERNEL: kernel->SetActiveTab(level2_idx); break;
-	case TAB_CODERKIT: coderkit->SetActiveTab(level2_idx); break;
-	case TAB_SCANNER: scanner->SetActiveTab(level2_idx); break;
-	case TAB_UTILITIES: utilities->SetActiveTab(level2_idx); break;
-	case TAB_REVERSE: reverse->SetActiveTab(level2_idx); break;
+	for (int tab = 0; tab < TAB_MAX; tab++) {
+		switch (main_idx) {
+		case TAB_KERNEL: kernel->SetActiveTab(level2_idx); break;
+		case TAB_CODERKIT: coderkit->SetActiveTab(level2_idx); break;
+		case TAB_SCANNER: scanner->SetActiveTab(level2_idx); break;
+		case TAB_UTILITIES: utilities->SetActiveTab(level2_idx); break;
+		case TAB_REVERSE: reverse->SetActiveTab(level2_idx); break;
+		}
 	}
 
 	SetActiveTab(main_idx);

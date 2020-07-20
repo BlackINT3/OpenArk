@@ -22,6 +22,17 @@ enum ConfOp {
 	CONF_SET,
 };
 
+enum MainTabNumber {
+	TAB_PROCESS,
+	TAB_KERNEL,
+	TAB_CODERKIT,
+	TAB_SCANNER,
+	TAB_BUNDLER,
+	TAB_UTILITIES,
+	TAB_REVERSE,
+	TAB_MAX
+};
+
 static int def_lang_ = -1;
 
 class OpenArkConfig {
@@ -38,6 +49,10 @@ public:
 	void GetPrefLevel2Tab(int &idx);
 	void SetPrefLevel2Tab(int idx);
 
+	void SetMainTabMap(int seq, QVector<int> idx);
+	void GetMainTabMap(int seq, QVector<int> &idx);
+	void GetMainTabAllMap(QVector<QVector<int>> &idxs);
+
 	QVariant GetValue(const QString &key, const QVariant &defaultValue = QVariant()) const { return appconf_->value(key, defaultValue); };
 	void SetValue(const QString &key, const QVariant &value) { return appconf_->setValue(key, value); };
 	bool Contains(const QString &key) const { return appconf_->contains(key); }
@@ -45,6 +60,7 @@ public:
 
 private:
 	QSettings *appconf_;
+	QVector<QString> maintab_map_;
 
 public:
 	static OpenArkConfig *confobj_;
