@@ -51,7 +51,7 @@ Scanner::Scanner(QWidget *parent) :
 	ui.headersView->viewport()->installEventFilter(this);
 	ui.headersView->installEventFilter(this);
 	headers_menu_ = new QMenu();
-	headers_menu_->addAction(WCharsToQ(L"ExpandAll"), this, SLOT(onExpandAll()));
+	headers_menu_->addAction(tr("ExpandAll"), this, SLOT(onExpandAll()));
 
 	sections_model_ = new QStandardItemModel;
 	SetDefaultTableViewStyle(ui.sectionsView, sections_model_);

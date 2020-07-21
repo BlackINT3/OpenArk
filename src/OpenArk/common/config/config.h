@@ -16,6 +16,7 @@
 #pragma once
 #include <QString>
 #include <QSettings>
+#include <QVector>
 
 enum ConfOp {
 	CONF_GET,
