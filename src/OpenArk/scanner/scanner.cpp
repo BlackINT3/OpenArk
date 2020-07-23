@@ -271,6 +271,7 @@ void Scanner::onTextChanged(const QString& text)
 			UNONE::StrReplaceA(input, "0x");
 			UNONE::StrReplaceA(input, "h");
 			UNONE::StrReplaceA(input, "\\x");
+			UNONE::StrReplaceA(input, "`");
 			input = UNONE::StrTrimLeftA(input, "0");
 			UNONE::StrUpperA(input);
 			sender->setText(StrToQ(input));
