@@ -196,12 +196,12 @@ void OpenArkConfig::GetMainTabAllMap(QVector<QVector<int>> &idxs)
 	str = GetValue(section + "maintab_map").toString();
 	if (str.isEmpty()) {
 		for (int i = 0; i < TAB_MAX; i++) {
-			str.append("0");
+			str.append("20000");
 			if (i == TAB_MAX - 1) break;
 			str.append(":");
 		}
 	}
-	for (int seq = 0; seq < maintab_map_.size(); seq++) {
+	for (int seq = 0; seq < TAB_MAX; seq++) {
 		QVector<int> idx;
 		maintab_map_ = str.split(":").toVector();
 		int cnt = maintab_map_[seq].mid(0, 1).toInt();

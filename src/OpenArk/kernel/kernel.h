@@ -38,8 +38,12 @@ public:
 	~Kernel();
 
 public:
+	Q_INVOKABLE QTabWidget *GetActiveTabWidget() { return ui.tabWidget; };
 	Q_INVOKABLE int GetActiveTab() { return ui.tabWidget->currentIndex(); };
-	Q_INVOKABLE void SetActiveTab(int idx) { ui.tabWidget->setCurrentIndex(idx); };
+	Q_INVOKABLE void SetActiveTab(QVector<int> idx) { 
+		ui.tabWidget->setCurrentIndex(idx[0]); 
+		qobject_cast<QTabWidget *>(ui.tabWidget->currentWidget())->setCurrentIndex(idx[1]);
+	};
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *e);
