@@ -21,13 +21,6 @@
 #include "wingui/wingui.h"
 #include "../../../OpenArkDrv/arkdrv-api/arkdrv-api.h"
 
-#define KernelTabEntry 0
-#define KernelTabDrivers 1
-#define KernelTabDriverKit 2
-#define KernelTabNotify 3
-#define KernelTabHotkey 4
-#define KernelTabMemory 5
-
 struct {
 	int s = 0;
 	int name = s++;
@@ -73,14 +66,11 @@ bool HotkeySortFilterProxyModel::lessThan(const QModelIndex &left, const QModelI
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
 
-Kernel::Kernel(QWidget *parent) :
+Kernel::Kernel(QWidget *parent, int tabid) :
 	parent_((OpenArk*)parent)
 {
 	ui.setupUi(this);
-	ui.tabWidget->setTabPosition(QTabWidget::West);
-	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
 	setAcceptDrops(true);
-	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 
 	network_ = new KernelNetwork();
 	network_->ModuleInit(&ui, this);
@@ -93,6 +83,8 @@ Kernel::Kernel(QWidget *parent) :
 	InitNotifyView();
 	InitHotkeyView();
 	InitMemoryView();
+
+	CommonMainTabObject::Init(ui.tabWidget, tabid);
 }
 
 Kernel::~Kernel()
@@ -102,29 +94,15 @@ Kernel::~Kernel()
 bool Kernel::eventFilter(QObject *obj, QEvent *e)
 {
 	bool filtered = false;
-	if (obj == ui.driverView->viewport()) {
-		if (e->type() == QEvent::ContextMenu) {
-			QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
-			if (ctxevt) {
-				drivers_menu_->move(ctxevt->globalPos());
-				drivers_menu_->show();
-			}
-		}
-	} else if (obj == ui.notifyView->viewport()) {
-		if (e->type() == QEvent::ContextMenu) {
-			QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
-			if (ctxevt) {
-				notify_menu_->move(ctxevt->globalPos());
-				notify_menu_->show();
-			}
-		}
-	} else if (obj == ui.hotkeyView->viewport()) {
-		if (e->type() == QEvent::ContextMenu) {
-			QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
-			if (ctxevt) {
-				hotkey_menu_->move(ctxevt->globalPos());
-				hotkey_menu_->show();
-			}
+	if (e->type() == QEvent::ContextMenu) {
+		QMenu *menu = nullptr;
+		if (obj == ui.driverView->viewport()) menu = drivers_menu_;
+		else  if (obj == ui.notifyView->viewport()) menu = notify_menu_;
+		else if (obj == ui.hotkeyView->viewport()) menu = hotkey_menu_;
+		QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
+		if (ctxevt && menu) {
+			menu->move(ctxevt->globalPos());
+			menu->show();
 		}
 	}
 
@@ -219,19 +197,19 @@ void Kernel::onOpenFile(QString path)
 void Kernel::onTabChanged(int index)
 {
 	switch (index) {
-	case KernelTabDrivers:
+	case TAB_KERNEL_DRIVERS:
 		ShowDrivers();
 		break;
-	case KernelTabNotify:
+	case TAB_KERNEL_NOTIFY:
 		ShowSystemNotify();
 		break;
-	case KernelTabHotkey:
+	case TAB_KERNEL_HOTKEY:
 		ShowSystemHotkey();
 		break;
 	default:
 		break;
 	}
-	OpenArkConfig::Instance()->SetPrefLevel2Tab(index);
+	CommonMainTabObject::onTabChanged(index);
 }
 
 void Kernel::onSignDriver()

@@ -126,13 +126,13 @@
     <Filter Include="kernel\storage">
       <UniqueIdentifier>{07792a43-7382-4302-b2f5-2f5a5bb3b4d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="common\ui-wrapper">
+      <UniqueIdentifier>{16858abf-3377-4e71-84fa-f20c0e3a4d9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
       <Filter>openark</Filter>
-    </ClCompile>
-    <ClCompile Include="common\common.cpp">
-      <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="common\app\app.cpp">
       <Filter>common\app</Filter>
@@ -261,6 +261,12 @@
     <ClCompile Include="kernel\storage\storage.cpp">
       <Filter>kernel\storage</Filter>
     </ClCompile>
+    <ClCompile Include="common\ui-wrapper\ui-wrapper.cpp">
+      <Filter>common\ui-wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="common\common.cpp">
+      <Filter>common\win-wrapper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="openark\openark.h">
@@ -305,11 +311,14 @@
     <QtMoc Include="reverse\reverse.h">
       <Filter>reverse</Filter>
     </QtMoc>
-    <QtMoc Include="kernel\network\network.h">
-      <Filter>kernel\network</Filter>
-    </QtMoc>
     <QtMoc Include="kernel\storage\storage.h">
       <Filter>kernel\storage</Filter>
+    </QtMoc>
+    <QtMoc Include="common\ui-wrapper\ui-wrapper.h">
+      <Filter>common\ui-wrapper</Filter>
+    </QtMoc>
+    <QtMoc Include="kernel\network\network.h">
+      <Filter>kernel\network</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

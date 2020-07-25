@@ -147,10 +147,9 @@ OpenArk::OpenArk(QWidget *parent) :
 	connect(ui.cmdOutWindow, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onShowConsoleMenu(const QPoint &)));
 
 	int main_idx = 1;
-	int level2_idx = 4;
+	QVector<int> level2_idx;
 	QVector<QVector<int>> idxs;
 	OpenArkConfig::Instance()->GetPrefMainTab(main_idx);
-	OpenArkConfig::Instance()->GetPrefLevel2Tab(level2_idx);
 	OpenArkConfig::Instance()->GetMainTabAllMap(idxs);
 
 	auto CreateTabPage = [&](QWidget *widget, QWidget *origin) {
@@ -163,27 +162,28 @@ OpenArk::OpenArk(QWidget *parent) :
 	auto processmgr = new ProcessMgr(this);
 	CreateTabPage(processmgr, ui.tabProcessMgr);
 
-	auto scanner = new Scanner(this);
+	auto scanner = new Scanner(this, TAB_SCANNER);
 	CreateTabPage(scanner, ui.tabScanner);
 	
-	auto coderkit = new CoderKit(this);
+	auto coderkit = new CoderKit(this, TAB_CODERKIT);
 	CreateTabPage(coderkit, ui.tabCoderKit);
 
 	auto bundler = new Bundler(this);
 	CreateTabPage(bundler, ui.tabBundler);
 	
-	auto kernel = new Kernel(this);
+	auto kernel = new Kernel(this, TAB_KERNEL);
 	CreateTabPage(kernel, ui.tabKernel);
 
-	auto utilities = new Utilities(this);
+	auto utilities = new Utilities(this, TAB_UTILITIES);
 	CreateTabPage(utilities, ui.tabUtilities);
 
-	auto reverse = new Reverse(this);
+	auto reverse = new Reverse(this, TAB_REVERSE);
 	CreateTabPage(reverse, ui.tabReverse);
 
 	for (int tab = 0; tab < TAB_MAX; tab++) {
-		switch (main_idx) {
-		case TAB_KERNEL: kernel->SetActiveTab(idxs[main_idx]); break;
+		level2_idx = idxs[tab];
+		switch (tab) {
+		case TAB_KERNEL: kernel->SetActiveTab(level2_idx); break;
 		case TAB_CODERKIT: coderkit->SetActiveTab(level2_idx); break;
 		case TAB_SCANNER: scanner->SetActiveTab(level2_idx); break;
 		case TAB_UTILITIES: utilities->SetActiveTab(level2_idx); break;
@@ -519,30 +519,13 @@ void OpenArk::onTabChanged(int idx)
 	case TAB_UTILITIES:
 	case TAB_REVERSE:
 		auto obj = ui.tabWidget->currentWidget();
+		auto xxx = obj->objectName();
 		if (obj->objectName().contains("tab")) break;
-
-		QVector<int> tabs;
-
 		qint32 l2;
 		qRegisterMetaType<qint32>("qint32");
-		QMetaObject::invokeMethod(obj, "GetActiveTab", Qt::DirectConnection, Q_RETURN_ARG(qint32, l2));
-		tabs.push_back(l2);
-
-		QTabWidget *tab222;
-		//qRegisterMetaType<QTabWidget*>("QTabWidget*");
-		qRegisterMetaType<QTabWidget*>();
-		QMetaObject::invokeMethod(obj, "GetActiveTabWidget", Qt::DirectConnection, Q_RETURN_ARG(QTabWidget*, tab222));
-
-		QString xx = tab222->metaObject()->className();
-		if (xx == "QTabWidget") {
-			auto obj3 = qobject_cast<QTabWidget*>(obj)->currentWidget();
-			qint32 l3;
-			qRegisterMetaType<qint32>("qint32");
-			QMetaObject::invokeMethod(obj3, "currentIndex", Qt::DirectConnection, Q_RETURN_ARG(qint32, l2));
-			tabs.push_back(l3);
-			//OpenArkConfig::Instance()->SetPrefLevel2Tab(l2);
-		}
-		OpenArkConfig::Instance()->SetMainTabMap(idx, tabs);
+		QMetaObject::invokeMethod(obj,
+			"GetActiveTab", Qt::DirectConnection, Q_RETURN_ARG(qint32, l2));
+		OpenArkConfig::Instance()->SetPrefLevel2Tab(l2);
 		break;
 	}
 

@@ -19,8 +19,22 @@
 #include <Windows.h>
 #include "ui_kernel.h"
 #include "../common/qt-wrapper/qt-wrapper.h"
+#include "../common/ui-wrapper/ui-wrapper.h"
 #include "network/network.h"
 #include "storage/storage.h"
+
+enum {
+	KernelTabEntry,
+	TAB_KERNEL_DRIVERS,
+	KernelTabDriverKit,
+	TAB_KERNEL_NOTIFY,
+	TAB_KERNEL_HOTKEY,
+	KernelTabMemory,
+	KernelTabMemory2,
+	KernelTabMemory3,
+	KernelTabNetwork,
+	KernelTabMax,
+};
 
 class KernelNetwork;
 class KernelStorage;
@@ -31,19 +45,11 @@ PROXY_FILTER(DriversSortFilterProxyModel);
 PROXY_FILTER(NotifySortFilterProxyModel);
 PROXY_FILTER(HotkeySortFilterProxyModel);
 
-class Kernel : public QWidget {
+class Kernel : public CommonMainTabObject {
 	Q_OBJECT
 public:
-	Kernel(QWidget *parent);
+	Kernel(QWidget *parent, int tabid);
 	~Kernel();
-
-public:
-	Q_INVOKABLE QTabWidget *GetActiveTabWidget() { return ui.tabWidget; };
-	Q_INVOKABLE int GetActiveTab() { return ui.tabWidget->currentIndex(); };
-	Q_INVOKABLE void SetActiveTab(QVector<int> idx) { 
-		ui.tabWidget->setCurrentIndex(idx[0]); 
-		qobject_cast<QTabWidget *>(ui.tabWidget->currentWidget())->setCurrentIndex(idx[1]);
-	};
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *e);

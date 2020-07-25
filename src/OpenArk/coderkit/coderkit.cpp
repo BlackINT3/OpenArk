@@ -44,15 +44,11 @@ struct {
 	int bits16 = s++;
 } BITS_IDX;
 
-CoderKit::CoderKit(QWidget* parent) :
+CoderKit::CoderKit(QWidget* parent, int tabid) :
 	parent_((OpenArk*)parent)
 {
 	ui.setupUi(this);
 	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
-
-	ui.tabWidget->setTabPosition(QTabWidget::West);
-	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
-	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 
 	connect(ui.textEdit, SIGNAL(textChanged()), this, SLOT(onCodeTextChanged()));
 	connect(ui.defaultEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onCodeTextChanged(const QString &)));
@@ -87,6 +83,8 @@ CoderKit::CoderKit(QWidget* parent) :
 	//connect(ui.keyEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
 
 	InitAsmToolsView();
+
+	CommonMainTabObject::Init(ui.tabWidget, tabid);
 }
  
 CoderKit::~CoderKit()
@@ -95,7 +93,7 @@ CoderKit::~CoderKit()
 
 void CoderKit::onTabChanged(int index)
 {
-	OpenArkConfig::Instance()->SetPrefLevel2Tab(index);
+	CommonMainTabObject::onTabChanged(index);
 }
 
 void CoderKit::onCodeTextChanged()

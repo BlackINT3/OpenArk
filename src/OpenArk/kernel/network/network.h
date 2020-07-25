@@ -19,6 +19,7 @@
 #include "ui_kernel.h"
 #include "../kernel.h"
 #include "../common/common.h"
+#include "../common/ui-wrapper/ui-wrapper.h"
 
 class Ui::Kernel;
 class Kernel;
@@ -32,7 +33,7 @@ typedef struct _CALLOUT_INFO {
 bool EnumWfpCallouts(std::vector<CALLOUT_INFO>& CalloutIDs);
 
 PROXY_FILTER(WfpSortFilterProxyModel);
-class KernelNetwork : QObject {
+class KernelNetwork : public CommonTabObject {
 	Q_OBJECT
 
 public:

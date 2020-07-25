@@ -254,7 +254,7 @@ void KernelNetwork::onTabChanged(int index)
 	default:
 		break;
 	}
-	//OpenArkConfig::Instance()->SetPrefLevel2Tab(index);
+	CommonTabObject::onTabChanged(index);
 }
 
 bool KernelNetwork::EventFilter()
@@ -293,7 +293,7 @@ void KernelNetwork::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 	wfp_menu_ = new QMenu();
 	wfp_menu_->addAction(tr("Refresh"), kernel, [&] {  });
 
-	connect(ui->tabNetwork, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
+	Init(ui->tabNetwork, TAB_KERNEL, KernelTabNetwork);
 }
 
 void KernelNetwork::ShowWfpInfo()

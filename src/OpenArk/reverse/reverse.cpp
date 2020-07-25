@@ -79,17 +79,16 @@ struct {
 	{ RUN_EXE, "sunlogin", "Sunlogin/SunloginClient_10.3.0.27372.exe", "Sunlogin.zip" },
 };
 
-Reverse::Reverse(QWidget *parent) :
+Reverse::Reverse(QWidget *parent, int tabid) :
 	parent_((OpenArk*)parent)
 {
 	ui.setupUi(this);
-	ui.tabWidget->setTabPosition(QTabWidget::West);
-	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
 	ui.progressBar->setValue(0);
 	ui.progressBar->show();
-	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 
 	InitWinReverseToolsView();
+
+	CommonMainTabObject::Init(ui.tabWidget, tabid);
 }
 
 Reverse::~Reverse()
@@ -98,7 +97,7 @@ Reverse::~Reverse()
 
 void Reverse::onTabChanged(int index)
 {
-	OpenArkConfig::Instance()->SetPrefLevel2Tab(index);
+	CommonMainTabObject::onTabChanged(index);
 }
 
 void Reverse::onExecute()

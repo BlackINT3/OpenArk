@@ -18,6 +18,7 @@
 #include <QtWidgets>
 #include <Windows.h>
 #include "ui_utilities.h"
+#include "../common/ui-wrapper/ui-wrapper.h"
 
 class OpenArk;
 class Ui::Utilities;
@@ -69,15 +70,13 @@ private:
 };
 
 
-class Utilities : public QWidget {
+class Utilities : public CommonMainTabObject {
 	Q_OBJECT
 public:
-	Utilities(QWidget *parent);
+	Utilities(QWidget *parent, int tabid);
 	~Utilities();
 
 public:
-	Q_INVOKABLE int GetActiveTab() { return ui.tabWidget->currentIndex(); };
-	Q_INVOKABLE void SetActiveTab(int idx) { ui.tabWidget->setCurrentIndex(idx); };
 	void RecordAppServer(const QString &svr);
 
 private slots:

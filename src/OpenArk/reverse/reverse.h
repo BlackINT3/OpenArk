@@ -27,19 +27,16 @@
 #include <QFile>
 #include <QDebug>
 #include <QProgressBar>
+#include "../common/ui-wrapper/ui-wrapper.h"
 
 class OpenArk;
 class Ui::Reverse;
 
-class Reverse : public QWidget {
+class Reverse : public CommonMainTabObject {
 	Q_OBJECT
 public:
-	Reverse(QWidget *parent);
+	Reverse(QWidget *parent, int tabid);
 	~Reverse();
-
-public:
-	Q_INVOKABLE int GetActiveTab() { return ui.tabWidget->currentIndex(); };
-	Q_INVOKABLE void SetActiveTab(int idx) { ui.tabWidget->setCurrentIndex(idx); };
 
 private slots:
 	void onTabChanged(int index);
