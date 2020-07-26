@@ -283,6 +283,7 @@
     <ClCompile Include="common\utils\disassembly\udis86\libudis86\syn-intel.c" />
     <ClCompile Include="common\utils\disassembly\udis86\libudis86\syn.c" />
     <ClCompile Include="common\utils\disassembly\udis86\libudis86\udis86.c" />
+    <ClCompile Include="common\win-wrapper\reg-wrapper.cpp" />
     <ClCompile Include="common\win-wrapper\win-wrapper.cpp" />
     <ClCompile Include="kernel\driver\driver.cpp" />
     <ClCompile Include="kernel\kernel.cpp">
@@ -357,6 +358,7 @@
     <ClInclude Include="common\utils\disassembly\udis86\libudis86\types.h" />
     <ClInclude Include="common\utils\disassembly\udis86\libudis86\udint.h" />
     <ClInclude Include="common\utils\disassembly\udis86\udis86.h" />
+    <ClInclude Include="common\win-wrapper\reg-wrapper.h" />
     <ClInclude Include="GeneratedFiles\ui_kernel.h" />
     <QtMoc Include="reverse\reverse.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets</IncludePath>

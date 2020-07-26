@@ -19,6 +19,7 @@
 #include <string>
 #include <QString>
 #include "../common.h"
+#include "reg-wrapper.h"
 
 #define KB		(1024)
 #define MB		(1024*KB)

@@ -267,6 +267,9 @@
     <ClCompile Include="common\common.cpp">
       <Filter>common\win-wrapper</Filter>
     </ClCompile>
+    <ClCompile Include="common\win-wrapper\reg-wrapper.cpp">
+      <Filter>common\win-wrapper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="openark\openark.h">
@@ -482,6 +485,9 @@
     </ClInclude>
     <ClInclude Include="kernel\wingui\wingui.h">
       <Filter>kernel\wingui</Filter>
+    </ClInclude>
+    <ClInclude Include="common\win-wrapper\reg-wrapper.h">
+      <Filter>common\win-wrapper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
