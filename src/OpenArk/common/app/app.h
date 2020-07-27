@@ -37,6 +37,11 @@ void LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...);
 #define QERR_W(format, ...)  \
 	LogOutput(LevelErr, __FUNCTION__, (TRW(format)), __VA_ARGS__)
 
+inline QString AppFilePath()
+{
+	return WStrToQ(UNONE::PsGetProcessPathW());
+}
+
 inline QString AppVersion()
 {
 	std::wstring ver;

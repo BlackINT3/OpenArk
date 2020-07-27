@@ -15,18 +15,10 @@
 ****************************************************************************/
 #include "settings.h"
 #include "../common/common.h"
-
 #include <QMessageBox>
 
-Settings::Settings(QWidget *parent)
+void Settings::InitConsoleView()
 {
-	ui.setupUi(this);
-	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
-
-	setAttribute(Qt::WA_ShowModal, true);
-	setAttribute(Qt::WA_DeleteOnClose);
-	setWindowFlags(windowFlags()& ~(Qt::WindowMaximizeButtonHint| Qt::WindowMinimizeButtonHint)| Qt::MSWindowsFixedSizeDialogHint);
-
 	console_model_ = new QStandardItemModel;
 	console_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Value"));
 	SetDefaultTableViewStyle(ui.consoleView, console_model_);
@@ -36,11 +28,14 @@ Settings::Settings(QWidget *parent)
 	QString name;
 	name = "History.MaxRecords"; AppendTableRowNameVaule(console_model_, name, OpenArkConfig::Instance()->GetConsole(name));
 	name = "History.FilePath"; AppendTableRowNameVaule(console_model_, name, OpenArkConfig::Instance()->GetConsole(name));
+}
 
+void Settings::InitCleanView()
+{
 	QString clean_file_suffix = ui.edit_file_suffix->text();
 	ui.edit_file_suffix->setText(OpenArkConfig::Instance()->GetValue("clean_file_suffix").toString());
 	QStringList path_list = OpenArkConfig::Instance()->GetValue("clean_path_list").toStringList();
-	for(int i = 0;i < path_list.size();i++)
+	for (int i = 0; i < path_list.size(); i++)
 		ui.listWidget_path->addItem(path_list[i]);
 
 	connect(ui.add_path_btn, &QPushButton::clicked, [this]() {
@@ -65,6 +60,67 @@ Settings::Settings(QWidget *parent)
 		OpenArkConfig::Instance()->SetValue("clean_path_list", path_list);
 		QMessageBox::information(NULL, "", tr("Save Success"));
 	});
+}
+
+void Settings::InitGeneralView()
+{
+	QString section = "/Setting.General/";
+	QString ctxkey = section + "context_menu";
+	auto ctx = OpenArkConfig::Instance()->GetValue(ctxkey, 1).toInt();
+	connect(ui.ctxmenuBox, &QCheckBox::toggled, [=](bool checked) {
+		const char *subkey = R"(*\shell\OpenArk)";
+		if (checked) {
+			UNONE::RegistryKey reg;
+			reg.Create(HKEY_CLASSES_ROOT, subkey, KEY_SET_VALUE);
+			reg.WriteValue("CommandFlags", 0x20);
+			reg.WriteValue("ExtendedSubCommandsKey", "OpenArk");
+			reg.WriteValue("Icon", QToChars(AppFilePath()));
+			reg.WriteValue("MUIVerb", "OpenArk");
+			reg.Close();
+
+			reg.Create(HKEY_CLASSES_ROOT, R"(OpenArk\shell\scan)", KEY_SET_VALUE);
+			reg.WriteValue("CommandFlags", 0x20);
+			reg.WriteValue("", tr("Scan").toLocal8Bit().toStdString());
+			reg.CreateKey("command", KEY_SET_VALUE);
+			reg.WriteValue("", QToChars(AppFilePath()));
+			reg.Close();
+
+			reg.Create(HKEY_CLASSES_ROOT, R"(OpenArk\shell\unlockfile)", KEY_SET_VALUE);
+			reg.WriteValue("CommandFlags", 0x20);
+			reg.WriteValue("", tr("UnlockFile").toLocal8Bit().toStdString());
+			reg.CreateKey("command", KEY_SET_VALUE);
+			reg.WriteValue("", QToChars(AppFilePath()));
+			reg.Close();
+
+			reg.Create(HKEY_CLASSES_ROOT, R"(OpenArk\shell\settings)", KEY_SET_VALUE);
+			reg.WriteValue("CommandFlags", 0x20);
+			reg.WriteValue("", tr("Settings").toLocal8Bit().toStdString());
+			reg.CreateKey("command", KEY_SET_VALUE);
+			reg.WriteValue("", QToChars(AppFilePath()));
+			reg.Close();
+
+		} else {
+			UNONE::RegistryKey::DeleteKey(HKEY_CLASSES_ROOT, subkey);
+			UNONE::RegistryKey::DeleteKey(HKEY_CLASSES_ROOT, "OpenArk");
+		}
+		OpenArkConfig::Instance()->SetValue(ctxkey, (int)checked);
+	});
+	ui.ctxmenuBox->setChecked(ctx);
+}
+
+Settings::Settings(QWidget *parent)
+{
+	ui.setupUi(this);
+	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
+
+	setAttribute(Qt::WA_ShowModal, true);
+	setAttribute(Qt::WA_DeleteOnClose);
+	setWindowFlags(windowFlags()& ~(Qt::WindowMaximizeButtonHint| Qt::WindowMinimizeButtonHint)| Qt::MSWindowsFixedSizeDialogHint);
+
+	InitConsoleView();
+	InitCleanView();
+	InitGeneralView();
+
 }
 
 Settings::~Settings()
