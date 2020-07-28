@@ -32,6 +32,7 @@
 ### Contributing/Donate
   * Issues and Push Request is welcome.
   * If you like that you can donate to our develop.
+  * [OpenArk Code Style Guide](doc/code-style-guide.md)
 
 ### Official Links
 * Website: https://openark.blackint3.com/

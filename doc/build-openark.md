@@ -25,7 +25,7 @@
 * Add nuget repoistry (VS Tools - Options - Nuget Package Manager - Package Sources）
 * Name: NugetRepoServer
 * Repoistry: http://nuget.blackint3.com:20001/api/odata
-* OPTINAL: You can also install according to [NONE Manual](https://github.com/BlackINT3/none)
+* Alternative: You can also install according to [NONE Manual](https://github.com/BlackINT3/none)
 
 ### Now go ahead, build it.
 

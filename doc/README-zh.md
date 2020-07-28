@@ -32,6 +32,7 @@
 ### 参与/捐赠
 * 欢迎提交Issue和PR.
 * 如果你喜欢OpenArk，可以捐赠支持我们的开发工作。
+* [OpenArk 代码风格](code-style-guide.md)
 
 ### 官方链接
 * 官方网站: https://openark.blackint3.com/
