@@ -22,6 +22,7 @@
 #include "../common/ui-wrapper/ui-wrapper.h"
 #include "network/network.h"
 #include "storage/storage.h"
+#include "memory/memory.h"
 
 enum {
 	KernelTabEntry,
@@ -38,6 +39,7 @@ enum {
 
 class KernelNetwork;
 class KernelStorage;
+class KernelMemory;
 
 class OpenArk;
 class Ui::Kernel;
@@ -76,13 +78,11 @@ private:
 	void InitDriverKitView();
 	void InitNotifyView();
 	void InitHotkeyView();
-	void InitMemoryView();
 	bool InstallDriver(QString driver, QString name);
 	bool UninstallDriver(QString service);
 	void ShowDrivers();
 	void ShowSystemNotify();
 	void ShowSystemHotkey();
-	void ShowDumpMemory(ULONG64 addr, ULONG size);
 	int DriversCurRow();
 	QString DriversItemData(int column);
 	QString NotifyItemData(int column);
@@ -92,6 +92,7 @@ private:
 	bool arkdrv_conn_;
 	KernelNetwork *network_;
 	KernelStorage *storage_;
+	KernelMemory *memory_;
 
 private:
 	Ui::Kernel ui;

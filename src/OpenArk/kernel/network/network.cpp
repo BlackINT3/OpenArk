@@ -264,6 +264,8 @@ bool KernelNetwork::EventFilter()
 
 void KernelNetwork::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 {
+	this->ui = ui;
+
 	wfp_model_ = new QStandardItemModel;
 	QTreeView *view = ui->wfpView;
 	proxy_wfp_ = new WfpSortFilterProxyModel(view);

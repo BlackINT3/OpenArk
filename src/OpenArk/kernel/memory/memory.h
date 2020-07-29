@@ -23,16 +23,20 @@
 class Ui::Kernel;
 class Kernel;
 
-PROXY_FILTER(UnlockFileSortFilterProxyModel);
-class KernelStorage : public CommonTabObject {
+class KernelMemory : public CommonTabObject {
 	Q_OBJECT
 
 public:
-	KernelStorage();
-	~KernelStorage();
+	enum {
+		Region,
+		View,
+	};
+	KernelMemory();
+	~KernelMemory();
 public:
 	bool EventFilter();
-	void ModuleInit(Ui::Kernel *ui, Kernel *kernel);
+	void ModuleInit(Ui::Kernel *mainui, Kernel *kernel);
+	void ShowDumpMemory(ULONG64 addr, ULONG size);
 
 private slots:
 	void onTabChanged(int index);
@@ -43,7 +47,4 @@ private:
 
 private:
 	Ui::Kernel *ui;
-	QMenu *unlockfile_menu_;
-	QStandardItemModel *unlockfile_model_;
-	UnlockFileSortFilterProxyModel *proxy_unlockfile_;
 };

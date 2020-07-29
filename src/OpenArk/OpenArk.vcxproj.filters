@@ -270,6 +270,9 @@
     <ClCompile Include="common\win-wrapper\reg-wrapper.cpp">
       <Filter>common\win-wrapper</Filter>
     </ClCompile>
+    <ClCompile Include="kernel\memory\memory.cpp">
+      <Filter>kernel\memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="openark\openark.h">
@@ -322,6 +325,9 @@
     </QtMoc>
     <QtMoc Include="kernel\network\network.h">
       <Filter>kernel\network</Filter>
+    </QtMoc>
+    <QtMoc Include="kernel\memory\memory.h">
+      <Filter>kernel\memory</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

@@ -72,17 +72,15 @@ Kernel::Kernel(QWidget *parent, int tabid) :
 	ui.setupUi(this);
 	setAcceptDrops(true);
 
-	network_ = new KernelNetwork();
-	network_->ModuleInit(&ui, this);
-	storage_ = new KernelStorage();
-	storage_->ModuleInit(&ui, this);
+	network_ = new KernelNetwork(); network_->ModuleInit(&ui, this);
+	storage_ = new KernelStorage(); storage_->ModuleInit(&ui, this);
+	memory_ = new KernelMemory(); memory_->ModuleInit(&ui, this);
 
 	InitKernelEntryView();
 	InitDriversView();
 	InitDriverKitView();
 	InitNotifyView();
 	InitHotkeyView();
-	InitMemoryView();
 
 	CommonMainTabObject::Init(ui.tabWidget, tabid);
 }
@@ -407,8 +405,8 @@ void Kernel::InitNotifyView()
 		size = 0x100;
 		ui.addrEdit->setText(qstr);
 		ui.sizeEdit->setText(DWordToHexQ(size));
-		ShowDumpMemory(addr, size);
-		ui.tabWidget->setCurrentIndex(KernelTabMemory);
+		memory_->ShowDumpMemory(addr, size);
+		SetActiveTab(QVector<int>({ KernelTabMemory, KernelMemory::View }));
 	});
 	notify_menu_->addSeparator();
 	notify_menu_->addAction(tr("Copy"), this, [&] {
@@ -491,16 +489,6 @@ void Kernel::InitHotkeyView()
 	hotkey_menu_->addAction(tr("Properties..."), this, [&]() {
 		WinShowProperties(HotkeyItemData(7).toStdWString());
 	});
-}
-
-void Kernel::InitMemoryView()
-{
-	connect(ui.dumpmemBtn, &QPushButton::clicked, this, [&] {
-		ULONG64 addr = VariantInt64(ui.addrEdit->text().toStdString());
-		ULONG size = VariantInt(ui.sizeEdit->text().toStdString());
-		ShowDumpMemory(addr, size);
-	});
-
 }
 
 bool Kernel::InstallDriver(QString driver, QString name)
@@ -672,31 +660,6 @@ void Kernel::ShowSystemHotkey()
 		hotkey_model_->setItem(count, 7, path_item);
 		hotkey_model_->setItem(count, 8, desc_item);
 	}
-}
-
-void Kernel::ShowDumpMemory(ULONG64 addr, ULONG size)
-{
-	std::vector<DRIVER_ITEM> infos;
-	ArkDrvApi::DriverEnumInfo(infos);
-	QString path;
-	for (auto info : infos) {
-		if (IN_RANGE(addr, info.base, info.size)) {
-			path = WStrToQ(ParseDriverPath(info.path));
-			break;
-		}
-	}
-	char *mem = nullptr;
-	ULONG memsize = 0;
-	std::string buf;
-	if (ArkDrvApi::MemoryRead(addr, size, buf)) {
-		mem = (char*)buf.c_str();
-		memsize = buf.size();
-	}
-	auto hexdump = HexDumpMemory(addr, mem, size);
-	auto disasm = DisasmMemory(addr, mem, size);
-	ui.hexEdit->setText(StrToQ(hexdump));
-	ui.disasmEdit->setText(StrToQ(disasm));
-	ui.regionLabel->setText(path);
 }
 
 int Kernel::DriversCurRow()
