@@ -36,7 +36,7 @@ public:
 public:
 	bool EventFilter();
 	void ModuleInit(Ui::Kernel *mainui, Kernel *kernel);
-	void ShowDumpMemory(ULONG64 addr, ULONG size);
+	void ViewMemory(ULONG64 addr, ULONG size);
 
 private slots:
 	void onTabChanged(int index);

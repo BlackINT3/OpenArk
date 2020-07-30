@@ -405,7 +405,19 @@ void Kernel::InitNotifyView()
 		size = 0x100;
 		ui.addrEdit->setText(qstr);
 		ui.sizeEdit->setText(DWordToHexQ(size));
-		memory_->ShowDumpMemory(addr, size);
+		memory_->ViewMemory(addr, size);
+
+
+		QFrame* popup1 = new QFrame(this, Qt::Dialog);
+		popup1->setWindowTitle("HelloWord");
+		auto layout = new QVBoxLayout();
+		QLineEdit *lineEdit = new QLineEdit;
+		ui.tabMemoryView->setLayout(layout);
+		layout->addWidget(lineEdit);
+		popup1->resize(500, 300);
+		popup1->setLayout(layout);
+		popup1->show();
+
 		SetActiveTab(QVector<int>({ KernelTabMemory, KernelMemory::View }));
 	});
 	notify_menu_->addSeparator();

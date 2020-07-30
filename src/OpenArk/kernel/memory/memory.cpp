@@ -49,11 +49,11 @@ void KernelMemory::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
 	connect(ui->dumpmemBtn, &QPushButton::clicked, this, [&] {
 		ULONG64 addr = VariantInt64(ui->addrEdit->text().toStdString());
 		ULONG size = VariantInt(ui->sizeEdit->text().toStdString());
-		ShowDumpMemory(addr, size);
+		ViewMemory(addr, size);
 	});
 }
 
-void KernelMemory::ShowDumpMemory(ULONG64 addr, ULONG size)
+void KernelMemory::ViewMemory(ULONG64 addr, ULONG size)
 {
 	std::vector<DRIVER_ITEM> infos;
 	ArkDrvApi::DriverEnumInfo(infos);
