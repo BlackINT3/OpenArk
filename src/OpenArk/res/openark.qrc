@@ -102,4 +102,7 @@
         <file>revtools/everything.ico</file>
         <file>main/run.ico</file>
     </qresource>
+    <qresource prefix="/UI">
+        <file>ui/memory-rw.ui</file>
+    </qresource>
 </RCC>

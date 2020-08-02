@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1171</width>
-    <height>881</height>
+    <width>1054</width>
+    <height>783</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabKernelEntry">
       <attribute name="title">
@@ -182,6 +182,9 @@
        </property>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetDefaultConstraint</enum>
+         </property>
          <item>
           <widget class="QTreeView" name="driverView">
            <property name="enabled">
@@ -564,117 +567,6 @@
           <attribute name="title">
            <string>MemoryView</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetDefaultConstraint</enum>
-             </property>
-             <item>
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>Address:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="addrEdit">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>170</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>0xfffff780`00000000</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_5">
-               <property name="text">
-                <string>Size:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="sizeEdit">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>0x200</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="dumpmemBtn">
-               <property name="text">
-                <string>DumpMemory</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_6">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Region:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="regionLabel">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Unknown...</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <widget class="QTextEdit" name="hexEdit"/>
-             </item>
-             <item>
-              <widget class="QTextEdit" name="disasmEdit"/>
-             </item>
-            </layout>
-           </item>
-          </layout>
          </widget>
         </widget>
        </item>

@@ -20,6 +20,7 @@
 #include "../../../OpenArkDrv/arkdrv-api/arkdrv-api.h"
 #include "../common/qt-wrapper/qt-wrapper.h"
 #include "../driver/driver.h"
+#include <QtUiTools/QtUiTools>
 
 KernelMemory::KernelMemory()
 {
@@ -46,14 +47,35 @@ void KernelMemory::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
 
 	Init(ui->tabMemory, TAB_KERNEL, KernelTabMemory);
 
+	//memrw_ = new KernelMemoryRW();
+
+/*
 	connect(ui->dumpmemBtn, &QPushButton::clicked, this, [&] {
 		ULONG64 addr = VariantInt64(ui->addrEdit->text().toStdString());
 		ULONG size = VariantInt(ui->sizeEdit->text().toStdString());
-		ViewMemory(addr, size);
-	});
+		//memrw_->ViewMemory(addr, size);
+	});*/
 }
 
-void KernelMemory::ViewMemory(ULONG64 addr, ULONG size)
+void KernelMemory::ShowUnlockFiles()
+{
+}
+
+KernelMemoryRW::KernelMemoryRW()
+{
+	QUiLoader loader;
+	QFile file(":/UI/ui/memory-rw.ui");
+	file.open(QFile::ReadOnly);
+	memui_ = loader.load(&file);
+	file.close();
+}
+
+KernelMemoryRW::~KernelMemoryRW()
+{
+}
+
+
+void KernelMemoryRW::ViewMemory(ULONG64 addr, ULONG size)
 {
 	std::vector<DRIVER_ITEM> infos;
 	ArkDrvApi::DriverEnumInfo(infos);
@@ -73,11 +95,12 @@ void KernelMemory::ViewMemory(ULONG64 addr, ULONG size)
 	}
 	auto hexdump = HexDumpMemory(addr, mem, size);
 	auto disasm = DisasmMemory(addr, mem, size);
-	ui->hexEdit->setText(StrToQ(hexdump));
-	ui->disasmEdit->setText(StrToQ(disasm));
-	ui->regionLabel->setText(path);
-}
 
-void KernelMemory::ShowUnlockFiles()
-{
+	auto hexEdit = memui_->findChild<QTextEdit*>("hexEdit");
+	auto disasmEdit = memui_->findChild<QTextEdit*>("disasmEdit");
+	auto regionLabel = memui_->findChild<QLabel*>("regionLabel");
+
+	hexEdit->setText(StrToQ(hexdump));
+	disasmEdit->setText(StrToQ(disasm));
+	regionLabel->setText(path);
 }

@@ -22,6 +22,7 @@
 
 class Ui::Kernel;
 class Kernel;
+class KernelMemoryRW;
 
 class KernelMemory : public CommonTabObject {
 	Q_OBJECT
@@ -36,15 +37,31 @@ public:
 public:
 	bool EventFilter();
 	void ModuleInit(Ui::Kernel *mainui, Kernel *kernel);
-	void ViewMemory(ULONG64 addr, ULONG size);
 
 private slots:
 	void onTabChanged(int index);
 
 private:
 	void ShowUnlockFiles();
-
+	
 
 private:
 	Ui::Kernel *ui;
+	KernelMemoryRW *memrw_;
+};
+
+class KernelMemoryRW : public QWidget {
+	Q_OBJECT
+
+public:
+	KernelMemoryRW();
+	~KernelMemoryRW();
+
+private:
+	QWidget *memui_;
+
+public:
+	void ViewMemory(ULONG64 addr, ULONG size);
+	QWidget *GetWidget() const { return memui_; };
+
 };

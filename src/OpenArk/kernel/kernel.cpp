@@ -71,7 +71,7 @@ Kernel::Kernel(QWidget *parent, int tabid) :
 {
 	ui.setupUi(this);
 	setAcceptDrops(true);
-
+	
 	network_ = new KernelNetwork(); network_->ModuleInit(&ui, this);
 	storage_ = new KernelStorage(); storage_->ModuleInit(&ui, this);
 	memory_ = new KernelMemory(); memory_->ModuleInit(&ui, this);
@@ -403,22 +403,22 @@ void Kernel::InitNotifyView()
 		ULONG size;
 		addr = QHexToQWord(qstr);
 		size = 0x100;
-		ui.addrEdit->setText(qstr);
-		ui.sizeEdit->setText(DWordToHexQ(size));
-		memory_->ViewMemory(addr, size);
+		//ui.addrEdit->setText(qstr);
+		//ui.sizeEdit->setText(DWordToHexQ(size));
 
+		auto layout = new QHBoxLayout();
+		layout->setSizeConstraint(QLayout::SetDefaultConstraint);
+		auto memrw = new KernelMemoryRW();
+		memrw->ViewMemory(addr, size);
+		auto memwidget = memrw->GetWidget();
+		memwidget->setParent(qobject_cast<QWidget*>(this->parent()));
+		memwidget->setWindowTitle("Memory Read-Write");
+		memwidget->setWindowFlags(Qt::Window);
+		memwidget->setLayout(layout);
+		memwidget->resize(1000, 530);
+		memwidget->show();
 
-		QFrame* popup1 = new QFrame(this, Qt::Dialog);
-		popup1->setWindowTitle("HelloWord");
-		auto layout = new QVBoxLayout();
-		QLineEdit *lineEdit = new QLineEdit;
-		ui.tabMemoryView->setLayout(layout);
-		layout->addWidget(lineEdit);
-		popup1->resize(500, 300);
-		popup1->setLayout(layout);
-		popup1->show();
-
-		SetActiveTab(QVector<int>({ KernelTabMemory, KernelMemory::View }));
+		//SetActiveTab(QVector<int>({ KernelTabMemory, KernelMemory::View }));
 	});
 	notify_menu_->addSeparator();
 	notify_menu_->addAction(tr("Copy"), this, [&] {
