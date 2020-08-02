@@ -37,7 +37,7 @@ void LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...)
 		}
 	}
 	std::wstring prefix = UNONE::StrFormatW(
-		TR("<font color=black>[%s] %s %s </font>").toStdWString().c_str(),
+		TR("<font color=#E0E2E4>[%s] %s %s </font>").toStdWString().c_str(),
 		UNONE::StrToW(func).c_str(),
 		levelstr.toStdWString().c_str(),
 		format);

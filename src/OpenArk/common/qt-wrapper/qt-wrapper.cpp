@@ -156,6 +156,12 @@ int GetCurViewColumn(QAbstractItemView *view)
 	return view->currentIndex().column();
 }
 
+QModelIndex GetCurItemView(QAbstractItemView *view, int column)
+{
+	auto idx = view->currentIndex();
+	return idx.sibling(idx.row(), column);
+}
+
 QString GetCurItemViewData(QAbstractItemView *view, int column)
 {
 	auto idx = view->currentIndex();

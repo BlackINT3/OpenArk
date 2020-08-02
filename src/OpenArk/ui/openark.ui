@@ -68,7 +68,7 @@
 </string>
        </property>
        <property name="currentIndex">
-        <number>5</number>
+        <number>6</number>
        </property>
        <widget class="QWidget" name="tabProcessMgr">
         <attribute name="title">
@@ -100,6 +100,11 @@
          <string>Utilities</string>
         </attribute>
        </widget>
+       <widget class="QWidget" name="tabReverse">
+        <attribute name="title">
+         <string>Reverse</string>
+        </attribute>
+       </widget>
       </widget>
       <widget class="QWidget" name="consoleWidget" native="true">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -118,7 +123,7 @@
         <item>
          <widget class="QTextBrowser" name="cmdOutWindow">
           <property name="styleSheet">
-           <string notr="true"/>
+           <string notr="true">background: #293134;</string>
           </property>
           <property name="readOnly">
            <bool>true</bool>
@@ -129,7 +134,7 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#21daff;&quot;&gt;OpenArk Console&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Copyright (C) 2019 BlackINT3 &lt;a href=&quot;https://github.com/BlackINT3/OpenArk&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/BlackINT3/OpenArk&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#e0e2e4;&quot;&gt;Copyright (C) 2019 BlackINT3 &lt;/span&gt;&lt;a href=&quot;https://github.com/BlackINT3/OpenArk&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#8ccf34;&quot;&gt;https://github.com/BlackINT3/OpenArk&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="textInteractionFlags">
            <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -186,6 +191,7 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="actionRun"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="actionExport"/>
@@ -366,6 +372,10 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionCheckUpdate">
+   <property name="icon">
+    <iconset resource="../res/openark.qrc">
+     <normaloff>:/OpenArk/update.ico</normaloff>:/OpenArk/update.ico</iconset>
+   </property>
    <property name="text">
     <string>Check for Updates...</string>
    </property>
@@ -376,6 +386,10 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionManuals">
+   <property name="icon">
+    <iconset resource="../res/openark.qrc">
+     <normaloff>:/OpenArk/help.ico</normaloff>:/OpenArk/help.ico</iconset>
+   </property>
    <property name="text">
     <string>Manuals</string>
    </property>
@@ -509,6 +523,18 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>简体中文</string>
+   </property>
+  </action>
+  <action name="actionRun">
+   <property name="icon">
+    <iconset resource="../res/openark.qrc">
+     <normaloff>:/OpenArk/main/run.ico</normaloff>:/OpenArk/main/run.ico</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Run</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
  </widget>

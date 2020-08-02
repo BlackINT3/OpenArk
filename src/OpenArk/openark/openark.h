@@ -16,14 +16,9 @@
 #pragma once
 #include <QtWidgets/QMainWindow>
 #include "ui_openark.h"
+#include "common/config/config.h"
 
 class Cmds;
-
-#define TAB_PROCESS 0
-#define TAB_KERNEL 1
-#define TAB_CODERKIT 2
-#define TAB_SCANNER 3
-#define TAB_BUNDLER 4
 
 class OpenArk : public QMainWindow {
 	Q_OBJECT
@@ -64,12 +59,12 @@ private slots:
 	void onConsoleHelps();
 	void onConsoleHistory();
 	void onCmdInput();
-	void onTabChanged();
+	void onTabChanged(int);
 
 public:
 	void StatusBarClear();
 	void StatusBarAdd(QWidget *label);
-	void ActivateTab(int idx);
+	void SetActiveTab(int idx);
 
 private:
 	Cmds *cmds_;

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>920</width>
-    <height>718</height>
+    <height>682</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,6 +28,741 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <widget class="QWidget" name="tabSystemTools">
+      <attribute name="title">
+       <string>SystemTools</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Common</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+         <widget class="QPushButton" name="cmdBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Command</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/cmd.ico</normaloff>:/OpenArk/systools/cmd.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="regeditBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>50</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Regedit</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/regedit.ico</normaloff>:/OpenArk/systools/regedit.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="servicesBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>80</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Services</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/services.ico</normaloff>:/OpenArk/systools/services.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="powershellBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>80</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>PowerShell</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/powershell.ico</normaloff>:/OpenArk/systools/powershell.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="programsBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>110</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Programs</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/program.ico</normaloff>:/OpenArk/systools/program.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="wslBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>50</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>LinuxShell</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/wsl.ico</normaloff>:/OpenArk/systools/wsl.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="taskmgrBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>20</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Taskmgr</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/taskmgr.ico</normaloff>:/OpenArk/systools/taskmgr.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="envBtn">
+          <property name="geometry">
+           <rect>
+            <x>250</x>
+            <y>50</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>EnvVariable</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/env.ico</normaloff>:/OpenArk/systools/env.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pcnameBtn">
+          <property name="geometry">
+           <rect>
+            <x>250</x>
+            <y>20</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ComputerName</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/pcname.ico</normaloff>:/OpenArk/systools/pcname.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="calcBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>110</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Calculator</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/calc.ico</normaloff>:/OpenArk/systools/calc.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="fastpoweroffBtn">
+          <property name="geometry">
+           <rect>
+            <x>370</x>
+            <y>50</y>
+            <width>111</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>FastPoweroff </string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/poweroff.ico</normaloff>:/OpenArk/systools/poweroff.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="fastrebootBtn">
+          <property name="geometry">
+           <rect>
+            <x>370</x>
+            <y>20</y>
+            <width>111</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>FastReboot   </string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/reboot.ico</normaloff>:/OpenArk/systools/reboot.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="killexplorerBtn">
+          <property name="geometry">
+           <rect>
+            <x>370</x>
+            <y>80</y>
+            <width>111</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>KillExplorer </string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/killexplorer.ico</normaloff>:/OpenArk/systools/killexplorer.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="resetexplorerBtn">
+          <property name="geometry">
+           <rect>
+            <x>370</x>
+            <y>110</y>
+            <width>111</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ResetExplorer</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/resetexplorer.ico</normaloff>:/OpenArk/systools/resetexplorer.ico</iconset>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="title">
+          <string>Configuration</string>
+         </property>
+         <widget class="QPushButton" name="diskmgrBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>80</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Diskmgr</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/disks.ico</normaloff>:/OpenArk/systools/disks.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="datetimeBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>110</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>DateTime</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/datetime.ico</normaloff>:/OpenArk/systools/datetime.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="deskiconsBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>80</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>DeskIcon</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/deskicon.ico</normaloff>:/OpenArk/systools/deskicon.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="versionBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>50</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>OS Version</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/version.ico</normaloff>:/OpenArk/systools/version.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="sysinfoBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>SystemInfo</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/systeminfo.ico</normaloff>:/OpenArk/systools/systeminfo.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="wallpaperBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>110</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Wallpaper</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/wallpaper.ico</normaloff>:/OpenArk/systools/wallpaper.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="devmgrBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>50</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Devices</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/devmgr.ico</normaloff>:/OpenArk/systools/devmgr.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="tasksBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>20</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Tasks</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/tasksch.ico</normaloff>:/OpenArk/systools/tasksch.ico</iconset>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="title">
+          <string>Performance &amp;&amp; Security</string>
+         </property>
+         <widget class="QPushButton" name="perfBtn">
+          <property name="geometry">
+           <rect>
+            <x>250</x>
+            <y>50</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Performance</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/performance.ico</normaloff>:/OpenArk/systools/performance.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="resmonBtn">
+          <property name="geometry">
+           <rect>
+            <x>250</x>
+            <y>20</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ResourceMon</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/resmon.ico</normaloff>:/OpenArk/systools/resmon.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="uacBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>50</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>UAC Settings</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/uac.ico</normaloff>:/OpenArk/systools/uac.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="perfsetBtn">
+          <property name="geometry">
+           <rect>
+            <x>250</x>
+            <y>80</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>PerfConfig</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/perfsettings.ico</normaloff>:/OpenArk/systools/perfsettings.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="powerBtn">
+          <property name="geometry">
+           <rect>
+            <x>370</x>
+            <y>20</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Powers</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/powercfg.ico</normaloff>:/OpenArk/systools/powercfg.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="gpoBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>20</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Group Policy</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/gpedit.ico</normaloff>:/OpenArk/systools/gpedit.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="usersBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>UserGroups</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/users.ico</normaloff>:/OpenArk/systools/users.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="credBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>80</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Credential</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/credential.ico</normaloff>:/OpenArk/systools/credential.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="certBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>110</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Certificate</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/certmgr.ico</normaloff>:/OpenArk/systools/certmgr.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="secpolBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>50</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Secur Policy</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/secpolicy.ico</normaloff>:/OpenArk/systools/secpolicy.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="evtBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>80</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Event Viewer</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/eventlog.ico</normaloff>:/OpenArk/systools/eventlog.ico</iconset>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Network</string>
+         </property>
+         <widget class="QPushButton" name="firewallBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>90</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Firewall</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/firewall.ico</normaloff>:/OpenArk/systools/firewall.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="proxyBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>30</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Proxy</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/proxy.ico</normaloff>:/OpenArk/systools/proxy.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="netconnBtn">
+          <property name="geometry">
+           <rect>
+            <x>250</x>
+            <y>30</y>
+            <width>131</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>NetConnections</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/netconnections.ico</normaloff>:/OpenArk/systools/netconnections.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="hostsBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>60</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Hosts</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/hosts.ico</normaloff>:/OpenArk/systools/hosts.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="ipv4Btn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>30</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>IP v4</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/ipv4.ico</normaloff>:/OpenArk/systools/ipv4.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="ipv6Btn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>60</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>IP v6</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/ipv6.ico</normaloff>:/OpenArk/systools/ipv6.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="routeBtn">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>90</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Route</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/route.ico</normaloff>:/OpenArk/systools/route.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="sharedBtn">
+          <property name="geometry">
+           <rect>
+            <x>250</x>
+            <y>60</y>
+            <width>131</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Shared Folders</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/systools/share.ico</normaloff>:/OpenArk/systools/share.ico</iconset>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="tabCleaner">
       <attribute name="title">
        <string>Cleaner</string>
@@ -38,19 +773,38 @@
          <item>
           <widget class="QLabel" name="statusLabel">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="minimumSize">
             <size>
-             <width>400</width>
+             <width>0</width>
              <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
             </size>
            </property>
            <property name="text">
             <string>[STATUS] not started...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="fileLabel">
+           <property name="maximumSize">
+            <size>
+             <width>400</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </item>
@@ -68,9 +822,19 @@
           </spacer>
          </item>
          <item>
-          <widget class="QCheckBox" name="custom_scan_check_box">
+          <widget class="QCheckBox" name="customScanCheckBox">
            <property name="text">
-            <string>Custom Clean</string>
+            <string>CustomFolder</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="builtinScanCheckBox">
+           <property name="text">
+            <string>Builtins</string>
            </property>
            <property name="checked">
             <bool>true</bool>
@@ -98,526 +862,12 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabSystemTools">
-      <attribute name="title">
-       <string>SystemTools</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QGroupBox" name="groupBox">
-         <property name="title">
-          <string>Common</string>
-         </property>
-         <widget class="QPushButton" name="cmdBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>20</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>CMD</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="regeditBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>50</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Regedit</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="servicesBtn">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>50</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Services</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="powershellBtn">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>20</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Powershell</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="programsBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>80</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Programs</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="wslBtn">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>20</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>WSL</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="taskmgrBtn">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>50</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Taskmgr</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="envBtn">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>80</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Environments</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pcnameBtn">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>80</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>ComputerName</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="calcBtn">
-          <property name="geometry">
-           <rect>
-            <x>370</x>
-            <y>20</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Calculator</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_4">
-         <property name="title">
-          <string>Configuration</string>
-         </property>
-         <widget class="QPushButton" name="diskmgrBtn">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>80</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Disk Managment</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="datetimeBtn">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>20</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Date and Time</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="deskiconsBtn">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>50</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Desktop Icons</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="versionBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>50</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Windows Version</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="sysinfoBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>20</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>SystemInfo</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="wallpaperBtn">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>50</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Wallpaper</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="devmgrBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>80</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Device Manager</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="tasksBtn">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>20</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Task Scheduler</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_5">
-         <property name="title">
-          <string>Performance &amp;&amp; Security</string>
-         </property>
-         <widget class="QPushButton" name="perfBtn">
-          <property name="geometry">
-           <rect>
-            <x>140</x>
-            <y>20</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Performance</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="resmonBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>20</y>
-            <width>111</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Resource Monitor</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="uacBtn">
-          <property name="geometry">
-           <rect>
-            <x>140</x>
-            <y>50</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>UAC Settings</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="perfsetBtn">
-          <property name="geometry">
-           <rect>
-            <x>260</x>
-            <y>20</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Perf Settings</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="powerBtn">
-          <property name="geometry">
-           <rect>
-            <x>380</x>
-            <y>20</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Power Settings</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="gpoBtn">
-          <property name="geometry">
-           <rect>
-            <x>260</x>
-            <y>80</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Group Policy</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="usersBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>50</y>
-            <width>111</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Users &amp;&amp; Groups</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="credBtn">
-          <property name="geometry">
-           <rect>
-            <x>140</x>
-            <y>80</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Credential</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="certBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>80</y>
-            <width>111</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Certificate</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="secpolBtn">
-          <property name="geometry">
-           <rect>
-            <x>380</x>
-            <y>50</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Security Policy</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="evtBtn">
-          <property name="geometry">
-           <rect>
-            <x>260</x>
-            <y>50</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Event Viewer</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_3">
-         <property name="title">
-          <string>Network</string>
-         </property>
-         <widget class="QPushButton" name="firewallBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>30</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Firewall</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="proxyBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>60</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Proxy Settings</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="netconnBtn">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>30</y>
-            <width>131</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Network Connections</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="hostsBtn">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>90</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Hosts</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="ipv4Btn">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>30</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>IP v4</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="ipv6Btn">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>60</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>IP v6</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="routeBtn">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>90</y>
-            <width>101</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Route</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="sharedBtn">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>60</y>
-            <width>131</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Shared Folders</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../res/openark.qrc"/>
+ </resources>
  <connections/>
 </ui>

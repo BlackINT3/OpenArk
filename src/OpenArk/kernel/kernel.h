@@ -19,16 +19,38 @@
 #include <Windows.h>
 #include "ui_kernel.h"
 #include "../common/qt-wrapper/qt-wrapper.h"
+#include "../common/ui-wrapper/ui-wrapper.h"
+#include "network/network.h"
+#include "storage/storage.h"
+#include "memory/memory.h"
+
+enum {
+	KernelTabEntry,
+	TAB_KERNEL_DRIVERS,
+	KernelTabDriverKit,
+	TAB_KERNEL_NOTIFY,
+	TAB_KERNEL_HOTKEY,
+	KernelTabMemory,
+	KernelTabMemory2,
+	KernelTabMemory3,
+	KernelTabNetwork,
+	KernelTabMax,
+};
+
+class KernelNetwork;
+class KernelStorage;
+class KernelMemory;
 
 class OpenArk;
 class Ui::Kernel;
 PROXY_FILTER(DriversSortFilterProxyModel);
 PROXY_FILTER(NotifySortFilterProxyModel);
+PROXY_FILTER(HotkeySortFilterProxyModel);
 
-class Kernel : public QWidget {
+class Kernel : public CommonMainTabObject {
 	Q_OBJECT
 public:
-	Kernel(QWidget *parent);
+	Kernel(QWidget *parent, int tabid);
 	~Kernel();
 
 protected:
@@ -41,6 +63,8 @@ signals:
 
 private slots:
 	void onTabChanged(int index);
+	void onClickKernelMode();
+	void onRefreshKernelMode();
 	void onOpenFile(QString path);
 	void onSignDriver();
 	void onInstallNormallyDriver();
@@ -53,27 +77,34 @@ private:
 	void InitDriversView();
 	void InitDriverKitView();
 	void InitNotifyView();
-	void InitMemoryView();
+	void InitHotkeyView();
 	bool InstallDriver(QString driver, QString name);
 	bool UninstallDriver(QString service);
 	void ShowDrivers();
 	void ShowSystemNotify();
-	void ShowDumpMemory(ULONG64 addr, ULONG size);
+	void ShowSystemHotkey();
 	int DriversCurRow();
 	QString DriversItemData(int column);
 	QString NotifyItemData(int column);
+	QString HotkeyItemData(int column);
 
 private:
 	bool arkdrv_conn_;
+	KernelNetwork *network_;
+	KernelStorage *storage_;
+	KernelMemory *memory_;
 
 private:
 	Ui::Kernel ui;
 	OpenArk *parent_;
 	QMenu *drivers_menu_;
 	QMenu *notify_menu_;
+	QMenu *hotkey_menu_;
 	QStandardItemModel *kerninfo_model_;
 	QStandardItemModel *drivers_model_;
 	QStandardItemModel *notify_model_;
+	QStandardItemModel *hotkey_model_;
 	DriversSortFilterProxyModel *proxy_drivers_;
-	DriversSortFilterProxyModel *proxy_notify_;
+	NotifySortFilterProxyModel *proxy_notify_;
+	HotkeySortFilterProxyModel *proxy_hotkey_;
 };

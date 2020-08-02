@@ -30,6 +30,9 @@ public:
 	~Settings();
 protected:
 	void closeEvent(QCloseEvent *e);
+	void InitConsoleView();
+	void InitCleanView();
+	void InitGeneralView();
 
 private:
 	Ui::Settings ui;

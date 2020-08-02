@@ -21,6 +21,7 @@
 #include <Windows.h>
 #include <mutex>
 #include "ui_scanner.h"
+#include "../common/ui-wrapper/ui-wrapper.h"
 
 namespace Ui {
 	class Scanner;
@@ -30,16 +31,17 @@ namespace Ui {
 
 class OpenArk;
 
-class Scanner : public QWidget {
+class Scanner : public CommonMainTabObject {
 	Q_OBJECT
 public:
-	Scanner(QWidget *parent);
+	Scanner(QWidget *parent, int tabid);
 	~Scanner();
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *e);
 
 public slots:
+	void onTabChanged(int index);
 	void onOpenFile(const QString& file);
 	void onRefresh();
 

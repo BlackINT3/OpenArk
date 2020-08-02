@@ -24,8 +24,8 @@ struct {
 	int s = 0;
 	int dir = s++;
 	int filecnt = s++;
-	int sumsize = s++;
 	int detail = s++;
+	int sumsize = s++;
 } JUNKS;
 bool JunksSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
@@ -35,24 +35,34 @@ bool JunksSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIn
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
 
-Utilities::Utilities(QWidget *parent) :
+Utilities::Utilities(QWidget *parent, int tabid) :
 	parent_((OpenArk*)parent),
 	scanjunks_thread_(nullptr),
 	cleanjunks_thread_(nullptr)
 {
 	ui.setupUi(this);
-	ui.tabWidget->setTabPosition(QTabWidget::West);
-	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
 	qRegisterMetaType<JunkCluster>("JunkCluster");
 
 	InitCleanerView();
 	InitSystemToolsView();
+
+	CommonMainTabObject::Init(ui.tabWidget, tabid);
 }
 
 Utilities::~Utilities()
 {
 	if (scanjunks_thread_) scanjunks_thread_->terminate();
 	scanjunks_thread_ = nullptr;
+}
+
+void Utilities::RecordAppServer(const QString &svr)
+{
+	app_server_ = svr;
+}
+
+void Utilities::onTabChanged(int index)
+{
+	CommonMainTabObject::onTabChanged(index);
 }
 
 void Utilities::onOpJunkfiles(int op, JunkCluster cluster)
@@ -90,7 +100,7 @@ void Utilities::onOpJunkfiles(int op, JunkCluster cluster)
 	dir_item->setCheckable(true);
 	dir_item->setCheckState(Qt::Checked);
 	QStandardItem *filecnt_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", filecnt)));
-	QStandardItem *sumsize_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%lld", sumsize)));
+	QStandardItem *sumsize_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%lld B", sumsize)));
 	QStandardItem *detail_item;
 	if (sumsize > GB) {
 		detail_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%.2f GB", (double)sumsize / GB)));
@@ -105,6 +115,20 @@ void Utilities::onOpJunkfiles(int op, JunkCluster cluster)
 	junks_model_->setItem(seq, JUNKS.filecnt, filecnt_item);
 	junks_model_->setItem(seq, JUNKS.sumsize, sumsize_item);
 	junks_model_->setItem(seq, JUNKS.detail, detail_item);
+
+	if (items.size() > 0) {
+		auto path = items.first().path;
+		int maxcnt = 65;
+		int ellipsis = 5;
+		if (path.size() > maxcnt) {
+			int s1 = (maxcnt - ellipsis) / 2;
+			auto p1 = path.mid(0, s1);
+			auto p2 = QString(".").repeated(ellipsis);
+			auto p3 = path.right(s1);
+			path = p1 + p2 + p3;
+		}
+		ui.fileLabel->setText(path);
+	}
 }
 
 void Utilities::onAppendJunkfiles(JunkCluster cluster)
@@ -152,7 +176,7 @@ void ScanJunksThread::run()
 		UNONE::FsGetFileSizeW(path, fsize);
 		item.size = fsize;
 		items.push_back(item);
-		if (items.size() >= 199) {
+		if (items.size() >= 50) {
 			SendToUI(*(QString*)param);
 		}
 		return true;
@@ -160,14 +184,14 @@ void ScanJunksThread::run()
 
 	std::function<bool(wchar_t*, wchar_t*, void*)> ScanCallbackCustom;
 
-
-	QStringList clear_suffixes_list = custom_suffex_.split(",");
+	QStringList clear_suffixes_list = custom_suffex_.split(QRegExp("[,;]"));
 	ScanCallbackCustom = [&](wchar_t* path, wchar_t* name, void* param)->bool {
 		if (UNONE::FsIsDirW(path)) {
 			UNONE::FsEnumDirectoryW(path, ScanCallbackCustom, param);
 		}
 		QFileInfo file_info = QFileInfo(WCharsToQ(path));
-		if (clear_suffixes_list.contains(file_info.suffix(), Qt::CaseInsensitive)){
+		QString suffix = "." + file_info.suffix();
+		if (custom_suffex_.isEmpty() || clear_suffixes_list.contains(suffix, Qt::CaseInsensitive)){
 			JunkItem item;
 			item.name = WCharsToQ(name);
 			item.path = WCharsToQ(path);
@@ -180,11 +204,13 @@ void ScanJunksThread::run()
 		return true;
 	};
 	junks_cluster_.clear();
-	if (is_custom_scan_){
-		for (int i = 0; i < custom_path_.size(); i++)
-			UNONE::FsEnumDirectoryW(custom_path_[i].toStdWString(), ScanCallbackCustom,&custom_path_[i]);
+	if (is_custom_scan_) {
+		for (int i = 0; i < custom_path_.size(); i++) {
+			SendToUI(custom_path_[i]);
+			UNONE::FsEnumDirectoryW(custom_path_[i].toStdWString(), ScanCallbackCustom, &custom_path_[i]);
+		}
 	}
-	else{
+	if (is_builtin_scan_) {
 		auto &&junkdirs = OpenArkConfig::Instance()->GetJunkDirs();
 		for (auto &dir : junkdirs) {
 			if (!UNONE::FsIsExistedW(dir.toStdWString())) continue;
@@ -248,7 +274,7 @@ void CleanJunksThread::run()
 void Utilities::InitCleanerView()
 {
 	junks_model_ = new QStandardItemModel;
-	junks_model_->setHorizontalHeaderLabels(QStringList() << tr("Directory") << tr("FileCount") << tr("SumSize") << tr("Detail"));
+	junks_model_->setHorizontalHeaderLabels(QStringList() << tr("Directory") << tr("FileCount") << tr("Detail") << tr("SumSize"));
 	QTreeView *view = ui.junksView;
 	proxy_junks_ = new JunksSortFilterProxyModel(view);
 	proxy_junks_->setSourceModel(junks_model_);
@@ -280,7 +306,8 @@ void Utilities::InitCleanerView()
 				ui.statusLabel->setStyleSheet("color:green");
 			});
 		}
-		scanjunks_thread_->is_custom_scan_ = (ui.custom_scan_check_box->checkState() == Qt::Checked);
+		scanjunks_thread_->is_custom_scan_ = (ui.customScanCheckBox->checkState() == Qt::Checked);
+		scanjunks_thread_->is_builtin_scan_ = (ui.builtinScanCheckBox->checkState() == Qt::Checked);
 		scanjunks_thread_->custom_path_ = OpenArkConfig::Instance()->GetValue("clean_path_list").toStringList();
 		scanjunks_thread_->custom_suffex_ = OpenArkConfig::Instance()->GetValue("clean_file_suffix").toString();
 		scanjunks_thread_->start(QThread::NormalPriority);
@@ -326,6 +353,18 @@ void Utilities::InitCleanerView()
 
 }
 
+bool PsKillProcess(__in DWORD pid)
+{
+	bool result = false;
+	HANDLE phd = OpenProcess(PROCESS_TERMINATE, FALSE, pid);
+	if (phd) {
+		if (TerminateProcess(phd, 1))
+			result = true;
+		CloseHandle(phd);
+	}
+	return result;
+
+}
 void Utilities::InitSystemToolsView()
 {
 	connect(ui.cmdBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k cd /d %userprofile%"); });
@@ -338,6 +377,30 @@ void Utilities::InitSystemToolsView()
 	connect(ui.programsBtn, &QPushButton::clicked, [] {ShellRun("control.exe", "appwiz.cpl"); });
 	connect(ui.envBtn, &QPushButton::clicked, [] {ShellRun("SystemPropertiesAdvanced.exe", ""); });
 	connect(ui.pcnameBtn, &QPushButton::clicked, [] {ShellRun("SystemPropertiesComputerName.exe", ""); });
+	connect(ui.fastrebootBtn, &QPushButton::clicked, [&] {
+		if (QMessageBox::warning(this, tr("Warning"), tr("Are you sure to reboot?"), 
+			QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+			UNONE::OsFastReboot();
+		}
+	});
+	connect(ui.fastpoweroffBtn, &QPushButton::clicked, [&] {
+		if (QMessageBox::warning(this, tr("Warning"), tr("Are you sure to poweroff?"),
+			QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+			UNONE::OsFastPoweroff();
+		}
+	});
+	connect(ui.resetexplorerBtn, &QPushButton::clicked, [&] {
+		auto pid = OsGetExplorerPid();
+		auto path = UNONE::OsWinDirW() + L"\\explorer.exe";
+		if (pid != -1) {
+			PsKillProcess(pid);
+		}
+		UNONE::PsCreateProcessW(path);
+	});
+	connect(ui.killexplorerBtn, &QPushButton::clicked, [&] {
+		auto pid = OsGetExplorerPid();
+		PsKillProcess(pid);
+	});
 
 	connect(ui.sysinfoBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c systeminfo |more & pause"); });
 	connect(ui.datetimeBtn, &QPushButton::clicked, [] {ShellRun("control.exe", "date/time"); });
@@ -368,9 +431,9 @@ void Utilities::InitSystemToolsView()
 	connect(ui.proxyBtn, &QPushButton::clicked, [] {ShellRun("rundll32.exe", "shell32.dll,Control_RunDLL inetcpl.cpl,,4"); });
 	connect(ui.netconnBtn, &QPushButton::clicked, [] {ShellRun("control.exe", "ncpa.cpl"); });
 	connect(ui.hostsBtn, &QPushButton::clicked, [&] {ShellRun("notepad.exe", WStrToQ(UNONE::OsSystem32DirW() + L"\\drivers\\etc\\hosts")); });
-	connect(ui.ipv4Btn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c ipconfig|findstr /i ipv4 & pause"); });
-	connect(ui.ipv6Btn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c ipconfig|findstr /i ipv6 & pause"); });
-	connect(ui.routeBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/c route print & pause"); });
+	connect(ui.ipv4Btn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k ipconfig|findstr /i ipv4"); });
+	connect(ui.ipv6Btn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k ipconfig|findstr /i ipv6"); });
+	connect(ui.routeBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k route print"); });
 	connect(ui.sharedBtn, &QPushButton::clicked, [] {ShellRun("fsmgmt.msc", ""); });
 }
 

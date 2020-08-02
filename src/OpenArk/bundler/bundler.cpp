@@ -98,12 +98,6 @@ void Bundler::onSaveTo()
 {
 	QString bundle = QFileDialog::getSaveFileName(this,tr("Save to"),"",tr("BundleFile(*.exe)"));
 	if (bundle.isEmpty()) return;
-
-	int rows = files_model_->rowCount();
-	if (rows == 0) {
-		MsgBoxError(tr("Files is empty"));
-		return;
-	}
 	
 	std::vector<std::wstring> files;
 	std::vector<std::wstring> names;

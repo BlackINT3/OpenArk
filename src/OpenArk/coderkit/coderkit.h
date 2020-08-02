@@ -21,6 +21,7 @@
 #include <Windows.h>
 #include <mutex>
 #include "ui_coderkit.h"
+#include "../common/ui-wrapper/ui-wrapper.h"
 
 namespace Ui {
 	class CoderKit;
@@ -29,13 +30,14 @@ namespace Ui {
 
 class OpenArk;
 
-class CoderKit : public QWidget {
+class CoderKit : public CommonMainTabObject {
 	Q_OBJECT
 public:
-	CoderKit(QWidget* parent);
+	CoderKit(QWidget* parent, int tabid);
 	~CoderKit();
 
 private slots:
+	void onTabChanged(int index);
 	void onCodeTextChanged();
 	void onCodeTextChanged(const QString &text);
 	void onWindowsErrorTextChanged(const QString &text);

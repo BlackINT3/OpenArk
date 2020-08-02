@@ -19,6 +19,37 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <widget class="QWidget" name="tabGeneral">
+      <attribute name="title">
+       <string>General</string>
+      </attribute>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>781</width>
+         <height>211</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Core</string>
+       </property>
+       <widget class="QCheckBox" name="ctxmenuBox">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>141</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Enable Context Menu</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
      <widget class="QWidget" name="tabConsole">
       <attribute name="title">
        <string>Console</string>

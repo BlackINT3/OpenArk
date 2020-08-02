@@ -108,13 +108,31 @@
     <Filter Include="utilities">
       <UniqueIdentifier>{8ea4c836-5d7b-4572-a5fe-d0910ff6b9c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="reverse">
+      <UniqueIdentifier>{7bf7941e-b8b8-4915-83e2-acb7019b3697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\utils\compress">
+      <UniqueIdentifier>{d891b85d-c413-47df-9f0a-096555a8e4ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\utils\compress\xzip">
+      <UniqueIdentifier>{fd40b3a5-37fd-4c06-acf2-2821a176b7aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel\wingui">
+      <UniqueIdentifier>{c53add09-42a1-4b50-8969-58d66167baa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel\network">
+      <UniqueIdentifier>{ddbf08af-ae77-4de2-8538-830f00e18b7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel\storage">
+      <UniqueIdentifier>{07792a43-7382-4302-b2f5-2f5a5bb3b4d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\ui-wrapper">
+      <UniqueIdentifier>{16858abf-3377-4e71-84fa-f20c0e3a4d9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
       <Filter>openark</Filter>
-    </ClCompile>
-    <ClCompile Include="common\common.cpp">
-      <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="common\app\app.cpp">
       <Filter>common\app</Filter>
@@ -222,6 +240,39 @@
     <ClCompile Include="utilities\utilities.cpp">
       <Filter>utilities</Filter>
     </ClCompile>
+    <ClCompile Include="reverse\reverse.cpp">
+      <Filter>reverse</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\compress\zip_utils.cpp">
+      <Filter>common\utils\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\compress\xzip\XUnzip.cpp">
+      <Filter>common\utils\compress\xzip</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils\compress\xzip\XZip.cpp">
+      <Filter>common\utils\compress\xzip</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\wingui\wingui.cpp">
+      <Filter>kernel\wingui</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\network\network.cpp">
+      <Filter>kernel\network</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\storage\storage.cpp">
+      <Filter>kernel\storage</Filter>
+    </ClCompile>
+    <ClCompile Include="common\ui-wrapper\ui-wrapper.cpp">
+      <Filter>common\ui-wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="common\common.cpp">
+      <Filter>common\win-wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="common\win-wrapper\reg-wrapper.cpp">
+      <Filter>common\win-wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\memory\memory.cpp">
+      <Filter>kernel\memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="openark\openark.h">
@@ -263,6 +314,21 @@
     <QtMoc Include="utilities\utilities.h">
       <Filter>utilities</Filter>
     </QtMoc>
+    <QtMoc Include="reverse\reverse.h">
+      <Filter>reverse</Filter>
+    </QtMoc>
+    <QtMoc Include="kernel\storage\storage.h">
+      <Filter>kernel\storage</Filter>
+    </QtMoc>
+    <QtMoc Include="common\ui-wrapper\ui-wrapper.h">
+      <Filter>common\ui-wrapper</Filter>
+    </QtMoc>
+    <QtMoc Include="kernel\network\network.h">
+      <Filter>kernel\network</Filter>
+    </QtMoc>
+    <QtMoc Include="kernel\memory\memory.h">
+      <Filter>kernel\memory</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\process-mgr.ui">
@@ -296,6 +362,9 @@
       <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\utilities.ui">
+      <Filter>ui</Filter>
+    </QtUic>
+    <QtUic Include="ui\reverse.ui">
       <Filter>ui</Filter>
     </QtUic>
   </ItemGroup>
@@ -407,6 +476,24 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_utilities.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_reverse.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\compress\zip_utils.h">
+      <Filter>common\utils\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\compress\xzip\XUnzip.h">
+      <Filter>common\utils\compress\xzip</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils\compress\xzip\XZip.h">
+      <Filter>common\utils\compress\xzip</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\wingui\wingui.h">
+      <Filter>kernel\wingui</Filter>
+    </ClInclude>
+    <ClInclude Include="common\win-wrapper\reg-wrapper.h">
+      <Filter>common\win-wrapper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

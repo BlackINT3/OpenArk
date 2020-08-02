@@ -36,6 +36,14 @@ bool ConnectDriver()
 	return true;
 }
 
+bool DisconnectDriver()
+{
+	if (arkdrv == INVALID_HANDLE_VALUE) return true;
+	CloseHandle(arkdrv);
+	arkdrv = INVALID_HANDLE_VALUE;
+	return true;
+}
+
 bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *outbuf, DWORD *outlen)
 {
 	DWORD retlen = 0;
@@ -169,6 +177,42 @@ bool MemoryRead(ULONG64 addr, ULONG size, std::string &readbuf)
 	readbuf.resize(memout->size);
 	memcpy(&readbuf[0], memout->readbuf, memout->size);
 	free(memout);
+	return true;
+}
+bool HotkeyEnumInfo(std::vector<HOTKEY_ITEM> &hotkeys)
+{
+	if (!ConnectDriver()) return false;
+	DWORD op = HOTKEY_ENUM;
+	PHOTKEY_INFO info;
+	DWORD outlen;
+	int hkmarks[HOTKEY_MAX_VK+1] = { 0 };
+	for (int i = 1; i <= HOTKEY_MAX_VK; i++) {
+		if (RegisterHotKey(NULL, HOTKEY_PLACEHOLDER_ID + i, MOD_ALT | MOD_NOREPEAT, i)) {
+			hkmarks[i] = ~i;
+		} else {
+			OutputDebugStringA(UNONE::StrFormatA("Register err:%s\n", UNONE::OsDosErrorMsgA(GetLastError()).c_str()).c_str());
+		}
+	}
+	bool ret = IoControlDriver(IOCTL_ARK_HOTKEY, op, NULL, 0, (PVOID*)&info, &outlen);
+	for (int i = 1; i <= HOTKEY_MAX_VK; i++) {
+		if (hkmarks[i]) {
+			UnregisterHotKey(NULL, HOTKEY_PLACEHOLDER_ID + i);
+		}
+	}
+	if (!ret) return false;
+	for (int i = 0; i < info->count; i++) {
+		hotkeys.push_back(info->items[i]);
+	}
+	free(info);
+	return true;
+}
+bool HotkeyRemoveInfo(HOTKEY_ITEM &item)
+{
+	DWORD op = HOTKEY_REMOVE;
+	DWORD out;
+	DWORD outlen;
+	bool ret = IoControlDriver(IOCTL_ARK_HOTKEY, op, &item, sizeof(item), (PVOID*)&out, &outlen);
+	if (!ret) return false;
 	return true;
 }
 } // namespace IArkDrv

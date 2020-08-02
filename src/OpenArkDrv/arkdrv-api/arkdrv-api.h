@@ -16,6 +16,7 @@
 #pragma once
 #ifdef _ARKDRV_
 #include <ntifs.h>
+#include <windef.h>
 #else
 #include <Windows.h>
 #endif //_NTDDK_
@@ -30,6 +31,7 @@
 #define IOCTL_ARK_DRIVER CTL_CODE(ARK_DRV_TYPE, 0x801, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_ARK_NOTIFY CTL_CODE(ARK_DRV_TYPE, 0x802, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_ARK_MEMORY CTL_CODE(ARK_DRV_TYPE, 0x803, METHOD_BUFFERED, FILE_ANY_ACCESS)
+#define IOCTL_ARK_HOTKEY CTL_CODE(ARK_DRV_TYPE, 0x900, METHOD_BUFFERED, FILE_ANY_ACCESS)
 
 // Driver
 enum DRIVER_OPS {
@@ -99,7 +101,32 @@ typedef struct _MEMORY_OUT {
 } MEMORY_OUT, *PMEMORY_OUT;
 #pragma pack(pop)
 
+// WinGUI
+#define HOTKEY_MAX_VK	0x80
+#define HOTKEY_PLACEHOLDER_ID 0x99887766
+enum HOTKEY_OPS {
+	HOTKEY_ENUM,
+	HOTKEY_REMOVE,
+};
+#pragma pack(push, 1)
+typedef struct _HOTKEY_ITEM {
+	UCHAR name[64];
+	UINT32 wnd;
+	UINT16 mod1;
+	UINT16 mod2;
+	UINT32 vk;
+	UINT32 id;
+	UINT32 pid;
+	UINT32 tid;
+	ULONG64 hkobj;
+} HOTKEY_ITEM, *PHOTKEY_ITEM;
+typedef struct _HOTKEY_INFO {
+	ULONG count;
+	HOTKEY_ITEM items[1];
+} HOTKEY_INFO, *PHOTKEY_INFO;
+#pragma pack(pop)
 
+//#undef _ARKDRV_
 #ifdef _ARKDRV_
 #include <ntifs.h>
 #else
@@ -108,6 +135,7 @@ typedef struct _MEMORY_OUT {
 #include <vector>
 namespace ArkDrvApi {
 bool ConnectDriver();
+bool DisconnectDriver();
 bool HeartBeatPulse();
 bool DriverEnumInfo(std::vector<DRIVER_ITEM> &infos);
 bool NotifyPatch(NOTIFY_TYPE type, ULONG64 routine);
@@ -120,5 +148,7 @@ bool NotifyEnumImage(std::vector<ULONG64> &routines);
 bool NotifyEnumRegistry(std::vector<ULONG64> &routines);
 bool MemoryRead(ULONG64 addr, ULONG size, std::string &readbuf);
 bool MemoryWrite(std::string &writebuf, ULONG64 addr);
+bool HotkeyEnumInfo(std::vector<HOTKEY_ITEM> &hotkeys);
+bool HotkeyRemoveInfo(HOTKEY_ITEM &item);
 } // namespace ArkDrvApi
 #endif //_NTDDK_

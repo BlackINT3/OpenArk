@@ -23,6 +23,7 @@
 #include "about/about.h"
 #include "cmds/cmds.h"
 #include "kernel/kernel.h"
+#include "reverse/reverse.h"
 #include "utilities/utilities.h"
 
 #include <QtNetwork/QNetworkAccessManager>
@@ -30,8 +31,8 @@
 
 #define APP_CHKUPT_SERVER "http://upt.blackint3.com/openark/version.txt"
 #define APP_MESSAGE_PATTERN \
-"%{if-debug}<font color=blue>%{endif}"\
-"%{if-info}<font color=black>%{endif}"\
+"%{if-debug}<font color=#E0E2E4>%{endif}"\
+"%{if-info}<font color=#E0E2E4>%{endif}"\
 "%{if-warning}<font color=red>%{endif}"\
 "%{if-critical}<font color=red>%{endif}"\
 "[%{function}:%{line}]"\
@@ -119,6 +120,7 @@ OpenArk::OpenArk(QWidget *parent) :
 	}
 	connect(langs, SIGNAL(triggered(QAction*)), this, SLOT(onActionLanguage(QAction*)));
 
+	connect(ui.actionRun, &QAction::triggered, this, [=]() { UNONE::PsCreateProcessW(L"rundll32.exe shell32.dll,#61"); });
 	connect(ui.actionExit, &QAction::triggered, this, [=]() { QApplication::quit(); });
 	connect(ui.actionAbout, SIGNAL(triggered(bool)), this, SLOT(onActionAbout(bool)));
 	connect(ui.actionSettings, SIGNAL(triggered(bool)), this, SLOT(onActionSettings(bool)));
@@ -141,8 +143,14 @@ OpenArk::OpenArk(QWidget *parent) :
 	ui.cmdOutWindow->setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(ui.cmdInput, SIGNAL(returnPressed()), this, SLOT(onCmdInput()));
 	connect(ui.cmdButton, SIGNAL(clicked()), this, SLOT(onCmdHelp()));
-	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged()));
+	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 	connect(ui.cmdOutWindow, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onShowConsoleMenu(const QPoint &)));
+
+	int main_idx = 1;
+	QVector<int> level2_idx;
+	QVector<QVector<int>> idxs;
+	OpenArkConfig::Instance()->GetPrefMainTab(main_idx);
+	OpenArkConfig::Instance()->GetMainTabAllMap(idxs);
 
 	auto CreateTabPage = [&](QWidget *widget, QWidget *origin) {
 		int idx = ui.tabWidget->indexOf(origin);
@@ -151,16 +159,42 @@ OpenArk::OpenArk(QWidget *parent) :
 		ui.tabWidget->insertTab(idx, widget, text);
 	};
 
-	CreateTabPage(new ProcessMgr(this), ui.tabProcessMgr);
-	CreateTabPage(new Scanner(this), ui.tabScanner);
-	CreateTabPage(new CoderKit(this), ui.tabCoderKit);
-	CreateTabPage(new Bundler(this), ui.tabBundler);
-	CreateTabPage(new Kernel(this), ui.tabKernel);
-	CreateTabPage(new Utilities(this), ui.tabUtilities);
-	ActivateTab(TAB_PROCESS);
+	auto processmgr = new ProcessMgr(this);
+	CreateTabPage(processmgr, ui.tabProcessMgr);
+
+	auto scanner = new Scanner(this, TAB_SCANNER);
+	CreateTabPage(scanner, ui.tabScanner);
+	
+	auto coderkit = new CoderKit(this, TAB_CODERKIT);
+	CreateTabPage(coderkit, ui.tabCoderKit);
+
+	auto bundler = new Bundler(this);
+	CreateTabPage(bundler, ui.tabBundler);
+	
+	auto kernel = new Kernel(this, TAB_KERNEL);
+	CreateTabPage(kernel, ui.tabKernel);
+
+	auto utilities = new Utilities(this, TAB_UTILITIES);
+	CreateTabPage(utilities, ui.tabUtilities);
+
+	auto reverse = new Reverse(this, TAB_REVERSE);
+	CreateTabPage(reverse, ui.tabReverse);
+
+	for (int tab = 0; tab < TAB_MAX; tab++) {
+		level2_idx = idxs[tab];
+		switch (tab) {
+		case TAB_KERNEL: kernel->SetActiveTab(level2_idx); break;
+		case TAB_CODERKIT: coderkit->SetActiveTab(level2_idx); break;
+		case TAB_SCANNER: scanner->SetActiveTab(level2_idx); break;
+		case TAB_UTILITIES: utilities->SetActiveTab(level2_idx); break;
+		case TAB_REVERSE: reverse->SetActiveTab(level2_idx); break;
+		}
+	}
+
+	SetActiveTab(main_idx);
 
 	chkupt_timer_ = new QTimer();
-	chkupt_timer_->setInterval(5000);
+	chkupt_timer_->setInterval(1000);
 	chkupt_timer_->start();
 	connect(chkupt_timer_, &QTimer::timeout, this, [&]() {
 		onActionCheckUpdate(false);
@@ -168,6 +202,8 @@ OpenArk::OpenArk(QWidget *parent) :
 	});
 
 	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
+
+	this->installEventFilter(this);
 }
 
 bool OpenArk::eventFilter(QObject *obj, QEvent *e)
@@ -203,7 +239,7 @@ bool OpenArk::eventFilter(QObject *obj, QEvent *e)
 			OpenArkConfig::Instance()->SetMainGeometry(-1, -1, evt->size().width(), evt->size().height());
 		} else if (e->type() == QEvent::Move) {
 			auto evt = dynamic_cast<QMoveEvent*>(e);
-			OpenArkConfig::Instance()->SetMainGeometry(evt->pos().x(), evt->pos().y(), -1, -1);
+			OpenArkConfig::Instance()->SetMainGeometry(evt->pos().x()-8, evt->pos().y()-31, -1, -1);
 		}
 	}
 	
@@ -337,11 +373,16 @@ void OpenArk::onActionCheckUpdate(bool checked)
 			ERR(L"request app-err: %d", val.toInt());
 			return;
 		}
-		QJsonValue appver, appbd, appurl;
+		QJsonValue appver, appbd, appurl, appfsurl;
 		if (!JsonGetValue(obj, "appver", appver) || !JsonGetValue(obj, "appbd", appbd) || !JsonGetValue(obj, "appurl", appurl)) {
 			ERR(L"request json err: %d", val.toInt());
 			return;
 		}
+
+		if (JsonGetValue(obj, "appfsurl", appfsurl)) {
+			AppFsUrl(appfsurl.toString());
+		}
+
 		auto local_ver = AppVersion();
 		auto local_bd = AppBuildTime();
 		INFO(L"local appver:%s, build:%s", local_ver.toStdWString().c_str(), local_bd.toStdWString().c_str());
@@ -390,17 +431,17 @@ void OpenArk::onActionLanguage(QAction *act)
 
 void OpenArk::onActionCoderKit(bool checked)
 {
-	ActivateTab(TAB_CODERKIT);
+	SetActiveTab(TAB_CODERKIT);
 }
 
 void OpenArk::onActionScanner(bool checked)
 {
-	ActivateTab(TAB_SCANNER);
+	SetActiveTab(TAB_SCANNER);
 }
 
 void OpenArk::onActionBundler(bool checked)
 {
-	ActivateTab(TAB_BUNDLER);
+	SetActiveTab(TAB_BUNDLER);
 }
 
 void OpenArk::onLogOutput(QString log)
@@ -410,6 +451,7 @@ void OpenArk::onLogOutput(QString log)
 	log.replace("error", "<font color=red>error</font>");
 	log.replace("ERR", "<font color=red>ERR</font>");
 	log.replace("ERROR", "<font color=red>ERROR</font>");
+	log = QString("<font color=#E0E2E4>%1</font>").arg(log);
 	ui.cmdOutWindow->append(log);
 }
 
@@ -465,8 +507,28 @@ void OpenArk::onCmdInput()
 	sender->clear();
 }
 
-void OpenArk::onTabChanged()
+void OpenArk::onTabChanged(int idx)
 {
+	if (idx == TAB_PROCESS) onActionRefresh(true);
+	OpenArkConfig::Instance()->SetPrefMainTab(idx);
+
+	switch (idx) {
+	case TAB_KERNEL:
+	case TAB_CODERKIT:
+	case TAB_SCANNER:
+	case TAB_UTILITIES:
+	case TAB_REVERSE:
+		auto obj = ui.tabWidget->currentWidget();
+		auto xxx = obj->objectName();
+		if (obj->objectName().contains("tab")) break;
+		qint32 l2;
+		qRegisterMetaType<qint32>("qint32");
+		QMetaObject::invokeMethod(obj,
+			"GetActiveTab", Qt::DirectConnection, Q_RETURN_ARG(qint32, l2));
+		OpenArkConfig::Instance()->SetPrefLevel2Tab(l2);
+		break;
+	}
+
 }
 
 void OpenArk::StatusBarClear()
@@ -479,7 +541,7 @@ void OpenArk::StatusBarAdd(QWidget *label)
 	stool_->addWidget(label);
 }
 
-void OpenArk::ActivateTab(int idx)
+void OpenArk::SetActiveTab(int idx)
 {
 	ui.tabWidget->setCurrentIndex(idx);
 }

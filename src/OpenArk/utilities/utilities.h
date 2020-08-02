@@ -18,6 +18,7 @@
 #include <QtWidgets>
 #include <Windows.h>
 #include "ui_utilities.h"
+#include "../common/ui-wrapper/ui-wrapper.h"
 
 class OpenArk;
 class Ui::Utilities;
@@ -51,6 +52,7 @@ protected:
 public:
 	QList<JunkCluster> junks_cluster_;
 	bool is_custom_scan_ = false;
+	bool is_builtin_scan_ = false;
 	QStringList custom_path_;
 	QString custom_suffex_;
 };
@@ -68,13 +70,17 @@ private:
 };
 
 
-class Utilities : public QWidget {
+class Utilities : public CommonMainTabObject {
 	Q_OBJECT
 public:
-	Utilities(QWidget *parent);
+	Utilities(QWidget *parent, int tabid);
 	~Utilities();
 
+public:
+	void RecordAppServer(const QString &svr);
+
 private slots:
+	void onTabChanged(int index);
 	void onOpJunkfiles(int, JunkCluster);
 	void onAppendJunkfiles(JunkCluster);
 	void onCleanJunkfiles(JunkCluster);
@@ -86,6 +92,7 @@ private:
 	QVector<int> removed_rows_;
 
 private:
+	QString app_server_;
 	QStandardItemModel *junks_model_;
 	JunksSortFilterProxyModel *proxy_junks_;
 	ScanJunksThread *scanjunks_thread_;

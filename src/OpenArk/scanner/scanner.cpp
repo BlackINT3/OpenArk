@@ -21,15 +21,13 @@
 #define PE_FILE32 L"PE 32-bit"
 #define PE_FILE64 L"PE 64-bit"
 
-Scanner::Scanner(QWidget *parent) :
+Scanner::Scanner(QWidget *parent, int tabid) :
 	pe_image_(NULL),
 	parent_((OpenArk*)parent)
 {
 	ui.setupUi(this);
 	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
 
-	ui.tabWidget->setTabPosition(QTabWidget::West);
-	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
 	setAcceptDrops(true);
 
 	sumup_model_ = new QStandardItemModel;
@@ -50,7 +48,7 @@ Scanner::Scanner(QWidget *parent) :
 	ui.headersView->viewport()->installEventFilter(this);
 	ui.headersView->installEventFilter(this);
 	headers_menu_ = new QMenu();
-	headers_menu_->addAction(WCharsToQ(L"ExpandAll"), this, SLOT(onExpandAll()));
+	headers_menu_->addAction(tr("ExpandAll"), this, SLOT(onExpandAll()));
 
 	sections_model_ = new QStandardItemModel;
 	SetDefaultTableViewStyle(ui.sectionsView, sections_model_);
@@ -89,6 +87,8 @@ Scanner::Scanner(QWidget *parent) :
 	connect(ui.revaEdit, SIGNAL(textChanged(const QString&)), this, SLOT(onTextChanged(const QString&)));
 	connect(ui.rvaEdit, SIGNAL(textChanged(const QString&)), this, SLOT(onTextChanged(const QString&)));
 	connect(ui.rawEdit, SIGNAL(textChanged(const QString&)), this, SLOT(onTextChanged(const QString&)));
+
+	CommonMainTabObject::Init(ui.tabWidget, tabid);
 }
 
 Scanner::~Scanner()
@@ -270,6 +270,7 @@ void Scanner::onTextChanged(const QString& text)
 			UNONE::StrReplaceA(input, "0x");
 			UNONE::StrReplaceA(input, "h");
 			UNONE::StrReplaceA(input, "\\x");
+			UNONE::StrReplaceA(input, "`");
 			input = UNONE::StrTrimLeftA(input, "0");
 			UNONE::StrUpperA(input);
 			sender->setText(StrToQ(input));
@@ -330,6 +331,11 @@ __raw:
 	}
 	catch (...) {
 	}
+}
+
+void Scanner::onTabChanged(int index)
+{
+	CommonMainTabObject::onTabChanged(index);
 }
 
 void Scanner::onOpenFile(const QString& file)
@@ -415,7 +421,7 @@ void Scanner::RefreshSummary(const std::wstring& path)
 	DWORD64 size;
 	UNONE::FsGetFileSizeW(path, (DWORD64&)size);
 	kbytes = size / 1024;
-	mbytes = size / 1024 / 1024;
+	mbytes = kbytes / 1024;
 	std::wstring formed = UNONE::StrFormatW(L"%.2f MB | %.2f KB | %d B", mbytes, kbytes, size);
 
 	auto AddSummaryUpItem = [&](QString name, QString value) {
@@ -752,8 +758,14 @@ void Scanner::RefreshExport()
 
 	PIMAGE_DATA_DIRECTORY dir = UNONE::PeGetDataDirectory(IMAGE_DIRECTORY_ENTRY_EXPORT, pe_image_);
 	PDWORD addr_names = (PDWORD)(exp->AddressOfNames + pe_image_);
+	if (!UNONE::PeRegionValid(pe_image_, addr_names))
+		return;
 	PDWORD addr_funcs = (PDWORD)(exp->AddressOfFunctions + pe_image_);
+	if (!UNONE::PeRegionValid(pe_image_, addr_funcs))
+		return;
 	PWORD addr_ordinals = (PWORD)(exp->AddressOfNameOrdinals + pe_image_);
+	if (!UNONE::PeRegionValid(pe_image_, addr_ordinals))
+		return;
 	DWORD cnt_names = exp->NumberOfNames;
 	DWORD cnt_ordinals = exp->NumberOfFunctions;
 	DWORD base_ordinal = exp->Base;

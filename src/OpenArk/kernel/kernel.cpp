@@ -18,13 +18,8 @@
 #include "../common/common.h"
 #include "../common/utils/disassembly/disassembly.h"
 #include "../openark/openark.h"
+#include "wingui/wingui.h"
 #include "../../../OpenArkDrv/arkdrv-api/arkdrv-api.h"
-
-#define KernelTabEntry 0
-#define KernelTabDrivers 1
-#define KernelTabDriverKit 2
-#define KernelTabNotify 3
-#define KernelTabMemory 4
 
 struct {
 	int s = 0;
@@ -66,20 +61,28 @@ bool NotifySortFilterProxyModel::lessThan(const QModelIndex &left, const QModelI
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
 
-Kernel::Kernel(QWidget *parent) :
+bool HotkeySortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const {
+	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
+	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
+}
+
+Kernel::Kernel(QWidget *parent, int tabid) :
 	parent_((OpenArk*)parent)
 {
 	ui.setupUi(this);
-	ui.tabWidget->setTabPosition(QTabWidget::West);
-	ui.tabWidget->tabBar()->setStyle(new OpenArkTabStyle);
 	setAcceptDrops(true);
-	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
+
+	network_ = new KernelNetwork(); network_->ModuleInit(&ui, this);
+	storage_ = new KernelStorage(); storage_->ModuleInit(&ui, this);
+	memory_ = new KernelMemory(); memory_->ModuleInit(&ui, this);
 
 	InitKernelEntryView();
 	InitDriversView();
 	InitDriverKitView();
 	InitNotifyView();
-	InitMemoryView();
+	InitHotkeyView();
+
+	CommonMainTabObject::Init(ui.tabWidget, tabid);
 }
 
 Kernel::~Kernel()
@@ -89,23 +92,19 @@ Kernel::~Kernel()
 bool Kernel::eventFilter(QObject *obj, QEvent *e)
 {
 	bool filtered = false;
-	if (obj == ui.driverView->viewport()) {
-		if (e->type() == QEvent::ContextMenu) {
-			QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
-			if (ctxevt) {
-				drivers_menu_->move(ctxevt->globalPos());
-				drivers_menu_->show();
-			}
-		}
-	} else if (obj == ui.notifyView->viewport()) {
-		if (e->type() == QEvent::ContextMenu) {
-			QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
-			if (ctxevt) {
-				notify_menu_->move(ctxevt->globalPos());
-				notify_menu_->show();
-			}
+	if (e->type() == QEvent::ContextMenu) {
+		QMenu *menu = nullptr;
+		if (obj == ui.driverView->viewport()) menu = drivers_menu_;
+		else  if (obj == ui.notifyView->viewport()) menu = notify_menu_;
+		else if (obj == ui.hotkeyView->viewport()) menu = hotkey_menu_;
+		QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
+		if (ctxevt && menu) {
+			menu->move(ctxevt->globalPos());
+			menu->show();
 		}
 	}
+
+	network_->EventFilter();
 
 	if (filtered) {
 		dynamic_cast<QKeyEvent*>(e)->ignore();
@@ -128,6 +127,61 @@ void Kernel::dropEvent(QDropEvent *event)
 	onOpenFile(path);
 }
 
+void Kernel::onClickKernelMode()
+{
+	QString &&drvname = UNONE::OsIs64() ? "OpenArkDrv64.sys" : "OpenArkDrv32.sys";
+	QString &&srvname = WStrToQ(UNONE::FsPathToPureNameW(drvname.toStdWString()));
+	if (!arkdrv_conn_) {
+		QString drvpath;
+		drvpath = WStrToQ(UNONE::OsEnvironmentW(QToWStr(L"%Temp%\\" + drvname)));
+		ExtractResource(":/OpenArk/driver/" + drvname, drvpath);
+		{
+			SignExpiredDriver(drvpath);
+			RECOVER_SIGN_TIME();
+			if (!InstallDriver(drvpath, srvname)) {
+				QERR_W("InstallDriver %s err", QToWChars(drvpath));
+				return;
+			}
+		}
+		if (!ArkDrvApi::ConnectDriver()) {
+			ERR("ConnectDriver err");
+			return;
+		}
+		ui.kernelModeBtn->setText(tr("Exit KernelMode"));
+		INFO("Enter KernelMode ok");
+	} else {
+		if (!UninstallDriver(srvname)) {
+			QERR_W("UninstallDriver %s err", QToWChars(srvname));
+			return;
+		}
+		if (!ArkDrvApi::DisconnectDriver()) {
+			ERR("DisconnectDriver err");
+			return;
+		}
+		ui.kernelModeBtn->setText(tr("Enter KernelMode"));
+		INFO("Exit KernelMode ok");
+	}
+	onRefreshKernelMode();
+}
+
+void Kernel::onRefreshKernelMode()
+{
+	bool conn = ArkDrvApi::HeartBeatPulse();
+	if (conn && !arkdrv_conn_) {
+		ui.kernelModeStatus->setText(tr("[KernelMode] Enter successfully..."));
+		ui.kernelModeStatus->setStyleSheet("color:green");
+		ui.kernelModeBtn->setText(tr("Exit KernelMode"));
+		arkdrv_conn_ = true;
+		onTabChanged(ui.tabWidget->currentIndex());
+	}
+	if (!conn && arkdrv_conn_) {
+		ui.kernelModeStatus->setText(tr("[KernelMode] Exit successfully..."));
+		ui.kernelModeStatus->setStyleSheet("color:red");
+		ui.kernelModeBtn->setText(tr("Enter KernelMode"));
+		arkdrv_conn_ = false;
+	}
+}
+
 void Kernel::onOpenFile(QString path)
 {
 	if (!UNONE::FsIsFileW(path.toStdWString()))
@@ -141,15 +195,19 @@ void Kernel::onOpenFile(QString path)
 void Kernel::onTabChanged(int index)
 {
 	switch (index) {
-	case KernelTabDrivers:
+	case TAB_KERNEL_DRIVERS:
 		ShowDrivers();
 		break;
-	case KernelTabNotify:
+	case TAB_KERNEL_NOTIFY:
 		ShowSystemNotify();
+		break;
+	case TAB_KERNEL_HOTKEY:
+		ShowSystemHotkey();
 		break;
 	default:
 		break;
 	}
+	CommonMainTabObject::onTabChanged(index);
 }
 
 void Kernel::onSignDriver()
@@ -203,6 +261,8 @@ void Kernel::InitKernelEntryView()
 {
 	kerninfo_model_ = new QStandardItemModel;
 	SetDefaultTableViewStyle(ui.kernelInfoView, kerninfo_model_);
+	ui.kernelModeStatus->setText(tr("[KernelMode] Enter kernel mode needed before using the features(Hotkey/Notify/Memory...)"));
+	ui.kernelModeStatus->setStyleSheet("color:red");
 	kerninfo_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Value"));
 	ui.kernelInfoView->setColumnWidth(0, 120);
 
@@ -225,8 +285,10 @@ void Kernel::InitKernelEntryView()
 	GetPerformanceInfo(&perf, sizeof(perf));
 	double gb = round((double)(perf.PhysicalTotal*perf.PageSize) / 1024 / 1024 / 1024);
 
-	AddSummaryUpItem(tr("MajorVersion"), DWordToDecQ(UNONE::OsMajorVer()));
+	auto major = UNONE::OsMajorVer();
+	AddSummaryUpItem(tr("MajorVersion"), DWordToDecQ(major));
 	AddSummaryUpItem(tr("MiniorVersion"), DWordToDecQ(UNONE::OsMinorVer()));
+	if (major >= 10) AddSummaryUpItem(tr("ReleaseNumber"), DWordToDecQ(UNONE::OsReleaseNumber()));
 	AddSummaryUpItem(tr("BuildNumber"), DWordToDecQ(UNONE::OsBuildNumber()));
 	AddSummaryUpItem(tr("MajorServicePack"), DWordToDecQ(info.wServicePackMajor));
 	AddSummaryUpItem(tr("MiniorServicePack"), DWordToDecQ(info.wServicePackMinor));
@@ -236,51 +298,11 @@ void Kernel::InitKernelEntryView()
 	AddSummaryUpItem(tr("CPU Count"), DWordToDecQ(sys.dwNumberOfProcessors));
 	AddSummaryUpItem(tr("SystemRoot"), WStrToQ(UNONE::OsWinDirW()));
 
-	connect(ui.kernelModeBtn, &QPushButton::clicked, this, [&]() {
-		if (!arkdrv_conn_) {
-			QString driver;
-			if (UNONE::OsIs64()) {
-				driver = WStrToQ(UNONE::OsEnvironmentW(L"%Temp%\\OpenArkDrv64.sys"));
-				ExtractResource(":/OpenArk/driver/OpenArkDrv64.sys", driver);
-			} else {
-				driver = WStrToQ(UNONE::OsEnvironmentW(L"%Temp%\\OpenArkDrv32.sys"));
-				ExtractResource(":/OpenArk/driver/OpenArkDrv32.sys", driver);
-			}
-			{
-				SignExpiredDriver(driver);
-				RECOVER_SIGN_TIME();
-				auto &&name = UNONE::FsPathToPureNameW(driver.toStdWString());
-				if (!InstallDriver(driver, WStrToQ(name))) {
-					QERR_W("InstallDriver %s err", driver);
-					return;
-				}
-			}
-			bool ret = ArkDrvApi::ConnectDriver();
-			if (!ret) {
-				ERR("ConnectDriver err");
-				return;
-			}
-			INFO("Enter KernelMode ok");
-		}		
-	});
+	connect(ui.kernelModeBtn, SIGNAL(clicked()), this, SLOT(onClickKernelMode()));
 
 	arkdrv_conn_ = false;
 	auto timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, [&]() {
-		bool conn = ArkDrvApi::HeartBeatPulse();
-		if (conn && !arkdrv_conn_) {
-			ui.kernelModeStatus->setText(tr("[KernelMode] Connect successfully..."));
-			ui.kernelModeStatus->setStyleSheet("color:green");
-			ui.kernelModeBtn->setEnabled(false);
-			arkdrv_conn_ = true;
-		}
-		if (!conn && arkdrv_conn_) {
-			ui.kernelModeStatus->setText(tr("[KernelMode] Disconnected..."));
-			ui.kernelModeStatus->setStyleSheet("color:red");
-			ui.kernelModeBtn->setEnabled(true);
-			arkdrv_conn_ = false;
-		}
-	});
+	connect(timer, SIGNAL(timeout()), this, SLOT(onRefreshKernelMode()));
 	timer->setInterval(1000);
 	timer->start();
 }
@@ -314,7 +336,7 @@ void Kernel::InitDriversView()
 		ClipboardCopyData(DriversItemData(GetCurViewColumn(ui.driverView)).toStdString());
 	});
 	drivers_menu_->addAction(tr("Sendto Scanner"), this, [&] {
-		parent_->ActivateTab(TAB_SCANNER);
+		parent_->SetActiveTab(TAB_SCANNER);
 		emit signalOpen(DriversItemData(DRV.path));
 	});
 	drivers_menu_->addAction(tr("Explore File"), this, [&] {
@@ -343,7 +365,7 @@ void Kernel::InitNotifyView()
 {
 	notify_model_ = new QStandardItemModel;
 	QTreeView *view = ui.notifyView;
-	proxy_notify_ = new DriversSortFilterProxyModel(view);
+	proxy_notify_ = new NotifySortFilterProxyModel(view);
 	proxy_notify_->setSourceModel(notify_model_);
 	proxy_notify_->setDynamicSortFilter(true);
 	proxy_notify_->setFilterKeyColumn(1);
@@ -383,15 +405,15 @@ void Kernel::InitNotifyView()
 		size = 0x100;
 		ui.addrEdit->setText(qstr);
 		ui.sizeEdit->setText(DWordToHexQ(size));
-		ShowDumpMemory(addr, size);
-		ui.tabWidget->setCurrentIndex(KernelTabMemory);
+		memory_->ShowDumpMemory(addr, size);
+		SetActiveTab(QVector<int>({ KernelTabMemory, KernelMemory::View }));
 	});
 	notify_menu_->addSeparator();
 	notify_menu_->addAction(tr("Copy"), this, [&] {
 		ClipboardCopyData(NotifyItemData(GetCurViewColumn(ui.driverView)).toStdString());
 	});
 	notify_menu_->addAction(tr("Sendto Scanner"), this, [&] {
-		parent_->ActivateTab(TAB_SCANNER);
+		parent_->SetActiveTab(TAB_SCANNER);
 		emit signalOpen(NotifyItemData(NOTIFY.path));
 	});
 	notify_menu_->addAction(tr("Explore File"), this, [&] {
@@ -402,14 +424,71 @@ void Kernel::InitNotifyView()
 	});
 }
 
-void Kernel::InitMemoryView()
+void Kernel::InitHotkeyView()
 {
-	connect(ui.dumpmemBtn, &QPushButton::clicked, this, [&] {
-		ULONG64 addr = VariantInt64(ui.addrEdit->text().toStdString());
-		ULONG size = VariantInt(ui.sizeEdit->text().toStdString());
-		ShowDumpMemory(addr, size);
+	hotkey_model_ = new QStandardItemModel;
+	QTreeView *view = ui.hotkeyView;
+	proxy_hotkey_ = new HotkeySortFilterProxyModel(view);
+	proxy_hotkey_->setSourceModel(hotkey_model_);
+	proxy_hotkey_->setDynamicSortFilter(true);
+	proxy_hotkey_->setFilterKeyColumn(1);
+	view->setModel(proxy_hotkey_);
+	view->selectionModel()->setModel(proxy_hotkey_);
+	view->header()->setSortIndicator(-1, Qt::AscendingOrder);
+	view->setSortingEnabled(true);
+	view->viewport()->installEventFilter(this);
+	view->installEventFilter(this);
+	std::pair<int, QString> colum_layout[] = { 
+	{ 130, tr("Name") },
+	{ 100, tr("PID.TID") },
+	{ 200, tr("Hotkey") },
+	{ 100, tr("HotkeyID") },
+	{ 100, tr("HWND") },
+	{ 180, tr("Title") },
+	{ 180, tr("ClassName") },
+	{ 300, tr("Path") },
+	{ 120, tr("Description") } };
+	QStringList name_list;
+	for (auto p : colum_layout) {
+		name_list << p.second;
+	}
+	hotkey_model_->setHorizontalHeaderLabels(name_list);
+	for (int i = 0; i < _countof(colum_layout); i++) {
+		view->setColumnWidth(i, colum_layout[i].first);
+	}
+	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	hotkey_menu_ = new QMenu();
+	hotkey_menu_->addAction(tr("Refresh"), this, [&] { ShowSystemHotkey(); });
+	hotkey_menu_->addSeparator();
+	hotkey_menu_->addAction(tr("Delete Hotkey"), this, [&] {
+		ULONG32 vkid = QHexToDWord(HotkeyItemData(3));
+		auto arr = HotkeyItemData(1).split(".");
+		ULONG32 pid = QDecToDWord(arr[0]);
+		ULONG32 tid = QDecToDWord(arr[1]);
+		HOTKEY_ITEM item;
+		item.id = vkid;
+		item.pid = pid;
+		item.tid = tid;
+		if (!ArkDrvApi::HotkeyRemoveInfo(item)) {
+			auto err = UNONE::StrFormatW(L"Remove Hotkey %d.%d id:%x err:%s",
+				pid, tid, vkid, UNONE::OsDosErrorMsgW(GetLastError()).c_str());
+			MsgBoxError(WStrToQ(err));
+			return;
+		}
+		INFO(L"Remove Hotkey %d.%d id:%x ok", pid, tid, vkid);
+		proxy_hotkey_->removeRows(ui.hotkeyView->currentIndex().row(), 1);
 	});
-
+	hotkey_menu_->addSeparator();
+	hotkey_menu_->addAction(tr("Sendto Scanner"), this, [&] {
+		parent_->SetActiveTab(TAB_SCANNER);
+		emit signalOpen(HotkeyItemData(7));
+	});
+	hotkey_menu_->addAction(tr("Explore File"), this, [&] {
+		ExploreFile(HotkeyItemData(7));
+	});
+	hotkey_menu_->addAction(tr("Properties..."), this, [&]() {
+		WinShowProperties(HotkeyItemData(7).toStdWString());
+	});
 }
 
 bool Kernel::InstallDriver(QString driver, QString name)
@@ -466,13 +545,13 @@ void Kernel::ShowDrivers()
 		}
 		if (!info.corp.contains("Microsoft", Qt::CaseInsensitive)) { microsoft = false; }
 
-		QStandardItem *name_item = new QStandardItem(name);
-		QStandardItem *base_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", d)));
-		QStandardItem *path_item = new QStandardItem(path);
-		QStandardItem *number_item = new QStandardItem(QString("%1").arg(number));
-		QStandardItem *desc_item = new QStandardItem(info.desc);
-		QStandardItem *ver_item = new QStandardItem(info.ver);
-		QStandardItem *corp_item = new QStandardItem(info.corp);
+		auto name_item = new QStandardItem(name);
+		auto base_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", d)));
+		auto path_item = new QStandardItem(path);
+		auto number_item = new QStandardItem(QString("%1").arg(number));
+		auto desc_item = new QStandardItem(info.desc);
+		auto ver_item = new QStandardItem(info.ver);
+		auto corp_item = new QStandardItem(info.corp);
 
 		auto count = drivers_model_->rowCount();
 		drivers_model_->setItem(count, DRV.name, name_item);
@@ -547,29 +626,40 @@ void Kernel::ShowSystemNotify()
 	OutputNotify(routines, tr("CmpCallback"));
 }
 
-void Kernel::ShowDumpMemory(ULONG64 addr, ULONG size)
+void Kernel::ShowSystemHotkey()
 {
-	std::vector<DRIVER_ITEM> infos;
-	ArkDrvApi::DriverEnumInfo(infos);
-	QString path;
-	for (auto info : infos) {
-		if (IN_RANGE(addr, info.base, info.size)) {
-			path = WStrToQ(ParseDriverPath(info.path));
-			break;
-		}
+	DISABLE_RECOVER();
+	ClearItemModelData(hotkey_model_, 0);
+
+	std::vector<HOTKEY_ITEM> infos;
+	ArkDrvApi::HotkeyEnumInfo(infos);
+
+	for (auto item : infos) {
+		auto pid = item.pid;
+		auto &&path = UNONE::PsGetProcessPathW(pid);
+		auto &&name = UNONE::FsPathToNameW(path);
+		if (name.empty()) name = UNONE::StrToW((char*)item.name);
+		auto info = CacheGetFileBaseInfo(WStrToQ(path));
+		auto name_item = new QStandardItem(WStrToQ(name));
+		auto wnd_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%X", item.wnd)));
+		auto title_item = new QStandardItem(WStrToQ(UNONE::PsGetWndTextW((HWND)item.wnd)));
+		auto class_item = new QStandardItem(WStrToQ(UNONE::PsGetWndClassNameW((HWND)item.wnd)));
+		auto ptid_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d.%d", item.pid, item.tid)));
+		auto vk_item = new QStandardItem(StrToQ(HotkeyVkToString(item.vk, item.mod1, item.mod2)));
+		auto vkid_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%X", item.id)));
+		auto path_item = new QStandardItem(WStrToQ(path));
+		auto desc_item = new QStandardItem(info.desc);
+		auto count = hotkey_model_->rowCount();
+		hotkey_model_->setItem(count, 0, name_item);
+		hotkey_model_->setItem(count, 1, ptid_item);
+		hotkey_model_->setItem(count, 2, vk_item);
+		hotkey_model_->setItem(count, 3, vkid_item);
+		hotkey_model_->setItem(count, 4, wnd_item);
+		hotkey_model_->setItem(count, 5, title_item);
+		hotkey_model_->setItem(count, 6, class_item);
+		hotkey_model_->setItem(count, 7, path_item);
+		hotkey_model_->setItem(count, 8, desc_item);
 	}
-	if (!path.isEmpty()) ui.regionLabel->setText(path);
-	char *mem = nullptr;
-	ULONG memsize = 0;
-	std::string buf;
-	if (ArkDrvApi::MemoryRead(addr, size, buf)) {
-		mem = (char*)buf.c_str();
-		memsize = buf.size();
-	}
-	auto hexdump = HexDumpMemory(addr, mem, size);
-	auto disasm = DisasmMemory(addr, mem, size);
-	ui.hexEdit->setText(StrToQ(hexdump));
-	ui.disasmEdit->setText(StrToQ(disasm));
 }
 
 int Kernel::DriversCurRow()
@@ -586,4 +676,9 @@ QString Kernel::DriversItemData(int column)
 QString Kernel::NotifyItemData(int column)
 {
 	return GetCurItemViewData(ui.notifyView, column);
+}
+
+QString Kernel::HotkeyItemData(int column)
+{
+	return GetCurItemViewData(ui.hotkeyView, column);
 }

@@ -400,7 +400,7 @@ void ProcessMgr::onSendtoScanner()
 	} else if (IsContainAction(mod_menu_, action)) {
 		path = BottomCurViewItemData(MOD.path);
 	}
-	parent_->ActivateTab(TAB_SCANNER);
+	parent_->SetActiveTab(TAB_SCANNER);
 	emit signalOpen(path);
 }
 
@@ -898,7 +898,6 @@ void ProcessMgr::InitProcessView()
 	connect(pview->header(), SIGNAL(sectionClicked(int)), this, SLOT(onSectionClicked(int)));
 	connect(pview, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onProcDoubleClicked(const QModelIndex&)));
 	connect(pview->selectionModel(), &QItemSelectionModel::currentRowChanged, this, &ProcessMgr::onProcChanged);
-	onShowProcess();
 }
 
 void ProcessMgr::InitBottomCommon()
