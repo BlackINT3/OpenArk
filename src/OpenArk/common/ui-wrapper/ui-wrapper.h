@@ -63,7 +63,7 @@ protected:
 	QTabWidget *tabwidget_;
 };
 
-class CommonTabObject : public QObject {
+class CommonTabObject : public QWidget {
 	Q_OBJECT
 
 public:
@@ -94,6 +94,6 @@ protected:
 	};
 	int maintab_id_;
 	int l2tab_id_;
-
+	
 	QTabWidget *tabwidget_;
 };

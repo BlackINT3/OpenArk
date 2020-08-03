@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>849</width>
-    <height>704</height>
+    <width>843</width>
+    <height>633</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -30,7 +30,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="addrEdit_2">
+      <widget class="QLineEdit" name="writeAddrEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -56,7 +56,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="sizeEdit_2">
+      <widget class="QLineEdit" name="writeSizeEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -69,7 +69,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="dumpmemBtn_2">
+      <widget class="QPushButton" name="writememBtn">
        <property name="text">
         <string>WriteMemory</string>
        </property>
@@ -90,7 +90,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="addrEdit">
+      <widget class="QLineEdit" name="readAddrEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -116,7 +116,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="sizeEdit">
+      <widget class="QLineEdit" name="readSizeEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -168,7 +168,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="dumpmemBtn">
+      <widget class="QPushButton" name="readmemBtn">
        <property name="text">
         <string>ReadMemory</string>
        </property>
@@ -205,6 +205,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="rwResult">
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -329,6 +329,9 @@
     <QtMoc Include="kernel\memory\memory.h">
       <Filter>kernel\memory</Filter>
     </QtMoc>
+    <QtMoc Include="kernel\driver\driver.h">
+      <Filter>kernel\driver</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\process-mgr.ui">
@@ -365,6 +368,9 @@
       <Filter>ui</Filter>
     </QtUic>
     <QtUic Include="ui\reverse.ui">
+      <Filter>ui</Filter>
+    </QtUic>
+    <QtUic Include="res\ui\memory-rw.ui">
       <Filter>ui</Filter>
     </QtUic>
   </ItemGroup>
@@ -440,9 +446,6 @@
     </ClInclude>
     <ClInclude Include="res\resource.h">
       <Filter>res</Filter>
-    </ClInclude>
-    <ClInclude Include="kernel\driver\driver.h">
-      <Filter>kernel\driver</Filter>
     </ClInclude>
     <ClInclude Include="kernel\notify\notify.h">
       <Filter>kernel\notify</Filter>

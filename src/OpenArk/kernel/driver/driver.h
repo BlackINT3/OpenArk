@@ -17,6 +17,55 @@
 #include "../../common/cpp-wrapper/cpp-wrapper.h"
 #include <QString>
 
+#pragma once
+#include <windows.h>
+#include <vector>
+#include "ui_kernel.h"
+#include "../kernel.h"
+#include "../common/common.h"
+
+class Ui::Kernel;
+class Kernel;
+
+PROXY_FILTER(DriversSortFilterProxyModel);
+class KernelDriver : public CommonTabObject {
+	Q_OBJECT
+
+public:
+	enum {
+		Region,
+		View,
+	};
+	KernelDriver();
+	~KernelDriver();
+public:
+	bool eventFilter(QObject *obj, QEvent *e);
+	void ModuleInit(Ui::Kernel *mainui, Kernel *kernel);
+	bool InstallDriver(QString driver, QString name);
+	bool UninstallDriver(QString service);
+
+private slots:
+	void onTabChanged(int index);
+	void onSignDriver();
+	void onInstallNormallyDriver();
+	void onInstallUnsignedDriver();
+	void onInstallExpiredDriver();
+	void onUninstallDriver();
+
+private:
+	void InitDriversView();
+	void InitDriverKitView();
+	void ShowDrivers();
+	QString DriversItemData(int column);
+
+private:
+	Ui::Kernel *ui;
+	Kernel *kernel_;
+	QMenu *drivers_menu_;
+	QStandardItemModel *drivers_model_;
+	DriversSortFilterProxyModel *proxy_drivers_;
+};
+
 bool SignExpiredDriver(QString driver);
 std::wstring ParseDriverPath(UCHAR *symlnk);
 

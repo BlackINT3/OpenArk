@@ -47,14 +47,12 @@ void KernelMemory::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
 
 	Init(ui->tabMemory, TAB_KERNEL, KernelTabMemory);
 
-	//memrw_ = new KernelMemoryRW();
-
-/*
-	connect(ui->dumpmemBtn, &QPushButton::clicked, this, [&] {
-		ULONG64 addr = VariantInt64(ui->addrEdit->text().toStdString());
-		ULONG size = VariantInt(ui->sizeEdit->text().toStdString());
-		//memrw_->ViewMemory(addr, size);
-	});*/
+	auto memrw_ = new KernelMemoryRW();
+	auto memwidget = memrw_->GetWidget();
+	memwidget->setParent(ui->tabMemoryView);
+	memwidget->layout()->removeWidget(memwidget);
+	ui->verticalLayout_7->addWidget(memwidget);
+	memwidget->show();
 }
 
 void KernelMemory::ShowUnlockFiles()
@@ -68,6 +66,14 @@ KernelMemoryRW::KernelMemoryRW()
 	file.open(QFile::ReadOnly);
 	memui_ = loader.load(&file);
 	file.close();
+	auto readmemBtn = memui_->findChild<QPushButton*>("readmemBtn");
+	connect(readmemBtn, &QPushButton::clicked, this, [&] {
+		auto addrEdit = memui_->findChild<QLineEdit*>("readAddrEdit");
+		auto sizeEdit = memui_->findChild<QLineEdit*>("readSizeEdit");
+		ULONG64 addr = VariantInt64(addrEdit->text().toStdString());
+		ULONG size = VariantInt(sizeEdit->text().toStdString());
+		ViewMemory(addr, size);
+	});
 }
 
 KernelMemoryRW::~KernelMemoryRW()

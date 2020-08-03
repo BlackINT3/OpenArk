@@ -23,6 +23,7 @@
 #include "network/network.h"
 #include "storage/storage.h"
 #include "memory/memory.h"
+#include "driver/driver.h"
 
 enum {
 	KernelTabEntry,
@@ -40,10 +41,10 @@ enum {
 class KernelNetwork;
 class KernelStorage;
 class KernelMemory;
+class KernelDriver;
 
 class OpenArk;
 class Ui::Kernel;
-PROXY_FILTER(DriversSortFilterProxyModel);
 PROXY_FILTER(NotifySortFilterProxyModel);
 PROXY_FILTER(HotkeySortFilterProxyModel);
 
@@ -52,6 +53,7 @@ class Kernel : public CommonMainTabObject {
 public:
 	Kernel(QWidget *parent, int tabid);
 	~Kernel();
+	OpenArk *GetParent() const { return parent_; };
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *e);
@@ -65,26 +67,17 @@ private slots:
 	void onTabChanged(int index);
 	void onClickKernelMode();
 	void onRefreshKernelMode();
+
+public slots:
 	void onOpenFile(QString path);
-	void onSignDriver();
-	void onInstallNormallyDriver();
-	void onInstallUnsignedDriver();
-	void onInstallExpiredDriver();
-	void onUninstallDriver();
 
 private:
 	void InitKernelEntryView();
-	void InitDriversView();
-	void InitDriverKitView();
 	void InitNotifyView();
 	void InitHotkeyView();
-	bool InstallDriver(QString driver, QString name);
-	bool UninstallDriver(QString service);
-	void ShowDrivers();
 	void ShowSystemNotify();
 	void ShowSystemHotkey();
 	int DriversCurRow();
-	QString DriversItemData(int column);
 	QString NotifyItemData(int column);
 	QString HotkeyItemData(int column);
 
@@ -93,18 +86,15 @@ private:
 	KernelNetwork *network_;
 	KernelStorage *storage_;
 	KernelMemory *memory_;
+	KernelDriver *driver_;
 
-private:
 	Ui::Kernel ui;
 	OpenArk *parent_;
-	QMenu *drivers_menu_;
 	QMenu *notify_menu_;
 	QMenu *hotkey_menu_;
 	QStandardItemModel *kerninfo_model_;
-	QStandardItemModel *drivers_model_;
 	QStandardItemModel *notify_model_;
 	QStandardItemModel *hotkey_model_;
-	DriversSortFilterProxyModel *proxy_drivers_;
 	NotifySortFilterProxyModel *proxy_notify_;
 	HotkeySortFilterProxyModel *proxy_hotkey_;
 };
