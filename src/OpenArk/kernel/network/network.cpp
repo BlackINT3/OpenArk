@@ -295,7 +295,7 @@ void KernelNetwork::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 	wfp_menu_ = new QMenu();
 	wfp_menu_->addAction(tr("Refresh"), kernel, [&] {  });
 
-	Init(ui->tabNetwork, TAB_KERNEL, KernelTabNetwork);
+	Init(ui->tabNetwork, TAB_KERNEL, TAB_KERNEL_NETWORK);
 }
 
 void KernelNetwork::ShowWfpInfo()

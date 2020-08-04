@@ -34,6 +34,7 @@ KernelMemory::~KernelMemory()
 
 void KernelMemory::onTabChanged(int index)
 {
+	CommonTabObject::onTabChanged(index);
 }
 
 bool KernelMemory::EventFilter()
@@ -45,7 +46,7 @@ void KernelMemory::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
 {
 	this->ui = mainui;
 
-	Init(ui->tabMemory, TAB_KERNEL, KernelTabMemory);
+	Init(ui->tabMemory, TAB_KERNEL, TAB_KERNEL_MEMORY);
 
 	auto memrw_ = new KernelMemoryRW();
 	auto memwidget = memrw_->GetWidget();

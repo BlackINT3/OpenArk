@@ -27,6 +27,11 @@
 class Ui::Kernel;
 class Kernel;
 
+enum {
+	TAB_KERNEL_DRIVER_LIST,
+	TAB_KERNEL_DRIVER_KIT,
+};
+
 PROXY_FILTER(DriversSortFilterProxyModel);
 class KernelDriver : public CommonTabObject {
 	Q_OBJECT
@@ -43,6 +48,7 @@ public:
 	void ModuleInit(Ui::Kernel *mainui, Kernel *kernel);
 	bool InstallDriver(QString driver, QString name);
 	bool UninstallDriver(QString service);
+	void ShowDrivers();
 
 private slots:
 	void onTabChanged(int index);
@@ -55,7 +61,6 @@ private slots:
 private:
 	void InitDriversView();
 	void InitDriverKitView();
-	void ShowDrivers();
 	QString DriversItemData(int column);
 
 private:

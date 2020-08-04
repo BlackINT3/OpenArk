@@ -55,12 +55,13 @@ KernelDriver::~KernelDriver()
 void KernelDriver::onTabChanged(int index)
 {
 	switch (index) {
-	case TAB_KERNEL_DRIVERS:
+	case TAB_KERNEL_DRIVER_LIST:
 		ShowDrivers();
 		break;
 	default:
 		break;
 	}
+	CommonTabObject::onTabChanged(index);
 }
 
 bool KernelDriver::eventFilter(QObject *obj, QEvent *e)
@@ -82,7 +83,7 @@ void KernelDriver::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
 	this->ui = mainui;
 	this->kernel_ = kernel;
 
-	Init(ui->tabDriver, TAB_KERNEL, KernelTabMemory);
+	Init(ui->tabDriver, TAB_KERNEL, TAB_KERNEL_DRIVER);
 
 	InitDriversView();
 	InitDriverKitView();
@@ -139,7 +140,6 @@ void KernelDriver::InitDriverKitView()
 	connect(ui->installUnsignedBtn, SIGNAL(clicked()), this, SLOT(onInstallUnsignedDriver()));
 	connect(ui->installExpiredBtn, SIGNAL(clicked()), this, SLOT(onInstallExpiredDriver()));
 	connect(ui->uninstallBtn, SIGNAL(clicked()), this, SLOT(onUninstallDriver()));
-	connect(this, SIGNAL(signalOpen(QString)), kernel_->GetParent(), SLOT(onOpen(QString)));
 }
 
 

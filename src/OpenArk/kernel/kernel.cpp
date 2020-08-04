@@ -65,6 +65,8 @@ Kernel::Kernel(QWidget *parent, int tabid) :
 	InitHotkeyView();
 
 	CommonMainTabObject::Init(ui.tabWidget, tabid);
+
+	connect(this, SIGNAL(signalOpen(QString)), parent_, SLOT(onOpen(QString)));
 }
 
 Kernel::~Kernel()
@@ -477,12 +479,6 @@ void Kernel::ShowSystemHotkey()
 		hotkey_model_->setItem(count, 7, path_item);
 		hotkey_model_->setItem(count, 8, desc_item);
 	}
-}
-
-int Kernel::DriversCurRow()
-{
-	auto idx = ui.driverView->currentIndex();
-	return idx.row();
 }
 
 QString Kernel::NotifyItemData(int column)

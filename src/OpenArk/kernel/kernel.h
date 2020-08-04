@@ -26,15 +26,14 @@
 #include "driver/driver.h"
 
 enum {
-	KernelTabEntry,
-	TAB_KERNEL_DRIVERS,
-	KernelTabDriverKit,
+	TAB_KERNEL_ENTRY,
+	TAB_KERNEL_DRIVER,
 	TAB_KERNEL_NOTIFY,
 	TAB_KERNEL_HOTKEY,
-	KernelTabMemory,
+	TAB_KERNEL_MEMORY,
 	KernelTabMemory2,
 	KernelTabMemory3,
-	KernelTabNetwork,
+	TAB_KERNEL_NETWORK,
 	KernelTabMax,
 };
 
@@ -60,9 +59,6 @@ protected:
 	void dragEnterEvent(QDragEnterEvent *event);
 	void dropEvent(QDropEvent *event);
 
-signals:
-	void signalOpen(QString);
-
 private slots:
 	void onTabChanged(int index);
 	void onClickKernelMode();
@@ -71,13 +67,15 @@ private slots:
 public slots:
 	void onOpenFile(QString path);
 
+signals:
+	void signalOpen(QString);
+
 private:
 	void InitKernelEntryView();
 	void InitNotifyView();
 	void InitHotkeyView();
 	void ShowSystemNotify();
 	void ShowSystemHotkey();
-	int DriversCurRow();
 	QString NotifyItemData(int column);
 	QString HotkeyItemData(int column);
 
