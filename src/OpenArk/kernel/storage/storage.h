@@ -31,7 +31,7 @@ public:
 	KernelStorage();
 	~KernelStorage();
 public:
-	bool EventFilter();
+	bool eventFilter(QObject *obj, QEvent *e);
 	void ModuleInit(Ui::Kernel *ui, Kernel *kernel);
 
 private slots:
@@ -39,11 +39,15 @@ private slots:
 
 private:
 	void ShowUnlockFiles();
-
+	void InitFileUnlockView();
+	void InitFileFilterView();
 
 private:
-	Ui::Kernel *ui;
-	QMenu *unlockfile_menu_;
-	QStandardItemModel *unlockfile_model_;
-	UnlockFileSortFilterProxyModel *proxy_unlockfile_;
+	Ui::Kernel *ui_;
+	QMenu *unlock_menu_;
+	QMenu *fsflt_menu_; 
+	QStandardItemModel *fsflt_model_;
+	QStandardItemModel *unlock_model_;
+	UnlockFileSortFilterProxyModel *proxy_unlock_;
+	UnlockFileSortFilterProxyModel *proxy_fsflt_;
 };

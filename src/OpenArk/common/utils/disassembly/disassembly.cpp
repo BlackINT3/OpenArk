@@ -37,7 +37,7 @@ std::string DisasmMemory(ULONG64 pc, char *mem, ULONG memsize, int bits /*= 64*/
 	/* disassembly loop */
 	while (ud_disassemble(&ud_obj)) {
 		if (o_do_off)
-			disasm += UNONE::StrFormatA("%016llx ", ud_insn_off(&ud_obj));
+			disasm += UNONE::StrFormatA("%016llX ", ud_insn_off(&ud_obj));
 		if (o_do_hex) {
 			const char* hex1, *hex2;
 			hex1 = ud_insn_hex(&ud_obj);
@@ -93,7 +93,7 @@ std::string HexDumpMemory(ULONG64 pc, char *mem, ULONG memsize)
 			auto padsize = (32 - (line.size() % 32));
 			data += " " + UNONE::StrInsertA(std::string(padsize, ' '), 2, " ");
 		}
-		formated += UNONE::StrFormatA("%016llx  %s  %s\n", pc, data.c_str(), hexchars(line).c_str());
+		formated += UNONE::StrFormatA("%016llX  %s  %s\n", pc, data.c_str(), hexchars(line).c_str());
 		pc += line.size() / 2;
 	}
 	return formated;

@@ -35,45 +35,77 @@ void KernelStorage::onTabChanged(int index)
 {
 }
 
-bool KernelStorage::EventFilter()
+bool KernelStorage::eventFilter(QObject *obj, QEvent *e)
 {
-	return true;
+	if (e->type() == QEvent::ContextMenu) {
+		QMenu *menu = nullptr;
+		if (obj == ui_->driverView->viewport()) menu = unlock_menu_;
+		QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
+		if (ctxevt && menu) {
+			menu->move(ctxevt->globalPos());
+			menu->show();
+		}
+	}
+	return QWidget::eventFilter(obj, e);
 }
 
 void KernelStorage::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 {
-	unlockfile_model_ = new QStandardItemModel;
-	QTreeView *view = ui->wfpView;
-	proxy_unlockfile_ = new UnlockFileSortFilterProxyModel(view);
-	proxy_unlockfile_->setSourceModel(unlockfile_model_);
-	proxy_unlockfile_->setDynamicSortFilter(true);
-	proxy_unlockfile_->setFilterKeyColumn(1);
-	view->setModel(proxy_unlockfile_);
-	view->selectionModel()->setModel(proxy_unlockfile_);
+	this->ui_ = ui;
+
+	InitFileUnlockView();
+	InitFileFilterView();
+
+	connect(ui->tabStorage, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
+}
+
+void KernelStorage::InitFileUnlockView()
+{
+	unlock_model_ = new QStandardItemModel;
+	QTreeView *view = ui_->unlockView;
+	proxy_unlock_ = new UnlockFileSortFilterProxyModel(view);
+	proxy_unlock_->setSourceModel(unlock_model_);
+	proxy_unlock_->setDynamicSortFilter(true);
+	proxy_unlock_->setFilterKeyColumn(1);
+	view->setModel(proxy_unlock_);
+	view->selectionModel()->setModel(proxy_unlock_);
 	view->header()->setSortIndicator(-1, Qt::AscendingOrder);
 	view->setSortingEnabled(true);
-	view->viewport()->installEventFilter(kernel);
-	view->installEventFilter(kernel);
+	view->viewport()->installEventFilter(this);
+	view->installEventFilter(this);
+	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	std::pair<int, QString> colum_layout[] = {
-		{ 130, tr("ID") },
-		{ 100, tr("Key") },
-		{ 200, tr("Name") },
+		{ 130, tr("FileObject") },
+		{ 200, tr("FilePath") },
+		{ 100, tr("PID") },
+		{ 100, tr("ProcessName") },
+		{ 200, tr("ProcessPath") },
 	};
 	QStringList name_list;
 	for (auto p : colum_layout) {
 		name_list << p.second;
 	}
-	unlockfile_model_->setHorizontalHeaderLabels(name_list);
+	unlock_model_->setHorizontalHeaderLabels(name_list);
 	for (int i = 0; i < _countof(colum_layout); i++) {
 		view->setColumnWidth(i, colum_layout[i].first);
 	}
-	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	unlockfile_menu_ = new QMenu();
-	unlockfile_menu_->addAction(tr("Refresh"), kernel, [&] {});
+	unlock_menu_ = new QMenu();
+	unlock_menu_->addAction(tr("Refresh"), this, [&] {});
+}
 
-	connect(ui->tabNetwork, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
+void KernelStorage::InitFileFilterView()
+{
+	fsflt_model_ = new QStandardItemModel;
+	fsflt_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Value"));
+	SetDefaultTreeViewStyle(ui_->fsfltView, fsflt_model_);
+	ui_->fsfltView->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
+	ui_->fsfltView->viewport()->installEventFilter(this);
+	ui_->fsfltView->installEventFilter(this);
+	fsflt_menu_ = new QMenu();
+	fsflt_menu_->addAction(tr("ExpandAll"), this, SLOT(onExpandAll()));
 }
 
 void KernelStorage::ShowUnlockFiles()
 {
+
 }

@@ -131,6 +131,7 @@ void KernelDriver::InitDriversView()
 
 void KernelDriver::InitDriverKitView()
 {
+	ui->groupWDF->setVisible(false);
 	connect(ui->browseBtn, &QPushButton::clicked, this, [&]() {
 		QString file = QFileDialog::getOpenFileName(kernel_, tr("Open File"), "", tr("Driver Files (*.sys);;All Files (*.*)"));
 		kernel_->onOpenFile(file);
