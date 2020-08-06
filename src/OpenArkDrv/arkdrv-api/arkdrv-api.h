@@ -21,6 +21,9 @@
 #include <Windows.h>
 #endif //_NTDDK_
 
+#include "api-storage/api-storage.h"
+#include "api-memory/api-memory.h"
+
 #define ARK_NTDEVICE_NAME L"\\Device\\OpenArkDrv"
 #define ARK_DOSDEVICE_NAME L"\\DosDevices\\OpenArkDrv"
 #define ARK_USER_SYMBOLINK L"\\\\.\\OpenArkDrv"
@@ -81,26 +84,6 @@ typedef struct _NOTIFY_REMOVE_INFO {
 } NOTIFY_REMOVE_INFO, *PNOTIFY_REMOVE_INFO;
 #pragma pack(pop)
 
-// Memory
-enum MEMORY_OPS {
-	MEMORY_READ,
-	MEMORY_WRITE,
-};
-#pragma pack(push, 1)
-typedef struct _MEMORY_IN {
-	ULONG64 addr;
-	ULONG size;
-	union {
-		UCHAR dummy[1];
-		UCHAR writebuf[1];
-	} u;
-} MEMORY_IN, *PMEMORY_IN;
-typedef struct _MEMORY_OUT {
-	ULONG size;
-	UCHAR readbuf[1];
-} MEMORY_OUT, *PMEMORY_OUT;
-#pragma pack(pop)
-
 // WinGUI
 #define HOTKEY_MAX_VK	0x80
 #define HOTKEY_PLACEHOLDER_ID 0x99887766
@@ -134,9 +117,11 @@ typedef struct _HOTKEY_INFO {
 #include <string>
 #include <vector>
 namespace ArkDrvApi {
+extern HANDLE arkdrv;
 bool ConnectDriver();
 bool DisconnectDriver();
 bool HeartBeatPulse();
+bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *outbuf, DWORD *outlen);
 bool DriverEnumInfo(std::vector<DRIVER_ITEM> &infos);
 bool NotifyPatch(NOTIFY_TYPE type, ULONG64 routine);
 bool NotifyPatchRegularly(NOTIFY_TYPE type, ULONG64 routine, int interval);

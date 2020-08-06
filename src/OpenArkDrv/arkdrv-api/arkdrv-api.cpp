@@ -164,21 +164,6 @@ bool NotifyEnumRegistry(std::vector<ULONG64> &routines)
 {
 	return NotifyEnum(NOTIFY_ENUM_REGISTRY, routines);
 }
-bool MemoryRead(ULONG64 addr, ULONG size, std::string &readbuf)
-{
-	if (!size) return false;
-	MEMORY_IN memin;
-	memin.addr = addr;
-	memin.size = size;
-	DWORD outlen;
-	PMEMORY_OUT memout;
-	bool ret = IoControlDriver(IOCTL_ARK_MEMORY, MEMORY_READ, &memin, sizeof(memin), (PVOID*)&memout, &outlen);
-	if (!ret)	 return false;
-	readbuf.resize(memout->size);
-	memcpy(&readbuf[0], memout->readbuf, memout->size);
-	free(memout);
-	return true;
-}
 bool HotkeyEnumInfo(std::vector<HOTKEY_ITEM> &hotkeys)
 {
 	if (!ConnectDriver()) return false;

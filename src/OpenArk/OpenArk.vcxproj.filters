@@ -129,6 +129,12 @@
     <Filter Include="common\ui-wrapper">
       <UniqueIdentifier>{16858abf-3377-4e71-84fa-f20c0e3a4d9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="kernel\arkdrv-api\api-storage">
+      <UniqueIdentifier>{78d6877a-f6ca-4711-8aa7-6aefef846466}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel\arkdrv-api\api-memory">
+      <UniqueIdentifier>{ce50d15f-ff76-4aba-a3a7-6b7c249a2017}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -272,6 +278,12 @@
     </ClCompile>
     <ClCompile Include="kernel\memory\memory.cpp">
       <Filter>kernel\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-storage\api-storage.cpp">
+      <Filter>kernel\arkdrv-api\api-storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-memory\api-memory.cpp">
+      <Filter>kernel\arkdrv-api\api-memory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -497,6 +509,12 @@
     </ClInclude>
     <ClInclude Include="common\win-wrapper\reg-wrapper.h">
       <Filter>common\win-wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-storage\api-storage.h">
+      <Filter>kernel\arkdrv-api\api-storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-memory\api-memory.h">
+      <Filter>kernel\arkdrv-api\api-memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

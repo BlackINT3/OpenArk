@@ -96,7 +96,7 @@ void KernelMemoryRW::ViewMemory(ULONG64 addr, ULONG size)
 	char *mem = nullptr;
 	ULONG memsize = 0;
 	std::string buf;
-	if (ArkDrvApi::MemoryRead(addr, size, buf)) {
+	if (ArkDrvApi::Memory::MemoryRead(addr, size, buf)) {
 		mem = (char*)buf.c_str();
 		memsize = buf.size();
 	}
