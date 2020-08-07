@@ -85,7 +85,7 @@ KernelMemoryRW::~KernelMemoryRW()
 void KernelMemoryRW::ViewMemory(ULONG64 addr, ULONG size)
 {
 	std::vector<DRIVER_ITEM> infos;
-	ArkDrvApi::DriverEnumInfo(infos);
+	ArkDrvApi::Driver::DriverEnumInfo(infos);
 	QString path;
 	for (auto info : infos) {
 		if (IN_RANGE(addr, info.base, info.size)) {

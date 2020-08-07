@@ -14,6 +14,7 @@
 **
 ****************************************************************************/
 #pragma once
+#include "../arkdrv-api.h"
 #ifdef _ARKDRV_
 #include <ntifs.h>
 #include <windef.h>
@@ -21,23 +22,24 @@
 #include <Windows.h>
 #endif //_NTDDK_
 
-#include "api-storage/api-storage.h"
-#include "api-memory/api-memory.h"
-#include "api-wingui/api-wingui.h"
-#include "api-driver/api-driver.h"
-#include "api-notify/api-notify.h"
-
-#define ARK_NTDEVICE_NAME L"\\Device\\OpenArkDrv"
-#define ARK_DOSDEVICE_NAME L"\\DosDevices\\OpenArkDrv"
-#define ARK_USER_SYMBOLINK L"\\\\.\\OpenArkDrv"
-
-#define ARK_DRV_TYPE 41827
-
-#define IOCTL_ARK_HEARTBEAT CTL_CODE(ARK_DRV_TYPE, 0x800, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define IOCTL_ARK_DRIVER CTL_CODE(ARK_DRV_TYPE, 0x801, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define IOCTL_ARK_NOTIFY CTL_CODE(ARK_DRV_TYPE, 0x802, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define IOCTL_ARK_MEMORY CTL_CODE(ARK_DRV_TYPE, 0x803, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define IOCTL_ARK_HOTKEY CTL_CODE(ARK_DRV_TYPE, 0x900, METHOD_BUFFERED, FILE_ANY_ACCESS)
+// Driver
+enum DRIVER_OPS {
+	DRIVER_ENUM_INFO,
+};
+#pragma pack(push, 1)
+typedef struct _DRIVER_ITEM {
+	ULONG64 base;
+	ULONG size;
+	ULONG flags;
+	USHORT load_seq;
+	USHORT init_seq;
+	UCHAR  path[256];
+} DRIVER_ITEM, *PDRIVER_ITEM;
+typedef struct _DRIVER_INFO {
+	ULONG count;
+	DRIVER_ITEM items[1];
+} DRIVER_INFO, *PDRIVER_INFO;
+#pragma pack(pop)
 
 //#undef _ARKDRV_
 #ifdef _ARKDRV_
@@ -47,10 +49,8 @@
 #include <string>
 #include <vector>
 namespace ArkDrvApi {
-extern HANDLE arkdrv;
-bool ConnectDriver();
-bool DisconnectDriver();
-bool HeartBeatPulse();
-bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *outbuf, DWORD *outlen);
+namespace Driver {
+	bool DriverEnumInfo(std::vector<DRIVER_ITEM> &infos);
+} // namespace Memory
 } // namespace ArkDrvApi
 #endif //_NTDDK_

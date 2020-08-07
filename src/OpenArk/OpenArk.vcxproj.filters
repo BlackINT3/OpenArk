@@ -135,6 +135,15 @@
     <Filter Include="kernel\arkdrv-api\api-memory">
       <UniqueIdentifier>{ce50d15f-ff76-4aba-a3a7-6b7c249a2017}</UniqueIdentifier>
     </Filter>
+    <Filter Include="kernel\arkdrv-api\api-wingui">
+      <UniqueIdentifier>{bd006a0b-cf6e-41ca-8c17-c4ad9285a4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel\arkdrv-api\api-driver">
+      <UniqueIdentifier>{48821978-f9aa-40fd-acf1-1eb3634f8cfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel\arkdrv-api\api-notify">
+      <UniqueIdentifier>{f1f12241-3765-4f6e-ac39-7f8bcbe974bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -284,6 +293,15 @@
     </ClCompile>
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-memory\api-memory.cpp">
       <Filter>kernel\arkdrv-api\api-memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-wingui\api-wingui.cpp">
+      <Filter>kernel\arkdrv-api\api-wingui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-driver\api-driver.cpp">
+      <Filter>kernel\arkdrv-api\api-driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-notify\api-notify.cpp">
+      <Filter>kernel\arkdrv-api\api-notify</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -515,6 +533,15 @@
     </ClInclude>
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-memory\api-memory.h">
       <Filter>kernel\arkdrv-api\api-memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-wingui\api-wingui.h">
+      <Filter>kernel\arkdrv-api\api-wingui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-driver\api-driver.h">
+      <Filter>kernel\arkdrv-api\api-driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-notify\api-notify.h">
+      <Filter>kernel\arkdrv-api\api-notify</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

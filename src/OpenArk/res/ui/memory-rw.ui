@@ -250,14 +250,14 @@
      <item>
       <widget class="QLabel" name="pnameLabel_2">
        <property name="text">
-        <string>Name:</string>
+        <string>ProcessName:</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="pnameLabel">
        <property name="text">
-        <string>SYTEM</string>
+        <string>SYSTEM</string>
        </property>
       </widget>
      </item>

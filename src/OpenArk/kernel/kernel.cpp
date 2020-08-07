@@ -283,7 +283,7 @@ void Kernel::InitNotifyView()
 		else if (qstr == tr("CreateThread")) type = CREATE_THREAD;
 		else if (qstr == tr("LoadImage")) type = LOAD_IMAGE;
 		else if (qstr == tr("CmpCallback")) type = CM_REGISTRY;
-		ArkDrvApi::NotifyRemove(type, addr);
+		ArkDrvApi::Notify::NotifyRemove(type, addr);
 		ShowSystemNotify();
 	});
 	notify_menu_->addAction(tr("Disassemble Notify"), this, [&] {
@@ -364,7 +364,7 @@ void Kernel::InitHotkeyView()
 		item.id = vkid;
 		item.pid = pid;
 		item.tid = tid;
-		if (!ArkDrvApi::HotkeyRemoveInfo(item)) {
+		if (!ArkDrvApi::WinGUI::HotkeyRemoveInfo(item)) {
 			auto err = UNONE::StrFormatW(L"Remove Hotkey %d.%d id:%x err:%s",
 				pid, tid, vkid, UNONE::OsDosErrorMsgW(GetLastError()).c_str());
 			MsgBoxError(WStrToQ(err));
@@ -392,7 +392,7 @@ void Kernel::ShowSystemNotify()
 	ClearItemModelData(notify_model_, 0);
 	
 	std::vector<DRIVER_ITEM> infos;
-	ArkDrvApi::DriverEnumInfo(infos);
+	ArkDrvApi::Driver::DriverEnumInfo(infos);
 	
 	auto OutputNotify = [&](std::vector<ULONG64> &routines, QString type) {
 		for (auto routine : routines) {
@@ -432,16 +432,16 @@ void Kernel::ShowSystemNotify()
 	};
 
 	std::vector<ULONG64> routines;
-	if (!ArkDrvApi::NotifyEnumProcess(routines)) QERR_W("NotifyEnumProcess err");
+	if (!ArkDrvApi::Notify::NotifyEnumProcess(routines)) QERR_W("NotifyEnumProcess err");
 	OutputNotify(routines, tr("CreateProcess"));
 
-	if (!ArkDrvApi::NotifyEnumThread(routines)) QERR_W("NotifyEnumThread err");
+	if (!ArkDrvApi::Notify::NotifyEnumThread(routines)) QERR_W("NotifyEnumThread err");
 	OutputNotify(routines, tr("CreateThread"));
 
-	if (!ArkDrvApi::NotifyEnumImage(routines)) QERR_W("NotifyEnumImage err");
+	if (!ArkDrvApi::Notify::NotifyEnumImage(routines)) QERR_W("NotifyEnumImage err");
 	OutputNotify(routines, tr("LoadImage"));
 
-	if (!ArkDrvApi::NotifyEnumRegistry(routines)) QERR_W("NotifyEnumRegistry err");
+	if (!ArkDrvApi::Notify::NotifyEnumRegistry(routines)) QERR_W("NotifyEnumRegistry err");
 	OutputNotify(routines, tr("CmpCallback"));
 }
 
@@ -451,7 +451,7 @@ void Kernel::ShowSystemHotkey()
 	ClearItemModelData(hotkey_model_, 0);
 
 	std::vector<HOTKEY_ITEM> infos;
-	ArkDrvApi::HotkeyEnumInfo(infos);
+	ArkDrvApi::WinGUI::HotkeyEnumInfo(infos);
 
 	for (auto item : infos) {
 		auto pid = item.pid;

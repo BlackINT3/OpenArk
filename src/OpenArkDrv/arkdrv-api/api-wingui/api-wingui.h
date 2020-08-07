@@ -14,6 +14,7 @@
 **
 ****************************************************************************/
 #pragma once
+#include "../arkdrv-api.h"
 #ifdef _ARKDRV_
 #include <ntifs.h>
 #include <windef.h>
@@ -21,23 +22,30 @@
 #include <Windows.h>
 #endif //_NTDDK_
 
-#include "api-storage/api-storage.h"
-#include "api-memory/api-memory.h"
-#include "api-wingui/api-wingui.h"
-#include "api-driver/api-driver.h"
-#include "api-notify/api-notify.h"
-
-#define ARK_NTDEVICE_NAME L"\\Device\\OpenArkDrv"
-#define ARK_DOSDEVICE_NAME L"\\DosDevices\\OpenArkDrv"
-#define ARK_USER_SYMBOLINK L"\\\\.\\OpenArkDrv"
-
-#define ARK_DRV_TYPE 41827
-
-#define IOCTL_ARK_HEARTBEAT CTL_CODE(ARK_DRV_TYPE, 0x800, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define IOCTL_ARK_DRIVER CTL_CODE(ARK_DRV_TYPE, 0x801, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define IOCTL_ARK_NOTIFY CTL_CODE(ARK_DRV_TYPE, 0x802, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define IOCTL_ARK_MEMORY CTL_CODE(ARK_DRV_TYPE, 0x803, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define IOCTL_ARK_HOTKEY CTL_CODE(ARK_DRV_TYPE, 0x900, METHOD_BUFFERED, FILE_ANY_ACCESS)
+// WinGUI
+#define HOTKEY_MAX_VK	0x80
+#define HOTKEY_PLACEHOLDER_ID 0x99887766
+enum HOTKEY_OPS {
+	HOTKEY_ENUM,
+	HOTKEY_REMOVE,
+};
+#pragma pack(push, 1)
+typedef struct _HOTKEY_ITEM {
+	UCHAR name[64];
+	UINT32 wnd;
+	UINT16 mod1;
+	UINT16 mod2;
+	UINT32 vk;
+	UINT32 id;
+	UINT32 pid;
+	UINT32 tid;
+	ULONG64 hkobj;
+} HOTKEY_ITEM, *PHOTKEY_ITEM;
+typedef struct _HOTKEY_INFO {
+	ULONG count;
+	HOTKEY_ITEM items[1];
+} HOTKEY_INFO, *PHOTKEY_INFO;
+#pragma pack(pop)
 
 //#undef _ARKDRV_
 #ifdef _ARKDRV_
@@ -47,10 +55,9 @@
 #include <string>
 #include <vector>
 namespace ArkDrvApi {
-extern HANDLE arkdrv;
-bool ConnectDriver();
-bool DisconnectDriver();
-bool HeartBeatPulse();
-bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *outbuf, DWORD *outlen);
+namespace WinGUI {
+	bool HotkeyEnumInfo(std::vector<HOTKEY_ITEM> &hotkeys);
+	bool HotkeyRemoveInfo(HOTKEY_ITEM &item);
+} // namespace Memory
 } // namespace ArkDrvApi
 #endif //_NTDDK_
