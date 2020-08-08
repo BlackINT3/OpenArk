@@ -14,6 +14,7 @@
 **
 ****************************************************************************/
 #include "storage.h"
+#include "../../../OpenArkDrv/arkdrv-api/arkdrv-api.h"
 
 bool UnlockFileSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const {
 	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
@@ -33,6 +34,7 @@ KernelStorage::~KernelStorage()
 
 void KernelStorage::onTabChanged(int index)
 {
+	CommonTabObject::onTabChanged(index);
 }
 
 bool KernelStorage::eventFilter(QObject *obj, QEvent *e)
@@ -53,10 +55,10 @@ void KernelStorage::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 {
 	this->ui_ = ui;
 
+	Init(ui->tabStorage, TAB_KERNEL, TAB_KERNEL_STORAGE);
+
 	InitFileUnlockView();
 	InitFileFilterView();
-
-	connect(ui->tabStorage, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 }
 
 void KernelStorage::InitFileUnlockView()
@@ -75,11 +77,11 @@ void KernelStorage::InitFileUnlockView()
 	view->installEventFilter(this);
 	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	std::pair<int, QString> colum_layout[] = {
+		{ 150, tr("ProcessName") },
+		{ 50, tr("PID") },
+		{ 280, tr("FilePath") },
+		{ 280, tr("ProcessPath") },
 		{ 130, tr("FileObject") },
-		{ 200, tr("FilePath") },
-		{ 100, tr("PID") },
-		{ 100, tr("ProcessName") },
-		{ 200, tr("ProcessPath") },
 	};
 	QStringList name_list;
 	for (auto p : colum_layout) {
@@ -91,6 +93,35 @@ void KernelStorage::InitFileUnlockView()
 	}
 	unlock_menu_ = new QMenu();
 	unlock_menu_->addAction(tr("Refresh"), this, [&] {});
+
+	connect(ui_->showHoldBtn, &QPushButton::clicked, [&] {
+		QString file = ui_->inputPathEdit->text();
+		std::wstring path;
+		std::vector<HANDLE_ITEM> items;
+		UNONE::ObParseToNtPathW(file.toStdWString(), path);
+		UNONE::StrLowerW(path);
+		ArkDrvApi::Storage::UnlockEnum(path, items);
+		for (auto item : items) {
+			auto pid = (DWORD)item.pid;
+			auto &&ppath = UNONE::PsGetProcessPathW(pid);
+			auto &&pname = UNONE::FsPathToNameW(ppath);
+			std::wstring fpath;
+			UNONE::ObParseToDosPathW(item.name, fpath);
+			auto item_pname = new QStandardItem(LoadIcon(WStrToQ(ppath)), WStrToQ(pname));
+			auto item_pid = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", pid)));
+			auto item_fpath = new QStandardItem(WStrToQ(fpath));
+			auto item_fobj = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", item.object)));
+			auto item_ppath = new QStandardItem(WStrToQ(ppath));
+			auto count = unlock_model_->rowCount();
+			unlock_model_->setItem(count, 0, item_pname);
+			unlock_model_->setItem(count, 1, item_pid);
+			unlock_model_->setItem(count, 2, item_fpath);
+			unlock_model_->setItem(count, 3, item_ppath);
+			unlock_model_->setItem(count, 4, item_fobj);
+		}
+	});
+	
+
 }
 
 void KernelStorage::InitFileFilterView()

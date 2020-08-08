@@ -42,10 +42,6 @@ private slots:
 	void onTabChanged(int index);
 
 private:
-	void ShowUnlockFiles();
-	
-
-private:
 	Ui::Kernel *ui;
 	KernelMemoryRW *memrw_;
 };

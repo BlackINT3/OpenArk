@@ -17,6 +17,8 @@
 #include <knone.h>
 #include <ntifs.h>
 
+#define ARK_POOLTAG 'OARK'
+
 typedef struct _ARK_DRIVER {
 	PDRIVER_OBJECT drvobj;
 	PDEVICE_OBJECT devobj;
@@ -35,3 +37,6 @@ extern ARK_DRIVER ArkDrv;
 BOOLEAN InitArkDriver(PDRIVER_OBJECT drvobj, PDEVICE_OBJECT devobj);
 
 PVOID GetNtRoutineAddress(IN PCWSTR name);
+
+NTSTATUS DuplicateInputBuffer(IN PIRP irp, PVOID &inbuf);
+NTSTATUS ReleaseInputBuffer(IN PIRP irp, PVOID &inbuf);

@@ -68,6 +68,6 @@ namespace Notify {
 	bool NotifyEnumThread(std::vector<ULONG64> &routines);
 	bool NotifyEnumImage(std::vector<ULONG64> &routines);
 	bool NotifyEnumRegistry(std::vector<ULONG64> &routines);
-} // namespace Memory
+} // namespace Notify
 } // namespace ArkDrvApi
 #endif //_NTDDK_

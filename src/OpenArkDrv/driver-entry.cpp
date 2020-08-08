@@ -20,6 +20,7 @@
 #include "notify/notify.h"
 #include "memory/memory.h"
 #include "wingui/ops-hotkey/ops-hotkey.h"
+#include "storage/storage.h"
 
 EXTERN_C NTSTATUS DriverEntry(PDRIVER_OBJECT drvobj, PUNICODE_STRING registry);
 NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp);
@@ -109,6 +110,9 @@ NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp)
 		break;
 	case IOCTL_ARK_HOTKEY:
 		status = HotkeyDispatcher(op, devobj, irp);
+		break;
+	case IOCTL_ARK_STORAGE:
+		status = StorageDispatcher(op, devobj, irp);
 		break;
 	default:
 		status = STATUS_INVALID_DEVICE_REQUEST;

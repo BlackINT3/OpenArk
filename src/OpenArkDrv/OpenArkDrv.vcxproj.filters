@@ -26,6 +26,27 @@
     <ClCompile Include="wingui\ops-hotkey\utils\utils.cpp">
       <Filter>wingui\ops-hotkey\utils</Filter>
     </ClCompile>
+    <ClCompile Include="storage\unlock\handle.cpp">
+      <Filter>storage\unlock</Filter>
+    </ClCompile>
+    <ClCompile Include="arkdrv-api\api-storage\api-storage.cpp">
+      <Filter>arkdrv-api\api-storage</Filter>
+    </ClCompile>
+    <ClCompile Include="arkdrv-api\api-memory\api-memory.cpp">
+      <Filter>arkdrv-api\api-memory</Filter>
+    </ClCompile>
+    <ClCompile Include="arkdrv-api\api-wingui\api-wingui.cpp">
+      <Filter>arkdrv-api\api-wingui</Filter>
+    </ClCompile>
+    <ClCompile Include="arkdrv-api\api-driver\api-driver.cpp">
+      <Filter>arkdrv-api\api-driver</Filter>
+    </ClCompile>
+    <ClCompile Include="arkdrv-api\api-notify\api-notify.cpp">
+      <Filter>arkdrv-api\api-notify</Filter>
+    </ClCompile>
+    <ClCompile Include="storage\storage.cpp">
+      <Filter>storage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="notify">
@@ -55,6 +76,27 @@
     <Filter Include="wingui\ops-hotkey\utils">
       <UniqueIdentifier>{09ee9ed7-a9de-4f95-8f43-811d97aa7892}</UniqueIdentifier>
     </Filter>
+    <Filter Include="storage">
+      <UniqueIdentifier>{d5a7b29f-41a4-40d6-ada5-225fc7912c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="storage\unlock">
+      <UniqueIdentifier>{61ff8bb4-5d84-4b08-a2ed-26c2a96c4469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="arkdrv-api\api-storage">
+      <UniqueIdentifier>{d0135cef-3e11-4a35-95c0-3fa91b0c12d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="arkdrv-api\api-memory">
+      <UniqueIdentifier>{a687d859-d322-44ff-ba51-a4482c53d836}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="arkdrv-api\api-wingui">
+      <UniqueIdentifier>{23d5b454-0811-46e0-b634-0f0796a7f604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="arkdrv-api\api-driver">
+      <UniqueIdentifier>{f948a1b5-7047-465c-b5fb-e421781a7c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="arkdrv-api\api-notify">
+      <UniqueIdentifier>{d33ac1eb-bf03-4956-a223-cc88b4e8bccb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="driver\driver.h">
@@ -83,6 +125,27 @@
     </ClInclude>
     <ClInclude Include="wingui\ops-hotkey\utils\utils.h">
       <Filter>wingui\ops-hotkey\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="storage\unlock\handle.h">
+      <Filter>storage\unlock</Filter>
+    </ClInclude>
+    <ClInclude Include="arkdrv-api\api-storage\api-storage.h">
+      <Filter>arkdrv-api\api-storage</Filter>
+    </ClInclude>
+    <ClInclude Include="arkdrv-api\api-memory\api-memory.h">
+      <Filter>arkdrv-api\api-memory</Filter>
+    </ClInclude>
+    <ClInclude Include="arkdrv-api\api-wingui\api-wingui.h">
+      <Filter>arkdrv-api\api-wingui</Filter>
+    </ClInclude>
+    <ClInclude Include="arkdrv-api\api-driver\api-driver.h">
+      <Filter>arkdrv-api\api-driver</Filter>
+    </ClInclude>
+    <ClInclude Include="arkdrv-api\api-notify\api-notify.h">
+      <Filter>arkdrv-api\api-notify</Filter>
+    </ClInclude>
+    <ClInclude Include="storage\storage.h">
+      <Filter>storage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,30 +13,8 @@
 ** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
 **
 ****************************************************************************/
-#include "api-storage.h"
-#ifdef _ARKDRV_
-#else
-namespace ArkDrvApi {
-namespace Storage {
-bool UnlockEnum(const std::wstring &path, std::vector<HANDLE_ITEM> &items)
-{
-	if (!ConnectDriver()) return false;
-	DWORD op = STORAGE_UNLOCK_ENUM;
-	PHANDLE_INFO info;
-	DWORD outlen;
-	bool ret = IoControlDriver(IOCTL_ARK_STORAGE, op, (PVOID)path.c_str(), (path.size()+1)*2, (PVOID*)&info, &outlen);
-	if (!ret) return false;
-	for (int i = 0; i < info->count; i++) {
-		items.push_back(info->items[i]);
-	}
-	free(info);
-	return true;
-}
+#pragma once
+#include <ntifs.h>
+#include <arkdrv-api/arkdrv-api.h>
 
-bool HotkeyRemoveInfo(HOTKEY_ITEM &item)
-{
-	return false;
-}
-} // namespace Storage
-} // namespace ArkDrvApi
-#endif
+NTSTATUS StorageDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, IN PIRP irp);

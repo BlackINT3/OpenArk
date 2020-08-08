@@ -334,7 +334,7 @@ void Kernel::InitHotkeyView()
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
 	std::pair<int, QString> colum_layout[] = { 
-	{ 130, tr("Name") },
+	{ 150, tr("Name") },
 	{ 100, tr("PID.TID") },
 	{ 200, tr("Hotkey") },
 	{ 100, tr("HotkeyID") },
@@ -459,7 +459,7 @@ void Kernel::ShowSystemHotkey()
 		auto &&name = UNONE::FsPathToNameW(path);
 		if (name.empty()) name = UNONE::StrToW((char*)item.name);
 		auto info = CacheGetFileBaseInfo(WStrToQ(path));
-		auto name_item = new QStandardItem(WStrToQ(name));
+		auto name_item = new QStandardItem(LoadIcon(WStrToQ(path)), WStrToQ(name));
 		auto wnd_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%X", item.wnd)));
 		auto title_item = new QStandardItem(WStrToQ(UNONE::PsGetWndTextW((HWND)item.wnd)));
 		auto class_item = new QStandardItem(WStrToQ(UNONE::PsGetWndClassNameW((HWND)item.wnd)));

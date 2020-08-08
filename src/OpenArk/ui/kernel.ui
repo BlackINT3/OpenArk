@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>752</width>
+    <width>982</width>
     <height>730</height>
    </rect>
   </property>
@@ -553,6 +553,9 @@
            <pointsize>9</pointsize>
           </font>
          </property>
+         <property name="indentation">
+          <number>5</number>
+         </property>
         </widget>
        </item>
        <item>
@@ -710,21 +713,54 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_15">
            <item>
-            <widget class="QTreeView" name="unlockView"/>
+            <widget class="QTreeView" name="unlockView">
+             <property name="indentation">
+              <number>5</number>
+             </property>
+             <attribute name="headerMinimumSectionSize">
+              <number>25</number>
+             </attribute>
+            </widget>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
-              <widget class="QPushButton" name="pushButton_6">
+              <widget class="QLabel" name="label_2">
                <property name="text">
-                <string>Select File...</string>
+                <string>InputPath:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="inputPathEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>300</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>C:\Users\Administrator\Desktop\bin64.zip</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="showHoldBtn">
+               <property name="text">
+                <string>ShowHold</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="label">
                <property name="text">
-                <string>You can drag driver file to here...</string>
+                <string>You can drag to here...</string>
                </property>
               </widget>
              </item>

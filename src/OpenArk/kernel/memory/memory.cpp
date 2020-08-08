@@ -56,10 +56,6 @@ void KernelMemory::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
 	memwidget->show();
 }
 
-void KernelMemory::ShowUnlockFiles()
-{
-}
-
 KernelMemoryRW::KernelMemoryRW()
 {
 	QUiLoader loader;

@@ -78,7 +78,7 @@ bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *o
 
 	*outbuf = NULL;
 	auto bufsize = retlen;
-	auto buf = (PDRIVER_INFO)calloc(bufsize, 1);
+	auto buf = (PVOID)calloc(bufsize, 1);
 	if (!buf) return false;
 	if (!DeviceIoControl(
 		arkdrv,

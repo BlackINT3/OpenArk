@@ -124,6 +124,7 @@
       </BufferSecurityCheck>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>StdCall</CallingConvention>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Native</SubSystem>
@@ -151,6 +152,7 @@
       </BufferSecurityCheck>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>Cdecl</CallingConvention>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Native</SubSystem>
@@ -178,6 +180,7 @@
       <CallingConvention>StdCall</CallingConvention>
       <BufferSecurityCheck>
       </BufferSecurityCheck>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Native</SubSystem>
@@ -207,6 +210,7 @@
       <CallingConvention>Cdecl</CallingConvention>
       <BufferSecurityCheck>
       </BufferSecurityCheck>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Native</SubSystem>
@@ -224,6 +228,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="arkdrv-api\api-driver\api-driver.cpp" />
+    <ClCompile Include="arkdrv-api\api-memory\api-memory.cpp" />
+    <ClCompile Include="arkdrv-api\api-notify\api-notify.cpp" />
+    <ClCompile Include="arkdrv-api\api-storage\api-storage.cpp" />
+    <ClCompile Include="arkdrv-api\api-wingui\api-wingui.cpp" />
     <ClCompile Include="arkdrv-api\arkdrv-api.cpp" />
     <ClCompile Include="common\common.cpp" />
     <ClCompile Include="driver\driver.cpp" />
@@ -231,10 +240,17 @@
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="notify\notify-lib.cpp" />
     <ClCompile Include="notify\notify.cpp" />
+    <ClCompile Include="storage\storage.cpp" />
+    <ClCompile Include="storage\unlock\handle.cpp" />
     <ClCompile Include="wingui\ops-hotkey\ops-hotkey.cpp" />
     <ClCompile Include="wingui\ops-hotkey\utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="arkdrv-api\api-driver\api-driver.h" />
+    <ClInclude Include="arkdrv-api\api-memory\api-memory.h" />
+    <ClInclude Include="arkdrv-api\api-notify\api-notify.h" />
+    <ClInclude Include="arkdrv-api\api-storage\api-storage.h" />
+    <ClInclude Include="arkdrv-api\api-wingui\api-wingui.h" />
     <ClInclude Include="arkdrv-api\arkdrv-api.h" />
     <ClInclude Include="common\common.h" />
     <ClInclude Include="driver\driver.h" />
@@ -242,6 +258,8 @@
     <ClInclude Include="notify\notify-lib.h" />
     <ClInclude Include="notify\notify.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="storage\storage.h" />
+    <ClInclude Include="storage\unlock\handle.h" />
     <ClInclude Include="wingui\ops-hotkey\ops-hotkey.h" />
     <ClInclude Include="wingui\ops-hotkey\utils\utils.h" />
   </ItemGroup>

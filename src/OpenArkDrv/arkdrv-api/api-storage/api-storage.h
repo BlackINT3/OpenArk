@@ -14,9 +14,47 @@
 **
 ****************************************************************************/
 #pragma once
+#include "../arkdrv-api.h"
 #ifdef _ARKDRV_
 #include <ntifs.h>
 #include <windef.h>
 #else
 #include <Windows.h>
+#endif //_NTDDK_
+
+enum STORAGE_OPS {
+	STORAGE_UNLOCK_ENUM,
+	STORAGE_UNLOCK_CLOSE,
+};
+
+#pragma pack(push, 1)
+typedef struct _HANDLE_ITEM {
+	ULONG  type_index; // object type index
+	ULONG  ref_count; // ref count
+	HANDLE pid; // process id
+	LPVOID object; // 
+	HANDLE handle; //
+	WCHAR   type_name[64]; // the object type name
+	WCHAR   name[260]; // object name
+} HANDLE_ITEM, *PHANDLE_ITEM;
+
+typedef struct _HANDLE_INFO {
+	ULONG	count;
+	HANDLE_ITEM items[1];
+}HANDLE_INFO, *PHANDLE_INFO;
+#pragma pack(pop)
+
+//#undef _ARKDRV_
+#ifdef _ARKDRV_
+#include <ntifs.h>
+#else
+#include <unone.h>
+#include <string>
+#include <vector>
+namespace ArkDrvApi {
+namespace Storage {
+	bool UnlockEnum(const std::wstring &path, std::vector<HANDLE_ITEM> &items);
+	bool UnlockClose(HANDLE_ITEM &item);
+} // namespace Storage
+} // namespace ArkDrvApi
 #endif //_NTDDK_

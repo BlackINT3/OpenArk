@@ -55,6 +55,6 @@ bool HotkeyRemoveInfo(HOTKEY_ITEM &item)
 	if (!ret) return false;
 	return true;
 }
-} // namespace Memory
+} // namespace WinGUI
 } // namespace ArkDrvApi
 #endif
