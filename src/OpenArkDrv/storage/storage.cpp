@@ -56,6 +56,6 @@ NTSTATUS StorageDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, IN PIRP irp)
 		break;
 	}
 
-	status = ReleaseInputBuffer(irp, inbuf_dup);
+	ReleaseInputBuffer(irp, inbuf_dup);
 	return status;
 }
