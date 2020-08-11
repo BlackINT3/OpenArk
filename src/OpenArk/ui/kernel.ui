@@ -160,7 +160,7 @@
        <item>
         <widget class="QTabWidget" name="tabDriver">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tabDrivers">
           <attribute name="title">
@@ -191,6 +191,9 @@
               <font>
                <kerning>true</kerning>
               </font>
+             </property>
+             <property name="indentation">
+              <number>5</number>
              </property>
              <property name="itemsExpandable">
               <bool>true</bool>
@@ -525,6 +528,9 @@
            <pointsize>9</pointsize>
           </font>
          </property>
+         <property name="indentation">
+          <number>5</number>
+         </property>
         </widget>
        </item>
       </layout>
@@ -714,6 +720,9 @@
           <layout class="QVBoxLayout" name="verticalLayout_15">
            <item>
             <widget class="QTreeView" name="unlockView">
+             <property name="selectionMode">
+              <enum>QAbstractItemView::ExtendedSelection</enum>
+             </property>
              <property name="indentation">
               <number>5</number>
              </property>
@@ -758,6 +767,13 @@
               </widget>
              </item>
              <item>
+              <widget class="Line" name="line">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QLabel" name="label">
                <property name="text">
                 <string>You can drag to here...</string>
@@ -776,6 +792,13 @@
                 </size>
                </property>
               </spacer>
+             </item>
+             <item>
+              <widget class="Line" name="line_2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
              </item>
              <item>
               <widget class="QPushButton" name="pushButton_3">

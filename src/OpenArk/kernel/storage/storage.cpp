@@ -95,6 +95,9 @@ void KernelStorage::InitFileUnlockView()
 	unlock_menu_->addAction(tr("Refresh"), this, [&] {});
 
 	connect(ui_->showHoldBtn, &QPushButton::clicked, [&] {
+		DISABLE_RECOVER();
+		ClearItemModelData(unlock_model_, 0);
+
 		QString file = ui_->inputPathEdit->text();
 		std::wstring path;
 		std::vector<HANDLE_ITEM> items;
