@@ -45,6 +45,8 @@ public:
 	QString GetConsole(const QString &name);
 	void GetMainGeometry(int &x, int &y, int &w, int &h);
 	void SetMainGeometry(int x, int y, int w, int h);
+	void GetMainMaxed(bool &maxed);
+	void SetMainMaxed(bool maxed);
 	void GetPrefMainTab(int &idx);
 	void SetPrefMainTab(int idx);
 	void GetPrefLevel2Tab(int &idx);

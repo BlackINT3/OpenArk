@@ -62,6 +62,10 @@ OpenArk::OpenArk(QWidget *parent) :
 	OpenArkConfig::Instance()->GetMainGeometry(x, y, w, h);
 	move(x, y);
 	resize(w, h);
+	bool maxed = false;
+	OpenArkConfig::Instance()->GetMainMaxed(maxed);
+	if (maxed) showMaximized();
+
 	ui.splitter->setStretchFactor(0, 1);
 	ui.splitter->setStretchFactor(1, 5);
 	QString title = QString(tr("OpenArk v%1 ").arg(AppVersion()));
@@ -236,10 +240,12 @@ bool OpenArk::eventFilter(QObject *obj, QEvent *e)
 	} else if (obj == this) {
 		if (e->type() == QEvent::Resize) {
 			auto evt = dynamic_cast<QResizeEvent*>(e);
+			old_window_size_ = evt->oldSize();
 			OpenArkConfig::Instance()->SetMainGeometry(-1, -1, evt->size().width(), evt->size().height());
 		} else if (e->type() == QEvent::Move) {
 			auto evt = dynamic_cast<QMoveEvent*>(e);
-			OpenArkConfig::Instance()->SetMainGeometry(evt->pos().x()-8, evt->pos().y()-31, -1, -1);
+			old_window_pos_ = evt->oldPos();
+			OpenArkConfig::Instance()->SetMainGeometry(evt->pos().x() - 8, evt->pos().y() - 31, -1, -1);
 		}
 	}
 	
@@ -250,6 +256,18 @@ bool OpenArk::eventFilter(QObject *obj, QEvent *e)
 		return true;
 	}
 	return QWidget::eventFilter(obj, e);
+}
+
+void OpenArk::changeEvent(QEvent *e)
+{
+	if (e->type() != QEvent::WindowStateChange) return;
+	if (windowState() == Qt::WindowMaximized) {
+		OpenArkConfig::Instance()->SetMainGeometry(old_window_pos_.x(), old_window_pos_.y(), 
+			old_window_size_.width(), old_window_size_.height());
+		OpenArkConfig::Instance()->SetMainMaxed(true);
+	} else if (windowState() != Qt::WindowMinimized) {
+		OpenArkConfig::Instance()->SetMainMaxed(false);
+	}
 }
 
 void OpenArk::onActionOpen(bool checked)

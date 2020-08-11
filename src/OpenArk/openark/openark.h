@@ -27,6 +27,7 @@ public:
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *e);
+	void changeEvent(QEvent *e);
 
 signals:
 	void signalRefresh();
@@ -68,6 +69,8 @@ public:
 
 private:
 	Cmds *cmds_;
+	QSize old_window_size_;
+	QPoint old_window_pos_;
 	QTimer *chkupt_timer_;
 	QToolBar *stool_;
 	Ui::OpenArkWindow ui;

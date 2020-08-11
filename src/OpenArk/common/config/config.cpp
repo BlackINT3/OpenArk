@@ -116,6 +116,19 @@ void OpenArkConfig::SetMainGeometry(int x, int y, int w, int h)
 	Sync();
 }
 
+void OpenArkConfig::GetMainMaxed(bool &maxed)
+{
+	QString section = "/Main/";
+	maxed = GetValue(section + "maxed").toBool();;
+}
+
+void OpenArkConfig::SetMainMaxed(bool maxed)
+{
+	QString section = "/Main/";
+	SetValue(section + "maxed", maxed);;
+	Sync();
+}
+
 void OpenArkConfig::GetPrefMainTab(int &idx)
 {
 	QString section = "/Preference/";
