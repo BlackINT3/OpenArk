@@ -78,6 +78,7 @@ NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp)
 {
 	NTSTATUS status = STATUS_UNSUCCESSFUL;
 	PIO_STACK_LOCATION	irpstack;
+	PVOID inbuf_dup = NULL;
 	PVOID inbuf = NULL;
 	PVOID outbuf = NULL;
 	ULONG inlen = 0;
@@ -94,6 +95,16 @@ NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp)
 	inbuf = irp->AssociatedIrp.SystemBuffer;
 	if (!inbuf) return STATUS_INVALID_PARAMETER;
 	op = *(ULONG*)inbuf;
+
+	inlen = inlen - 4;
+	inbuf = (UCHAR*)inbuf + 4;
+	KdBreakPoint();
+
+	status = DuplicateInputBuffer(irp, inbuf);
+	if (!NT_SUCCESS(status)) return status;
+
+	outbuf = irp->AssociatedIrp.SystemBuffer;
+	outlen = irpstack->Parameters.DeviceIoControl.OutputBufferLength;
 
 	switch (ctlcode) {
 	case IOCTL_ARK_HEARTBEAT:
@@ -113,6 +124,9 @@ NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp)
 		break;
 	case IOCTL_ARK_STORAGE:
 		status = StorageDispatcher(op, devobj, irp);
+		break;
+	case IOCTL_ARK_OBJECT:
+		status = ObjectDispatcher(op, devobj, irp);
 		break;
 	default:
 		status = STATUS_INVALID_DEVICE_REQUEST;

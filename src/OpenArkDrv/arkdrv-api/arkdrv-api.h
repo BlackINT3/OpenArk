@@ -26,6 +26,8 @@
 #include "api-wingui/api-wingui.h"
 #include "api-driver/api-driver.h"
 #include "api-notify/api-notify.h"
+#include "api-object/api-object.h"
+
 
 #define ARK_NTDEVICE_NAME L"\\Device\\OpenArkDrv"
 #define ARK_DOSDEVICE_NAME L"\\DosDevices\\OpenArkDrv"
@@ -39,6 +41,7 @@
 #define IOCTL_ARK_MEMORY CTL_CODE(ARK_DRV_TYPE, 0x803, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_ARK_HOTKEY CTL_CODE(ARK_DRV_TYPE, 0x900, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_ARK_STORAGE CTL_CODE(ARK_DRV_TYPE, 0x920, METHOD_BUFFERED, FILE_ANY_ACCESS)
+#define IOCTL_ARK_OBJECT CTL_CODE(ARK_DRV_TYPE, 0x940, METHOD_BUFFERED, FILE_ANY_ACCESS)
 
 //#undef _ARKDRV_
 #ifdef _ARKDRV_

@@ -237,6 +237,7 @@
     <ClCompile Include="common\common.cpp" />
     <ClCompile Include="driver\driver.cpp" />
     <ClCompile Include="driver-entry.cpp" />
+    <ClCompile Include="kobject\kobject.cpp" />
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="notify\notify-lib.cpp" />
     <ClCompile Include="notify\notify.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="arkdrv-api\arkdrv-api.h" />
     <ClInclude Include="common\common.h" />
     <ClInclude Include="driver\driver.h" />
+    <ClInclude Include="kobject\kobject.h" />
     <ClInclude Include="memory\memory.h" />
     <ClInclude Include="notify\notify-lib.h" />
     <ClInclude Include="notify\notify.h" />

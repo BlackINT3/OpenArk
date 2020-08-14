@@ -2,32 +2,32 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="driver\driver.cpp">
-      <Filter>driver</Filter>
+      <Filter>kdriver</Filter>
     </ClCompile>
     <ClCompile Include="common\common.cpp">
       <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="notify\notify.cpp">
-      <Filter>notify</Filter>
+      <Filter>knotify</Filter>
     </ClCompile>
     <ClCompile Include="driver-entry.cpp" />
     <ClCompile Include="notify\notify-lib.cpp">
-      <Filter>notify</Filter>
+      <Filter>knotify</Filter>
     </ClCompile>
     <ClCompile Include="arkdrv-api\arkdrv-api.cpp">
       <Filter>arkdrv-api</Filter>
     </ClCompile>
     <ClCompile Include="memory\memory.cpp">
-      <Filter>memory</Filter>
+      <Filter>kmemory</Filter>
     </ClCompile>
     <ClCompile Include="wingui\ops-hotkey\ops-hotkey.cpp">
-      <Filter>wingui\ops-hotkey</Filter>
+      <Filter>kwingui\ops-hotkey</Filter>
     </ClCompile>
     <ClCompile Include="wingui\ops-hotkey\utils\utils.cpp">
-      <Filter>wingui\ops-hotkey\utils</Filter>
+      <Filter>kwingui\ops-hotkey\utils</Filter>
     </ClCompile>
     <ClCompile Include="storage\unlock\handle.cpp">
-      <Filter>storage\unlock</Filter>
+      <Filter>kstorage\unlock</Filter>
     </ClCompile>
     <ClCompile Include="arkdrv-api\api-storage\api-storage.cpp">
       <Filter>arkdrv-api\api-storage</Filter>
@@ -45,16 +45,13 @@
       <Filter>arkdrv-api\api-notify</Filter>
     </ClCompile>
     <ClCompile Include="storage\storage.cpp">
-      <Filter>storage</Filter>
+      <Filter>kstorage</Filter>
+    </ClCompile>
+    <ClCompile Include="kobject\kobject.cpp">
+      <Filter>kobject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="notify">
-      <UniqueIdentifier>{4f91c10f-34b3-49a6-bec2-ae813a57adba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="driver">
-      <UniqueIdentifier>{0524cfde-14fa-471f-84f3-8226224d739b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{9ae18d72-5aa6-4324-bfb8-f072171e9d02}</UniqueIdentifier>
     </Filter>
@@ -63,24 +60,6 @@
     </Filter>
     <Filter Include="res">
       <UniqueIdentifier>{8842c31c-3e11-4d24-a5d1-b85db5f4f9f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="memory">
-      <UniqueIdentifier>{c28bfcae-6bbe-4eee-a802-a10e966f708a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="wingui">
-      <UniqueIdentifier>{c1698fd3-ea9a-40aa-a0b4-94d1a6f2ac53}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="wingui\ops-hotkey">
-      <UniqueIdentifier>{29d67cd2-6ecb-468d-a966-9ef786e9616c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="wingui\ops-hotkey\utils">
-      <UniqueIdentifier>{09ee9ed7-a9de-4f95-8f43-811d97aa7892}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="storage">
-      <UniqueIdentifier>{d5a7b29f-41a4-40d6-ada5-225fc7912c89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="storage\unlock">
-      <UniqueIdentifier>{61ff8bb4-5d84-4b08-a2ed-26c2a96c4469}</UniqueIdentifier>
     </Filter>
     <Filter Include="arkdrv-api\api-storage">
       <UniqueIdentifier>{d0135cef-3e11-4a35-95c0-3fa91b0c12d0}</UniqueIdentifier>
@@ -97,19 +76,46 @@
     <Filter Include="arkdrv-api\api-notify">
       <UniqueIdentifier>{d33ac1eb-bf03-4956-a223-cc88b4e8bccb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="kmemory">
+      <UniqueIdentifier>{c28bfcae-6bbe-4eee-a802-a10e966f708a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kdriver">
+      <UniqueIdentifier>{0524cfde-14fa-471f-84f3-8226224d739b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="knotify">
+      <UniqueIdentifier>{4f91c10f-34b3-49a6-bec2-ae813a57adba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kstorage">
+      <UniqueIdentifier>{d5a7b29f-41a4-40d6-ada5-225fc7912c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kstorage\unlock">
+      <UniqueIdentifier>{61ff8bb4-5d84-4b08-a2ed-26c2a96c4469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kwingui">
+      <UniqueIdentifier>{c1698fd3-ea9a-40aa-a0b4-94d1a6f2ac53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kwingui\ops-hotkey">
+      <UniqueIdentifier>{29d67cd2-6ecb-468d-a966-9ef786e9616c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kwingui\ops-hotkey\utils">
+      <UniqueIdentifier>{09ee9ed7-a9de-4f95-8f43-811d97aa7892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kobject">
+      <UniqueIdentifier>{569bfed0-dd3a-4634-8f6f-658f2af0cbb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="driver\driver.h">
-      <Filter>driver</Filter>
+      <Filter>kdriver</Filter>
     </ClInclude>
     <ClInclude Include="common\common.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="notify\notify.h">
-      <Filter>notify</Filter>
+      <Filter>knotify</Filter>
     </ClInclude>
     <ClInclude Include="notify\notify-lib.h">
-      <Filter>notify</Filter>
+      <Filter>knotify</Filter>
     </ClInclude>
     <ClInclude Include="arkdrv-api\arkdrv-api.h">
       <Filter>arkdrv-api</Filter>
@@ -118,16 +124,16 @@
       <Filter>res</Filter>
     </ClInclude>
     <ClInclude Include="memory\memory.h">
-      <Filter>memory</Filter>
+      <Filter>kmemory</Filter>
     </ClInclude>
     <ClInclude Include="wingui\ops-hotkey\ops-hotkey.h">
-      <Filter>wingui\ops-hotkey</Filter>
+      <Filter>kwingui\ops-hotkey</Filter>
     </ClInclude>
     <ClInclude Include="wingui\ops-hotkey\utils\utils.h">
-      <Filter>wingui\ops-hotkey\utils</Filter>
+      <Filter>kwingui\ops-hotkey\utils</Filter>
     </ClInclude>
     <ClInclude Include="storage\unlock\handle.h">
-      <Filter>storage\unlock</Filter>
+      <Filter>kstorage\unlock</Filter>
     </ClInclude>
     <ClInclude Include="arkdrv-api\api-storage\api-storage.h">
       <Filter>arkdrv-api\api-storage</Filter>
@@ -145,7 +151,10 @@
       <Filter>arkdrv-api\api-notify</Filter>
     </ClInclude>
     <ClInclude Include="storage\storage.h">
-      <Filter>storage</Filter>
+      <Filter>kstorage</Filter>
+    </ClInclude>
+    <ClInclude Include="kobject\kobject.h">
+      <Filter>kobject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
