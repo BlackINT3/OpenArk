@@ -99,6 +99,41 @@ bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *o
 	return true;
 }
 
+bool IoControlDriver(DWORD ctlcode, DWORD op, const std::wstring &indata, std::string &outdata)
+{
+	if (!ConnectDriver()) return false;
+	DWORD outlen;
+	CHAR *info;
+	WCHAR *tempdata = NULL;
+	DWORD tempsize = 0;
+	if (indata.size()) {
+		tempdata = (WCHAR*)indata.c_str();
+		tempsize = (indata.size() + 1) * 2;
+	}
+	bool ret = IoControlDriver(ctlcode, op, (PVOID)tempdata, tempsize, (PVOID*)&info, &outlen);
+	if (!ret) return false;
+	outdata.assign(info, outlen);
+	free(info);
+	return true;
+}
+bool IoControlDriver(DWORD ctlcode, DWORD op, const std::string &indata, std::string &outdata)
+{
+	if (!ConnectDriver()) return false;
+	DWORD outlen;
+	CHAR *info;
+	CHAR *tempdata = NULL;
+	DWORD tempsize = 0;
+	if (indata.size()) {
+		tempdata = (CHAR*)indata.c_str();
+		tempsize = indata.size();
+	}
+	bool ret = IoControlDriver(ctlcode, op, (PVOID)tempdata, tempsize, (PVOID*)&info, &outlen);
+	if (!ret) return false;
+	outdata.assign(info, outlen);
+	free(info);
+	return true;
+}
+
 bool HeartBeatPulse()
 {
 	if (!ConnectDriver()) return false;

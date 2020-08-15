@@ -33,6 +33,18 @@
        <string>SystemTools</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
@@ -42,10 +54,37 @@
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="leftMargin">
+           <number>3</number>
+          </property>
+          <property name="topMargin">
+           <number>3</number>
+          </property>
+          <property name="rightMargin">
+           <number>3</number>
+          </property>
+          <property name="bottomMargin">
+           <number>3</number>
+          </property>
           <item>
            <widget class="QScrollArea" name="scrollArea">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="autoFillBackground">
              <bool>false</bool>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
             </property>
             <property name="widgetResizable">
              <bool>true</bool>
@@ -56,7 +95,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>116</height>
+               <height>141</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_4">
@@ -149,6 +188,21 @@
           </item>
           <item>
            <widget class="QScrollArea" name="scrollArea_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -158,7 +212,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>116</height>
+               <height>141</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_3">
@@ -248,6 +302,21 @@
           </item>
           <item>
            <widget class="QScrollArea" name="scrollArea_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -257,7 +326,7 @@
                <x>0</x>
                <y>0</y>
                <width>124</width>
-               <height>132</height>
+               <height>141</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_2">
@@ -313,6 +382,21 @@
           </item>
           <item>
            <widget class="QScrollArea" name="scrollArea_4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -321,8 +405,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>130</width>
-               <height>132</height>
+               <width>142</width>
+               <height>141</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout">
@@ -342,7 +426,7 @@
                <widget class="QPushButton" name="fastrebootBtn">
                 <property name="minimumSize">
                  <size>
-                  <width>101</width>
+                  <width>130</width>
                   <height>23</height>
                  </size>
                 </property>
@@ -359,7 +443,7 @@
                <widget class="QPushButton" name="fastpoweroffBtn">
                 <property name="minimumSize">
                  <size>
-                  <width>101</width>
+                  <width>130</width>
                   <height>23</height>
                  </size>
                 </property>
@@ -376,7 +460,7 @@
                <widget class="QPushButton" name="killexplorerBtn">
                 <property name="minimumSize">
                  <size>
-                  <width>101</width>
+                  <width>130</width>
                   <height>23</height>
                  </size>
                 </property>
@@ -393,7 +477,7 @@
                <widget class="QPushButton" name="resetexplorerBtn">
                 <property name="minimumSize">
                  <size>
-                  <width>101</width>
+                  <width>130</width>
                   <height>23</height>
                  </size>
                 </property>
@@ -411,59 +495,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
            <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_5">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -484,8 +516,29 @@
           <string>Configuration</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <property name="leftMargin">
+           <number>3</number>
+          </property>
+          <property name="topMargin">
+           <number>3</number>
+          </property>
+          <property name="rightMargin">
+           <number>3</number>
+          </property>
+          <property name="bottomMargin">
+           <number>3</number>
+          </property>
           <item>
            <widget class="QScrollArea" name="scrollArea_5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -494,8 +547,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>116</width>
-               <height>131</height>
+               <width>113</width>
+               <height>141</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_6">
@@ -585,6 +638,15 @@
           </item>
           <item>
            <widget class="QScrollArea" name="scrollArea_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -593,8 +655,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>116</width>
-               <height>131</height>
+               <width>113</width>
+               <height>141</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_5">
@@ -683,72 +745,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_22">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_11">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_10">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_9">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_8">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_7">
+           <spacer name="horizontalSpacer_3">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -764,12 +761,7 @@
          <zorder>scrollArea_5</zorder>
          <zorder>scrollArea_6</zorder>
          <zorder>diskmgrBtn</zorder>
-         <zorder>horizontalSpacer_7</zorder>
-         <zorder>horizontalSpacer_8</zorder>
-         <zorder>horizontalSpacer_9</zorder>
-         <zorder>horizontalSpacer_10</zorder>
-         <zorder>horizontalSpacer_11</zorder>
-         <zorder>horizontalSpacer_22</zorder>
+         <zorder>horizontalSpacer_3</zorder>
         </widget>
        </item>
        <item>
@@ -778,8 +770,29 @@
           <string>Performance &amp;&amp; Security</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="leftMargin">
+           <number>3</number>
+          </property>
+          <property name="topMargin">
+           <number>3</number>
+          </property>
+          <property name="rightMargin">
+           <number>3</number>
+          </property>
+          <property name="bottomMargin">
+           <number>3</number>
+          </property>
           <item>
            <widget class="QScrollArea" name="scrollArea_11">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -789,7 +802,7 @@
                <x>0</x>
                <y>0</y>
                <width>124</width>
-               <height>132</height>
+               <height>140</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_11">
@@ -879,6 +892,15 @@
           </item>
           <item>
            <widget class="QScrollArea" name="scrollArea_12">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -888,7 +910,7 @@
                <x>0</x>
                <y>0</y>
                <width>124</width>
-               <height>132</height>
+               <height>140</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_12">
@@ -961,6 +983,15 @@
           </item>
           <item>
            <widget class="QScrollArea" name="scrollArea_13">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -970,7 +1001,7 @@
                <x>0</x>
                <y>0</y>
                <width>118</width>
-               <height>132</height>
+               <height>140</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_13">
@@ -1043,6 +1074,15 @@
           </item>
           <item>
            <widget class="QScrollArea" name="scrollArea_14">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -1052,7 +1092,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>115</height>
+               <height>140</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_14">
@@ -1090,59 +1130,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_16">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_15">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_14">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_13">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_12">
+           <spacer name="horizontalSpacer_4">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -1163,8 +1151,29 @@
           <string>Network</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="leftMargin">
+           <number>3</number>
+          </property>
+          <property name="topMargin">
+           <number>3</number>
+          </property>
+          <property name="rightMargin">
+           <number>3</number>
+          </property>
+          <property name="bottomMargin">
+           <number>3</number>
+          </property>
           <item>
            <widget class="QScrollArea" name="scrollArea_16">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -1174,7 +1183,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>102</height>
+               <height>141</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_17">
@@ -1247,6 +1256,15 @@
           </item>
           <item>
            <widget class="QScrollArea" name="scrollArea_17">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -1256,7 +1274,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>102</height>
+               <height>141</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_18">
@@ -1329,6 +1347,15 @@
           </item>
           <item>
            <widget class="QScrollArea" name="scrollArea_18">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -1338,7 +1365,7 @@
                <x>0</x>
                <y>0</y>
                <width>136</width>
-               <height>102</height>
+               <height>141</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_19">
@@ -1393,59 +1420,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_21">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_20">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_19">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_18">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_17">
+           <spacer name="horizontalSpacer_5">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>

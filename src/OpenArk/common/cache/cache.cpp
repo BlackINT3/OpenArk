@@ -15,6 +15,7 @@
 ****************************************************************************/
 #include "cache.h"
 #include "../common.h"
+#include <arkdrv-api/arkdrv-api.h>
 
 static struct {
 	QMutex lck;
@@ -28,9 +29,10 @@ ProcInfo CacheGetProcInfo(unsigned int pid, ProcInfo& info)
 	if (proc_info.d.contains(pid)) {
 		auto it = proc_info.d.find(pid);
 		info = it.value();
-		return info;
+		if (!info.path.isEmpty()) {
+			return info;
+		}
 	}
-	static bool is_os64 = UNONE::OsIs64();
 	info.pid = pid;
 	if (info.ppid == -1) info.ppid = UNONE::PsGetParentPid(pid);
 	if (info.parent_existed == -1) {
@@ -42,7 +44,14 @@ ProcInfo CacheGetProcInfo(unsigned int pid, ProcInfo& info)
 		if (UNONE::PsIsDeleted(ppid) || (tm1 && tm2 && tm1 < tm2))
 			info.parent_existed = 0;
 	}
+	bool activate = false;
 	auto &&path = UNONE::PsGetProcessPathW(pid);
+	if (path.empty()) {
+		UNONE::InterCreateTlsValue(ArkDrvApi::Process::OpenProcess, UNONE::PROCESS_VID);
+		path = UNONE::PsGetProcessPathW(pid);
+		activate = true;
+	}
+	static bool is_os64 = UNONE::OsIs64();
 	info.path = WStrToQ(path);
 	std::wstring corp, desc;
 	UNONE::FsGetFileInfoW(path, L"CompanyName", corp);
@@ -53,6 +62,9 @@ ProcInfo CacheGetProcInfo(unsigned int pid, ProcInfo& info)
 	info.ctime = WStrToQ(ProcessCreateTime(pid));
 	if (is_os64 && !UNONE::PsIsX64(pid))	info.name.append(" *32");
 	proc_info.d.insert(pid, info);
+
+	if (activate) UNONE::InterDeleteTlsValue(UNONE::PROCESS_VID);
+
 	return info;
 }
 
@@ -94,9 +106,18 @@ UNONE::PROCESS_BASE_INFOW CacheGetProcessBaseInfo(DWORD pid)
 	QMutexLocker locker(&proc_baseinfo.lck);
 	if (proc_baseinfo.d.contains(pid)) {
 		auto it = proc_baseinfo.d.find(pid);
-		return it.value();
+		info = it.value();
+		if (!info.ImagePathName.empty())
+			return info;
 	}
+	bool activate = false;
 	UNONE::PsGetProcessInfoW(pid, info);
+	if (info.ImagePathName.empty()) {
+		UNONE::InterCreateTlsValue(ArkDrvApi::Process::OpenProcess, UNONE::PROCESS_VID);
+		UNONE::PsGetProcessInfoW(pid, info);
+		activate = true;
+	}
+	if (activate) UNONE::InterDeleteTlsValue(UNONE::PROCESS_VID);
 	proc_baseinfo.d.insert(pid, info);
 	return info;
 }

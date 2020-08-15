@@ -26,12 +26,10 @@ ProcessProperties::ProcessProperties(QWidget* parent, DWORD pid, int tab) :
 	ui.setupUi(this);
 	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
 
-	std::wstring wstr = UNONE::PsGetProcessPathW(pid_);
-	proc_path_ = WStrToQ(wstr);
-	proc_name_ = WStrToQ(UNONE::FsPathToNameW(wstr));
-	QString title = QString(tr("%1:%2 Properties")).arg(proc_name_).arg(pid_);
+	CacheGetProcInfo(pid_, pinfo_);
+	QString title = QString(tr("%1:%2 Properties")).arg(pinfo_.name).arg(pid_);
 	setWindowTitle(title);
-	setWindowIcon(LoadIcon(proc_path_));
+	setWindowIcon(LoadIcon(pinfo_.path));
 
 	threads_model_ = new QStandardItemModel;
 	wnds_model_ = new QStandardItemModel;
@@ -110,15 +108,15 @@ void ProcessProperties::onTabChanged()
 
 void ProcessProperties::onExploreFile()
 {
-	ExploreFile(proc_path_);
+	ExploreFile(pinfo_.path);
 }
 
 void ProcessProperties::ShowImageDetail()
 {
-	ui.pathEdit->setText(proc_path_);
-	ui.iconLabel->setPixmap(LoadIcon(proc_path_).pixmap(QSize(48, 48)));
+	ui.pathEdit->setText(pinfo_.path);
+	ui.iconLabel->setPixmap(LoadIcon(pinfo_.path).pixmap(QSize(48, 48)));
 	std::wstring prod_ver, file_ver, descript, copyright;
-	std::wstring path = proc_path_.toStdWString();
+	std::wstring path = pinfo_.path.toStdWString();
 	UNONE::FsGetFileInfoW(path, L"ProductVersion", prod_ver);
 	UNONE::FsGetFileVersionW(path, file_ver);
 	UNONE::FsGetFileInfoW(path, L"FileDescription", descript);
@@ -141,9 +139,7 @@ void ProcessProperties::ShowImageDetail()
 	auto info = CacheGetProcessBaseInfo(pid_);
 	ui.cmdlineEdit->setText(WStrToQ(info.CommandLine));
 	ui.curdirEdit->setText(WStrToQ(info.CurrentDirectory));
-	auto ppid = UNONE::PsGetParentPid(pid_);
-	auto pname = UNONE::PsGetProcessNameW(ppid);
-	ui.parentLabel->setText(WStrToQ(UNONE::StrFormatW(L"%s(%d)", pname.c_str(), ppid)));;
+	ui.parentLabel->setText(WStrToQ(UNONE::StrFormatW(L"%s(%d)", QToWChars(pinfo_.name), pinfo_.ppid)));;
 	ui.userLabel->setText(WStrToQ(UNONE::OsHostNameW() + L"\\" + UNONE::OsUserNameW()));
 	ui.startLabel->setText(WStrToQ(ProcessCreateTime(pid_)));
 }

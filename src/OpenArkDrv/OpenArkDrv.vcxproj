@@ -125,6 +125,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>StdCall</CallingConvention>
       <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4099;4091;4311;4312;4302</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Native</SubSystem>
@@ -153,6 +154,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>Cdecl</CallingConvention>
       <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4099;4091;4311;4312;4302</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Native</SubSystem>
@@ -181,6 +183,7 @@
       <BufferSecurityCheck>
       </BufferSecurityCheck>
       <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4099;4091;4311;4312;4302</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Native</SubSystem>
@@ -211,6 +214,7 @@
       <BufferSecurityCheck>
       </BufferSecurityCheck>
       <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4099;4091;4311;4312;4302</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Native</SubSystem>
@@ -231,6 +235,8 @@
     <ClCompile Include="arkdrv-api\api-driver\api-driver.cpp" />
     <ClCompile Include="arkdrv-api\api-memory\api-memory.cpp" />
     <ClCompile Include="arkdrv-api\api-notify\api-notify.cpp" />
+    <ClCompile Include="arkdrv-api\api-object\api-object.cpp" />
+    <ClCompile Include="arkdrv-api\api-process\api-process.cpp" />
     <ClCompile Include="arkdrv-api\api-storage\api-storage.cpp" />
     <ClCompile Include="arkdrv-api\api-wingui\api-wingui.cpp" />
     <ClCompile Include="arkdrv-api\arkdrv-api.cpp" />
@@ -238,11 +244,12 @@
     <ClCompile Include="driver\driver.cpp" />
     <ClCompile Include="driver-entry.cpp" />
     <ClCompile Include="kobject\kobject.cpp" />
+    <ClCompile Include="kprocess\kprocess.cpp" />
+    <ClCompile Include="kstorage\kstorage.cpp" />
+    <ClCompile Include="kstorage\unlock\handle.cpp" />
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="notify\notify-lib.cpp" />
     <ClCompile Include="notify\notify.cpp" />
-    <ClCompile Include="storage\storage.cpp" />
-    <ClCompile Include="storage\unlock\handle.cpp" />
     <ClCompile Include="wingui\ops-hotkey\ops-hotkey.cpp" />
     <ClCompile Include="wingui\ops-hotkey\utils\utils.cpp" />
   </ItemGroup>
@@ -250,18 +257,21 @@
     <ClInclude Include="arkdrv-api\api-driver\api-driver.h" />
     <ClInclude Include="arkdrv-api\api-memory\api-memory.h" />
     <ClInclude Include="arkdrv-api\api-notify\api-notify.h" />
+    <ClInclude Include="arkdrv-api\api-object\api-object.h" />
+    <ClInclude Include="arkdrv-api\api-process\api-process.h" />
     <ClInclude Include="arkdrv-api\api-storage\api-storage.h" />
     <ClInclude Include="arkdrv-api\api-wingui\api-wingui.h" />
     <ClInclude Include="arkdrv-api\arkdrv-api.h" />
     <ClInclude Include="common\common.h" />
     <ClInclude Include="driver\driver.h" />
     <ClInclude Include="kobject\kobject.h" />
+    <ClInclude Include="kprocess\kprocess.h" />
+    <ClInclude Include="kstorage\kstorage.h" />
+    <ClInclude Include="kstorage\unlock\handle.h" />
     <ClInclude Include="memory\memory.h" />
     <ClInclude Include="notify\notify-lib.h" />
     <ClInclude Include="notify\notify.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="storage\storage.h" />
-    <ClInclude Include="storage\unlock\handle.h" />
     <ClInclude Include="wingui\ops-hotkey\ops-hotkey.h" />
     <ClInclude Include="wingui\ops-hotkey\utils\utils.h" />
   </ItemGroup>

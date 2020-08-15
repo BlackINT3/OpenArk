@@ -22,26 +22,23 @@
 #include <Windows.h>
 #endif //_NTDDK_
 
-enum STORAGE_OPS {
-	STORAGE_UNLOCK_ENUM,
-	STORAGE_UNLOCK_CLOSE,
+enum PROCESS_OPS {
+	PROCESS_OPEN,
+	THREAD_OPEN,
 };
 
 #pragma pack(push, 1)
-typedef struct _HANDLE_ITEM {
-	ULONG  type_index; // object type index
-	ULONG  ref_count; // ref count
-	HANDLE pid; // process id
-	LPVOID object; // 
-	HANDLE handle; //
-	WCHAR   type_name[64]; // the object type name
-	WCHAR   name[260]; // object name
-} HANDLE_ITEM, *PHANDLE_ITEM;
+typedef struct _PROCESS_OPEN_INFO {
+	DWORD access;
+	BOOL inherit;
+	DWORD pid;
+} PROCESS_OPEN_INFO, *PPROCESS_OPEN_INFO;
 
-typedef struct _HANDLE_INFO {
-	ULONG	count;
-	HANDLE_ITEM items[1];
-} HANDLE_INFO, *PHANDLE_INFO;
+typedef struct _THREAD_OPEN_INFO {
+	DWORD access;
+	BOOL inherit;
+	DWORD tid;
+} THREAD_OPEN_INFO, *PTHREAD_OPEN_INFO;
 #pragma pack(pop)
 
 //#undef _ARKDRV_
@@ -52,9 +49,15 @@ typedef struct _HANDLE_INFO {
 #include <string>
 #include <vector>
 namespace ArkDrvApi {
-namespace Storage {
-	bool UnlockEnum(const std::wstring &path, std::vector<HANDLE_ITEM> &items);
-	bool UnlockClose(HANDLE_ITEM &item);
-} // namespace Storage
+namespace Process {
+	HANDLE WINAPI OpenProcess(DWORD access, BOOL inherit, DWORD pid);
+	HANDLE WINAPI OpenThread(DWORD access, BOOL inherit, DWORD tid);
+} // namespace Process
 } // namespace ArkDrvApi
+
+#include <common/cpp-wrapper/cpp-wrapper.h>
+#define EN_VID_PROCESS() \
+	bool regok = UNONE::InterCreateTlsValue(ArkDrvApi::Process::OpenProcess, UNONE::PROCESS_VID);\
+	ON_SCOPE_EXIT([&] {if (regok) UNONE::InterDeleteTlsValue(UNONE::PROCESS_VID); });
+
 #endif //_NTDDK_

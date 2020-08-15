@@ -47,3 +47,5 @@ bool ReadFileDataW(__in const std::wstring &fpath, __in int64_t offset, __in int
 bool ReadStdout(const std::wstring& cmdline, std::wstring& output, DWORD& exitcode, DWORD timeout = INFINITE);
 DWORD PsGetPidByWindowW(wchar_t *cls, wchar_t *title);
 DWORD OsGetExplorerPid();
+HANDLE OpenProcessWrapper(DWORD access, BOOL inherit, DWORD pid);
+HANDLE OpenThreadWrapper(DWORD access, BOOL inherit, DWORD tid);

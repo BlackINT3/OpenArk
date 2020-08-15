@@ -13,8 +13,7 @@
 ** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
 **
 ****************************************************************************/
-#include "storage.h"
-#include "unlock/handle.h"
+#include "kobject.h"
 #include "../common/common.h"
 #include <knone.h>
 #include <ntifs.h>
@@ -22,40 +21,17 @@
 #include <ntintsafe.h>
 #include <windef.h>
 
-NTSTATUS StorageUnlockClose(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
-{
-	return 0;
-}
-
-NTSTATUS StorageDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, IN PIRP irp)
+NTSTATUS ObjectDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, IN PIRP irp)
 {
 	NTSTATUS status = STATUS_UNSUCCESSFUL;
-	PIO_STACK_LOCATION	irpstack;
-	PVOID	inbuf_dup = NULL;
-	PVOID	inbuf = NULL;
-	PVOID outbuf = NULL;
-	ULONG inlen = 0;
-	ULONG outlen = 0;
-	irpstack = IoGetCurrentIrpStackLocation(irp);
-	inlen = irpstack->Parameters.DeviceIoControl.InputBufferLength - 4;
-	inbuf = (UCHAR*)irp->AssociatedIrp.SystemBuffer + 4;
-	KdBreakPoint();
-	status = DuplicateInputBuffer(irp, inbuf);
-	if (!NT_SUCCESS(status)) return status;
-
-	outbuf = irp->AssociatedIrp.SystemBuffer;
-	outlen = irpstack->Parameters.DeviceIoControl.OutputBufferLength;
 	switch (op) {
-	case STORAGE_UNLOCK_ENUM:
-		status = StorageUnlockEnum(inbuf, inlen, outbuf, outlen, irp);
+	case OBJECT_TYPE_ENUM:
 		break;
 	case STORAGE_UNLOCK_CLOSE:
-		status = StorageUnlockClose(inbuf, inlen, outbuf, outlen, irp);
 		break;
 	default:
 		break;
 	}
 
-	ReleaseInputBuffer(irp, inbuf_dup);
 	return status;
 }

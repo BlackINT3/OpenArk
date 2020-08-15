@@ -27,6 +27,7 @@
 #include "api-driver/api-driver.h"
 #include "api-notify/api-notify.h"
 #include "api-object/api-object.h"
+#include "api-process/api-process.h"
 
 
 #define ARK_NTDEVICE_NAME L"\\Device\\OpenArkDrv"
@@ -42,6 +43,7 @@
 #define IOCTL_ARK_HOTKEY CTL_CODE(ARK_DRV_TYPE, 0x900, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_ARK_STORAGE CTL_CODE(ARK_DRV_TYPE, 0x920, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_ARK_OBJECT CTL_CODE(ARK_DRV_TYPE, 0x940, METHOD_BUFFERED, FILE_ANY_ACCESS)
+#define IOCTL_ARK_PROCESS CTL_CODE(ARK_DRV_TYPE, 0x960, METHOD_BUFFERED, FILE_ANY_ACCESS)
 
 //#undef _ARKDRV_
 #ifdef _ARKDRV_
@@ -56,5 +58,12 @@ bool ConnectDriver();
 bool DisconnectDriver();
 bool HeartBeatPulse();
 bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *outbuf, DWORD *outlen);
+bool IoControlDriver(DWORD ctlcode, DWORD op, const std::wstring &indata, std::string &outdata);
+bool IoControlDriver(DWORD ctlcode, DWORD op, const std::string &indata, std::string &outdata);
+
+#define TO_STREAM(st) std::string((char*)&st, sizeof(st))
+#define TO_STREAM_P(pst, size) std::string((char*)pst, size)
+#define TO_STRUCT(str, type) ((type)str.c_str())
+
 } // namespace ArkDrvApi
 #endif //_NTDDK_

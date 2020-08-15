@@ -144,6 +144,9 @@
     <Filter Include="kernel\arkdrv-api\api-notify">
       <UniqueIdentifier>{f1f12241-3765-4f6e-ac39-7f8bcbe974bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="kernel\arkdrv-api\api-process">
+      <UniqueIdentifier>{5c43bebc-7e56-49fc-8b05-d4d9b1bd8659}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -302,6 +305,9 @@
     </ClCompile>
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-notify\api-notify.cpp">
       <Filter>kernel\arkdrv-api\api-notify</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-process\api-process.cpp">
+      <Filter>kernel\arkdrv-api\api-process</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -542,6 +548,9 @@
     </ClInclude>
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-notify\api-notify.h">
       <Filter>kernel\arkdrv-api\api-notify</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-process\api-process.h">
+      <Filter>kernel\arkdrv-api\api-process</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

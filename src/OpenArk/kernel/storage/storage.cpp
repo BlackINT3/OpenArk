@@ -84,9 +84,7 @@ void KernelStorage::InitFileUnlockView()
 		{ 130, tr("FileObject") },
 	};
 	QStringList name_list;
-	for (auto p : colum_layout) {
-		name_list << p.second;
-	}
+	for (auto p : colum_layout)  name_list << p.second;
 	unlock_model_->setHorizontalHeaderLabels(name_list);
 	for (int i = 0; i < _countof(colum_layout); i++) {
 		view->setColumnWidth(i, colum_layout[i].first);
@@ -113,7 +111,7 @@ void KernelStorage::InitFileUnlockView()
 			auto item_pname = new QStandardItem(LoadIcon(WStrToQ(ppath)), WStrToQ(pname));
 			auto item_pid = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", pid)));
 			auto item_fpath = new QStandardItem(WStrToQ(fpath));
-			auto item_fobj = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", item.object)));
+			auto item_fobj = new QStandardItem(WStrToQ(item.type_name)); //new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", item.object)));
 			auto item_ppath = new QStandardItem(WStrToQ(ppath));
 			auto count = unlock_model_->rowCount();
 			unlock_model_->setItem(count, 0, item_pname);

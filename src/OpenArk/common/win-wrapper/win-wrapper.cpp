@@ -17,6 +17,7 @@
 #include "../common/common.h"
 #include <QString>
 #include <QtCore>
+#include <arkdrv-api/arkdrv-api.h>
 
 std::wstring FormatFileTime(FILETIME *file_tm)
 {
@@ -45,7 +46,7 @@ std::wstring CalcFileTime(FILETIME *file_tm)
 
 bool RetrieveThreadTimes(DWORD tid, std::wstring& ct, std::wstring& kt, std::wstring& ut)
 {
-	HANDLE thd = OpenThread(THREAD_QUERY_INFORMATION, FALSE, tid);
+	HANDLE thd = OpenThreadWrapper(THREAD_QUERY_INFORMATION, FALSE, tid);
 	if (!thd) {
 		return false;
 	}
@@ -68,7 +69,7 @@ bool RetrieveThreadTimes(DWORD tid, std::wstring& ct, std::wstring& kt, std::wst
 
 std::wstring ProcessCreateTime(__in DWORD pid)
 {
-	HANDLE Process = OpenProcess(PROCESS_QUERY_INFORMATION, FALSE, pid);
+	HANDLE Process = OpenProcessWrapper(PROCESS_QUERY_INFORMATION, FALSE, pid);
 	if (!Process) {
 		return L"";
 	}
@@ -87,18 +88,19 @@ std::wstring ProcessCreateTime(__in DWORD pid)
 
 LONGLONG ProcessCreateTimeValue(__in DWORD pid)
 {
-	HANDLE Process = OpenProcess(PROCESS_QUERY_INFORMATION, FALSE, pid);
-	if (!Process) return 0;
-
+	HANDLE phd = OpenProcessWrapper(PROCESS_QUERY_INFORMATION, FALSE, pid);
+	if (!phd) {
+		return 0;
+	}
 	FILETIME create_tm;
 	FILETIME exit_tm;
 	FILETIME kern_tm;
 	FILETIME user_tm;
-	if (!GetProcessTimes(Process, &create_tm, &exit_tm, &kern_tm, &user_tm)) {
-		CloseHandle(Process);
+	if (!GetProcessTimes(phd, &create_tm, &exit_tm, &kern_tm, &user_tm)) {
+		CloseHandle(phd);
 		return 0;
 	}
-	CloseHandle(Process);
+	CloseHandle(phd);
 	return UNONE::TmFileTimeToMs(create_tm);
 }
 
@@ -118,7 +120,7 @@ bool CreateDump(DWORD pid, const std::wstring& path, bool mini)
 		dmp_type = (MINIDUMP_TYPE)(MiniDumpWithThreadInfo | MiniDumpWithFullMemoryInfo | MiniDumpWithTokenInformation |
 			MiniDumpWithProcessThreadData | MiniDumpWithDataSegs | MiniDumpWithFullMemory | MiniDumpWithHandleData);
 	}
-	HANDLE phd = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
+	HANDLE phd = OpenProcessWrapper(PROCESS_ALL_ACCESS, FALSE, pid);
 	if (!phd) {
 		return false;
 	}
@@ -199,7 +201,7 @@ SIZE_T GetProcessPrivateWorkingSet(DWORD pid)
 	PROCESS_MEMORY_COUNTERS_EX mm_info;
 	if (!UNONE::MmGetProcessMemoryInfo(pid, mm_info))
 		return 0;
-	HANDLE phd = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	HANDLE phd = OpenProcessWrapper(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
 	if (!phd) {
 		return 0;
 	}
@@ -545,7 +547,6 @@ bool ReadStdout(const std::wstring& cmdline, std::wstring& output, DWORD& exitco
 	return result;
 }
 
-#define INVALID_PID -1
 DWORD PsGetPidByWindowW(wchar_t *cls, wchar_t *title)
 {
 	DWORD pid = INVALID_PID;
@@ -558,4 +559,25 @@ DWORD PsGetPidByWindowW(wchar_t *cls, wchar_t *title)
 DWORD OsGetExplorerPid()
 {
 	return PsGetPidByWindowW(L"Progman", L"Program Manager");
+}
+
+
+HANDLE OpenProcessWrapper(DWORD access, BOOL inherit, DWORD pid)
+{
+	HANDLE phd = OpenProcess(access, inherit, pid);
+	if (!phd && GetLastError()==ERROR_ACCESS_DENIED) {
+		phd = ArkDrvApi::Process::OpenProcess(access, inherit, pid);
+		if (!phd) return 0;
+	}
+	return phd;
+}
+
+HANDLE OpenThreadWrapper(DWORD access, BOOL inherit, DWORD tid)
+{
+	HANDLE phd = OpenThread(access, inherit, tid);
+	if (!phd && GetLastError() == ERROR_ACCESS_DENIED) {
+		phd = ArkDrvApi::Process::OpenThread(access, inherit, tid);
+		if (!phd) return 0;
+	}
+	return phd;
 }

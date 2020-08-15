@@ -13,27 +13,36 @@
 ** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
 **
 ****************************************************************************/
-#include "api-storage.h"
+#include "api-process.h"
 #ifdef _ARKDRV_
 #else
 namespace ArkDrvApi {
-namespace Storage {
-bool UnlockEnum(const std::wstring &path, std::vector<HANDLE_ITEM> &items)
+namespace Process {
+HANDLE WINAPI OpenProcess(DWORD access, BOOL inherit, DWORD pid)
 {
 	std::string outdata;
-	bool ret = IoControlDriver(IOCTL_ARK_STORAGE, STORAGE_UNLOCK_ENUM, path, outdata);
-	if (!ret) return false;
-	PHANDLE_INFO info = (PHANDLE_INFO)outdata.c_str();
-	for (int i = 0; i < info->count; i++) {
-		items.push_back(info->items[i]);
-	}
-	return true;
+	PROCESS_OPEN_INFO info; 
+	info.access = access;
+	info.inherit = inherit;
+	info.pid = pid;
+	bool ret = IoControlDriver(IOCTL_ARK_PROCESS, PROCESS_OPEN, TO_STREAM(info), outdata);
+	if (!ret) return NULL;
+	HANDLE phd = (HANDLE)*(DWORD*)outdata.c_str();
+	return phd;
 }
 
-bool HotkeyRemoveInfo(HOTKEY_ITEM &item)
+HANDLE WINAPI OpenThread(DWORD access, BOOL inherit, DWORD tid)
 {
-	return false;
+	std::string outdata;
+	THREAD_OPEN_INFO info;
+	info.access = access;
+	info.inherit = inherit;
+	info.tid = tid;
+	bool ret = IoControlDriver(IOCTL_ARK_PROCESS, THREAD_OPEN, TO_STREAM(info), outdata);
+	if (!ret) return NULL;
+	HANDLE thd = (HANDLE)*(DWORD*)outdata.c_str();
+	return thd;
 }
-} // namespace Storage
+} // namespace Process
 } // namespace ArkDrvApi
 #endif

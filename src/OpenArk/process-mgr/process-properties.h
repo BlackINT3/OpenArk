@@ -18,6 +18,7 @@
 #include <QtWidgets>
 #include <Windows.h>
 #include "ui_process-properties.h"
+#include "../common/cache/cache.h"
 
 namespace Ui {
 	class ProcessProperties;
@@ -50,8 +51,7 @@ private:
 	QStandardItemModel *threads_model_;
 	QStandardItemModel *wnds_model_;
 	DWORD pid_;
-	QString proc_name_;
-	QString proc_path_;
+	ProcInfo pinfo_;
 	QMenu *menu_;
 	QTimer timer_;
 };

@@ -445,7 +445,7 @@ void ProcessMgr::onCloseHandle()
 {
 	auto src_hd = (HANDLE)(UNONE::StrToHex64A(BottomCurViewItemData(HD.value).toStdString()));
 	DWORD pid = ProcCurPid();
-	HANDLE phd = OpenProcess(PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	HANDLE phd = OpenProcessWrapper(PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
 	if (!phd) {
 		ERR(L"OpenProcess pid:%d err:%d", pid, GetLastError());
 		return;
@@ -513,7 +513,7 @@ void ProcessMgr::onHideMemoryItem(bool checked)
 void ProcessMgr::onDumpMemory()
 {
 	DWORD pid = ProcCurPid();
-	HANDLE phd = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	HANDLE phd = OpenProcessWrapper(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
 	if (!phd) {
 		ERR(L"OpenProcess pid:%d err:%d", pid, GetLastError());
 		return;
@@ -630,7 +630,7 @@ void ProcessMgr::onShowHandle()
 	InitHandleView();
 	InitObjectTypeTable();
 	DWORD pid = ProcCurPid();
-	HANDLE phd = OpenProcess(PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	HANDLE phd = OpenProcessWrapper(PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
 	UNONE::PsEnumHandle(pid, [&](SYSTEM_HANDLE_TABLE_ENTRY_INFO &info)->bool {
 		auto count = bottom_model_->rowCount();
 		auto idx = info.ObjectTypeIndex;
@@ -684,7 +684,7 @@ void ProcessMgr::onShowMemory()
 	InitMemoryView();
 
 	DWORD pid = ProcCurPid();
-	HANDLE phd = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	HANDLE phd = OpenProcessWrapper(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
 	UNONE::PsEnumMemory(pid, [&](MEMORY_BASIC_INFORMATION &mbi)->bool {
 		
 		std::wstring mod_name;

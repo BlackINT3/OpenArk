@@ -20,7 +20,9 @@
 #include "notify/notify.h"
 #include "memory/memory.h"
 #include "wingui/ops-hotkey/ops-hotkey.h"
-#include "storage/storage.h"
+#include "kstorage/kstorage.h"
+#include "kobject/kobject.h"
+#include "kprocess/kprocess.h"
 
 EXTERN_C NTSTATUS DriverEntry(PDRIVER_OBJECT drvobj, PUNICODE_STRING registry);
 NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp);
@@ -98,7 +100,6 @@ NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp)
 
 	inlen = inlen - 4;
 	inbuf = (UCHAR*)inbuf + 4;
-	KdBreakPoint();
 
 	status = DuplicateInputBuffer(irp, inbuf);
 	if (!NT_SUCCESS(status)) return status;
@@ -126,7 +127,10 @@ NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp)
 		status = StorageDispatcher(op, devobj, irp);
 		break;
 	case IOCTL_ARK_OBJECT:
-		status = ObjectDispatcher(op, devobj, irp);
+		status = ObjectDispatcher(op, devobj, inbuf, inlen, outbuf, outlen, irp);
+		break;
+	case IOCTL_ARK_PROCESS:
+		status = ProcessDispatcher(op, devobj, inbuf, inlen, outbuf, outlen, irp);
 		break;
 	default:
 		status = STATUS_INVALID_DEVICE_REQUEST;
