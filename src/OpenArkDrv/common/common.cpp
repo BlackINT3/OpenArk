@@ -14,8 +14,8 @@
 **
 ****************************************************************************/
 #include "common.h"
-#include "../driver/driver.h"
-#include "../notify/notify.h"
+#include "../kdriver/kdriver.h"
+#include "../knotify/knotify.h"
 
 ARK_DRIVER ArkDrv;
 

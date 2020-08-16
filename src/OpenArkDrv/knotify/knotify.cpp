@@ -14,7 +14,7 @@
 **
 ****************************************************************************/
 #include "../common/common.h"
-#include "notify.h"
+#include "knotify.h"
 #include "notify-lib.h"
 
 NTSTATUS GetNotifyInfo(NOTIFY_TYPE type, PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)

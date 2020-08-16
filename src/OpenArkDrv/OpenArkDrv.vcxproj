@@ -241,17 +241,17 @@
     <ClCompile Include="arkdrv-api\api-wingui\api-wingui.cpp" />
     <ClCompile Include="arkdrv-api\arkdrv-api.cpp" />
     <ClCompile Include="common\common.cpp" />
-    <ClCompile Include="driver\driver.cpp" />
     <ClCompile Include="driver-entry.cpp" />
+    <ClCompile Include="kdriver\kdriver.cpp" />
+    <ClCompile Include="kmemory\kmemory.cpp" />
+    <ClCompile Include="knotify\knotify.cpp" />
+    <ClCompile Include="knotify\notify-lib.cpp" />
     <ClCompile Include="kobject\kobject.cpp" />
     <ClCompile Include="kprocess\kprocess.cpp" />
     <ClCompile Include="kstorage\kstorage.cpp" />
     <ClCompile Include="kstorage\unlock\handle.cpp" />
-    <ClCompile Include="memory\memory.cpp" />
-    <ClCompile Include="notify\notify-lib.cpp" />
-    <ClCompile Include="notify\notify.cpp" />
-    <ClCompile Include="wingui\ops-hotkey\ops-hotkey.cpp" />
-    <ClCompile Include="wingui\ops-hotkey\utils\utils.cpp" />
+    <ClCompile Include="kwingui\ops-hotkey\ops-hotkey.cpp" />
+    <ClCompile Include="kwingui\ops-hotkey\utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arkdrv-api\api-driver\api-driver.h" />
@@ -263,17 +263,17 @@
     <ClInclude Include="arkdrv-api\api-wingui\api-wingui.h" />
     <ClInclude Include="arkdrv-api\arkdrv-api.h" />
     <ClInclude Include="common\common.h" />
-    <ClInclude Include="driver\driver.h" />
+    <ClInclude Include="kdriver\kdriver.h" />
+    <ClInclude Include="kmemory\kmemory.h" />
+    <ClInclude Include="knotify\knotify.h" />
+    <ClInclude Include="knotify\notify-lib.h" />
     <ClInclude Include="kobject\kobject.h" />
     <ClInclude Include="kprocess\kprocess.h" />
     <ClInclude Include="kstorage\kstorage.h" />
     <ClInclude Include="kstorage\unlock\handle.h" />
-    <ClInclude Include="memory\memory.h" />
-    <ClInclude Include="notify\notify-lib.h" />
-    <ClInclude Include="notify\notify.h" />
+    <ClInclude Include="kwingui\ops-hotkey\ops-hotkey.h" />
+    <ClInclude Include="kwingui\ops-hotkey\utils\utils.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="wingui\ops-hotkey\ops-hotkey.h" />
-    <ClInclude Include="wingui\ops-hotkey\utils\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="OpenArkDrv.rc" />

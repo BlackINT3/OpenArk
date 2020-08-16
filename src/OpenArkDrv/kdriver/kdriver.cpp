@@ -14,7 +14,7 @@
 **
 ****************************************************************************/
 #include "../arkdrv-api/arkdrv-api.h"
-#include "driver.h"
+#include "kdriver.h"
 
 PRTL_PROCESS_MODULES QueryModuleInformation()
 {
