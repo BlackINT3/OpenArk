@@ -19,6 +19,7 @@
 #include "../openark/openark.h"
 #include "process-properties.h"
 #include "process-selection.h"
+#include <arkdrv-api/arkdrv-api.h>
 
 // ProcessView's header index
 struct {
@@ -583,6 +584,13 @@ void ProcessMgr::onShowModule()
 	ClearItemModelData(bottom_model_, 0);
 	InitModuleView();
 	DWORD pid = ProcCurPid();
+	bool activate = false;
+	auto &&path = UNONE::PsGetProcessPathW(pid);
+	if (path.empty()) {
+		UNONE::InterCreateTlsValue(ArkDrvApi::Process::OpenProcess, UNONE::PROCESS_VID);
+		path = UNONE::PsGetProcessPathW(pid);
+		activate = true;
+	}
 	UNONE::PsEnumModule(pid, [&](MODULEENTRY32W& entry)->bool{
 		QString modname = WCharsToQ(entry.szModule);
 		QString modpath = WCharsToQ(entry.szExePath);

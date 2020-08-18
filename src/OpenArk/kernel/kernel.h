@@ -22,6 +22,7 @@
 #include "../common/ui-wrapper/ui-wrapper.h"
 #include "network/network.h"
 #include "storage/storage.h"
+#include "object/object.h"
 #include "memory/memory.h"
 #include "driver/driver.h"
 
@@ -39,6 +40,7 @@ enum {
 
 class KernelNetwork;
 class KernelStorage;
+class KernelObject;
 class KernelMemory;
 class KernelDriver;
 
@@ -83,6 +85,7 @@ private:
 	bool arkdrv_conn_;
 	KernelNetwork *network_;
 	KernelStorage *storage_;
+	KernelObject *object_;
 	KernelMemory *memory_;
 	KernelDriver *driver_;
 

@@ -256,6 +256,7 @@
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-driver\api-driver.cpp" />
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-memory\api-memory.cpp" />
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-notify\api-notify.cpp" />
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-object\api-object.cpp" />
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-process\api-process.cpp" />
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-storage\api-storage.cpp" />
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-wingui\api-wingui.cpp" />
@@ -309,6 +310,7 @@
     <ClCompile Include="kernel\memory\memory.cpp" />
     <ClCompile Include="kernel\network\network.cpp" />
     <ClCompile Include="kernel\notify\notify.cpp" />
+    <ClCompile Include="kernel\object\object.cpp" />
     <ClCompile Include="kernel\storage\storage.cpp" />
     <ClCompile Include="kernel\wingui\wingui.cpp" />
     <ClCompile Include="main.cpp" />
@@ -347,6 +349,7 @@
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-driver\api-driver.h" />
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-memory\api-memory.h" />
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-notify\api-notify.h" />
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-object\api-object.h" />
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-process\api-process.h" />
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-storage\api-storage.h" />
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-wingui\api-wingui.h" />
@@ -408,6 +411,12 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets</IncludePath>
+    </QtMoc>
+    <QtMoc Include="kernel\object\object.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles;.\..\OpenArkDrv;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtUiTools</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.\..\OpenArkDrv;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtUiTools</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles;.\..\OpenArkDrv;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtUiTools</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.\..\OpenArkDrv;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtUiTools</IncludePath>
     </QtMoc>
     <ClInclude Include="kernel\wingui\wingui.h" />
     <ClInclude Include="res\resource.h" />
