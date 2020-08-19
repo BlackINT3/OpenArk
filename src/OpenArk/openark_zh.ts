@@ -414,14 +414,14 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">[内核模式] 连接成功...</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="828"/>
+        <location filename="ui/kernel.ui" line="899"/>
         <source>[KernelMode] not initialized...</source>
         <translation type="unfinished">[内核模式] 未初始化...</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="848"/>
-        <location filename="kernel/kernel.cpp" line="145"/>
-        <location filename="kernel/kernel.cpp" line="164"/>
+        <location filename="ui/kernel.ui" line="919"/>
+        <location filename="kernel/kernel.cpp" line="147"/>
+        <location filename="kernel/kernel.cpp" line="166"/>
         <source>Enter KernelMode</source>
         <translation type="unfinished">进入内核模式</translation>
     </message>
@@ -501,13 +501,23 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">温馨提示：如果上面没获取对应的热键，请检查你输入法的快捷键（比如：微软拼音/搜狗/谷歌输入法等）</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="670"/>
+        <location filename="ui/kernel.ui" line="537"/>
+        <source>ObjectTypes</source>
+        <translation type="unfinished">对象类型表</translation>
+    </message>
+    <message>
+        <location filename="ui/kernel.ui" line="559"/>
+        <source>ObjectSections</source>
+        <translation type="unfinished">内存区对象</translation>
+    </message>
+    <message>
+        <location filename="ui/kernel.ui" line="741"/>
         <source>Path:</source>
         <oldsource>InputPath:</oldsource>
         <translation type="unfinished">路径：</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="696"/>
+        <location filename="ui/kernel.ui" line="767"/>
         <source>ShowHold</source>
         <translation type="unfinished">查看占用</translation>
     </message>
@@ -540,12 +550,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">内存管理</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="570"/>
+        <location filename="ui/kernel.ui" line="641"/>
         <source>MemoryRegion</source>
         <translation type="unfinished">内存区域</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="599"/>
+        <location filename="ui/kernel.ui" line="670"/>
         <source>Storage Manager</source>
         <oldsource>Storage</oldsource>
         <translation type="unfinished">存储管理</translation>
@@ -578,23 +588,23 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">对象管理</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="514"/>
+        <location filename="ui/kernel.ui" line="585"/>
         <source>Memory Manager</source>
         <translation type="unfinished">内存管理</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="545"/>
+        <location filename="ui/kernel.ui" line="616"/>
         <source>MemoryReadWrite</source>
         <oldsource>MemoryView</oldsource>
         <translation type="unfinished">内存读写</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="624"/>
+        <location filename="ui/kernel.ui" line="695"/>
         <source>FileFilter</source>
         <translation type="unfinished">文件过滤</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="649"/>
+        <location filename="ui/kernel.ui" line="720"/>
         <source>FileUnlock</source>
         <translation type="unfinished">文件解锁</translation>
     </message>
@@ -603,42 +613,42 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">选择文件...</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="737"/>
+        <location filename="ui/kernel.ui" line="808"/>
         <source>KillProcess</source>
         <translation type="unfinished">结束进程</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="723"/>
+        <location filename="ui/kernel.ui" line="794"/>
         <source>Unlock</source>
         <translation type="unfinished">解锁</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="730"/>
+        <location filename="ui/kernel.ui" line="801"/>
         <source>Unlock All</source>
         <translation type="unfinished">解锁全部</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="751"/>
+        <location filename="ui/kernel.ui" line="822"/>
         <source>Network Manager</source>
         <translation type="unfinished">网络管理</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="776"/>
+        <location filename="ui/kernel.ui" line="847"/>
         <source>WFP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="801"/>
+        <location filename="ui/kernel.ui" line="872"/>
         <source>TDI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="806"/>
+        <location filename="ui/kernel.ui" line="877"/>
         <source>NDIS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="811"/>
+        <location filename="ui/kernel.ui" line="882"/>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
@@ -662,73 +672,73 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">驱动列表</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="200"/>
-        <location filename="kernel/kernel.cpp" line="337"/>
+        <location filename="kernel/kernel.cpp" line="202"/>
+        <location filename="kernel/kernel.cpp" line="339"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="200"/>
+        <location filename="kernel/kernel.cpp" line="202"/>
         <source>Value</source>
         <translation type="unfinished">值</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="223"/>
+        <location filename="kernel/kernel.cpp" line="225"/>
         <source>MajorVersion</source>
         <translation type="unfinished">主版本号</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="224"/>
+        <location filename="kernel/kernel.cpp" line="226"/>
         <source>MiniorVersion</source>
         <translation type="unfinished">副版本号</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="225"/>
+        <location filename="kernel/kernel.cpp" line="227"/>
         <source>ReleaseNumber</source>
         <translation type="unfinished">发行编号</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="226"/>
+        <location filename="kernel/kernel.cpp" line="228"/>
         <source>BuildNumber</source>
         <translation type="unfinished">编译号</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="227"/>
+        <location filename="kernel/kernel.cpp" line="229"/>
         <source>MajorServicePack</source>
         <translation type="unfinished">主服务包</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="228"/>
+        <location filename="kernel/kernel.cpp" line="230"/>
         <source>MiniorServicePack</source>
         <translation type="unfinished">副服务包</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="237"/>
+        <location filename="kernel/kernel.cpp" line="239"/>
         <source>R3 AddressRange</source>
         <translation type="unfinished">R3地址空间</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="238"/>
+        <location filename="kernel/kernel.cpp" line="240"/>
         <source>R0 AddressRange</source>
         <translation type="unfinished">R0地址空间</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="239"/>
+        <location filename="kernel/kernel.cpp" line="241"/>
         <source>Page Size</source>
         <translation type="unfinished">页面大小</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="240"/>
+        <location filename="kernel/kernel.cpp" line="242"/>
         <source>Physical Memory</source>
         <translation type="unfinished">物理内存</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="241"/>
+        <location filename="kernel/kernel.cpp" line="243"/>
         <source>CPU Count</source>
         <translation type="unfinished">CPU核数</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="242"/>
+        <location filename="kernel/kernel.cpp" line="244"/>
         <source>SystemRoot</source>
         <translation type="unfinished">系统根目录</translation>
     </message>
@@ -741,8 +751,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">基址</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="267"/>
-        <location filename="kernel/kernel.cpp" line="344"/>
+        <location filename="kernel/kernel.cpp" line="269"/>
+        <location filename="kernel/kernel.cpp" line="346"/>
         <source>Path</source>
         <translation type="unfinished">路径</translation>
     </message>
@@ -751,62 +761,62 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">顺序</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="267"/>
-        <location filename="kernel/kernel.cpp" line="345"/>
+        <location filename="kernel/kernel.cpp" line="269"/>
+        <location filename="kernel/kernel.cpp" line="347"/>
         <source>Description</source>
         <translation type="unfinished">描述</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="267"/>
+        <location filename="kernel/kernel.cpp" line="269"/>
         <source>Version</source>
         <translation type="unfinished">版本</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="267"/>
+        <location filename="kernel/kernel.cpp" line="269"/>
         <source>Company</source>
         <translation type="unfinished">公司</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="275"/>
-        <location filename="kernel/kernel.cpp" line="356"/>
+        <location filename="kernel/kernel.cpp" line="277"/>
+        <location filename="kernel/kernel.cpp" line="358"/>
         <source>Refresh</source>
         <translation type="unfinished">刷新</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="307"/>
+        <location filename="kernel/kernel.cpp" line="309"/>
         <source>Copy</source>
         <translation type="unfinished">复制</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="314"/>
-        <location filename="kernel/kernel.cpp" line="381"/>
+        <location filename="kernel/kernel.cpp" line="316"/>
+        <location filename="kernel/kernel.cpp" line="383"/>
         <source>Explore File</source>
         <translation type="unfinished">定位到文件</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="310"/>
-        <location filename="kernel/kernel.cpp" line="377"/>
+        <location filename="kernel/kernel.cpp" line="312"/>
+        <location filename="kernel/kernel.cpp" line="379"/>
         <source>Sendto Scanner</source>
         <translation type="unfinished">扫描文件</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="155"/>
+        <location filename="kernel/kernel.cpp" line="157"/>
         <source>[KernelMode] Enter successfully...</source>
         <translation type="unfinished">[内核模式] 进入内核模式成功...</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="162"/>
+        <location filename="kernel/kernel.cpp" line="164"/>
         <source>[KernelMode] Exit successfully...</source>
         <translation type="unfinished">[内核模式] 退出内核模式成功...</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="198"/>
+        <location filename="kernel/kernel.cpp" line="200"/>
         <source>[KernelMode] Enter kernel mode needed before using the features(Hotkey/Notify/Memory...)</source>
         <translation>[内核模式] 使用（热键/回调/内存）等功能时需要进入内核模式...</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="317"/>
-        <location filename="kernel/kernel.cpp" line="384"/>
+        <location filename="kernel/kernel.cpp" line="319"/>
+        <location filename="kernel/kernel.cpp" line="386"/>
         <source>Properties...</source>
         <translation type="unfinished">属性...</translation>
     </message>
@@ -819,26 +829,26 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">驱动文件 (*.sys);;所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="282"/>
-        <location filename="kernel/kernel.cpp" line="436"/>
+        <location filename="kernel/kernel.cpp" line="284"/>
+        <location filename="kernel/kernel.cpp" line="438"/>
         <source>CreateProcess</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="283"/>
-        <location filename="kernel/kernel.cpp" line="439"/>
+        <location filename="kernel/kernel.cpp" line="285"/>
+        <location filename="kernel/kernel.cpp" line="441"/>
         <source>CreateThread</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="284"/>
-        <location filename="kernel/kernel.cpp" line="442"/>
+        <location filename="kernel/kernel.cpp" line="286"/>
+        <location filename="kernel/kernel.cpp" line="444"/>
         <source>LoadImage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="285"/>
-        <location filename="kernel/kernel.cpp" line="445"/>
+        <location filename="kernel/kernel.cpp" line="287"/>
+        <location filename="kernel/kernel.cpp" line="447"/>
         <source>CmpCallback</source>
         <translation type="unfinished"></translation>
     </message>
@@ -847,8 +857,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">安装成功...</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="134"/>
-        <location filename="kernel/kernel.cpp" line="157"/>
+        <location filename="kernel/kernel.cpp" line="136"/>
+        <location filename="kernel/kernel.cpp" line="159"/>
         <source>Exit KernelMode</source>
         <translation type="unfinished">退出内核模式</translation>
     </message>
@@ -881,57 +891,57 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">[内核模式] 你需要启用内核模式来安装驱动...</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="267"/>
+        <location filename="kernel/kernel.cpp" line="269"/>
         <source>Callback Entry</source>
         <translation type="unfinished">回调入口</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="267"/>
+        <location filename="kernel/kernel.cpp" line="269"/>
         <source>Type</source>
         <translation type="unfinished">类型</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="277"/>
+        <location filename="kernel/kernel.cpp" line="279"/>
         <source>Delete Notify</source>
         <translation type="unfinished">删除回调</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="289"/>
+        <location filename="kernel/kernel.cpp" line="291"/>
         <source>Disassemble Notify</source>
         <translation type="unfinished">反汇编回调入口</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="299"/>
+        <location filename="kernel/kernel.cpp" line="301"/>
         <source>Memory Read-Write</source>
         <translation type="unfinished">内存读写</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="338"/>
+        <location filename="kernel/kernel.cpp" line="340"/>
         <source>PID.TID</source>
         <translation type="unfinished">进程ID.线程ID</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="339"/>
+        <location filename="kernel/kernel.cpp" line="341"/>
         <source>Hotkey</source>
         <translation type="unfinished">热键</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="340"/>
+        <location filename="kernel/kernel.cpp" line="342"/>
         <source>HotkeyID</source>
         <translation type="unfinished">热键ID</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="341"/>
+        <location filename="kernel/kernel.cpp" line="343"/>
         <source>HWND</source>
         <translation type="unfinished">句柄</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="342"/>
+        <location filename="kernel/kernel.cpp" line="344"/>
         <source>Title</source>
         <translation type="unfinished">标题</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="343"/>
+        <location filename="kernel/kernel.cpp" line="345"/>
         <source>ClassName</source>
         <translation type="unfinished">类名</translation>
     </message>
@@ -940,12 +950,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">错误</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="358"/>
+        <location filename="kernel/kernel.cpp" line="360"/>
         <source>Delete Hotkey</source>
         <translation type="unfinished">删除热键</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="411"/>
+        <location filename="kernel/kernel.cpp" line="413"/>
         <source>[-] Driver file not existed!</source>
         <translation type="unfinished">[-] 驱动文件不存在!</translation>
     </message>
@@ -953,107 +963,107 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>KernelDriver</name>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="106"/>
+        <location filename="kernel/driver/driver.cpp" line="105"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="106"/>
+        <location filename="kernel/driver/driver.cpp" line="105"/>
         <source>Base</source>
         <translation type="unfinished">基址</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="106"/>
+        <location filename="kernel/driver/driver.cpp" line="105"/>
         <source>Path</source>
         <translation type="unfinished">路径</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="106"/>
+        <location filename="kernel/driver/driver.cpp" line="105"/>
         <source>Number</source>
         <translation type="unfinished">顺序</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="106"/>
+        <location filename="kernel/driver/driver.cpp" line="105"/>
         <source>Description</source>
         <translation type="unfinished">描述</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="106"/>
+        <location filename="kernel/driver/driver.cpp" line="105"/>
         <source>Version</source>
         <translation type="unfinished">版本</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="106"/>
+        <location filename="kernel/driver/driver.cpp" line="105"/>
         <source>Company</source>
         <translation type="unfinished">公司</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="116"/>
+        <location filename="kernel/driver/driver.cpp" line="115"/>
         <source>Refresh</source>
         <translation type="unfinished">刷新</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="117"/>
+        <location filename="kernel/driver/driver.cpp" line="116"/>
         <source>Copy</source>
         <translation type="unfinished">复制</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="120"/>
+        <location filename="kernel/driver/driver.cpp" line="119"/>
         <source>Sendto Scanner</source>
         <translation type="unfinished">扫描文件</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="124"/>
+        <location filename="kernel/driver/driver.cpp" line="123"/>
         <source>Explore File</source>
         <translation type="unfinished">定位到文件</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="127"/>
+        <location filename="kernel/driver/driver.cpp" line="126"/>
         <source>Properties...</source>
         <translation type="unfinished">属性...</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="136"/>
+        <location filename="kernel/driver/driver.cpp" line="135"/>
         <source>Open File</source>
         <translation type="unfinished">打开文件</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="136"/>
+        <location filename="kernel/driver/driver.cpp" line="135"/>
         <source>Driver Files (*.sys);;All Files (*.*)</source>
         <translation type="unfinished">驱动文件 (*.sys);;所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="151"/>
+        <location filename="kernel/driver/driver.cpp" line="150"/>
         <source>Sign ok...</source>
         <translation type="unfinished">签名成功...</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="155"/>
+        <location filename="kernel/driver/driver.cpp" line="154"/>
         <source>Sign failed, open console window to view detail...</source>
         <translation type="unfinished">签名失败,打开控制台窗口查看详情...</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="163"/>
+        <location filename="kernel/driver/driver.cpp" line="162"/>
         <source>Install ok...</source>
         <translation type="unfinished">安装成功...</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="167"/>
+        <location filename="kernel/driver/driver.cpp" line="166"/>
         <source>Install failed, open console window to view detail...</source>
         <translation type="unfinished">安装失败,打开控制台窗口查看详情...</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="188"/>
+        <location filename="kernel/driver/driver.cpp" line="187"/>
         <source>Uninstall ok...</source>
         <translation type="unfinished">卸载成功...</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="192"/>
+        <location filename="kernel/driver/driver.cpp" line="191"/>
         <source>Uninstall failed, open console window to view detail...</source>
         <translation type="unfinished">卸载失败,打开控制台窗口查看详情...</translation>
     </message>
     <message>
-        <location filename="kernel/driver/driver.cpp" line="246"/>
+        <location filename="kernel/driver/driver.cpp" line="245"/>
         <source>[-] Driver file not existed!</source>
         <translation type="unfinished">[-] 驱动文件不存在!</translation>
     </message>
@@ -1079,6 +1089,44 @@ p, li { white-space: pre-wrap; }
         <location filename="kernel/network/network.cpp" line="296"/>
         <source>Refresh</source>
         <translation type="unfinished">刷新</translation>
+    </message>
+</context>
+<context>
+    <name>KernelObject</name>
+    <message>
+        <location filename="kernel/object/object.cpp" line="70"/>
+        <source>TypeObject</source>
+        <translation type="unfinished">类型对象</translation>
+    </message>
+    <message>
+        <location filename="kernel/object/object.cpp" line="71"/>
+        <source>TypeIndex</source>
+        <translation type="unfinished">类型索引</translation>
+    </message>
+    <message>
+        <location filename="kernel/object/object.cpp" line="72"/>
+        <source>TypeName</source>
+        <translation type="unfinished">类型名称</translation>
+    </message>
+    <message>
+        <location filename="kernel/object/object.cpp" line="73"/>
+        <source>TotalObjectsNum</source>
+        <translation type="unfinished">关联对象数</translation>
+    </message>
+    <message>
+        <location filename="kernel/object/object.cpp" line="74"/>
+        <source>TotalHandlesNum</source>
+        <translation type="unfinished">关联句柄数</translation>
+    </message>
+    <message>
+        <location filename="kernel/object/object.cpp" line="82"/>
+        <source>Refresh</source>
+        <translation type="unfinished">刷新</translation>
+    </message>
+    <message>
+        <location filename="kernel/object/object.cpp" line="85"/>
+        <source>Copy</source>
+        <translation type="unfinished">复制</translation>
     </message>
 </context>
 <context>
@@ -1109,22 +1157,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">进程路径</translation>
     </message>
     <message>
-        <location filename="kernel/storage/storage.cpp" line="133"/>
+        <location filename="kernel/storage/storage.cpp" line="131"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
     <message>
-        <location filename="kernel/storage/storage.cpp" line="133"/>
+        <location filename="kernel/storage/storage.cpp" line="131"/>
         <source>Value</source>
         <translation type="unfinished">值</translation>
     </message>
     <message>
-        <location filename="kernel/storage/storage.cpp" line="139"/>
+        <location filename="kernel/storage/storage.cpp" line="137"/>
         <source>ExpandAll</source>
         <translation type="unfinished">全部展开</translation>
     </message>
     <message>
-        <location filename="kernel/storage/storage.cpp" line="95"/>
+        <location filename="kernel/storage/storage.cpp" line="93"/>
         <source>Refresh</source>
         <translation type="unfinished">刷新</translation>
     </message>
@@ -1598,89 +1646,89 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">隐藏模块内存</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="850"/>
+        <location filename="process-mgr/process-mgr.cpp" line="858"/>
         <source>Process Name</source>
         <translation type="unfinished">进程名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="851"/>
+        <location filename="process-mgr/process-mgr.cpp" line="859"/>
         <source>Process ID</source>
         <translation type="unfinished">进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="852"/>
+        <location filename="process-mgr/process-mgr.cpp" line="860"/>
         <source>Parent ID</source>
         <translation type="unfinished">父进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="853"/>
+        <location filename="process-mgr/process-mgr.cpp" line="861"/>
         <source>Process Path</source>
         <translation type="unfinished">进程路径</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="854"/>
+        <location filename="process-mgr/process-mgr.cpp" line="862"/>
         <source>Created Time</source>
         <translation type="unfinished">启动时间</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="855"/>
+        <location filename="process-mgr/process-mgr.cpp" line="863"/>
         <source>Copy</source>
         <translation type="unfinished">复制</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="859"/>
+        <location filename="process-mgr/process-mgr.cpp" line="867"/>
         <source>Create Minidump...</source>
         <translation type="unfinished">创建 MiniDump...</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="860"/>
+        <location filename="process-mgr/process-mgr.cpp" line="868"/>
         <source>Create Fulldump...</source>
         <translation type="unfinished">创建 FullDump...</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="861"/>
+        <location filename="process-mgr/process-mgr.cpp" line="869"/>
         <source>Create Dump</source>
         <translation type="unfinished">创建Dump文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="863"/>
-        <location filename="process-mgr/process-mgr.cpp" line="925"/>
+        <location filename="process-mgr/process-mgr.cpp" line="871"/>
+        <location filename="process-mgr/process-mgr.cpp" line="933"/>
         <source>Refresh</source>
         <translation type="unfinished">刷新</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="865"/>
+        <location filename="process-mgr/process-mgr.cpp" line="873"/>
         <source>Kill Process</source>
         <translation type="unfinished">结束进程</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="866"/>
+        <location filename="process-mgr/process-mgr.cpp" line="874"/>
         <source>Kill Process Tree</source>
         <translation type="unfinished">结束进程树</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="869"/>
+        <location filename="process-mgr/process-mgr.cpp" line="877"/>
         <source>Select PID</source>
         <translation type="unfinished">选择进程(PID)</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="870"/>
-        <location filename="process-mgr/process-mgr.cpp" line="926"/>
+        <location filename="process-mgr/process-mgr.cpp" line="878"/>
+        <location filename="process-mgr/process-mgr.cpp" line="934"/>
         <source>Explore File</source>
         <translation type="unfinished">定位到文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="871"/>
+        <location filename="process-mgr/process-mgr.cpp" line="879"/>
         <source>Enum Thread</source>
         <translation type="unfinished">枚举线程</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="872"/>
+        <location filename="process-mgr/process-mgr.cpp" line="880"/>
         <source>Enum Window</source>
         <translation type="unfinished">枚举窗口</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="873"/>
+        <location filename="process-mgr/process-mgr.cpp" line="881"/>
         <source>Inject Dll</source>
         <translation type="unfinished">注入DLL</translation>
     </message>
@@ -1689,192 +1737,192 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">扫描</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="533"/>
+        <location filename="process-mgr/process-mgr.cpp" line="534"/>
         <source>Save to</source>
         <translation type="unfinished">生成程序</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="533"/>
+        <location filename="process-mgr/process-mgr.cpp" line="534"/>
         <source>DumpMemory(*)</source>
         <translation type="unfinished">转储文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="537"/>
+        <location filename="process-mgr/process-mgr.cpp" line="538"/>
         <source>Dump memory ok</source>
         <translation type="unfinished">内存转储成功</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="867"/>
+        <location filename="process-mgr/process-mgr.cpp" line="875"/>
         <source>Restart Process</source>
         <translation type="unfinished">重启进程</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="874"/>
-        <location filename="process-mgr/process-mgr.cpp" line="927"/>
+        <location filename="process-mgr/process-mgr.cpp" line="882"/>
+        <location filename="process-mgr/process-mgr.cpp" line="935"/>
         <source>Sendto Scanner</source>
         <oldsource>Scanner</oldsource>
         <translation type="unfinished">扫描文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="876"/>
-        <location filename="process-mgr/process-mgr.cpp" line="930"/>
+        <location filename="process-mgr/process-mgr.cpp" line="884"/>
+        <location filename="process-mgr/process-mgr.cpp" line="938"/>
         <source>Properties...</source>
         <translation type="unfinished">属性...</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="879"/>
+        <location filename="process-mgr/process-mgr.cpp" line="887"/>
         <source>Process</source>
         <translation type="unfinished">进程</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="879"/>
+        <location filename="process-mgr/process-mgr.cpp" line="887"/>
         <source>PID</source>
         <translation type="unfinished">进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="879"/>
+        <location filename="process-mgr/process-mgr.cpp" line="887"/>
         <source>PPID</source>
         <translation type="unfinished">父进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="879"/>
-        <location filename="process-mgr/process-mgr.cpp" line="933"/>
+        <location filename="process-mgr/process-mgr.cpp" line="887"/>
+        <location filename="process-mgr/process-mgr.cpp" line="941"/>
         <source>Path</source>
         <translation type="unfinished">路径</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="879"/>
-        <location filename="process-mgr/process-mgr.cpp" line="933"/>
+        <location filename="process-mgr/process-mgr.cpp" line="887"/>
+        <location filename="process-mgr/process-mgr.cpp" line="941"/>
         <source>Description</source>
         <translation type="unfinished">描述</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="879"/>
-        <location filename="process-mgr/process-mgr.cpp" line="933"/>
+        <location filename="process-mgr/process-mgr.cpp" line="887"/>
+        <location filename="process-mgr/process-mgr.cpp" line="941"/>
         <source>Company Name</source>
         <translation type="unfinished">公司名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="879"/>
+        <location filename="process-mgr/process-mgr.cpp" line="887"/>
         <source>CreatedTime</source>
         <translation type="unfinished">启动时间</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="928"/>
+        <location filename="process-mgr/process-mgr.cpp" line="936"/>
         <source>Verify Signature</source>
         <translation type="unfinished">校验签名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="929"/>
+        <location filename="process-mgr/process-mgr.cpp" line="937"/>
         <source>Verify All Signature</source>
         <translation type="unfinished">校验所有签名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="933"/>
-        <location filename="process-mgr/process-mgr.cpp" line="948"/>
+        <location filename="process-mgr/process-mgr.cpp" line="941"/>
+        <location filename="process-mgr/process-mgr.cpp" line="956"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="933"/>
-        <location filename="process-mgr/process-mgr.cpp" line="970"/>
+        <location filename="process-mgr/process-mgr.cpp" line="941"/>
+        <location filename="process-mgr/process-mgr.cpp" line="978"/>
         <source>Base</source>
         <translation type="unfinished">基址</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="933"/>
-        <location filename="process-mgr/process-mgr.cpp" line="970"/>
+        <location filename="process-mgr/process-mgr.cpp" line="941"/>
+        <location filename="process-mgr/process-mgr.cpp" line="978"/>
         <source>Size</source>
         <translation type="unfinished">大小</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="933"/>
+        <location filename="process-mgr/process-mgr.cpp" line="941"/>
         <source>Version</source>
         <translation type="unfinished">版本</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="933"/>
+        <location filename="process-mgr/process-mgr.cpp" line="941"/>
         <source>Signature</source>
         <translation type="unfinished">签名校验</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="943"/>
+        <location filename="process-mgr/process-mgr.cpp" line="951"/>
         <source>Close Handle</source>
         <translation type="unfinished">关闭句柄</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="948"/>
-        <location filename="process-mgr/process-mgr.cpp" line="970"/>
+        <location filename="process-mgr/process-mgr.cpp" line="956"/>
+        <location filename="process-mgr/process-mgr.cpp" line="978"/>
         <source>Type</source>
         <translation type="unfinished">类型</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="948"/>
+        <location filename="process-mgr/process-mgr.cpp" line="956"/>
         <source>Value</source>
         <translation type="unfinished">值</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="948"/>
+        <location filename="process-mgr/process-mgr.cpp" line="956"/>
         <source>Access</source>
         <translation type="unfinished">访问权限</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="948"/>
+        <location filename="process-mgr/process-mgr.cpp" line="956"/>
         <source>Object Address</source>
         <translation type="unfinished">对象地址</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="964"/>
+        <location filename="process-mgr/process-mgr.cpp" line="972"/>
         <source>Dump Memory</source>
         <translation type="unfinished">内存转储</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="970"/>
+        <location filename="process-mgr/process-mgr.cpp" line="978"/>
         <source>Address</source>
         <translation type="unfinished">地址</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="970"/>
+        <location filename="process-mgr/process-mgr.cpp" line="978"/>
         <source>Property</source>
         <translation type="unfinished">属性</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="970"/>
+        <location filename="process-mgr/process-mgr.cpp" line="978"/>
         <source>State</source>
         <translation type="unfinished">状态</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="970"/>
+        <location filename="process-mgr/process-mgr.cpp" line="978"/>
         <source>Module</source>
         <translation type="unfinished">模块</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="260"/>
+        <location filename="process-mgr/process-mgr.cpp" line="261"/>
         <source>CPU:</source>
         <translation type="unfinished">CPU使用:</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="261"/>
+        <location filename="process-mgr/process-mgr.cpp" line="262"/>
         <source>Memory:</source>
         <translation type="unfinished">内存使用:</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="262"/>
+        <location filename="process-mgr/process-mgr.cpp" line="263"/>
         <source>Processes:</source>
         <translation type="unfinished">进程数:</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="263"/>
+        <location filename="process-mgr/process-mgr.cpp" line="264"/>
         <source>Threads:</source>
         <translation type="unfinished">线程数:</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="264"/>
+        <location filename="process-mgr/process-mgr.cpp" line="265"/>
         <source>Handles:</source>
         <translation type="unfinished">句柄数:</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="287"/>
+        <location filename="process-mgr/process-mgr.cpp" line="288"/>
         <source>Do you kill all processes?
 -------------------
 </source>
@@ -1883,54 +1931,54 @@ p, li { white-space: pre-wrap; }
 </translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="293"/>
+        <location filename="process-mgr/process-mgr.cpp" line="294"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="313"/>
+        <location filename="process-mgr/process-mgr.cpp" line="314"/>
         <source>Select Dll</source>
         <translation type="unfinished">选择DLL</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="313"/>
+        <location filename="process-mgr/process-mgr.cpp" line="314"/>
         <source>Dll Files (*.dll);;All Files (*.*)</source>
         <translation type="unfinished">DLL文件 (*.dll);;所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="319"/>
+        <location filename="process-mgr/process-mgr.cpp" line="320"/>
         <source>Dll file invalid.</source>
         <translation type="unfinished">DLL文件无效.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="326"/>
+        <location filename="process-mgr/process-mgr.cpp" line="327"/>
         <source>Can&apos;t inject 32-bit dll to 64-bit process.</source>
         <translation type="unfinished">32位DLL不能注入到64位进程中.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="330"/>
+        <location filename="process-mgr/process-mgr.cpp" line="331"/>
         <source>Inject 64-bit dll to 32-bit process, maybe fail.</source>
         <translation type="unfinished">64位模块注入到32位进程，可能会失败.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="334"/>
+        <location filename="process-mgr/process-mgr.cpp" line="335"/>
         <source>Inject ok.</source>
         <translation type="unfinished">注入成功.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="336"/>
+        <location filename="process-mgr/process-mgr.cpp" line="337"/>
         <source>Inject failed.</source>
         <translation type="unfinished">注入失败.</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="380"/>
-        <location filename="process-mgr/process-mgr.cpp" line="389"/>
+        <location filename="process-mgr/process-mgr.cpp" line="381"/>
+        <location filename="process-mgr/process-mgr.cpp" line="390"/>
         <source>Save dump file</source>
         <translation type="unfinished">保存Dump文件</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-mgr.cpp" line="380"/>
-        <location filename="process-mgr/process-mgr.cpp" line="389"/>
+        <location filename="process-mgr/process-mgr.cpp" line="381"/>
+        <location filename="process-mgr/process-mgr.cpp" line="390"/>
         <source>DumpFile(*.dmp)</source>
         <translation type="unfinished">Dump文件(*.dmp)</translation>
     </message>
@@ -2042,58 +2090,58 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">窗口列表</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-properties.cpp" line="32"/>
+        <location filename="process-mgr/process-properties.cpp" line="30"/>
         <source>%1:%2 Properties</source>
         <translation type="unfinished">%1:%2 属性</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-properties.cpp" line="38"/>
-        <location filename="process-mgr/process-properties.cpp" line="39"/>
+        <location filename="process-mgr/process-properties.cpp" line="36"/>
+        <location filename="process-mgr/process-properties.cpp" line="37"/>
         <source>TID</source>
         <translation type="unfinished">线程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-properties.cpp" line="38"/>
+        <location filename="process-mgr/process-properties.cpp" line="36"/>
         <source>KernelTime</source>
         <translation type="unfinished">内核态时间</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-properties.cpp" line="38"/>
+        <location filename="process-mgr/process-properties.cpp" line="36"/>
         <source>UserTime</source>
         <translation type="unfinished">用户态时间</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-properties.cpp" line="38"/>
+        <location filename="process-mgr/process-properties.cpp" line="36"/>
         <source>CreateTime</source>
         <translation type="unfinished">创建时间</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-properties.cpp" line="39"/>
+        <location filename="process-mgr/process-properties.cpp" line="37"/>
         <source>HWND</source>
         <translation type="unfinished">句柄</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-properties.cpp" line="39"/>
+        <location filename="process-mgr/process-properties.cpp" line="37"/>
         <source>Title</source>
         <translation type="unfinished">标题</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-properties.cpp" line="39"/>
+        <location filename="process-mgr/process-properties.cpp" line="37"/>
         <source>ClassName</source>
         <translation type="unfinished">类名</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-properties.cpp" line="39"/>
+        <location filename="process-mgr/process-properties.cpp" line="37"/>
         <source>Visible</source>
         <translation type="unfinished">可见</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-properties.cpp" line="39"/>
+        <location filename="process-mgr/process-properties.cpp" line="37"/>
         <source>PID</source>
         <translation type="unfinished">进程ID</translation>
     </message>
     <message>
-        <location filename="process-mgr/process-properties.cpp" line="43"/>
+        <location filename="process-mgr/process-properties.cpp" line="41"/>
         <source>Refresh</source>
         <translation type="unfinished">刷新</translation>
     </message>
@@ -2144,12 +2192,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message>
-        <location filename="common/win-wrapper/win-wrapper.cpp" line="134"/>
+        <location filename="common/win-wrapper/win-wrapper.cpp" line="136"/>
         <source>Create dump ok.</source>
         <translation type="unfinished">创建Dump文件成功.</translation>
     </message>
     <message>
-        <location filename="common/win-wrapper/win-wrapper.cpp" line="136"/>
+        <location filename="common/win-wrapper/win-wrapper.cpp" line="138"/>
         <source>Create dump failed.</source>
         <translation type="unfinished">创建Dump文件失败.</translation>
     </message>

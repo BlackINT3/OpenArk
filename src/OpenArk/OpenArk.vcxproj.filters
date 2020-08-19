@@ -147,6 +147,12 @@
     <Filter Include="kernel\arkdrv-api\api-process">
       <UniqueIdentifier>{5c43bebc-7e56-49fc-8b05-d4d9b1bd8659}</UniqueIdentifier>
     </Filter>
+    <Filter Include="kernel\arkdrv-api\api-object">
+      <UniqueIdentifier>{09a5ab93-f89a-4bc2-a217-38b93e6292e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel\object">
+      <UniqueIdentifier>{d182a510-0632-4c4a-a913-91db1451a2ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -309,6 +315,12 @@
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-process\api-process.cpp">
       <Filter>kernel\arkdrv-api\api-process</Filter>
     </ClCompile>
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-object\api-object.cpp">
+      <Filter>kernel\arkdrv-api\api-object</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\object\object.cpp">
+      <Filter>kernel\object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="openark\openark.h">
@@ -367,6 +379,9 @@
     </QtMoc>
     <QtMoc Include="kernel\driver\driver.h">
       <Filter>kernel\driver</Filter>
+    </QtMoc>
+    <QtMoc Include="kernel\object\object.h">
+      <Filter>kernel\object</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -551,6 +566,9 @@
     </ClInclude>
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-process\api-process.h">
       <Filter>kernel\arkdrv-api\api-process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-object\api-object.h">
+      <Filter>kernel\arkdrv-api\api-object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

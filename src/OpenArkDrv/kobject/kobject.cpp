@@ -25,7 +25,7 @@ NTSTATUS ObjectDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, PVOID inbuf, UL
 {
 	NTSTATUS status = STATUS_UNSUCCESSFUL;
 	switch (op) {
-	case OBJECT_TYPE_ENUM:
+	case ARK_OBJECT_TYPE_ENUM:
 		break;
 	case STORAGE_UNLOCK_CLOSE:
 		break;

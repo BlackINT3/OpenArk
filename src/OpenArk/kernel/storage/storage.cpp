@@ -111,7 +111,7 @@ void KernelStorage::InitFileUnlockView()
 			auto item_pname = new QStandardItem(LoadIcon(WStrToQ(ppath)), WStrToQ(pname));
 			auto item_pid = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", pid)));
 			auto item_fpath = new QStandardItem(WStrToQ(fpath));
-			auto item_fobj = new QStandardItem(WStrToQ(item.type_name)); //new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", item.object)));
+			auto item_fobj = new QStandardItem(WStrToQ(item.type_name));
 			auto item_ppath = new QStandardItem(WStrToQ(ppath));
 			auto count = unlock_model_->rowCount();
 			unlock_model_->setItem(count, 0, item_pname);

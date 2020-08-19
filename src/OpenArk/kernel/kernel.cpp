@@ -54,9 +54,11 @@ Kernel::Kernel(QWidget *parent, int tabid) :
 	storage_ = nullptr;
 	memory_ = nullptr;
 	driver_ = nullptr;
+	object_ = nullptr;
 
 	network_ = new KernelNetwork(); network_->ModuleInit(&ui, this);
 	storage_ = new KernelStorage(); storage_->ModuleInit(&ui, this);
+	object_ = new KernelObject(); object_->ModuleInit(&ui, this);
 	memory_ = new KernelMemory(); memory_->ModuleInit(&ui, this);
 	driver_ = new KernelDriver(); driver_->ModuleInit(&ui, this);
 
