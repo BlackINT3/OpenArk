@@ -22,25 +22,36 @@
 #include <Windows.h>
 #endif //_NTDDK_
 
-enum OBJECT_OPS {
-	OBJECT_TYPE_ENUM,
+enum ARK_OBJECT_OPS {
+	ARK_OBJECT_TYPE_ENUM,
 };
 
-#pragma pack(push, 1)
-typedef struct _OBJECT_TYPE_ITEM {
-	ULONG  type_index; // object type index
-	ULONG  ref_count; // ref count
-	HANDLE pid; // process id
-	LPVOID object; // 
-	HANDLE handle; //
-	WCHAR   type_name[64]; // the object type name
-	WCHAR   name[260]; // object name
-} OBJECT_TYPE_ITEM, *POBJECT_TYPE_ITEM;
+#define ARK_SESSION_GLOBAL -1
 
+#pragma pack(push, 1)
+typedef struct _ARK_OBJECT_TYPE_ITEM {
+	ULONG type_index;
+	WCHAR type_name[128];
+	PVOID type_object;
+	ULONG total_objects;
+	ULONG total_handles;
+} ARK_OBJECT_TYPE_ITEM, *PARK_OBJECT_TYPE_ITEM;
 typedef struct _OBJECT_TYPE_INFO {
 	ULONG	count;
-	OBJECT_TYPE_ITEM items[1];
-} OBJECT_TYPE_INFO, *POBJECT_TYPE_INFO;
+	ARK_OBJECT_TYPE_ITEM items[1];
+} ARK_OBJECT_TYPE_INFO, *PARK_OBJECT_TYPE_INFO;
+
+typedef struct _ARK_OBJECT_SECTION_ITEM {
+	ULONG session;
+	WCHAR session_name[128];
+	ULONG section_size;
+	WCHAR section_name[128];
+} ARK_OBJECT_SECTION_ITEM, *PARK_OBJECT_SECTION_ITEM;
+typedef struct _ARK_OBJECT_SECTION_INFO {
+	ULONG	count;
+	ARK_OBJECT_SECTION_ITEM items[1];
+} ARK_OBJECT_SECTION_INFO, *PARK_OBJECT_SECTION_INFO;
+
 #pragma pack(pop)
 
 //#undef _ARKDRV_
@@ -52,7 +63,9 @@ typedef struct _OBJECT_TYPE_INFO {
 #include <vector>
 namespace ArkDrvApi {
 namespace Object {
-	bool ObjectTypeEnum(std::vector<OBJECT_TYPE_ITEM> &items);
+	bool ObjectTypeEnum(std::vector<ARK_OBJECT_TYPE_ITEM> &items);
+	bool ObjectSectionEnum(std::vector<ARK_OBJECT_SECTION_ITEM> &items);
+	bool ObjectSectionEnum(std::vector<ARK_OBJECT_SECTION_ITEM> &items, ULONG session);
 } // namespace Object
 } // namespace ArkDrvApi
 #endif //_NTDDK_

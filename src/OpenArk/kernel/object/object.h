@@ -24,6 +24,8 @@ class Ui::Kernel;
 class Kernel;
 
 PROXY_FILTER(ObjectTypesSortFilterProxyModel);
+PROXY_FILTER(ObjectSectionsSortFilterProxyModel);
+
 class KernelObject : public CommonTabObject {
 	Q_OBJECT
 
@@ -39,15 +41,16 @@ private slots:
 
 private:
 	void ShowObjectTypes();
+	void ShowObjectSections();
 	void InitObjectTypesView();
-	void InitFileFilterView();
+	void InitObjectSectionsView();
 
 private:
 	Ui::Kernel *ui_;
 	QMenu *objtypes_menu_;
-	QMenu *fsflt_menu_; 
-	QStandardItemModel *fsflt_model_;
+	QMenu *objsections_menu_; 
 	QStandardItemModel *objtypes_model_;
-	ObjectTypesSortFilterProxyModel *proxy_unlock_;
-	ObjectTypesSortFilterProxyModel *proxy_fsflt_;
+	QStandardItemModel *objsections_model_;
+	ObjectTypesSortFilterProxyModel *proxy_objtypes_;
+	ObjectSectionsSortFilterProxyModel *proxy_objsections_;
 };

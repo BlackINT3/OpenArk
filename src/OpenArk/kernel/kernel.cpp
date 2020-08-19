@@ -50,6 +50,11 @@ Kernel::Kernel(QWidget *parent, int tabid) :
 {
 	ui.setupUi(this);
 	setAcceptDrops(true);
+	network_ = nullptr;
+	storage_ = nullptr;
+	memory_ = nullptr;
+	driver_ = nullptr;
+	object_ = nullptr;
 
 	network_ = new KernelNetwork(); network_->ModuleInit(&ui, this);
 	storage_ = new KernelStorage(); storage_->ModuleInit(&ui, this);
