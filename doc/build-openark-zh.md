@@ -1,5 +1,7 @@
 # 如何构建 OpenArk
 
+* [英文说明](build-openark.md)
+
 ### 只需四步，轻松愉快!
 
 #### 安装 WDK
@@ -30,5 +32,5 @@
 ### 现在可以编译openark了
 
 ### Q&A
-Q：编译 OpenArk 的驱动时，提示没找到ntifs.h（not found ntifs.h）
-A：首选确保 WDKPATH 环境变量设置准确。如设置准确后仍出现，请重启 explorer.exe 和 vs2015。
+* Q：编译 OpenArk 的驱动时，提示没找到ntifs.h（not found ntifs.h）
+* A：首选确保 WDKPATH 环境变量设置准确。如设置准确后仍出现，请重启 explorer.exe 和 vs2015。

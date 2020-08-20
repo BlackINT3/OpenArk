@@ -1,5 +1,7 @@
 # How To Build OpenArk
 
+* [中文说明](build-openark-zh.md)
+
 ### You need four steps just easily!
 
 #### Install WDK
