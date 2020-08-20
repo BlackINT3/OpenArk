@@ -310,6 +310,10 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 
 	info->count = count; // set count of item
 	if (buffer)  ExFreePoolWithTag(buffer, 'enhd');
-	irp->IoStatus.Information = sizeof(HANDLE_INFO) + (count - 1) * sizeof(HANDLE_ITEM);
+	if (count > 0){
+		irp->IoStatus.Information = sizeof(HANDLE_INFO) + (count - 1) * sizeof(HANDLE_ITEM);
+	}else {
+		irp->IoStatus.Information = sizeof(HANDLE_INFO);
+	}
 	return status;
 }
