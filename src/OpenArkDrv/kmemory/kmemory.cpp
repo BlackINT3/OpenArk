@@ -40,6 +40,7 @@ BOOLEAN MmReadKernelMemory(PVOID addr, PVOID buf, ULONG len)
 {
 	BOOLEAN ret = FALSE;
 	if (addr <= MM_HIGHEST_USER_ADDRESS) return FALSE;
+
 	if (ArkDrv.ver >= NTOS_WIN81) {
 		PVOID data = ExAllocatePool(NonPagedPool, len);
 		if (data) {
@@ -51,34 +52,29 @@ BOOLEAN MmReadKernelMemory(PVOID addr, PVOID buf, ULONG len)
 				NTSTATUS status = pMmCopyMemory(data, cpaddr, len, MM_COPY_MEMORY_VIRTUAL, &cplen);
 				if (NT_SUCCESS(status)) {
 					RtlCopyMemory(buf, data, cplen);
-					ret = true;
+					ret = TRUE;
 				}
 			}
 			ExFreePool(data);
 		}
-	} else {
-		// [TDOO] BYTE_OFFSET PAGE_ALIGN
-		PHYSICAL_ADDRESS pa;
-		pa = MmGetPhysicalAddress(addr);
-		if (pa.QuadPart) {
-			PVOID va = MmMapIoSpace(pa, len, MmNonCached);
-			if (va) {
-				RtlCopyMemory(buf, va, len);
-				MmUnmapIoSpace(va, len);
-				ret = TRUE;
-			}
+		return ret;
+	}
+
+	// [TDOO] BYTE_OFFSET PAGE_ALIGN
+	PHYSICAL_ADDRESS pa;
+	pa = MmGetPhysicalAddress(addr);
+	if (pa.QuadPart) {
+		PVOID va = MmMapIoSpace(pa, len, MmNonCached);
+		if (va) {
+			RtlCopyMemory(buf, va, len);
+			MmUnmapIoSpace(va, len);
+			ret = TRUE;
 		}
 	}
 	return ret;
 }
 
-
-BOOLEAN InitMemoryDispatcher()
-{
-	return TRUE;
-}
-
-NTSTATUS MemoryReadData(PMEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
+NTSTATUS MemoryReadData(PARK_MEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
 {
 	ULONG size = inbuf->size + 4;
 	if (size > outlen) {
@@ -87,12 +83,13 @@ NTSTATUS MemoryReadData(PMEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG outle
 	}
 	PVOID data = ExAllocatePool(NonPagedPool, size);
 	if (!data) return STATUS_MEMORY_NOT_ALLOCATED;
+
 	BOOLEAN ret = MmReadKernelMemory((PVOID)inbuf->addr, data, size);
 	if (!ret) {
 		ExFreePool(data);
 		return STATUS_UNSUCCESSFUL;
 	}
-	PMEMORY_OUT memout = (PMEMORY_OUT)outbuf;
+	PARK_MEMORY_OUT memout = (PARK_MEMORY_OUT)outbuf;
 	memout->size = size;
 	RtlCopyMemory(memout->readbuf, data, size);
 	ExFreePool(data);
@@ -100,27 +97,25 @@ NTSTATUS MemoryReadData(PMEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG outle
 	return STATUS_SUCCESS;
 }
 
-NTSTATUS MemoryDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, IN PIRP irp)
+NTSTATUS MemoryWriteData(PARK_MEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
 {
-	//KdBreakPoint();
+	
+	return 0;
+}
 
-	NTSTATUS status;
-	PIO_STACK_LOCATION irpstack;
-	PVOID	inbuf = NULL;
-	PVOID outbuf = NULL;
-	ULONG inlen = 0;
-	ULONG outlen = 0;
-	irpstack = IoGetCurrentIrpStackLocation(irp);
-	inbuf = (UCHAR*)irp->AssociatedIrp.SystemBuffer + 4;
-	inlen = irpstack->Parameters.DeviceIoControl.InputBufferLength - 4;
-	outbuf = irp->AssociatedIrp.SystemBuffer;
-	outlen = irpstack->Parameters.DeviceIoControl.OutputBufferLength;
+NTSTATUS MemoryDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, IN PIRP irp)
+{
+	NTSTATUS status = STATUS_UNSUCCESSFUL;
 	switch (op) {
-	case MEMORY_READ:
-		status = MemoryReadData((PMEMORY_IN)inbuf, inlen, outbuf, outlen, irp);
+	case ARK_MEMORY_READ:
+		status = MemoryReadData((PARK_MEMORY_IN)inbuf, inlen, outbuf, outlen, irp);
+		break;
+	case ARK_MEMORY_WRITE:
+		status = MemoryWriteData((PARK_MEMORY_IN)inbuf, inlen, outbuf, outlen, irp);
 		break;
 	default:
 		break;
 	}
+
 	return status;
 }

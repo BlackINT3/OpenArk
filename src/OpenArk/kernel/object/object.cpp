@@ -26,8 +26,8 @@ bool ObjectTypesSortFilterProxyModel::lessThan(const QModelIndex &left, const QM
 
 bool ObjectSectionsSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const {
 	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
-	auto column = left.column(); bool ok;
-	if ((column == 1 || column == 2))
+	auto column = left.column();
+	if ((column == 2 || column == 3))
 		return s1.toString().toULongLong(nullptr, 16) < s2.toString().toULongLong(nullptr, 16);
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
@@ -50,6 +50,7 @@ bool KernelObject::eventFilter(QObject *obj, QEvent *e)
 	if (e->type() == QEvent::ContextMenu) {
 		QMenu *menu = nullptr;
 		if (obj == ui_->objectTypesView->viewport()) menu = objtypes_menu_;
+		if (obj == ui_->objectSectionsView->viewport()) menu = objsections_menu_;
 		QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
 		if (ctxevt && menu) {
 			menu->move(ctxevt->globalPos());
@@ -103,10 +104,11 @@ void KernelObject::InitObjectSectionsView()
 	objsections_model_ = new QStandardItemModel;
 	proxy_objsections_ = new ObjectSectionsSortFilterProxyModel(view);
 	std::pair<int, QString> colum_layout[] = {
-		{ 170, tr("SectionName") },
-		{ 80, tr("SectionSize") },
-		{ 80, tr("Session") },
-		{ 227, tr("SessionName") },
+		{ 220, tr("SectionDirectory") },
+		{ 350, tr("SectionName") },
+		{ 90, tr("SectionSize") },
+		{ 80, tr("SessionID") },
+		{ 80, tr("SessionName") },
 	};
 
 	SetDefaultTreeViewStyle(view, objsections_model_, proxy_objsections_, colum_layout, _countof(colum_layout));
@@ -156,14 +158,18 @@ void KernelObject::ShowObjectSections()
 	std::vector<ARK_OBJECT_SECTION_ITEM> items;
 	ArkDrvApi::Object::ObjectSectionEnum(items);
 	for (auto item : items) {
-		auto item_0 = new QStandardItem(WStrToQ(item.section_name));
-		auto item_1 = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", item.section_size)));
-		auto item_2 = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", item.session)));
-		auto item_3 = new QStandardItem(WStrToQ(item.session_name));
+		auto item_0 = new QStandardItem(WStrToQ(item.section_dir));
+		auto item_1 = new QStandardItem(WStrToQ(item.section_name));
+		auto item_2 = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%x", item.section_size)));
+		QString idx;
+		if (item.session_id != ARK_SESSION_GLOBAL) idx = WStrToQ(UNONE::StrFormatW(L"%d", item.session_id));
+		auto item_3 = new QStandardItem(idx);
+		auto item_4 = new QStandardItem(WStrToQ(item.session_name));
 		auto count = objsections_model_->rowCount();
 		objsections_model_->setItem(count, 0, item_0);
 		objsections_model_->setItem(count, 1, item_1);
 		objsections_model_->setItem(count, 2, item_2);
 		objsections_model_->setItem(count, 3, item_3);
+		objsections_model_->setItem(count, 4, item_4);
 	}
 }

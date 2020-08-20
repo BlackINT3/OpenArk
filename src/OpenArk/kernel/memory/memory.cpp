@@ -58,18 +58,29 @@ void KernelMemory::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
 
 KernelMemoryRW::KernelMemoryRW()
 {
+#define DEFINE_WIDGET(type, value) auto value = memui_->findChild<type>(#value)
 	QUiLoader loader;
 	QFile file(":/UI/ui/memory-rw.ui");
 	file.open(QFile::ReadOnly);
 	memui_ = loader.load(&file);
 	file.close();
-	auto readmemBtn = memui_->findChild<QPushButton*>("readmemBtn");
+	DEFINE_WIDGET(QPushButton*, readmemBtn);
 	connect(readmemBtn, &QPushButton::clicked, this, [&] {
-		auto addrEdit = memui_->findChild<QLineEdit*>("readAddrEdit");
-		auto sizeEdit = memui_->findChild<QLineEdit*>("readSizeEdit");
+		DEFINE_WIDGET(QLineEdit*, pidEdit);
+		DEFINE_WIDGET(QLineEdit*, addrEdit);
+		DEFINE_WIDGET(QLineEdit*, sizeEdit);
 		ULONG64 addr = VariantInt64(addrEdit->text().toStdString());
 		ULONG size = VariantInt(sizeEdit->text().toStdString());
-		ViewMemory(addr, size);
+		ULONG pid = VariantInt(pidEdit->text().toStdString());
+		ViewMemory(pid, addr, size);
+	});
+
+	DEFINE_WIDGET(QLineEdit*, pidEdit);
+	connect(pidEdit, &QLineEdit::textChanged, [&](const QString&) {
+		DEFINE_WIDGET(QLineEdit*, pidEdit);
+		DEFINE_WIDGET(QLabel*, pnameLabel);
+		ULONG pid = VariantInt(pidEdit->text().toStdString(), 10);
+		pnameLabel->setText(CacheGetProcInfo(pid).name);
 	});
 }
 
@@ -78,7 +89,7 @@ KernelMemoryRW::~KernelMemoryRW()
 }
 
 
-void KernelMemoryRW::ViewMemory(ULONG64 addr, ULONG size)
+void KernelMemoryRW::ViewMemory(ULONG pid, ULONG64 addr, ULONG size)
 {
 	std::vector<DRIVER_ITEM> infos;
 	ArkDrvApi::Driver::DriverEnumInfo(infos);
@@ -92,7 +103,7 @@ void KernelMemoryRW::ViewMemory(ULONG64 addr, ULONG size)
 	char *mem = nullptr;
 	ULONG memsize = 0;
 	std::string buf;
-	if (ArkDrvApi::Memory::MemoryRead(addr, size, buf)) {
+	if (ArkDrvApi::Memory::MemoryRead(GetCurrentProcessId(), addr, size, buf)) {
 		mem = (char*)buf.c_str();
 		memsize = buf.size();
 	}

@@ -75,6 +75,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="writeStringBtn">
+       <property name="text">
+        <string>WriteString</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -168,9 +175,16 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="readmemBtn">
+      <widget class="QPushButton" name="readmemBtn_2">
        <property name="text">
         <string>ReadMemory</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="dumpToFileBtn">
+       <property name="text">
+        <string>DumpToFile</string>
        </property>
       </widget>
      </item>
@@ -227,7 +241,7 @@
      <item>
       <widget class="QLineEdit" name="pidEdit">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">

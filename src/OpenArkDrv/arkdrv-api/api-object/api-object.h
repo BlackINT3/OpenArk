@@ -42,10 +42,11 @@ typedef struct _OBJECT_TYPE_INFO {
 } ARK_OBJECT_TYPE_INFO, *PARK_OBJECT_TYPE_INFO;
 
 typedef struct _ARK_OBJECT_SECTION_ITEM {
-	ULONG session;
+	ULONG session_id;
 	WCHAR session_name[128];
 	ULONG section_size;
 	WCHAR section_name[128];
+	WCHAR section_dir[128];
 } ARK_OBJECT_SECTION_ITEM, *PARK_OBJECT_SECTION_ITEM;
 typedef struct _ARK_OBJECT_SECTION_INFO {
 	ULONG	count;

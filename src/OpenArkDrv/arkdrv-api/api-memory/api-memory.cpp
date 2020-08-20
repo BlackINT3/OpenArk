@@ -18,20 +18,41 @@
 #else
 namespace ArkDrvApi {
 namespace Memory {
-
-bool MemoryRead(ULONG64 addr, ULONG size, std::string &readbuf)
+static ARK_MEMORY_RANGE sys_range = { 0 };
+ARK_MEMORY_RANGE MemoryRange()
+{
+	if (!sys_range.r0start) {
+		SYSTEM_INFO sys;
+		GetSystemInfo(&sys);
+		sys_range.r3start = (ULONG64)sys.lpMinimumApplicationAddress;
+		sys_range.r3end = (ULONG64)sys.lpMaximumApplicationAddress;
+		sys_range.r0start = 0xFFFF080000000000;
+		sys_range.r0end = 0xFFFFFFFFFFFFFFFF;
+		if (!UNONE::OsIs64()) {
+			sys_range.r0start = 0x80000000;
+			sys_range.r0end = 0xFFFFFFFF;
+		}
+	}
+	return sys_range;
+}
+bool MemoryRead(ULONG pid, ULONG64 addr, ULONG size, std::string &readbuf)
 {
 	if (!size) return false;
-	MEMORY_IN memin;
+	ARK_MEMORY_IN memin;
 	memin.addr = addr;
 	memin.size = size;
 	DWORD outlen;
-	PMEMORY_OUT memout;
-	bool ret = IoControlDriver(IOCTL_ARK_MEMORY, MEMORY_READ, &memin, sizeof(memin), (PVOID*)&memout, &outlen);
+	PARK_MEMORY_OUT memout;
+	bool ret = IoControlDriver(IOCTL_ARK_MEMORY, ARK_MEMORY_READ, &memin, sizeof(memin), (PVOID*)&memout, &outlen);
 	if (!ret)	 return false;
 	readbuf.resize(memout->size);
 	memcpy(&readbuf[0], memout->readbuf, memout->size);
 	free(memout);
+	return true;
+}
+bool MemoryWrite(ULONG64 addr, std::string &writebuf)
+{
+	
 	return true;
 }
 } // namespace Memory

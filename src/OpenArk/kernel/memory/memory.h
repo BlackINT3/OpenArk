@@ -57,7 +57,7 @@ private:
 	QWidget *memui_;
 
 public:
-	void ViewMemory(ULONG64 addr, ULONG size);
+	void ViewMemory(ULONG pid, ULONG64 addr, ULONG size);
 	QWidget *GetWidget() const { return memui_; };
 
 };

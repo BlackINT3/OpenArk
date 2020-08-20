@@ -23,23 +23,32 @@
 #endif //_NTDDK_
 
 // Memory
-enum MEMORY_OPS {
-	MEMORY_READ,
-	MEMORY_WRITE,
+enum ARK_MEMORY_OPS {
+	ARK_MEMORY_READ,
+	ARK_MEMORY_WRITE,
 };
 #pragma pack(push, 1)
-typedef struct _MEMORY_IN {
+typedef struct _ARK_MEMORY_IN {
+	ULONG pid;
 	ULONG64 addr;
 	ULONG size;
 	union {
 		UCHAR dummy[1];
 		UCHAR writebuf[1];
 	} u;
-} MEMORY_IN, *PMEMORY_IN;
-typedef struct _MEMORY_OUT {
+} ARK_MEMORY_IN, *PARK_MEMORY_IN;
+typedef struct _ARK_MEMORY_OUT {
+	ULONG pid;
 	ULONG size;
 	UCHAR readbuf[1];
-} MEMORY_OUT, *PMEMORY_OUT;
+} ARK_MEMORY_OUT, *PARK_MEMORY_OUT;
+
+typedef struct _ARK_MEMORY_RANGE {
+	ULONG64 r3start;
+	ULONG64 r3end;
+	ULONG64 r0start;
+	ULONG64 r0end;
+} ARK_MEMORY_RANGE, *PARK_MEMORY_RANGE;
 #pragma pack(pop)
 
 //#undef _ARKDRV_
@@ -51,8 +60,9 @@ typedef struct _MEMORY_OUT {
 #include <vector>
 namespace ArkDrvApi {
 namespace Memory {
-	bool MemoryRead(ULONG64 addr, ULONG size, std::string &readbuf);
-	bool MemoryWrite(std::string &writebuf, ULONG64 addr);
+	ARK_MEMORY_RANGE MemoryRange();
+	bool MemoryRead(ULONG pid, ULONG64 addr, ULONG size, std::string &readbuf);
+	bool MemoryWrite(ULONG64 addr, std::string &writebuf);
 } // namespace Memory
 } // namespace ArkDrvApi
 #endif //_NTDDK_

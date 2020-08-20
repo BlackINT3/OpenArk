@@ -31,6 +31,7 @@ struct ProcInfo {
 	QString ctime;
 	QString path;
 };
+ProcInfo CacheGetProcInfo(unsigned int pid);
 ProcInfo CacheGetProcInfo(unsigned int pid, ProcInfo& info);
 void CacheGetProcChilds(unsigned int pid, QVector<ProcInfo>& infos);
 void CacheRefreshProcInfo();

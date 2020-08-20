@@ -22,6 +22,12 @@ static struct {
 	QMap<unsigned int, ProcInfo> d;
 } proc_info;
 
+ProcInfo CacheGetProcInfo(unsigned int pid)
+{
+	ProcInfo info;
+	CacheGetProcInfo(pid, info);
+	return info;
+}
 
 ProcInfo CacheGetProcInfo(unsigned int pid, ProcInfo& info)
 {

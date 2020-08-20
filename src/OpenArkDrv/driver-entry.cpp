@@ -118,7 +118,7 @@ NTSTATUS MainDispatcher(PDEVICE_OBJECT devobj, PIRP irp)
 		status = NotifyDispatcher(op, devobj, irp);
 		break;
 	case IOCTL_ARK_MEMORY:
-		status = MemoryDispatcher(op, devobj, irp);
+		status = MemoryDispatcher(op, devobj, inbuf, inlen, outbuf, outlen, irp);
 		break;
 	case IOCTL_ARK_HOTKEY:
 		status = HotkeyDispatcher(op, devobj, irp);

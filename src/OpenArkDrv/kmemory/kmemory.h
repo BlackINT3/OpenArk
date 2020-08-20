@@ -15,5 +15,4 @@
 ****************************************************************************/
 #pragma once
 #include <ntifs.h>
-BOOLEAN InitMemoryDispatcher();
-NTSTATUS MemoryDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, IN PIRP irp);
+NTSTATUS MemoryDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, IN PIRP irp);

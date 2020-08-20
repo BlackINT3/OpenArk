@@ -168,7 +168,7 @@ typedef struct _WTS_SESSION_INFOW {
 	WTS_CONNECTSTATE_CLASS State; // connection state (see enum)
 } WTS_SESSION_INFOW, *PWTS_SESSION_INFOW;
 
-bool GetSessions(std::vector<WTS_SESSION_INFOW> sinfos)
+bool GetSessions(std::vector<WTS_SESSION_INFOW> &sinfos)
 {
 	typedef BOOL (WINAPI *__WTSEnumerateSessionsW)(
 		IN HANDLE          hServer,
@@ -199,12 +199,14 @@ bool GetSessions(std::vector<WTS_SESSION_INFOW> sinfos)
 
 bool ObjectSectionEnumR3(std::vector<ARK_OBJECT_SECTION_ITEM> &items, ULONG session)
 {
-	std::wstring dirname;
+	std::wstring dirname, prefix;
 
 	if (session == ARK_SESSION_GLOBAL) {
-		dirname = L"\\Global";
+		dirname = L"\\BaseNamedObjects";
+		prefix = L"Global";
 	} else {
 		dirname = UNONE::StrFormatW(L"\\Sessions\\%u\\BaseNamedObjects", session);
+		prefix = dirname;
 	}
 
 	#define DIRECTORY_QUERY                 (0x0001)
@@ -212,23 +214,52 @@ bool ObjectSectionEnumR3(std::vector<ARK_OBJECT_SECTION_ITEM> &items, ULONG sess
 	__NtOpenDirectoryObject pNtOpenDirectoryObject = (__NtOpenDirectoryObject)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtOpenDirectoryObject");
 	__NtQueryDirectoryObject pNtQueryDirectoryObject = (__NtQueryDirectoryObject)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtQueryDirectoryObject");
 	if (!pNtOpenDirectoryObject || !pNtQueryDirectoryObject) return false;
-	ULONG bufsize = 512;
-	PVOID buf = malloc(bufsize);
-	if (!buf) return false;
 
 	HANDLE dirobj;
 	OBJECT_ATTRIBUTES oa;
 	UNICODE_STRING udirname;
 	udirname.Buffer = (WCHAR*)dirname.c_str();
-	udirname.Length = (dirname.size()+1) * 2;
+	udirname.Length = dirname.size() * 2;
 	udirname.MaximumLength = udirname.Length;
 	InitializeObjectAttributes(&oa, &udirname, 0, NULL, NULL);
 	status = pNtOpenDirectoryObject(&dirobj, DIRECTORY_QUERY, &oa);
 	if (!NT_SUCCESS(status)) return false;
 
+	ULONG context, written;
+	ULONG bufsize = 512;
+	POBJECT_DIRECTORY_INFORMATION info = (POBJECT_DIRECTORY_INFORMATION)malloc(bufsize);
+	if (!info) return false;
+	status = pNtQueryDirectoryObject(dirobj, info, bufsize, TRUE, TRUE, &context, &written);
+	if (!NT_SUCCESS(status)) {
+		CloseHandle(dirobj);
+		free(info);
+		return false;
+	}
+	while (NT_SUCCESS(pNtQueryDirectoryObject(dirobj, info, bufsize, TRUE, FALSE, &context, &written))) {
+		if (!wcsncmp(L"Section", info->TypeName.Buffer, 7)) {
+			ARK_OBJECT_SECTION_ITEM item;
+			RtlZeroMemory(item.section_name, sizeof(item.section_name));
+			RtlZeroMemory(item.section_dir, sizeof(item.section_dir));
+			wcsncpy(item.section_name, info->Name.Buffer, MIN(info->Name.Length / 2, 127));
+			wcsncpy(item.section_dir, dirname.c_str(), MIN(dirname.size(), 127));
+			std::wstring map_name = UNONE::StrFormatW(L"%s\\%s", prefix.c_str(), item.section_name);
+			HANDLE maphd = OpenFileMappingW(FILE_MAP_READ, FALSE, map_name.c_str());
+			if (maphd) {
+				PVOID mapaddr = MapViewOfFileEx(maphd, FILE_MAP_READ, 0, 0, 0, NULL);
+				MEMORY_BASIC_INFORMATION mbi;
+				VirtualQuery(mapaddr, &mbi, sizeof(mbi));
+				item.section_size = (ULONG)mbi.RegionSize;
+				UnmapViewOfFile(mapaddr);
+				CloseHandle(maphd);
+			}
+			item.session_id = session;
+			items.push_back(item);
+		}
+	}
 
-
-	return 1;
+	CloseHandle(dirobj);
+	free(info);
+	return true;
 }
 
 bool ObjectSectionEnum(std::vector<ARK_OBJECT_SECTION_ITEM> &items, ULONG session)
@@ -241,16 +272,23 @@ bool ObjectSectionEnum(std::vector<ARK_OBJECT_SECTION_ITEM> &items)
 	std::vector<ARK_OBJECT_SECTION_ITEM> temps;
 	ObjectSectionEnumR3(temps, ARK_SESSION_GLOBAL);
 	items.insert(items.end(), temps.begin(), temps.end());
-	
+	for (auto &item : items) {
+		wcscpy(item.session_name, L"Global");
+	}
+
 	std::vector<WTS_SESSION_INFOW> sinfos;
 	GetSessions(sinfos);
 
 	for (int i = 0; i < sinfos.size(); i++) {
 		temps.clear();
 		ObjectSectionEnumR3(temps, sinfos[i].SessionId);
+		for (auto &item : temps) {
+			wcscpy(item.session_name, sinfos[i].pWinStationName);
+		}
 		items.insert(items.end(), temps.begin(), temps.end());
 	}
-	
+
+
 	return true;
 }
 

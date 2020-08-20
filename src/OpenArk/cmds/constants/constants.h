@@ -19,11 +19,11 @@
 #include <map>
 
 extern char *MessageRawString;
-extern std::map<int, std::string> ObjectTypeTable;
+extern std::map<int, std::wstring> ObjectTypeTable;
 extern std::map<int, std::string> MessageMapTable;
 
 void InitObjectTypeTable();
-int GetObjectTypeIndex(char* name);
+int GetObjectTypeIndex(wchar_t* name);
 std::string MbiTypeToString(int type);
 std::string MbiStateToString(int type);
 std::string MbiPageProtectToString(int type);

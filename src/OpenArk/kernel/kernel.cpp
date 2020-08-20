@@ -228,16 +228,10 @@ void Kernel::InitKernelEntryView()
 	AddSummaryUpItem(tr("BuildNumber"), DWordToDecQ(UNONE::OsBuildNumber()));
 	AddSummaryUpItem(tr("MajorServicePack"), DWordToDecQ(info.wServicePackMajor));
 	AddSummaryUpItem(tr("MiniorServicePack"), DWordToDecQ(info.wServicePackMinor));
-	ULONG64 r3start = (ULONG64)sys.lpMinimumApplicationAddress;
-	ULONG64 r3end = (ULONG64)sys.lpMaximumApplicationAddress;
-	ULONG64 r0start = 0xFFFF080000000000;
-	ULONG64 r0end = 0xFFFFFFFFFFFFFFFF;
-	if (!UNONE::OsIs64()) {
-		r0start = 0x80000000;
-		r0end = 0xFFFFFFFF;
-	}
-	AddSummaryUpItem(tr("R3 AddressRange"), StrToQ(UNONE::StrFormatA("0x%llX - 0x%llX", r3start, r3end)));
-	AddSummaryUpItem(tr("R0 AddressRange"), StrToQ(UNONE::StrFormatA("0x%llX - 0x%llX", r0start, r0end)));
+
+	auto range = ArkDrvApi::Memory::MemoryRange();
+	AddSummaryUpItem(tr("R3 AddressRange"), StrToQ(UNONE::StrFormatA("0x%llX - 0x%llX", range.r3start, range.r3end)));
+	AddSummaryUpItem(tr("R0 AddressRange"), StrToQ(UNONE::StrFormatA("0x%llX - 0x%llX", range.r0start, range.r0end)));
 	AddSummaryUpItem(tr("Page Size"), StrToQ(UNONE::StrFormatA("%d KB", sys.dwPageSize / 1024)));
 	AddSummaryUpItem(tr("Physical Memory"), StrToQ(UNONE::StrFormatA("%d GB", (int)gb)));
 	AddSummaryUpItem(tr("CPU Count"), DWordToDecQ(sys.dwNumberOfProcessors));
@@ -293,7 +287,7 @@ void Kernel::InitNotifyView()
 		ULONG64 addr = QHexToQWord(qstr);
 		ULONG size = 0x100;
 		auto memrw = new KernelMemoryRW();
-		memrw->ViewMemory(addr, size);
+		memrw->ViewMemory(GetCurrentProcessId(), addr, size);
 		auto memwidget = memrw->GetWidget();
 		memwidget->findChild<QLineEdit*>("readAddrEdit")->setText(qstr);
 		memwidget->findChild<QLineEdit*>("readSizeEdit")->setText(DWordToHexQ(size));
@@ -323,37 +317,25 @@ void Kernel::InitNotifyView()
 
 void Kernel::InitHotkeyView()
 {
-	hotkey_model_ = new QStandardItemModel;
 	QTreeView *view = ui.hotkeyView;
+	hotkey_model_ = new QStandardItemModel;
 	proxy_hotkey_ = new HotkeySortFilterProxyModel(view);
-	proxy_hotkey_->setSourceModel(hotkey_model_);
-	proxy_hotkey_->setDynamicSortFilter(true);
-	proxy_hotkey_->setFilterKeyColumn(1);
-	view->setModel(proxy_hotkey_);
-	view->selectionModel()->setModel(proxy_hotkey_);
-	view->header()->setSortIndicator(-1, Qt::AscendingOrder);
-	view->setSortingEnabled(true);
-	view->viewport()->installEventFilter(this);
-	view->installEventFilter(this);
+
 	std::pair<int, QString> colum_layout[] = { 
 	{ 150, tr("Name") },
 	{ 100, tr("PID.TID") },
-	{ 200, tr("Hotkey") },
+	{ 180, tr("Hotkey") },
+	{ 150, tr("HotkeyObject") },
 	{ 100, tr("HotkeyID") },
 	{ 100, tr("HWND") },
 	{ 180, tr("Title") },
 	{ 180, tr("ClassName") },
 	{ 300, tr("Path") },
 	{ 120, tr("Description") } };
-	QStringList name_list;
-	for (auto p : colum_layout) {
-		name_list << p.second;
-	}
-	hotkey_model_->setHorizontalHeaderLabels(name_list);
-	for (int i = 0; i < _countof(colum_layout); i++) {
-		view->setColumnWidth(i, colum_layout[i].first);
-	}
-	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	SetDefaultTreeViewStyle(view, hotkey_model_, proxy_hotkey_, colum_layout, _countof(colum_layout));
+	view->viewport()->installEventFilter(this);
+	view->installEventFilter(this);
+
 	hotkey_menu_ = new QMenu();
 	hotkey_menu_->addAction(tr("Refresh"), this, [&] { ShowSystemHotkey(); });
 	hotkey_menu_->addSeparator();
@@ -457,7 +439,10 @@ void Kernel::ShowSystemHotkey()
 
 	for (auto item : infos) {
 		auto pid = item.pid;
-		auto &&path = UNONE::PsGetProcessPathW(pid);
+
+		ProcInfo cache;
+		CacheGetProcInfo(pid, cache);
+		auto &&path = QToWStr(cache.path);
 		auto &&name = UNONE::FsPathToNameW(path);
 		if (name.empty()) name = UNONE::StrToW((char*)item.name);
 		auto info = CacheGetFileBaseInfo(WStrToQ(path));
@@ -465,21 +450,24 @@ void Kernel::ShowSystemHotkey()
 		auto wnd_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%X", item.wnd)));
 		auto title_item = new QStandardItem(WStrToQ(UNONE::PsGetWndTextW((HWND)item.wnd)));
 		auto class_item = new QStandardItem(WStrToQ(UNONE::PsGetWndClassNameW((HWND)item.wnd)));
+		auto hk_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", item.hkobj)));
 		auto ptid_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d.%d", item.pid, item.tid)));
 		auto vk_item = new QStandardItem(StrToQ(HotkeyVkToString(item.vk, item.mod1, item.mod2)));
 		auto vkid_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%X", item.id)));
 		auto path_item = new QStandardItem(WStrToQ(path));
 		auto desc_item = new QStandardItem(info.desc);
 		auto count = hotkey_model_->rowCount();
-		hotkey_model_->setItem(count, 0, name_item);
-		hotkey_model_->setItem(count, 1, ptid_item);
-		hotkey_model_->setItem(count, 2, vk_item);
-		hotkey_model_->setItem(count, 3, vkid_item);
-		hotkey_model_->setItem(count, 4, wnd_item);
-		hotkey_model_->setItem(count, 5, title_item);
-		hotkey_model_->setItem(count, 6, class_item);
-		hotkey_model_->setItem(count, 7, path_item);
-		hotkey_model_->setItem(count, 8, desc_item);
+		int i = 0;
+		hotkey_model_->setItem(count, i++, name_item);
+		hotkey_model_->setItem(count, i++, ptid_item);
+		hotkey_model_->setItem(count, i++, vk_item);
+		hotkey_model_->setItem(count, i++, hk_item);
+		hotkey_model_->setItem(count, i++, vkid_item);
+		hotkey_model_->setItem(count, i++, wnd_item);
+		hotkey_model_->setItem(count, i++, title_item);
+		hotkey_model_->setItem(count, i++, class_item);
+		hotkey_model_->setItem(count, i++, path_item);
+		hotkey_model_->setItem(count, i++, desc_item);
 	}
 }
 

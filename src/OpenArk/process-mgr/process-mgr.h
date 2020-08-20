@@ -20,7 +20,7 @@
 #include <QMutex>
 #include <Windows.h>
 #include "ui_process-mgr.h"
-#include "../common/cache/cache.h"
+#include "../common/common.h"
 
 namespace Ui {
 	class ProcessMgr;
@@ -29,14 +29,7 @@ namespace Ui {
 
 class OpenArk;
 
-class ProcSortFilterProxyModel : public QSortFilterProxyModel {
-	Q_OBJECT
-public:
-	ProcSortFilterProxyModel(QWidget *parent) {};
-	~ProcSortFilterProxyModel() {};
-protected:
-	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
-};
+PROXY_FILTER(ProcSortFilterProxyModel);
 class ModSortFilterProxyModel : public QSortFilterProxyModel {
 	Q_OBJECT
 public:
@@ -46,6 +39,7 @@ public:
 protected:
 	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
 };
+
 
 class ProcessMgr : public QWidget {
 	Q_OBJECT

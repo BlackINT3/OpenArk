@@ -642,7 +642,7 @@ void ProcessMgr::onShowHandle()
 	UNONE::PsEnumHandle(pid, [&](SYSTEM_HANDLE_TABLE_ENTRY_INFO &info)->bool {
 		auto count = bottom_model_->rowCount();
 		auto idx = info.ObjectTypeIndex;
-		QStandardItem *type_item = new QStandardItem(StrToQ(UNONE::StrFormatA("%s (%02d)",ObjectTypeTable[idx].c_str(), idx)));
+		QStandardItem *type_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%s (%02d)",ObjectTypeTable[idx].c_str(), idx)));
 		std::string name;
 		if (phd != NULL) {
 			HANDLE dup = NULL;
@@ -663,7 +663,7 @@ void ProcessMgr::onShowHandle()
 				}
 				default:
 					ObGetObjectName((HANDLE)dup, name);
-					static int file_idx = GetObjectTypeIndex("File");
+					static int file_idx = GetObjectTypeIndex(L"File");
 					if (idx == file_idx) UNONE::ObParseToDosPathA(name, name);
 					break;
 				}
