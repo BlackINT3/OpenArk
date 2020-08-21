@@ -40,3 +40,5 @@ PVOID GetNtRoutineAddress(IN PCWSTR name);
 
 NTSTATUS DuplicateInputBuffer(IN PIRP irp, PVOID &inbuf);
 NTSTATUS ReleaseInputBuffer(IN PIRP irp, PVOID &inbuf);
+VOID MmWriteProtectOn(IN KIRQL Irql);
+KIRQL MmWriteProtectOff();

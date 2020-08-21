@@ -35,6 +35,7 @@ typedef NTSTATUS(NTAPI *__MmCopyMemory)(
 	ULONG Flags,
 	PSIZE_T NumberOfBytesTransferred
 );
+#define ARK_MEMROY_HEADER_SIZE (sizeof(ARK_MEMORY_OUT) - sizeof(UCHAR))
 
 BOOLEAN MmReadKernelMemory(PVOID addr, PVOID buf, ULONG len)
 {
@@ -74,9 +75,22 @@ BOOLEAN MmReadKernelMemory(PVOID addr, PVOID buf, ULONG len)
 	return ret;
 }
 
+BOOLEAN MmWriteKernelMemory(PVOID addr, PVOID buf, ULONG len)
+{
+	BOOLEAN ret = FALSE;
+	if (addr <= MM_HIGHEST_USER_ADDRESS) return FALSE;
+	if (!MmIsAddressValid(addr)) return FALSE;
+
+	KIRQL irql = MmWriteProtectOff();
+	RtlCopyMemory(addr, buf, len);
+	MmWriteProtectOn(irql);
+
+	return TRUE;
+}
+
 NTSTATUS MemoryReadData(PARK_MEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
 {
-	ULONG size = inbuf->size + 4;
+	ULONG size = ARK_MEMROY_HEADER_SIZE + inbuf->size;
 	if (size > outlen) {
 		irp->IoStatus.Information = size;
 		return STATUS_BUFFER_OVERFLOW;
@@ -84,23 +98,64 @@ NTSTATUS MemoryReadData(PARK_MEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG o
 	PVOID data = ExAllocatePool(NonPagedPool, size);
 	if (!data) return STATUS_MEMORY_NOT_ALLOCATED;
 
+	BOOL attach = FALSE;
+	PEPROCESS eproc = NULL;
+	KAPC_STATE apc_state;
+	ULONG pid = inbuf->pid;
+	if (pid != 4 && pid != 0 && pid != (ULONG)PsGetCurrentProcessId()) {
+		if (NT_SUCCESS(PsLookupProcessByProcessId((HANDLE)pid, &eproc))) {
+			KeStackAttachProcess(eproc, &apc_state);
+			attach = TRUE;
+		}
+	}
 	BOOLEAN ret = MmReadKernelMemory((PVOID)inbuf->addr, data, size);
+	if (attach) {
+		KeUnstackDetachProcess(&apc_state);
+		ObDereferenceObject(eproc);
+	}
 	if (!ret) {
 		ExFreePool(data);
 		return STATUS_UNSUCCESSFUL;
 	}
 	PARK_MEMORY_OUT memout = (PARK_MEMORY_OUT)outbuf;
 	memout->size = size;
+	memout->pid = pid;
 	RtlCopyMemory(memout->readbuf, data, size);
 	ExFreePool(data);
-	irp->IoStatus.Information = size;
+	irp->IoStatus.Information = ARK_MEMROY_HEADER_SIZE + size;
 	return STATUS_SUCCESS;
 }
 
 NTSTATUS MemoryWriteData(PARK_MEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
 {
-	
-	return 0;
+	ULONG size = ARK_MEMROY_HEADER_SIZE + inbuf->size;
+	if (size > outlen) {
+		irp->IoStatus.Information = size;
+		return STATUS_BUFFER_OVERFLOW;
+	}
+
+	BOOL attach = FALSE;
+	PEPROCESS eproc = NULL;
+	KAPC_STATE apc_state;
+	ULONG pid = inbuf->pid;
+	if (pid != 4 && pid != 0 && pid != (ULONG)PsGetCurrentProcessId()) {
+		if (NT_SUCCESS(PsLookupProcessByProcessId((HANDLE)pid, &eproc))) {
+			KeStackAttachProcess(eproc, &apc_state);
+			attach = TRUE;
+		}
+	}
+	BOOLEAN ret = MmWriteKernelMemory((PVOID)inbuf->addr, inbuf->u.writebuf, size);
+	if (attach) {
+		KeUnstackDetachProcess(&apc_state);
+		ObDereferenceObject(eproc);
+	}
+	if (!ret) {
+		return STATUS_UNSUCCESSFUL;
+	}
+	PARK_MEMORY_OUT memout = (PARK_MEMORY_OUT)outbuf;
+	memout->pid = pid;
+	irp->IoStatus.Information = ARK_MEMROY_HEADER_SIZE;
+	return STATUS_SUCCESS;
 }
 
 NTSTATUS MemoryDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, IN PIRP irp)

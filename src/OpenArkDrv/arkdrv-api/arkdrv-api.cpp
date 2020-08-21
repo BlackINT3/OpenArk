@@ -112,7 +112,7 @@ bool IoControlDriver(DWORD ctlcode, DWORD op, const std::wstring &indata, std::s
 	}
 	bool ret = IoControlDriver(ctlcode, op, (PVOID)tempdata, tempsize, (PVOID*)&info, &outlen);
 	if (!ret) return false;
-	outdata.assign(info, outlen);
+	if (outlen) outdata.assign(info, outlen);
 	free(info);
 	return true;
 }
