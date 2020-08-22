@@ -18,9 +18,7 @@
 #include <arkdrv-api/arkdrv-api.h>
 #include "handle.h"
 
-//https://www.cnblogs.com/Lamboy/p/3307012.html
-
-
+extern ARK_DRIVER ArkDrv;
 
 #define KERNEL_HANDLE_MASK ((ULONG_PTR)((LONG)0x80000000))//
 BOOLEAN ForceCloseHandle(HANDLE pid, HANDLE handle)
@@ -188,9 +186,9 @@ NTSTATUS EnumHandleInfoByPid(LPVOID buf, ULONG len, HANDLE pid)
 
 NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
 {
-	LPVOID buf = outbuf;
-	ULONG len = outlen;
-	auto path = (WCHAR*)inbuf;
+	LPVOID		buf = outbuf;
+	ULONG		len = outlen;
+	auto		path = (WCHAR*)inbuf;
 
 	NTSTATUS	status = STATUS_UNSUCCESSFUL;
 	ULONG		size = 0x10000;
@@ -198,7 +196,13 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 	UINT64		handlecount = 0;
 	PSYSTEM_HANDLE_TABLE_ENTRY_INFO tableinfo = NULL;
 	PHANDLE_INFO	info = (PHANDLE_INFO)buf;
-	ULONG			count = 0;
+	ULONG		count = 0;
+	UCHAR		filetypeindex = 28;
+
+	if (ArkDrv.major > 6) {
+		filetypeindex = 32;
+	}
+
 
 	buffer = ExAllocatePoolWithTag(NonPagedPool, size, 'enhd');
 	if (buffer == NULL) {
@@ -206,16 +210,16 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 	}
 
 	RtlZeroMemory(buffer, size);
-	status = ZwQuerySystemInformation(SystemHandleInformation, buffer, size, 0);
+	status = ZwQuerySystemInformation(SystemHandleInformation, buffer, size, &size);
 	while (status == STATUS_INFO_LENGTH_MISMATCH) {
 		ExFreePoolWithTag(buffer, 'enhd');
-		size = size * 2;
+		// size = size * 2;
 		buffer = ExAllocatePoolWithTag(NonPagedPool, size, 'enhd');
 		if (buffer == NULL) {
 			return STATUS_MEMORY_NOT_ALLOCATED;
 		}
 		RtlZeroMemory(buffer, size);
-		status = ZwQuerySystemInformation(SystemHandleInformation, buffer, size, 0);
+		status = ZwQuerySystemInformation(SystemHandleInformation, buffer, size, &size);
 	}
 
 	if (!NT_SUCCESS(status)) return status;
@@ -227,9 +231,10 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 	LONG exactcnt = 0;
 	for (int i = 0; i < handlecount; i++) {
 		ULONG typeindex = (ULONG)tableinfo[i].ObjectTypeIndex;
-		if (typeindex == 28) exactcnt++;
+		if (typeindex == filetypeindex) exactcnt++;
 	}
-	ULONG exactsize = sizeof(HANDLE_INFO) + (exactcnt-1) * sizeof(HANDLE_ITEM);
+	
+	ULONG exactsize = sizeof(HANDLE_INFO) + (exactcnt > 0 ? (exactcnt - 1) : 0) * sizeof(HANDLE_ITEM);
 	if (buf == NULL || len < exactsize) {
 		irp->IoStatus.Information = exactsize + 10 * sizeof(HANDLE_ITEM);
 		return STATUS_BUFFER_OVERFLOW;
@@ -243,8 +248,6 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 		ULONG			typeindex = (ULONG)tableinfo[i].ObjectTypeIndex;
 		LPVOID			object = tableinfo[i].Object;
 
-		if (typeindex != 28) continue;;
-
 		CLIENT_ID					cid = { 0 };
 		OBJECT_ATTRIBUTES			oa = { 0 };
 		HANDLE						hprocess = NULL;
@@ -255,6 +258,8 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 		ULONG						refcount = 0;
 		ULONG						flag = 0;
 		PHANDLE_ITEM				item = &(info->items[count]);
+
+		if (typeindex != filetypeindex) continue;;
 
 		cid.UniqueProcess = (HANDLE)processid;
 		cid.UniqueThread = (HANDLE)0;
@@ -278,26 +283,37 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 			}
 			RtlZeroMemory(nameinfo, 1024);
 			status = ZwQueryObject(hdupobj, (OBJECT_INFORMATION_CLASS)1, nameinfo, 1024, &flag); //ObjectNameInformation
-			if (nameinfo->Name.Length > 0 && wcsstr(_wcslwr(nameinfo->Name.Buffer), path)) {
-				// filter the file path
-				ZwQueryObject(hdupobj, ObjectBasicInformation, &basicinfo, sizeof(OBJECT_BASIC_INFORMATION), NULL);
-				typeinfo = (POBJECT_TYPE_INFORMATION)ExAllocatePoolWithTag(NonPagedPool, 256, 'enhd');
-				if (typeinfo == NULL) {
-					status = STATUS_MEMORY_NOT_ALLOCATED;
-					break;
+			
+			if (nameinfo->Name.Length > 0) {
+				WCHAR pathlower[260] = { 0 };
+				WCHAR namelower[260] = { 0 };
+
+				wcsncpy(pathlower, path, wcslen(path));
+				wcsncpy(namelower, nameinfo->Name.Buffer, nameinfo->Name.Length / sizeof(WCHAR));
+
+				_wcslwr(pathlower);
+				_wcslwr(namelower);
+				if (wcsstr(namelower, pathlower)) {
+					// filter the file path
+					ZwQueryObject(hdupobj, ObjectBasicInformation, &basicinfo, sizeof(OBJECT_BASIC_INFORMATION), NULL);
+					typeinfo = (POBJECT_TYPE_INFORMATION)ExAllocatePoolWithTag(NonPagedPool, 256, 'enhd');
+					if (typeinfo == NULL) {
+						status = STATUS_MEMORY_NOT_ALLOCATED;
+						break;
+					}
+					RtlZeroMemory(typeinfo, 256);
+					status = ZwQueryObject(hdupobj, (OBJECT_INFORMATION_CLASS)2, typeinfo, 256, &flag); // ObjectTypeInformation
+					refcount = basicinfo.ReferenceCount - basicinfo.HandleCount; // maybe bug?
+					item->pid = (HANDLE)processid;
+					item->handle = handle;
+					item->object = object;
+					item->ref_count = refcount;
+					item->type_index = typeindex;
+					RtlCopyMemory(item->name, nameinfo->Name.Buffer, sizeof(WCHAR) * nameinfo->Name.Length);
+					RtlCopyMemory(item->type_name, typeinfo->TypeName.Buffer, sizeof(WCHAR) * typeinfo->TypeName.Length);
+					count++;
+					KdPrint(("NAME:%wZ\t\t\tTYPE:%wZ\n", &(nameinfo->Name), &(typeinfo->TypeName)));
 				}
-				RtlZeroMemory(typeinfo, 256);
-				status = ZwQueryObject(hdupobj, (OBJECT_INFORMATION_CLASS)2, typeinfo, 256, &flag); // ObjectTypeInformation
-				refcount = basicinfo.ReferenceCount - basicinfo.HandleCount; // maybe bug?
-				item->pid = (HANDLE)processid;
-				item->handle = handle;
-				item->object = object;
-				item->ref_count = refcount;
-				item->type_index = typeindex;
-				RtlCopyMemory(item->name, nameinfo->Name.Buffer, sizeof(WCHAR) * nameinfo->Name.Length);
-				RtlCopyMemory(item->type_name, typeinfo->TypeName.Buffer, sizeof(WCHAR) * typeinfo->TypeName.Length);
-				count++;
-				KdPrint(("NAME:%wZ\t\t\tTYPE:%wZ\n", &(nameinfo->Name), &(typeinfo->TypeName)));
 			}
 			break;
 		}
@@ -310,10 +326,6 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 
 	info->count = count; // set count of item
 	if (buffer)  ExFreePoolWithTag(buffer, 'enhd');
-	if (count > 0){
-		irp->IoStatus.Information = sizeof(HANDLE_INFO) + (count - 1) * sizeof(HANDLE_ITEM);
-	}else {
-		irp->IoStatus.Information = sizeof(HANDLE_INFO);
-	}
+	irp->IoStatus.Information = sizeof(HANDLE_INFO) + (count > 0 ? (count-1) : 0) * sizeof(HANDLE_ITEM);
 	return status;
 }
