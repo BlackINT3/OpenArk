@@ -56,7 +56,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="writeSizeEdit">
+      <widget class="QLineEdit" name="writeDataEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -69,7 +69,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="writememBtn">
+      <widget class="QPushButton" name="writeMemBtn">
        <property name="text">
         <string>WriteMemory</string>
        </property>
@@ -175,7 +175,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="readmemBtn_2">
+      <widget class="QPushButton" name="readMemBtn">
        <property name="text">
         <string>ReadMemory</string>
        </property>

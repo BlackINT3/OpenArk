@@ -64,15 +64,28 @@ KernelMemoryRW::KernelMemoryRW()
 	file.open(QFile::ReadOnly);
 	memui_ = loader.load(&file);
 	file.close();
-	DEFINE_WIDGET(QPushButton*, readmemBtn);
-	connect(readmemBtn, &QPushButton::clicked, this, [&] {
+	DEFINE_WIDGET(QPushButton*, readMemBtn);
+	connect(readMemBtn, &QPushButton::clicked, this, [&] {
 		DEFINE_WIDGET(QLineEdit*, pidEdit);
-		DEFINE_WIDGET(QLineEdit*, addrEdit);
-		DEFINE_WIDGET(QLineEdit*, sizeEdit);
-		ULONG64 addr = VariantInt64(addrEdit->text().toStdString());
-		ULONG size = VariantInt(sizeEdit->text().toStdString());
+		DEFINE_WIDGET(QLineEdit*, readAddrEdit);
+		DEFINE_WIDGET(QLineEdit*, readSizeEdit);
+		ULONG64 addr = VariantInt64(readAddrEdit->text().toStdString());
+		ULONG size = VariantInt(readSizeEdit->text().toStdString());
 		ULONG pid = VariantInt(pidEdit->text().toStdString());
 		ViewMemory(pid, addr, size);
+	});
+
+	DEFINE_WIDGET(QPushButton*, writeMemBtn);
+	connect(writeMemBtn, &QPushButton::clicked, this, [&] {
+		DEFINE_WIDGET(QLineEdit*, writeDataEdit);
+		auto data = writeDataEdit->text().toStdString();
+		UNONE::StrReplaceA(data, " ");
+		data = UNONE::StrStreamToHexStrA(data);
+		if (ArkDrvApi::Memory::MemoryWrite(GetCurrentProcessId(), data)) {
+			MsgBoxInfo(tr("Write Memory ok"));
+		} else {
+			MsgBoxError(tr("Write Memory error"));
+		}
 	});
 
 	DEFINE_WIDGET(QLineEdit*, pidEdit);

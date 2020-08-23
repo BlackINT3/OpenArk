@@ -59,6 +59,9 @@
     <ClCompile Include="kwingui\ops-hotkey\utils\utils.cpp">
       <Filter>kwingui\ops-hotkey\utils</Filter>
     </ClCompile>
+    <ClCompile Include="common\c-assist.c">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
@@ -194,6 +197,9 @@
     </ClInclude>
     <ClInclude Include="kwingui\ops-hotkey\utils\utils.h">
       <Filter>kwingui\ops-hotkey\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="common\c-assist.h">
+      <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

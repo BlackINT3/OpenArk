@@ -44,15 +44,24 @@ bool MemoryRead(ULONG pid, ULONG64 addr, ULONG size, std::string &readbuf)
 	DWORD outlen;
 	PARK_MEMORY_OUT memout;
 	bool ret = IoControlDriver(IOCTL_ARK_MEMORY, ARK_MEMORY_READ, &memin, sizeof(memin), (PVOID*)&memout, &outlen);
-	if (!ret)	 return false;
-	readbuf.resize(memout->size);
-	memcpy(&readbuf[0], memout->readbuf, memout->size);
-	free(memout);
+	if (!ret) return false;
+	if (memout) {
+		readbuf.resize(memout->size);
+		memcpy(&readbuf[0], memout->readbuf, memout->size);
+		free(memout);
+	}
 	return true;
 }
 bool MemoryWrite(ULONG64 addr, std::string &writebuf)
 {
-	
+	ARK_MEMORY_IN memin;
+	memin.addr = (ULONG64)writebuf.c_str();
+	memin.size = writebuf.size();
+	DWORD outlen;
+	PARK_MEMORY_OUT memout;
+	bool ret = IoControlDriver(IOCTL_ARK_MEMORY, ARK_MEMORY_WRITE, &memin, sizeof(memin), (PVOID*)&memout, &outlen);
+	if (!ret) return false;
+	//if (memout)	free(memout);
 	return true;
 }
 } // namespace Memory

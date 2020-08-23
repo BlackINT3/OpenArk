@@ -13,8 +13,9 @@
 ** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
 **
 ****************************************************************************/
-#include "../arkdrv-api/arkdrv-api.h"
-#include "../common/common.h"
+#include <arkdrv-api/arkdrv-api.h>
+#include <common/common.h>
+#include <common/c-assist.h>
 #include "memory.h"
 
 #ifndef MM_COPY_MEMORY_VIRTUAL
@@ -90,12 +91,12 @@ BOOLEAN MmWriteKernelMemory(PVOID addr, PVOID buf, ULONG len)
 
 NTSTATUS MemoryReadData(PARK_MEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
 {
-	ULONG size = ARK_MEMROY_HEADER_SIZE + inbuf->size;
-	if (size > outlen) {
-		irp->IoStatus.Information = size;
+	ULONG total = ARK_MEMROY_HEADER_SIZE + inbuf->size;
+	if (total > outlen) {
+		irp->IoStatus.Information = total;
 		return STATUS_BUFFER_OVERFLOW;
 	}
-	PVOID data = ExAllocatePool(NonPagedPool, size);
+	PVOID data = ExAllocatePool(NonPagedPool, inbuf->size);
 	if (!data) return STATUS_MEMORY_NOT_ALLOCATED;
 
 	BOOL attach = FALSE;
@@ -108,7 +109,7 @@ NTSTATUS MemoryReadData(PARK_MEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG o
 			attach = TRUE;
 		}
 	}
-	BOOLEAN ret = MmReadKernelMemory((PVOID)inbuf->addr, data, size);
+	BOOLEAN ret = MmReadKernelMemory((PVOID)inbuf->addr, data, inbuf->size);
 	if (attach) {
 		KeUnstackDetachProcess(&apc_state);
 		ObDereferenceObject(eproc);
@@ -118,11 +119,11 @@ NTSTATUS MemoryReadData(PARK_MEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG o
 		return STATUS_UNSUCCESSFUL;
 	}
 	PARK_MEMORY_OUT memout = (PARK_MEMORY_OUT)outbuf;
-	memout->size = size;
+	memout->size = inbuf->size;
 	memout->pid = pid;
-	RtlCopyMemory(memout->readbuf, data, size);
+	RtlCopyMemory(memout->readbuf, data, inbuf->size);
 	ExFreePool(data);
-	irp->IoStatus.Information = ARK_MEMROY_HEADER_SIZE + size;
+	irp->IoStatus.Information = total;
 	return STATUS_SUCCESS;
 }
 

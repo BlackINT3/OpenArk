@@ -51,6 +51,7 @@ bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *o
 	if (arkdrv == INVALID_HANDLE_VALUE)
 		return false;
 
+	*outbuf = NULL;
 	DWORD wrap_inlen = sizeof(op) + inlen;
 	PUCHAR wrap_inbuf = (PUCHAR)malloc(wrap_inlen);
 	if (!wrap_inbuf) return false;
@@ -76,7 +77,6 @@ bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *o
 		return false;
 	}
 
-	*outbuf = NULL;
 	auto bufsize = retlen;
 	auto buf = (PVOID)calloc(bufsize, 1);
 	if (!buf) return false;

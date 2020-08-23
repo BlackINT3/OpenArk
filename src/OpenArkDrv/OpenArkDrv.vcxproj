@@ -242,6 +242,7 @@
     <ClCompile Include="arkdrv-api\api-storage\api-storage.cpp" />
     <ClCompile Include="arkdrv-api\api-wingui\api-wingui.cpp" />
     <ClCompile Include="arkdrv-api\arkdrv-api.cpp" />
+    <ClCompile Include="common\c-assist.c" />
     <ClCompile Include="common\common.cpp" />
     <ClCompile Include="driver-entry.cpp" />
     <ClCompile Include="kdriver\kdriver.cpp" />
@@ -264,6 +265,7 @@
     <ClInclude Include="arkdrv-api\api-storage\api-storage.h" />
     <ClInclude Include="arkdrv-api\api-wingui\api-wingui.h" />
     <ClInclude Include="arkdrv-api\arkdrv-api.h" />
+    <ClInclude Include="common\c-assist.h" />
     <ClInclude Include="common\common.h" />
     <ClInclude Include="kdriver\kdriver.h" />
     <ClInclude Include="kmemory\kmemory.h" />
