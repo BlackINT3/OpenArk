@@ -18,6 +18,7 @@
 #include <QtCore>
 #include <QtWidgets>
 #include <QMutex>
+#include <qbuttongroup.h>
 #include <Windows.h>
 #include <mutex>
 #include "ui_coderkit.h"
@@ -44,6 +45,7 @@ private slots:
 	void onMessageId();
 	void onAlgIndexChanged(int index);
 	void onAlgPlainChanged();
+	void onFormatChanged();
 
 private:
 	void InitAsmToolsView();
@@ -52,10 +54,15 @@ private:
 	void UpdateEditCodeText(const std::wstring& data, QObject* ignored_obj);
 	QString NasmAsm(std::string data, int bits, const std::string &format);
 	QString NasmDisasm(const std::string &data, int bits);
+	void SolveCodeTextFormat(std::string &text, std::string &format, int interval, int id);
 
 private:
 	Ui::CoderKit ui;
 	OpenArk* parent_;
 	std::mutex upt_mutex_;
 	int alg_idx_;
+	bool is_user_;
+	bool is_format_changed_;
+	QButtonGroup radio_group_type_;
+	QButtonGroup radio_group_interval_;
 };

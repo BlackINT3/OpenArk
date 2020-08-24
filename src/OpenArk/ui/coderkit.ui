@@ -54,24 +54,36 @@
        <string>CodePoints</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_23">
          <property name="font">
           <font>
-           <pointsize>10</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>Text:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <string>Format:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="3" column="1">
+        <widget class="QTextEdit" name="textEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>130</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
         <widget class="QLabel" name="label_3">
          <property name="font">
           <font>
@@ -88,10 +100,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="4" column="1">
         <widget class="QLineEdit" name="defaultEdit"/>
        </item>
-       <item row="2" column="0">
+       <item row="5" column="0">
         <widget class="QLabel" name="label_2">
          <property name="font">
           <font>
@@ -108,10 +120,10 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="5" column="1">
         <widget class="QLineEdit" name="asciiEdit"/>
        </item>
-       <item row="3" column="0">
+       <item row="6" column="0">
         <widget class="QLabel" name="label_4">
          <property name="font">
           <font>
@@ -128,10 +140,10 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="6" column="1">
         <widget class="QLineEdit" name="unicodeEdit"/>
        </item>
-       <item row="4" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="label_5">
          <property name="font">
           <font>
@@ -148,10 +160,10 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="7" column="1">
         <widget class="QLineEdit" name="utf7Edit"/>
        </item>
-       <item row="5" column="0">
+       <item row="8" column="0">
         <widget class="QLabel" name="label_6">
          <property name="font">
           <font>
@@ -168,10 +180,10 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="8" column="1">
         <widget class="QLineEdit" name="utf8Edit"/>
        </item>
-       <item row="6" column="0">
+       <item row="9" column="0">
         <widget class="QLabel" name="label_7">
          <property name="font">
           <font>
@@ -188,10 +200,10 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="9" column="1">
         <widget class="QLineEdit" name="utf16Edit"/>
        </item>
-       <item row="7" column="0">
+       <item row="11" column="0">
         <widget class="QLabel" name="label_8">
          <property name="font">
           <font>
@@ -208,10 +220,10 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="11" column="1">
         <widget class="QLineEdit" name="butf16Edit"/>
        </item>
-       <item row="8" column="0">
+       <item row="12" column="0">
         <widget class="QLabel" name="label_9">
          <property name="font">
           <font>
@@ -228,10 +240,10 @@
          </property>
         </widget>
        </item>
-       <item row="8" column="1">
+       <item row="12" column="1">
         <widget class="QLineEdit" name="utf32Edit"/>
        </item>
-       <item row="9" column="0">
+       <item row="13" column="0">
         <widget class="QLabel" name="label_10">
          <property name="font">
           <font>
@@ -248,10 +260,10 @@
          </property>
         </widget>
        </item>
-       <item row="9" column="1">
+       <item row="13" column="1">
         <widget class="QLineEdit" name="butf32Edit"/>
        </item>
-       <item row="10" column="0">
+       <item row="14" column="0">
         <widget class="QLabel" name="label_11">
          <property name="font">
           <font>
@@ -268,10 +280,10 @@
          </property>
         </widget>
        </item>
-       <item row="10" column="1">
+       <item row="14" column="1">
         <widget class="QLineEdit" name="gbkEdit"/>
        </item>
-       <item row="11" column="0">
+       <item row="15" column="0">
         <widget class="QLabel" name="label_12">
          <property name="font">
           <font>
@@ -288,10 +300,10 @@
          </property>
         </widget>
        </item>
-       <item row="11" column="1">
+       <item row="15" column="1">
         <widget class="QLineEdit" name="big5Edit"/>
        </item>
-       <item row="12" column="0">
+       <item row="18" column="0">
         <widget class="QLabel" name="label_13">
          <property name="font">
           <font>
@@ -308,22 +320,89 @@
          </property>
         </widget>
        </item>
-       <item row="12" column="1">
+       <item row="18" column="1">
         <widget class="QLineEdit" name="cp866Edit"/>
        </item>
-       <item row="0" column="1">
-        <widget class="QTextEdit" name="textEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+       <item row="1" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QRadioButton" name="nullRadio_2">
+           <property name="text">
+            <string>null</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="slashxRadio_2">
+           <property name="text">
+            <string>\x</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="spaceRadio_2">
+           <property name="text">
+            <string>space</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="assembleRadio">
+           <property name="text">
+            <string>assemble</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="byteRadio">
+           <property name="text">
+            <string>1 byte</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="twoBytesRadio">
+           <property name="text">
+            <string>2 bytes</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="fourBytesRadio">
+           <property name="text">
+            <string>4 bytes</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>130</height>
-          </size>
+         <property name="text">
+          <string>Text:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
