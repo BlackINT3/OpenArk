@@ -446,7 +446,7 @@ void ProcessMgr::onCloseHandle()
 {
 	auto src_hd = (HANDLE)(UNONE::StrToHex64A(BottomCurViewItemData(HD.value).toStdString()));
 	DWORD pid = ProcCurPid();
-	HANDLE phd = OpenProcessWrapper(PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	HANDLE phd = ArkDrvApi::Process::OpenProcess(PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
 	if (!phd) {
 		ERR(L"OpenProcess pid:%d err:%d", pid, GetLastError());
 		return;
@@ -514,7 +514,7 @@ void ProcessMgr::onHideMemoryItem(bool checked)
 void ProcessMgr::onDumpMemory()
 {
 	DWORD pid = ProcCurPid();
-	HANDLE phd = OpenProcessWrapper(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	HANDLE phd = ArkDrvApi::Process::OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
 	if (!phd) {
 		ERR(L"OpenProcess pid:%d err:%d", pid, GetLastError());
 		return;
@@ -587,7 +587,7 @@ void ProcessMgr::onShowModule()
 	bool activate = false;
 	auto &&path = UNONE::PsGetProcessPathW(pid);
 	if (path.empty()) {
-		UNONE::InterCreateTlsValue(ArkDrvApi::Process::OpenProcess, UNONE::PROCESS_VID);
+		UNONE::InterCreateTlsValue(ArkDrvApi::Process::OpenProcessR0, UNONE::PROCESS_VID);
 		path = UNONE::PsGetProcessPathW(pid);
 		activate = true;
 	}
@@ -638,7 +638,7 @@ void ProcessMgr::onShowHandle()
 	InitHandleView();
 	InitObjectTypeTable();
 	DWORD pid = ProcCurPid();
-	HANDLE phd = OpenProcessWrapper(PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	HANDLE phd = ArkDrvApi::Process::OpenProcess(PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
 	UNONE::PsEnumHandle(pid, [&](SYSTEM_HANDLE_TABLE_ENTRY_INFO &info)->bool {
 		auto count = bottom_model_->rowCount();
 		auto idx = info.ObjectTypeIndex;
@@ -692,7 +692,7 @@ void ProcessMgr::onShowMemory()
 	InitMemoryView();
 
 	DWORD pid = ProcCurPid();
-	HANDLE phd = OpenProcessWrapper(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
+	HANDLE phd = ArkDrvApi::Process::OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
 	UNONE::PsEnumMemory(pid, [&](MEMORY_BASIC_INFORMATION &mbi)->bool {
 		
 		std::wstring mod_name;

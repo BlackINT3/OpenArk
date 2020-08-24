@@ -117,13 +117,70 @@ void KernelObject::InitObjectSectionsView()
 
 	objsections_menu_ = new QMenu();
 	objsections_menu_->addAction(tr("Refresh"), this, [&] {
-		ShowObjectTypes();
+		ShowObjectSections();
 	});
 	objsections_menu_->addAction(tr("Copy"), this, [&] {
-		auto view = ui_->objectTypesView;
+		auto view = ui_->objectSectionsView;
 		ClipboardCopyData(GetCurItemViewData(view, GetCurViewColumn(view)).toStdString());
 	});
 
+	auto GetSectionData = [&](QTreeView *view, ULONG64 &map_addr, ULONG &map_size, HANDLE &map_hd){
+		map_size = map_addr = 0;
+		std::string section_data;
+		auto name = GetCurItemViewData(view, 1);
+		auto size = VariantInt(GetCurItemViewData(view, 2).toStdString(), 16);
+		auto session = GetCurItemViewData(view, 3);
+		std::wstring prefix, section_name;
+		std::wstring map_name;
+		section_name = name.toStdWString();
+		if (session.isEmpty()) {
+			prefix = L"Global";
+			map_name = UNONE::StrFormatW(L"%s\\%s", prefix.c_str(), section_name.c_str());
+		} else {
+			prefix = L"";
+			map_name = section_name;
+		}
+		map_hd = OpenFileMappingW(FILE_MAP_READ, FALSE, map_name.c_str());
+		if (map_hd) {
+			map_addr = (ULONG64)MapViewOfFileEx(map_hd, FILE_MAP_READ, 0, 0, size, NULL);
+			if (!map_addr) {
+				CloseHandle(map_hd);
+				return;
+			}
+			map_size = size;
+		}
+	};
+
+	objsections_menu_->addAction(tr("Dump to File"), this, [&] {
+		ULONG64 map_addr; ULONG map_size; HANDLE map_hd;
+		GetSectionData(ui_->objectSectionsView, map_addr, map_size, map_hd);
+		if (!map_addr) return;
+		std::string data((char*)map_addr, map_size);
+		QString filename = WStrToQ(UNONE::StrFormatW(L"%X_%X", map_addr, map_size));
+		QString dumpmem = QFileDialog::getSaveFileName(this, tr("Save to"), filename, tr("DumpMemory(*)"));
+		if (!dumpmem.isEmpty()) {
+			UNONE::FsWriteFileDataW(dumpmem.toStdWString(), data) ?
+				MsgBoxInfo(tr("Dump memory to file ok")) :
+				MsgBoxError(tr("Dump memory to file error"));
+		}
+	});
+
+	objsections_menu_->addAction(tr("Memory Edit"), this, [&] {
+		ULONG64 map_addr; ULONG map_size; HANDLE map_hd;
+		GetSectionData(ui_->objectSectionsView, map_addr, map_size, map_hd);
+		if (!map_addr) return;
+		auto memrw = new KernelMemoryRW();
+		QList<QVariant> vars{ map_addr, (uint)map_hd};
+		memrw->RegFreeCallback([&](QList<QVariant> vars) {
+			PVOID addr = (PVOID)vars[0].toLongLong();
+			HANDLE hd = (HANDLE)vars[1].toUInt();
+			UnmapViewOfFile(addr);
+			CloseHandle(hd);
+		}, vars);
+		map_size = MIN(map_size, PAGE_SIZE);
+		memrw->ViewMemory(GetCurrentProcessId(), map_addr, map_size);
+		memrw->OpenNewWindow(qobject_cast<QWidget*>(this->parent()), map_addr, map_size);
+	});
 	ShowObjectTypes();
 	ShowObjectSections();
 }

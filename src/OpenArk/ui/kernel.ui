@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>982</width>
-    <height>730</height>
+    <height>582</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabKernelEntry">
       <attribute name="title">
@@ -91,7 +91,7 @@
        <item>
         <widget class="QTabWidget" name="tabDriver">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tabDrivers">
           <attribute name="title">
@@ -197,21 +197,9 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="installExpiredBtn">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>110</width>
-                    <height>0</height>
-                   </size>
-                  </property>
+                 <widget class="QPushButton" name="signBtn">
                   <property name="text">
-                   <string>Install Expired</string>
+                   <string>Sign</string>
                   </property>
                  </widget>
                 </item>
@@ -268,13 +256,6 @@
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="signBtn">
-                  <property name="text">
-                   <string>Sign</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
                  <widget class="QPushButton" name="installUnsignedBtn">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -284,12 +265,50 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>110</width>
+                    <width>100</width>
                     <height>0</height>
                    </size>
                   </property>
                   <property name="text">
                    <string>Install Unsigned</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="uninstallBtn">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>100</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Uninstall</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="writeRegBtn">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>100</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Write Registry</string>
                   </property>
                  </widget>
                 </item>
@@ -337,6 +356,25 @@
                  </spacer>
                 </item>
                 <item>
+                 <widget class="QPushButton" name="installExpiredBtn">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>100</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Install Expired</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QPushButton" name="installNormallyBtn">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -346,7 +384,7 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>110</width>
+                    <width>100</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -356,9 +394,21 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="uninstallBtn">
+                 <widget class="QPushButton" name="cleanRegBtn">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>100</width>
+                    <height>0</height>
+                   </size>
+                  </property>
                   <property name="text">
-                   <string>Uninstall</string>
+                   <string>Clean Registry</string>
                   </property>
                  </widget>
                 </item>
@@ -696,7 +746,7 @@
        <item>
         <widget class="QTabWidget" name="tabStorage">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tabFileFilter">
           <attribute name="title">

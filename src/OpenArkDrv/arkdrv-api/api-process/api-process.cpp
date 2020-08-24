@@ -18,7 +18,7 @@
 #else
 namespace ArkDrvApi {
 namespace Process {
-HANDLE WINAPI OpenProcess(DWORD access, BOOL inherit, DWORD pid)
+HANDLE WINAPI OpenProcessR0(DWORD access, BOOL inherit, DWORD pid)
 {
 	std::string outdata;
 	PROCESS_OPEN_INFO info; 
@@ -31,7 +31,26 @@ HANDLE WINAPI OpenProcess(DWORD access, BOOL inherit, DWORD pid)
 	return phd;
 }
 
-HANDLE WINAPI OpenThread(DWORD access, BOOL inherit, DWORD tid)
+HANDLE WINAPI OpenProcess(DWORD access, BOOL inherit, DWORD pid)
+{
+	HANDLE phd = ::OpenProcess(access, inherit, pid);
+	if (phd) return phd;
+
+	if (GetLastError() != ERROR_ACCESS_DENIED) {
+		ERR(L"OpenProcess pid:%d err:%d", pid, GetLastError());
+		return NULL;
+	}
+
+	phd = OpenProcessR0(access, inherit, pid);
+	if (!phd) {
+		ERR(L"OpenProcess by Kernel pid:%d err:%d", pid, GetLastError());
+		return NULL;
+	}
+
+	return phd;
+}
+
+HANDLE WINAPI OpenThreadR0(DWORD access, BOOL inherit, DWORD tid)
 {
 	std::string outdata;
 	THREAD_OPEN_INFO info;
@@ -41,6 +60,16 @@ HANDLE WINAPI OpenThread(DWORD access, BOOL inherit, DWORD tid)
 	bool ret = IoControlDriver(IOCTL_ARK_PROCESS, THREAD_OPEN, TO_STREAM(info), outdata);
 	if (!ret) return NULL;
 	HANDLE thd = (HANDLE)*(DWORD*)outdata.c_str();
+	return thd;
+}
+
+HANDLE WINAPI OpenThread(DWORD access, BOOL inherit, DWORD tid)
+{
+	HANDLE thd = ::OpenThread(access, inherit, tid);
+	if (!thd && GetLastError() == ERROR_ACCESS_DENIED) {
+		thd = OpenThreadR0(access, inherit, tid);
+		if (!thd) return 0;
+	}
 	return thd;
 }
 } // namespace Process

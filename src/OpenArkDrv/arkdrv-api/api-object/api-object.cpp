@@ -164,11 +164,18 @@ typedef enum _WTS_CONNECTSTATE_CLASS {
 typedef struct _WTS_SESSION_INFOW {
 	DWORD SessionId;             // session id
 	LPWSTR pWinStationName;      // name of WinStation this session is
-								 // connected to
+									   // connected to
 	WTS_CONNECTSTATE_CLASS State; // connection state (see enum)
 } WTS_SESSION_INFOW, *PWTS_SESSION_INFOW;
 
-bool GetSessions(std::vector<WTS_SESSION_INFOW> &sinfos)
+typedef struct _SESSION_INFOW {
+	DWORD SessionId;             // session id
+	std::wstring pWinStationName;      // name of WinStation this session is
+								 // connected to
+	WTS_CONNECTSTATE_CLASS State; // connection state (see enum)
+} SESSION_INFOW, *PSESSION_INFOW;
+
+bool GetSessions(std::vector<SESSION_INFOW> &sinfos)
 {
 	typedef BOOL (WINAPI *__WTSEnumerateSessionsW)(
 		IN HANDLE          hServer,
@@ -190,7 +197,11 @@ bool GetSessions(std::vector<WTS_SESSION_INFOW> &sinfos)
 	if (!ret) return false;
 
 	for (int i = 0; i < scount; i++) {
-		sinfos.push_back(sessions[i]);
+		SESSION_INFOW info;
+		info.SessionId = sessions[i].SessionId;
+		info.pWinStationName = sessions[i].pWinStationName;
+		info.State = sessions[i].State;
+		sinfos.push_back(info);
 	}
 
 	pWTSFreeMemory(sessions);
@@ -206,7 +217,7 @@ bool ObjectSectionEnumR3(std::vector<ARK_OBJECT_SECTION_ITEM> &items, ULONG sess
 		prefix = L"Global";
 	} else {
 		dirname = UNONE::StrFormatW(L"\\Sessions\\%u\\BaseNamedObjects", session);
-		prefix = dirname;
+		prefix = L"";
 	}
 
 	#define DIRECTORY_QUERY                 (0x0001)
@@ -242,7 +253,13 @@ bool ObjectSectionEnumR3(std::vector<ARK_OBJECT_SECTION_ITEM> &items, ULONG sess
 			RtlZeroMemory(item.section_dir, sizeof(item.section_dir));
 			wcsncpy(item.section_name, info->Name.Buffer, MIN(info->Name.Length / 2, 127));
 			wcsncpy(item.section_dir, dirname.c_str(), MIN(dirname.size(), 127));
-			std::wstring map_name = UNONE::StrFormatW(L"%s\\%s", prefix.c_str(), item.section_name);
+			std::wstring map_name;
+			if (!prefix.empty()) {
+				map_name = UNONE::StrFormatW(L"%s\\%s", prefix.c_str(), item.section_name);
+			} else {
+				map_name = item.section_name;
+			}
+			
 			HANDLE maphd = OpenFileMappingW(FILE_MAP_READ, FALSE, map_name.c_str());
 			if (maphd) {
 				PVOID mapaddr = MapViewOfFileEx(maphd, FILE_MAP_READ, 0, 0, 0, NULL);
@@ -251,6 +268,8 @@ bool ObjectSectionEnumR3(std::vector<ARK_OBJECT_SECTION_ITEM> &items, ULONG sess
 				item.section_size = (ULONG)mbi.RegionSize;
 				UnmapViewOfFile(mapaddr);
 				CloseHandle(maphd);
+			} else {
+				ERR(L"%s %d", map_name.c_str(), GetLastError());
 			}
 			item.session_id = session;
 			items.push_back(item);
@@ -276,14 +295,14 @@ bool ObjectSectionEnum(std::vector<ARK_OBJECT_SECTION_ITEM> &items)
 		wcscpy(item.session_name, L"Global");
 	}
 
-	std::vector<WTS_SESSION_INFOW> sinfos;
+	std::vector<SESSION_INFOW> sinfos;
 	GetSessions(sinfos);
 
 	for (int i = 0; i < sinfos.size(); i++) {
 		temps.clear();
 		ObjectSectionEnumR3(temps, sinfos[i].SessionId);
 		for (auto &item : temps) {
-			wcscpy(item.session_name, sinfos[i].pWinStationName);
+			wcscpy(item.session_name, sinfos[i].pWinStationName.c_str());
 		}
 		items.insert(items.end(), temps.begin(), temps.end());
 	}

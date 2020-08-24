@@ -136,12 +136,12 @@ void Kernel::onClickKernelMode()
 		ui.kernelModeBtn->setText(tr("Exit KernelMode"));
 		INFO("Enter KernelMode ok");
 	} else {
-		if (!driver_->UninstallDriver(srvname)) {
-			QERR_W("UninstallDriver %s err", QToWChars(srvname));
-			return;
-		}
 		if (!ArkDrvApi::DisconnectDriver()) {
 			ERR("DisconnectDriver err");
+			return;
+		}
+		if (!driver_->UninstallDriver(srvname)) {
+			QERR_W("UninstallDriver %s err", QToWChars(srvname));
 			return;
 		}
 		ui.kernelModeBtn->setText(tr("Enter KernelMode"));
@@ -288,15 +288,7 @@ void Kernel::InitNotifyView()
 		ULONG size = 0x100;
 		auto memrw = new KernelMemoryRW();
 		memrw->ViewMemory(GetCurrentProcessId(), addr, size);
-		auto memwidget = memrw->GetWidget();
-		memwidget->findChild<QLineEdit*>("readAddrEdit")->setText(qstr);
-		memwidget->findChild<QLineEdit*>("readSizeEdit")->setText(DWordToHexQ(size));
-		memwidget->setParent(qobject_cast<QWidget*>(this->parent()));
-		memwidget->setWindowTitle(tr("Memory Read-Write"));
-		memwidget->setWindowFlags(Qt::Window);
-		memwidget->resize(1000, 530);
-		memwidget->show();
-
+		memrw->OpenNewWindow(qobject_cast<QWidget*>(this->parent()), addr, size);
 		//SetActiveTab(QVector<int>({ KernelTabMemory, KernelMemory::View }));
 	});
 	notify_menu_->addSeparator();

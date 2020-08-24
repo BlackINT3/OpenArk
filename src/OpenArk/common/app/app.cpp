@@ -14,12 +14,7 @@
 **
 ****************************************************************************/
 #include "../common.h"
-#include "../openark/openark.h"
 #include "app.h"
-
-QApplication *app = nullptr;
-QTranslator *app_tr = nullptr;
-OpenArk *openark = nullptr;
 
 void LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...)
 {

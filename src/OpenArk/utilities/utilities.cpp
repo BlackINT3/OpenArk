@@ -16,6 +16,7 @@
 #include "utilities.h"
 #include "../common/common.h"
 #include "../openark/openark.h"
+#include <arkdrv-api/arkdrv-api.h>
 
 #define MODEL_STRING(model, row, columm) (model->index(row, columm).data(Qt::DisplayRole).toString())
 #define RECYCLEBIN "RecycleBin"
@@ -356,7 +357,7 @@ void Utilities::InitCleanerView()
 bool PsKillProcess(__in DWORD pid)
 {
 	bool result = false;
-	HANDLE phd = OpenProcessWrapper(PROCESS_TERMINATE, FALSE, pid);
+	HANDLE phd = ArkDrvApi::Process::OpenProcess(PROCESS_TERMINATE, FALSE, pid);
 	if (phd) {
 		if (TerminateProcess(phd, 1))
 			result = true;

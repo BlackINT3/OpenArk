@@ -74,6 +74,7 @@ bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *o
 
 	if (GetLastError() != ERROR_MORE_DATA) {
 		free(wrap_inbuf);
+		ERR(L"DeviceIoControl err:%d", GetLastError());
 		return false;
 	}
 
@@ -91,6 +92,7 @@ bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *o
 		NULL)) {
 		free(buf);
 		free(wrap_inbuf);
+		ERR(L"DeviceIoControl err:%d", GetLastError());
 		return false;
 	}
 	*outbuf = buf;

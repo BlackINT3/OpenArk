@@ -16,6 +16,10 @@
 #include "qt-wrapper.h"
 #include "../common/common.h"
 
+OpenArk *openark = nullptr;
+QTranslator *app_tr = nullptr;
+QApplication *app = nullptr;
+
 QSize OpenArkTabStyle::sizeFromContents(ContentsType type, const QStyleOption *option, const QSize &size, const QWidget *widget) const
 {
 	QSize s = QProxyStyle::sizeFromContents(type, option, size, widget);

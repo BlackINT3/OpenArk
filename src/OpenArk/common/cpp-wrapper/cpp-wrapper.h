@@ -52,3 +52,11 @@ private: // noncopyable
 int VariantInt(std::string val, int radix = 16);
 int64_t VariantInt64(std::string val, int radix = 16);
 std::wstring VariantFilePath(std::wstring path);
+
+
+// disable logger, exit recover
+#define DISABLE_RECOVER() \
+	UNONE::LogCallback routine;\
+	bool regok = UNONE::InterCurrentLogger(routine);\
+	if (regok) UNONE::InterRegisterLogger([&](const std::wstring &) {});\
+	ON_SCOPE_EXIT([&] {if (regok) UNONE::InterUnregisterLogger(); });
