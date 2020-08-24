@@ -384,7 +384,7 @@ void CoderKit::UpdateEditCodeText(const std::wstring& data, QObject* ignored_obj
 	int id_interval = radio_group_interval_.checkedId();
 	if (id_interval == 0) interval = 2;
 	else if (id_interval == 1) interval = 4;
-	else if (id_interval == 1) interval = 8;
+	else if (id_interval == 2) interval = 8;
 
 	std::string format = "";
 	int id_format = radio_group_type_.checkedId();
