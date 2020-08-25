@@ -50,7 +50,9 @@ typedef struct _THREAD_OPEN_INFO {
 #include <vector>
 namespace ArkDrvApi {
 namespace Process {
+	HANDLE WINAPI OpenProcessR0(DWORD access, BOOL inherit, DWORD pid);
 	HANDLE WINAPI OpenProcess(DWORD access, BOOL inherit, DWORD pid);
+	HANDLE WINAPI OpenThreadR0(DWORD access, BOOL inherit, DWORD tid);
 	HANDLE WINAPI OpenThread(DWORD access, BOOL inherit, DWORD tid);
 } // namespace Process
 } // namespace ArkDrvApi

@@ -50,6 +50,27 @@ CoderKit::CoderKit(QWidget* parent, int tabid) :
 	ui.setupUi(this);
 	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });
 
+	radio_group_type_.addButton(ui.nullRadio_2, 0);
+	radio_group_type_.addButton(ui.spaceRadio_2, 1);
+	radio_group_type_.addButton(ui.slashxRadio_2, 2);
+	radio_group_type_.addButton(ui.assembleRadio, 3);
+
+	radio_group_interval_.addButton(ui.byteRadio, 0);
+	radio_group_interval_.addButton(ui.twoBytesRadio, 1);
+	radio_group_interval_.addButton(ui.fourBytesRadio, 2);
+
+	ui.nullRadio_2->setChecked(true);
+	ui.byteRadio->setChecked(true);
+
+	connect(ui.nullRadio_2, SIGNAL(clicked()), this, SLOT(onFormatChanged()));
+	connect(ui.spaceRadio_2, SIGNAL(clicked()), this, SLOT(onFormatChanged()));
+	connect(ui.slashxRadio_2, SIGNAL(clicked()), this, SLOT(onFormatChanged())); 
+	connect(ui.assembleRadio, SIGNAL(clicked()), this, SLOT(onFormatChanged()));
+
+	connect(ui.byteRadio, SIGNAL(clicked()), this, SLOT(onFormatChanged()));
+	connect(ui.twoBytesRadio, SIGNAL(clicked()), this, SLOT(onFormatChanged()));
+	connect(ui.fourBytesRadio, SIGNAL(clicked()), this, SLOT(onFormatChanged()));
+	
 	connect(ui.textEdit, SIGNAL(textChanged()), this, SLOT(onCodeTextChanged()));
 	connect(ui.defaultEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onCodeTextChanged(const QString &)));
 	connect(ui.asciiEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onCodeTextChanged(const QString &)));
@@ -70,6 +91,8 @@ CoderKit::CoderKit(QWidget* parent, int tabid) :
 	connect(ui.msgidBtn, SIGNAL(clicked()), this, SLOT(onMessageId()));
 
 	alg_idx_ = 0;
+	is_user_ = false;
+	is_format_changed_ = false;
 	onAlgIndexChanged(alg_idx_);
 	ui.typeBox->insertItem(IDX.base64, "Base64");
 	ui.typeBox->insertItem(IDX.crc32, "CRC32");
@@ -101,8 +124,9 @@ void CoderKit::onCodeTextChanged()
 	std::wstring data;
 	std::string str;
 	QObject* sender = QObject::sender();
-	if (sender == ui.textEdit) {
+	if (sender == ui.textEdit || is_format_changed_) {
 		data = ui.textEdit->toPlainText().toStdWString();
+		is_format_changed_ = false;
 	}
 
 	UpdateEditCodeText(data, sender);
@@ -123,7 +147,23 @@ void CoderKit::onCodeTextChanged(const QString & text)
 			UNONE::StrReplaceA(input, "\\x");
 			sender->setText(StrToQ(input));
 		};
-		InputFilter(str);
+		is_user_ = ui.defaultEdit->isModified()
+			|| ui.asciiEdit->isModified()
+			|| ui.unicodeEdit->isModified()
+			|| ui.utf7Edit->isModified()
+			|| ui.utf8Edit->isModified()
+			|| ui.utf16Edit->isModified()
+			|| ui.butf16Edit->isModified()
+			|| ui.utf32Edit->isModified()
+			|| ui.butf32Edit->isModified()
+			|| ui.gbkEdit->isModified()
+			|| ui.big5Edit->isModified()
+			|| ui.cp866Edit->isModified();
+		if (is_user_) {
+			InputFilter(str);
+		} else {
+			return;
+		}
 		str = UNONE::StrHexStrToStreamA(str);
 		if (sender == ui.defaultEdit) {
 			data = UNONE::StrACPToWide(str);
@@ -221,6 +261,12 @@ void CoderKit::onAlgPlainChanged()
 	} else if (sender == ui.keyEdit) {
 		UpdateAlgorithmText(true);
 	} 
+}
+
+void CoderKit::onFormatChanged()
+{
+	is_format_changed_ = true;
+	onCodeTextChanged();
 }
 
 void CoderKit::InitAsmToolsView()
@@ -332,50 +378,77 @@ void CoderKit::UpdateEditCodeText(const std::wstring& data, QObject* ignored_obj
 		}
 	};
 
+	is_user_ = false;
+
+	int interval = 2;
+	int id_interval = radio_group_interval_.checkedId();
+	if (id_interval == 0) interval = 2;
+	else if (id_interval == 1) interval = 4;
+	else if (id_interval == 2) interval = 8;
+
+	std::string format = "";
+	int id_format = radio_group_type_.checkedId();
+	if (id_format == 0) format = "";
+	else if (id_format == 1) format = " ";
+	else if (id_format == 2) format = "\\x";
+	else if (id_format == 3) format = "h, ", interval = 2;
+
 	std::string text;
 	text = UNONE::StrWideToUTF8(data);
 	SetText(ui.textEdit, text);
 	
 	text = UNONE::StrStreamToHexStrA(UNONE::StrWideToACP(data));
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.defaultEdit, text);
 
 	text = UNONE::StrStreamToHexStrA(UNONE::StrACPToCode(437, UNONE::StrToA(data)));
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.asciiEdit, text);
 
 	text = UNONE::StrStreamToHexStrA(std::string((char*)data.c_str(), data.size() * 2));
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.unicodeEdit, text);
 
 	text = UNONE::StrStreamToHexStrA(UNONE::StrWideToCode(CP_UTF7, data));
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.utf7Edit, text);
 
 	text = UNONE::StrStreamToHexStrA(UNONE::StrWideToCode(CP_UTF8, data));
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.utf8Edit, text);
 
 	text = UNONE::StrStreamToHexStrA(std::string((char*)data.c_str(), data.size() * 2));
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.utf16Edit, text);
 
 	auto stream = std::string((char*)data.c_str(), data.size() * 2);
 	stream = UNONE::StrReverseA(stream, 2);
 	text = UNONE::StrStreamToHexStrA(stream);
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.butf16Edit, text);
 
 	U32Convert cvt32;
 	auto utf32 = cvt32.from_bytes(UNONE::StrWideToCode(CP_UTF8, data));
 	stream = std::string((char*)utf32.c_str(), utf32.size() * 4);
 	text = UNONE::StrStreamToHexStrA(stream);
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.utf32Edit, text);
 
 	stream = UNONE::StrReverseA(stream, 4);
 	text = UNONE::StrStreamToHexStrA(stream);
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.butf32Edit, text);
 
 	text = UNONE::StrStreamToHexStrA(UNONE::StrWideToCode(936, data));
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.gbkEdit, text);
 
 	text = UNONE::StrStreamToHexStrA(UNONE::StrWideToCode(950, data));
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.big5Edit, text);
 
 	text = UNONE::StrStreamToHexStrA(UNONE::StrWideToCode(866, data));
+	SolveCodeTextFormat(text, format, interval, id_format);
 	SetText(ui.cp866Edit, text);
 }
 
@@ -422,4 +495,16 @@ QString CoderKit::NasmDisasm(const std::string &data, int bits)
 	if (!ret) return tr("start ndisasm error");
 	UNONE::StrLowerW(out);
 	return WStrToQ(out);
+}
+
+void CoderKit::SolveCodeTextFormat(std::string &text, std::string &format, int interval, int id)
+{
+	
+	if (id == 3) {
+		// assemble
+		text = UNONE::StrInsertA(text, interval, format);
+		text = text + "h";
+	} else {
+		text = format + UNONE::StrInsertA(text, interval, format);
+	}
 }

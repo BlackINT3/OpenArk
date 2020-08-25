@@ -19,6 +19,7 @@
 #include <windef.h>
 #else
 #include <Windows.h>
+#include <common/app/app.h>
 #endif //_NTDDK_
 
 #include "api-storage/api-storage.h"

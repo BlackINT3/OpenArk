@@ -14,12 +14,8 @@
 **
 ****************************************************************************/
 #pragma once
-#include "../openark/openark.h"
+#include <unone.h>
 #include <QString>
-
-extern QApplication *app;
-extern QTranslator *app_tr;
-extern OpenArk *openark;
 
 enum LogOuputLevel { LevelInfo, LevelWarn, LevelErr, LevelDbg };
 void LogOutput(LogOuputLevel lev, const char* func, const char* format, ...);
@@ -39,7 +35,7 @@ void LogOutput(LogOuputLevel lev, const char* func, const wchar_t* format, ...);
 
 inline QString AppFilePath()
 {
-	return WStrToQ(UNONE::PsGetProcessPathW());
+	return QString::fromStdWString(UNONE::PsGetProcessPathW());
 }
 
 inline QString AppVersion()
@@ -49,12 +45,12 @@ inline QString AppVersion()
 	if (!ver.empty()) {
 		ver = ver.substr(0, ver.find_last_of(L"."));
 	}
-	return WStrToQ(ver);
+	return QString::fromStdWString(ver);
 }
 
 inline QString AppBuildTime()
 {
-	QString &&stamp = StrToQ(UNONE::TmFormatUnixTimeA(UNONE::PeGetTimeStamp((CHAR*)GetModuleHandleW(NULL)), "YMDHW"));
+	QString &&stamp = QString::fromStdString(UNONE::TmFormatUnixTimeA(UNONE::PeGetTimeStamp((CHAR*)GetModuleHandleW(NULL)), "YMDHW"));
 	return stamp;
 }
 
@@ -71,13 +67,5 @@ inline QString AppFsUrl(QString url = "")
 		return fsurl;
 	}
 	fsurl = url;
-	return "http://192.168.2.106:50200/openark/files";
 	return fsurl;
 }
-
-// disable logger, exit recover
-#define DISABLE_RECOVER() \
-	UNONE::LogCallback routine;\
-	bool regok = UNONE::InterCurrentLogger(routine);\
-	if (regok) UNONE::InterRegisterLogger([&](const std::wstring &) {});\
-	ON_SCOPE_EXIT([&] {if (regok) UNONE::InterUnregisterLogger(); });

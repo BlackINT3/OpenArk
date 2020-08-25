@@ -34,6 +34,12 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 
+#include <openark/openark.h>
+
+extern QTranslator *app_tr;
+extern OpenArk *openark;
+extern QApplication *app;
+
 class OpenArkTabStyle : public QProxyStyle {
 public:
 	QSize sizeFromContents(ContentsType type, const QStyleOption *option, const QSize &size, const QWidget *widget) const;
@@ -103,7 +109,16 @@ inline void MsgBoxError(QString msg)
 {
 	QMessageBox::critical(nullptr, QObject::tr("OpenArk Error"), msg);
 }
-
+inline void LabelSuccess(QLabel* label, QString msg)
+{
+	label->setText(msg);
+	label->setStyleSheet("color:green");
+}
+inline void LabelError(QLabel* label, QString msg)
+{
+	label->setText(msg);
+	label->setStyleSheet("color:red");
+}
 inline QStringList VectorToQList(const std::vector<std::string>& vec)
 {
 	QStringList result;

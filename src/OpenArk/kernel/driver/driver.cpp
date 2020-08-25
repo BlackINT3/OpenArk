@@ -140,32 +140,35 @@ void KernelDriver::InitDriverKitView()
 	connect(ui->installUnsignedBtn, SIGNAL(clicked()), this, SLOT(onInstallUnsignedDriver()));
 	connect(ui->installExpiredBtn, SIGNAL(clicked()), this, SLOT(onInstallExpiredDriver()));
 	connect(ui->uninstallBtn, SIGNAL(clicked()), this, SLOT(onUninstallDriver()));
-}
+	connect(ui->writeRegBtn, &QPushButton::clicked, [&] {
+		auto driver = QToWStr(ui->driverFileEdit->text());
+		auto service = QToWStr(ui->serviceEdit->text());
+		ObLoadDriverRegistryW(driver, service) ?
+			LabelSuccess(ui->infoLabel, tr("Write registry ok...")) :
+			LabelError(ui->infoLabel, tr("Write registry failed, open console window to view detail..."));
+	});
+	connect(ui->cleanRegBtn, &QPushButton::clicked, [&] {
+		auto service = QToWStr(ui->serviceEdit->text());
+		ObUnloadDriverRegistryW(service) ?
+			LabelSuccess(ui->infoLabel, tr("Clean registry ok...")) :
+			LabelError(ui->infoLabel, tr("Clean registry failed, open console window to view detail..."));
+	});
 
+}
 
 void KernelDriver::onSignDriver()
 {
 	QString driver = ui->driverFileEdit->text();
-	if (SignExpiredDriver(driver)) {
-		ui->infoLabel->setText(tr("Sign ok..."));
-		ui->infoLabel->setStyleSheet("color:green");
-	}
-	else {
-		ui->infoLabel->setText(tr("Sign failed, open console window to view detail..."));
-		ui->infoLabel->setStyleSheet("color:red");
-	}
+	SignExpiredDriver(driver) ? 
+		LabelSuccess(ui->infoLabel, tr("Sign ok...")) :
+		LabelError(ui->infoLabel, tr("Sign failed, open console window to view detail..."));
 }
 
 void KernelDriver::onInstallNormallyDriver()
 {
-	if (InstallDriver(ui->driverFileEdit->text(), ui->serviceEdit->text())) {
-		ui->infoLabel->setText(tr("Install ok..."));
-		ui->infoLabel->setStyleSheet("color:green");
-	}
-	else {
-		ui->infoLabel->setText(tr("Install failed, open console window to view detail..."));
-		ui->infoLabel->setStyleSheet("color:red");
-	}
+	InstallDriver(ui->driverFileEdit->text(), ui->serviceEdit->text()) ?
+		LabelSuccess(ui->infoLabel, tr("Install ok...")) :
+		LabelError(ui->infoLabel, tr("Install failed, open console window to view detail..."));
 }
 
 void KernelDriver::onInstallUnsignedDriver()
@@ -183,14 +186,9 @@ void KernelDriver::onInstallExpiredDriver()
 
 void KernelDriver::onUninstallDriver()
 {
-	if (UninstallDriver(ui->serviceEdit->text())) {
-		ui->infoLabel->setText(tr("Uninstall ok..."));
-		ui->infoLabel->setStyleSheet("color:green");
-	}
-	else {
-		ui->infoLabel->setText(tr("Uninstall failed, open console window to view detail..."));
-		ui->infoLabel->setStyleSheet("color:red");
-	}
+	UninstallDriver(ui->serviceEdit->text()) ?
+		LabelSuccess(ui->infoLabel, tr("Uninstall ok...")) :
+		LabelError(ui->infoLabel, tr("Uninstall failed, open console window to view detail..."));
 }
 
 bool KernelDriver::InstallDriver(QString driver, QString name)

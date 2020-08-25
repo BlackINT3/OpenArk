@@ -189,8 +189,6 @@ NTSTATUS GetHotkeyInfo(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIR
 	PHOTKEY_ITEM items = NULL;
 	NTSTATUS status = STATUS_UNSUCCESSFUL;
 
-	KdBreakPoint();
-
 	//
 	// Caller have to guarantee current Win32k Session
 	//

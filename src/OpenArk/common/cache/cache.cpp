@@ -53,7 +53,7 @@ ProcInfo CacheGetProcInfo(unsigned int pid, ProcInfo& info)
 	bool activate = false;
 	auto &&path = UNONE::PsGetProcessPathW(pid);
 	if (path.empty()) {
-		UNONE::InterCreateTlsValue(ArkDrvApi::Process::OpenProcess, UNONE::PROCESS_VID);
+		UNONE::InterCreateTlsValue(ArkDrvApi::Process::OpenProcessR0, UNONE::PROCESS_VID);
 		path = UNONE::PsGetProcessPathW(pid);
 		activate = true;
 	}
@@ -119,7 +119,7 @@ UNONE::PROCESS_BASE_INFOW CacheGetProcessBaseInfo(DWORD pid)
 	bool activate = false;
 	UNONE::PsGetProcessInfoW(pid, info);
 	if (info.ImagePathName.empty()) {
-		UNONE::InterCreateTlsValue(ArkDrvApi::Process::OpenProcess, UNONE::PROCESS_VID);
+		UNONE::InterCreateTlsValue(ArkDrvApi::Process::OpenProcessR0, UNONE::PROCESS_VID);
 		UNONE::PsGetProcessInfoW(pid, info);
 		activate = true;
 	}

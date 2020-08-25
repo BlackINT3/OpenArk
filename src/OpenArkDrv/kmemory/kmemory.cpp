@@ -13,8 +13,9 @@
 ** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
 **
 ****************************************************************************/
-#include "../arkdrv-api/arkdrv-api.h"
-#include "../common/common.h"
+#include <arkdrv-api/arkdrv-api.h>
+#include <common/common.h>
+#include <common/c-assist.h>
 #include "memory.h"
 
 #ifndef MM_COPY_MEMORY_VIRTUAL
@@ -39,8 +40,6 @@ typedef NTSTATUS(NTAPI *__MmCopyMemory)(
 BOOLEAN MmReadKernelMemory(PVOID addr, PVOID buf, ULONG len)
 {
 	BOOLEAN ret = FALSE;
-	if (addr <= MM_HIGHEST_USER_ADDRESS) return FALSE;
-
 	if (ArkDrv.ver >= NTOS_WIN81) {
 		PVOID data = ExAllocatePool(NonPagedPool, len);
 		if (data) {
@@ -74,33 +73,95 @@ BOOLEAN MmReadKernelMemory(PVOID addr, PVOID buf, ULONG len)
 	return ret;
 }
 
+BOOLEAN MmWriteKernelMemory(PVOID addr, PVOID buf, ULONG len)
+{
+	if (addr > MM_HIGHEST_USER_ADDRESS) {
+		if (!MmIsAddressValid(addr)) return FALSE;
+		KIRQL irql = MmWriteProtectOff();
+		RtlCopyMemory(addr, buf, len);
+		MmWriteProtectOn(irql);
+		return TRUE;
+	}
+
+	BOOLEAN ret = FALSE;
+	MmDisableWP();
+	__try {
+		RtlCopyMemory(addr, buf, len);
+		ret = TRUE;
+	} __except (1) {}
+	MmEnableWP();
+	return ret;
+}
+
 NTSTATUS MemoryReadData(PARK_MEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
 {
-	ULONG size = inbuf->size + 4;
-	if (size > outlen) {
-		irp->IoStatus.Information = size;
+	ULONG total = ARK_HEADER_SIZE(ARK_MEMORY_OUT) + inbuf->size;
+	if (total > outlen) {
+		irp->IoStatus.Information = total;
 		return STATUS_BUFFER_OVERFLOW;
 	}
-	PVOID data = ExAllocatePool(NonPagedPool, size);
+	PVOID data = ExAllocatePool(NonPagedPool, inbuf->size);
 	if (!data) return STATUS_MEMORY_NOT_ALLOCATED;
 
-	BOOLEAN ret = MmReadKernelMemory((PVOID)inbuf->addr, data, size);
+	BOOL attach = FALSE;
+	PEPROCESS eproc = NULL;
+	KAPC_STATE apc_state;
+	ULONG pid = inbuf->pid;
+	if (pid != 4 && pid != 0 && pid != (ULONG)PsGetCurrentProcessId()) {
+		if (NT_SUCCESS(PsLookupProcessByProcessId((HANDLE)pid, &eproc))) {
+			KeStackAttachProcess(eproc, &apc_state);
+			attach = TRUE;
+		}
+	}
+	BOOLEAN ret = MmReadKernelMemory((PVOID)inbuf->addr, data, inbuf->size);
+	if (attach) {
+		KeUnstackDetachProcess(&apc_state);
+		ObDereferenceObject(eproc);
+	}
 	if (!ret) {
 		ExFreePool(data);
 		return STATUS_UNSUCCESSFUL;
 	}
 	PARK_MEMORY_OUT memout = (PARK_MEMORY_OUT)outbuf;
-	memout->size = size;
-	RtlCopyMemory(memout->readbuf, data, size);
+	memout->size = inbuf->size;
+	memout->pid = pid;
+	RtlCopyMemory(memout->readbuf, data, inbuf->size);
 	ExFreePool(data);
-	irp->IoStatus.Information = size;
+	irp->IoStatus.Information = total;
 	return STATUS_SUCCESS;
 }
 
 NTSTATUS MemoryWriteData(PARK_MEMORY_IN inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
 {
-	
-	return 0;
+	ULONG total = ARK_HEADER_SIZE(PARK_MEMORY_OUT);
+	if (total > outlen) {
+		irp->IoStatus.Information = total;
+		return STATUS_BUFFER_OVERFLOW;
+	}
+
+	BOOL attach = FALSE;
+	PEPROCESS eproc = NULL;
+	KAPC_STATE apc_state;
+	ULONG pid = inbuf->pid;
+	//KdBreakPoint();
+	if (pid != 4 && pid != 0 && pid != (ULONG)PsGetCurrentProcessId()) {
+		if (NT_SUCCESS(PsLookupProcessByProcessId((HANDLE)pid, &eproc))) {
+			KeStackAttachProcess(eproc, &apc_state);
+			attach = TRUE;
+		}
+	}
+	BOOLEAN ret = MmWriteKernelMemory((PVOID)inbuf->addr, inbuf->u.writebuf, inbuf->size);
+	if (attach) {
+		KeUnstackDetachProcess(&apc_state);
+		ObDereferenceObject(eproc);
+	}
+	if (!ret) {
+		return STATUS_UNSUCCESSFUL;
+	}
+	PARK_MEMORY_OUT memout = (PARK_MEMORY_OUT)outbuf;
+	memout->pid = pid;
+	irp->IoStatus.Information = ARK_HEADER_SIZE(PARK_MEMORY_OUT);
+	return STATUS_SUCCESS;
 }
 
 NTSTATUS MemoryDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, IN PIRP irp)

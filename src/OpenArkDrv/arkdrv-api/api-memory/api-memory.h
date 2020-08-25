@@ -14,6 +14,8 @@
 **
 ****************************************************************************/
 #pragma once
+#define ARK_HEADER_SIZE(st) (sizeof(st) - sizeof(UCHAR))
+
 #include "../arkdrv-api.h"
 #ifdef _ARKDRV_
 #include <ntifs.h>
@@ -61,8 +63,9 @@ typedef struct _ARK_MEMORY_RANGE {
 namespace ArkDrvApi {
 namespace Memory {
 	ARK_MEMORY_RANGE MemoryRange();
+	bool IsKernelAddress(ULONG64 addr);
 	bool MemoryRead(ULONG pid, ULONG64 addr, ULONG size, std::string &readbuf);
-	bool MemoryWrite(ULONG64 addr, std::string &writebuf);
+	bool MemoryWrite(ULONG pid, ULONG64 addr, std::string &writebuf);
 } // namespace Memory
 } // namespace ArkDrvApi
 #endif //_NTDDK_
