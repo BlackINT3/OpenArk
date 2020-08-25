@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="tabKernelEntry">
       <attribute name="title">
@@ -696,7 +696,7 @@
        <item>
         <widget class="QTabWidget" name="tabStorage">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tabFileFilter">
           <attribute name="title">
@@ -801,21 +801,21 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_2">
+              <widget class="QPushButton" name="unlockFileBtn">
                <property name="text">
                 <string>Unlock</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="unlockFileAllBtn">
                <property name="text">
                 <string>Unlock All</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_3">
+              <widget class="QPushButton" name="killProcessBtn">
                <property name="text">
                 <string>KillProcess</string>
                </property>

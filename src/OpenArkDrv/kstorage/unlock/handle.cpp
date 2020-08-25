@@ -197,7 +197,7 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 	PSYSTEM_HANDLE_TABLE_ENTRY_INFO tableinfo = NULL;
 	PHANDLE_INFO	info = (PHANDLE_INFO)buf;
 	ULONG		count = 0;
-	UCHAR		filetypeindex = 28;
+	UCHAR		filetypeindex = 28;  // set file object type index
 
 	if (ArkDrv.major > 6) {
 		filetypeindex = 32;
@@ -327,5 +327,21 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 	info->count = count; // set count of item
 	if (buffer)  ExFreePoolWithTag(buffer, 'enhd');
 	irp->IoStatus.Information = sizeof(HANDLE_INFO) + (count > 0 ? (count-1) : 0) * sizeof(HANDLE_ITEM);
+	return status;
+}
+
+
+NTSTATUS StorageUnlockClose(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp)
+{
+	NTSTATUS		status = STATUS_UNSUCCESSFUL;
+	HANDLE_ITEM		*handle_item = (HANDLE_ITEM *)inbuf;
+	if (handle_item) {
+		HANDLE pid = handle_item->pid;
+		HANDLE handle = handle_item->handle;
+		if (ForceCloseHandle(pid, handle)){
+			status = STATUS_SUCCESS;
+		}
+	}
+	irp->IoStatus.Information = 0;
 	return status;
 }

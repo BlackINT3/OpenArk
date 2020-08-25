@@ -90,6 +90,7 @@ typedef struct _OBJECT_HANDLE_FLAG_INFORMATION {
 EXTERN_C NTSTATUS NTAPI  ObSetHandleAttributes(HANDLE Handle, POBJECT_HANDLE_FLAG_INFORMATION HandleFlags, KPROCESSOR_MODE PreviousMode);
 
 
-BOOLEAN ForceCloseHandle(HANDLE pid, HANDLE handle); 
-NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp);
+BOOLEAN ForceCloseHandle(HANDLE pid, HANDLE handle);
 NTSTATUS EnumHandleInfoByPid(LPVOID buf, ULONG len, HANDLE pid);
+NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp);
+NTSTATUS StorageUnlockClose(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen, PIRP irp);
