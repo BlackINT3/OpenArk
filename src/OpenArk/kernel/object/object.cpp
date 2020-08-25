@@ -177,6 +177,7 @@ void KernelObject::InitObjectSectionsView()
 			UnmapViewOfFile(addr);
 			CloseHandle(hd);
 		}, vars);
+		memrw->SetMaxSize(map_size);
 		map_size = MIN(map_size, PAGE_SIZE);
 		memrw->ViewMemory(GetCurrentProcessId(), map_addr, map_size);
 		memrw->OpenNewWindow(qobject_cast<QWidget*>(this->parent()), map_addr, map_size);

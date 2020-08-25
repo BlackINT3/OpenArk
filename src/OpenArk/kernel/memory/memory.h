@@ -57,20 +57,22 @@ private:
 	QWidget *memui_;
 	std::function<void(QList<QVariant>)> free_callback_;
 	QList<QVariant> free_vars_;
+	ULONG maxsize_;
 
 public:
 	void RegFreeCallback(std::function<void(QList<QVariant>)> callback, QList<QVariant> vars) {
 		free_callback_ = callback;
 		free_vars_ = vars;
 	};
+	void SetMaxSize(ULONG maxsize) { maxsize_ = maxsize; };
 	void ViewMemory(ULONG pid, ULONG64 addr, ULONG size);
 	void ViewMemory(ULONG pid, std::string data);
 	void WriteMemory(std::string data);
 	void OpenNewWindow(QWidget *parent, ULONG64 addr, ULONG size)
 	{
 		auto memwidget = this->GetWidget();
-		memwidget->findChild<QLineEdit*>("readAddrEdit")->setText(QString::number(addr,16).toUpper());
-		memwidget->findChild<QLineEdit*>("readSizeEdit")->setText(DWordToHexQ(size));
+		memwidget->findChild<QLineEdit*>("readAddrEdit")->setText(QString("0x%1").arg(QString::number(addr,16).toUpper()));
+		memwidget->findChild<QLineEdit*>("readSizeEdit")->setText(QString("0x%1").arg(QString::number(size, 16).toUpper()));
 		memwidget->setParent(parent);
 		memwidget->setWindowTitle(tr("Memory Read-Write"));
 		memwidget->setWindowFlags(Qt::Window);

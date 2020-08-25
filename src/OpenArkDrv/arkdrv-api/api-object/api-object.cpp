@@ -120,6 +120,7 @@ bool ObjectTypeEnumR3(std::vector<ARK_OBJECT_TYPE_ITEM> &items)
 		obj_info = (POBJECT_TYPE_INFORMATION)
 			((PCHAR)(obj_info + 1) + ALIGN_UP(obj_info->TypeName.MaximumLength, ULONG_PTR));
 	}
+	VirtualFree(buf, bufsize, MEM_RELEASE);
 	return true;
 }
 

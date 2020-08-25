@@ -59,6 +59,7 @@ void KernelMemory::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
 
 KernelMemoryRW::KernelMemoryRW()
 {
+	maxsize_ = -1;
 	QUiLoader loader;
 	QFile file(":/UI/ui/memory-rw.ui");
 	file.open(QFile::ReadOnly);
@@ -92,7 +93,7 @@ KernelMemoryRW::KernelMemoryRW()
 
 		std::string buf;
 		if (!ArkDrvApi::Memory::MemoryRead(pid, addr, size, buf)) {
-			LabelError(statusLabel, tr("Read Memory error, addr:%1 size:%2").arg(QString::number(addr, 16).toUpper()).arg(size));
+			LabelError(statusLabel, tr("Read Memory error, addr:0x%1 size:0x%2").arg(QString::number(addr, 16).toUpper()).arg(QString::number(size, 16).toUpper()));
 			return;
 		}
 		
@@ -144,14 +145,21 @@ void KernelMemoryRW::ViewMemory(ULONG pid, ULONG64 addr, ULONG size)
 	DEFINE_WIDGET(QLineEdit*, pidEdit);
 	pidEdit->setText(QString::number(pid));
 
-	if (ArkDrvApi::Memory::MemoryRead(pid, addr, size, buf)) {
+	
+	auto minsize = MIN(maxsize_, size);
+	if (ArkDrvApi::Memory::MemoryRead(pid, addr, minsize, buf)) {
 		mem = (char*)buf.c_str();
 		memsize = buf.size();
 		readok = true;
 	}
 
-	auto hexdump = HexDumpMemory(addr, mem, size);
-	auto disasm = DisasmMemory(addr, mem, size);
+	auto hexdump = HexDumpMemory(addr, mem, minsize);
+	if (maxsize_ != -1 && size > maxsize_) {
+		auto delta = size - maxsize_;
+		auto hexdump2 = HexDumpMemory(addr+size, nullptr, size-maxsize_);
+		hexdump.append(hexdump2);
+	}
+	auto disasm = DisasmMemory(addr, mem, minsize);
 
 	DEFINE_WIDGET(QTextEdit*, hexEdit);
 	DEFINE_WIDGET(QTextEdit*, disasmEdit);
@@ -170,8 +178,8 @@ void KernelMemoryRW::ViewMemory(ULONG pid, ULONG64 addr, ULONG size)
 		}
 	}
 	regionLabel->setText(path);
-	readok ? LabelSuccess(statusLabel, tr("Read Memory successfully, addr:%1 size:%2").arg(QString::number(addr, 16).toUpper()).arg(size)) :
-		LabelError(statusLabel, tr("Read Memory error, addr:%1 size:%2").arg(QString::number(addr, 16).toUpper()).arg(size));
+	readok ? LabelSuccess(statusLabel, tr("Read Memory successfully, addr:0x%1 size:0x%2").arg(QString::number(addr, 16).toUpper()).arg(QString::number(size, 16).toUpper())) :
+		LabelError(statusLabel, tr("Read Memory error, addr:0x%1 size:0x%2").arg(QString::number(addr, 16).toUpper()).arg(QString::number(size, 16).toUpper()));
 }
 
 void KernelMemoryRW::ViewMemory(ULONG pid, std::string data)
