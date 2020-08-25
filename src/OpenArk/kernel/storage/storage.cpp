@@ -127,9 +127,11 @@ void KernelStorage::InitFileUnlockView()
 	});
 
 	connect(ui_->unlockFileBtn, &QPushButton::clicked, [&]{
+		INFO(L"Click the unlockFileBtn button");
 		DISABLE_RECOVER();
 		auto selected = ui_->unlockView->selectionModel()->selectedIndexes();
 		if (selected.empty()) {
+			WARN(L"Not select the item of unlock file!");
 			return;
 		}
 		for (int i = 0; i < selected.size() / 6; i++) {
@@ -144,10 +146,35 @@ void KernelStorage::InitFileUnlockView()
 			QString qshandle = fhandle.replace(QRegExp("0x"), "");
 			handle_item.handle = HANDLE(UNONE::StrToHexA(qshandle.toStdString().c_str()));
 			ArkDrvApi::Storage::UnlockClose(handle_item);
+			INFO(L"Unlock file handle(pid: %i, handle: %p)", pid, handle_item.handle);
 		}
+		ui_->showHoldBtn->click();
+		INFO(L"Reflush the unlock file handle");
 	});
-	
 
+	connect(ui_->unlockFileAllBtn, &QPushButton::clicked, [&] {
+		DISABLE_RECOVER();
+		for (int i = 0; i < unlock_model_->rowCount(); i++) {
+			QStandardItem *item = unlock_model_->item(i, 1); //pid
+			auto pid = item->text().toUInt();
+
+			item = unlock_model_->item(i, 5); //handle
+			auto handle = HANDLE(UNONE::StrToHexA(item->text().replace(QRegExp("0x"), "").toStdString().c_str()));
+			HANDLE_ITEM handle_item = { 0 };
+			handle_item.pid = HANDLE(pid);
+			handle_item.handle = handle;
+			ArkDrvApi::Storage::UnlockClose(handle_item);
+			INFO(L"Unlock file handle all(pid: %i, handle: %p)", pid, handle_item.handle);
+		}
+		ui_->showHoldBtn->click();
+		INFO(L"Reflush the unlock file handle");
+
+	});
+
+	connect(ui_->killProcessBtn, &QPushButton::clicked, [&] {
+		DISABLE_RECOVER();
+
+	});
 }
 
 void KernelStorage::InitFileFilterView()

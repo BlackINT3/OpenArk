@@ -41,7 +41,7 @@ NTSTATUS StorageDispatcher(IN ULONG op, IN PDEVICE_OBJECT devobj, IN PIRP irp)
 	irpstack = IoGetCurrentIrpStackLocation(irp);
 	inlen = irpstack->Parameters.DeviceIoControl.InputBufferLength - 4;
 	inbuf = (UCHAR*)irp->AssociatedIrp.SystemBuffer + 4;
-	KdBreakPoint();
+	//KdBreakPoint();
 	status = DuplicateInputBuffer(irp, inbuf);
 	if (!NT_SUCCESS(status)) return status;
 

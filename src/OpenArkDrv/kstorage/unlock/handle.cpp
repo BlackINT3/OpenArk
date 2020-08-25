@@ -45,7 +45,9 @@ BOOLEAN ForceCloseHandle(HANDLE pid, HANDLE handle)
 		objectinfo.Inherit = 0;
 		objectinfo.ProtectFromClose = 0;
 		status = ObSetHandleAttributes(handle, &objectinfo, mode);
-		status = ZwClose(handle);
+		if (NT_SUCCESS(status)) {
+			status = ZwClose(handle);
+		}
 		KeUnstackDetachProcess(&apcstate);
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER)
