@@ -140,9 +140,9 @@ void KernelObject::InitObjectSectionsView()
 			prefix = L"";
 			map_name = section_name;
 		}
-		map_hd = OpenFileMappingW(FILE_MAP_READ, FALSE, map_name.c_str());
+		map_hd = OpenFileMappingW(FILE_MAP_READ|FILE_MAP_WRITE, FALSE, map_name.c_str());
 		if (map_hd) {
-			map_addr = (ULONG64)MapViewOfFileEx(map_hd, FILE_MAP_READ, 0, 0, size, NULL);
+			map_addr = (ULONG64)MapViewOfFileEx(map_hd, FILE_MAP_READ | FILE_MAP_WRITE, 0, 0, size, NULL);
 			if (!map_addr) {
 				CloseHandle(map_hd);
 				return;

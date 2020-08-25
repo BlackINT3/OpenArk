@@ -269,8 +269,6 @@ bool ObjectSectionEnumR3(std::vector<ARK_OBJECT_SECTION_ITEM> &items, ULONG sess
 				item.section_size = (ULONG)mbi.RegionSize;
 				UnmapViewOfFile(mapaddr);
 				CloseHandle(maphd);
-			} else {
-				ERR(L"%s %d", map_name.c_str(), GetLastError());
 			}
 			item.session_id = session;
 			items.push_back(item);
