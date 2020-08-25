@@ -52,6 +52,7 @@ bool IoControlDriver(DWORD ctlcode, DWORD op, PVOID inbuf, DWORD inlen, PVOID *o
 		return false;
 
 	*outbuf = NULL;
+	*outlen = 0;
 	DWORD wrap_inlen = sizeof(op) + inlen;
 	PUCHAR wrap_inbuf = (PUCHAR)malloc(wrap_inlen);
 	if (!wrap_inbuf) return false;
@@ -115,7 +116,7 @@ bool IoControlDriver(DWORD ctlcode, DWORD op, const std::wstring &indata, std::s
 	bool ret = IoControlDriver(ctlcode, op, (PVOID)tempdata, tempsize, (PVOID*)&info, &outlen);
 	if (!ret) return false;
 	if (outlen) outdata.assign(info, outlen);
-	free(info);
+	if (info) free(info);
 	return true;
 }
 bool IoControlDriver(DWORD ctlcode, DWORD op, const std::string &indata, std::string &outdata)
@@ -132,7 +133,7 @@ bool IoControlDriver(DWORD ctlcode, DWORD op, const std::string &indata, std::st
 	bool ret = IoControlDriver(ctlcode, op, (PVOID)tempdata, tempsize, (PVOID*)&info, &outlen);
 	if (!ret) return false;
 	outdata.assign(info, outlen);
-	free(info);
+	if (info) free(info);
 	return true;
 }
 
