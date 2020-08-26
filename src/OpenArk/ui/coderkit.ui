@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabCodePoints">
       <property name="sizePolicy">
@@ -555,12 +555,30 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="typeBox">
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>30</height>
-               </size>
+             <widget class="QRadioButton" name="base64Radio">
+              <property name="text">
+               <string>Base64</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="crc32Radio">
+              <property name="text">
+               <string>CRC32</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="md5Radio">
+              <property name="text">
+               <string>MD5</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="sha1Radio">
+              <property name="text">
+               <string>SHA1</string>
               </property>
              </widget>
             </item>
