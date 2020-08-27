@@ -851,21 +851,21 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_2">
+              <widget class="QPushButton" name="unlockFileBtn">
                <property name="text">
                 <string>Unlock</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="unlockFileAllBtn">
                <property name="text">
                 <string>Unlock All</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_3">
+              <widget class="QPushButton" name="killProcessBtn">
                <property name="text">
                 <string>KillProcess</string>
                </property>
@@ -990,22 +990,35 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_11">
              <item>
-              <widget class="QListView" name="listView">
+              <widget class="QListWidget" name="hostsFileListWidget">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+                <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="maximumSize">
+                <size>
+                 <width>180</width>
+                 <height>16777215</height>
+                </size>
+               </property>
               </widget>
              </item>
              <item>
-              <widget class="QTextEdit" name="textEdit"/>
+              <widget class="QTextEdit" name="hostsDataEdit"/>
              </item>
             </layout>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QPushButton" name="hostsDirBtn">
+               <property name="text">
+                <string>&amp;HostsDirectory</string>
+               </property>
+              </widget>
+             </item>
              <item>
               <spacer name="horizontalSpacer_2">
                <property name="orientation">
@@ -1020,30 +1033,30 @@
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_6">
+              <widget class="QPushButton" name="hostsSaveBtn">
                <property name="text">
-                <string>Clear</string>
+                <string>&amp;Save</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_5">
+              <widget class="QPushButton" name="hostsClearBtn">
                <property name="text">
-                <string>Recover</string>
+                <string>&amp;Clear</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_4">
+              <widget class="QPushButton" name="hostsBackupBtn">
                <property name="text">
-                <string>Backup</string>
+                <string>&amp;Backup</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_7">
+              <widget class="QPushButton" name="hostsReloadBtn">
                <property name="text">
-                <string>HostsDirectory</string>
+                <string>&amp;Reload</string>
                </property>
               </widget>
              </item>

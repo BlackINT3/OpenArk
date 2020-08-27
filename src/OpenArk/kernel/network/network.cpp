@@ -257,17 +257,42 @@ void KernelNetwork::onTabChanged(int index)
 	CommonTabObject::onTabChanged(index);
 }
 
-bool KernelNetwork::EventFilter()
+bool KernelNetwork::eventFilter(QObject *obj, QEvent *e)
 {
-	return true;
+	if (e->type() == QEvent::ContextMenu) {
+		QMenu *menu = nullptr;
+		if (obj == ui_->hostsFileListWidget) menu = hosts_menu_;
+		QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
+		if (ctxevt && menu) {
+			menu->move(ctxevt->globalPos());
+			menu->show();
+		}
+	}
+	if (e->type() == QEvent::KeyPress) {
+		QKeyEvent *keyevt = dynamic_cast<QKeyEvent*>(e);
+		if (keyevt->matches(QKeySequence::Delete)) {
+			for (auto &action : hosts_menu_->actions()) {
+				if (action->text() == "Delete") emit action->trigger();
+			}
+		}
+	}
+	return QWidget::eventFilter(obj, e);
 }
 
 void KernelNetwork::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 {
-	this->ui = ui;
+	this->ui_ = ui;
+	this->kernel_ = kernel;
+	Init(ui->tabNetwork, TAB_KERNEL, TAB_KERNEL_NETWORK);
 
+	InitWfpView();
+	InitHostsView();
+}
+
+void KernelNetwork::InitWfpView()
+{
 	wfp_model_ = new QStandardItemModel;
-	QTreeView *view = ui->wfpView;
+	QTreeView *view = ui_->wfpView;
 	proxy_wfp_ = new WfpSortFilterProxyModel(view);
 	proxy_wfp_->setSourceModel(wfp_model_);
 	proxy_wfp_->setDynamicSortFilter(true);
@@ -276,8 +301,8 @@ void KernelNetwork::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 	view->selectionModel()->setModel(proxy_wfp_);
 	view->header()->setSortIndicator(-1, Qt::AscendingOrder);
 	view->setSortingEnabled(true);
-	view->viewport()->installEventFilter(kernel);
-	view->installEventFilter(kernel);
+	view->viewport()->installEventFilter(kernel_);
+	view->installEventFilter(kernel_);
 	std::pair<int, QString> colum_layout[] = {
 		{ 130, tr("ID") },
 		{ 100, tr("Key") },
@@ -292,10 +317,159 @@ void KernelNetwork::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 		view->setColumnWidth(i, colum_layout[i].first);
 	}
 	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	wfp_menu_ = new QMenu();
-	wfp_menu_->addAction(tr("Refresh"), kernel, [&] {  });
+}
 
-	Init(ui->tabNetwork, TAB_KERNEL, TAB_KERNEL_NETWORK);
+void KernelNetwork::InitHostsView()
+{
+	hosts_dir_ = UNONE::OsSystem32DirW() + L"\\drivers\\etc";
+	hosts_file_ = hosts_dir_ + L"\\hosts";
+
+	auto GetCurrentHostsName = [=]()->std::wstring {
+		std::wstring hosts;
+		auto cur = ui_->hostsFileListWidget->currentItem();
+		if (cur) {
+			hosts = cur->text().toStdWString();
+		}
+		return std::move(hosts);
+	};
+
+	auto GetCurrentHostsPath = [=]()->std::wstring {
+		std::wstring hosts = GetCurrentHostsName();
+		if (!hosts.empty()) hosts = hosts_dir_ + L"\\" + hosts;
+		return std::move(hosts);
+	};
+
+	auto ReloadHostsData = [=]() {
+		std::string data;
+		auto &&hosts = GetCurrentHostsPath();
+		UNONE::FsReadFileDataW(hosts, data);
+		ui_->hostsDataEdit->setText(StrToQ(data));
+	};
+
+	auto WriteHostsData = [=](std::wstring path = L"") {
+		std::string data = ui_->hostsDataEdit->toPlainText().toStdString();
+		std::wstring hosts;
+		if (path.empty()) hosts = GetCurrentHostsPath();
+		else hosts = path;
+		UNONE::StrReplaceA(data, "\n", "\r\n");
+		UNONE::FsWriteFileDataW(hosts, data);
+	};
+
+	auto ReloadHostsList = [=]() {
+		auto row = ui_->hostsFileListWidget->currentRow();
+		ui_->hostsFileListWidget->clear();
+		std::vector<std::wstring> names;
+		UNONE::DirEnumCallbackW fcb = [&](wchar_t* path, wchar_t* name, void* param)->bool {
+			if (UNONE::FsIsDirW(path)) return true;
+			size_t yy=UNONE::StrIndexIW(std::wstring(name), std::wstring(L"hosts"));
+			if (UNONE::StrIndexIW(std::wstring(name), std::wstring(L"hosts")) != 0) return true;
+			names.push_back(name);
+			return true;
+		};
+		UNONE::FsEnumDirectoryW(hosts_dir_, fcb);
+		for (auto &n : names) {
+			ui_->hostsFileListWidget->addItem(WStrToQ(n));
+		}
+		ui_->hostsFileListWidget->setCurrentRow(row);
+	};
+
+	connect(ui_->hostsFileListWidget, &QListWidget::itemSelectionChanged, [=] {
+		ReloadHostsData();
+	});
+
+	connect(ui_->hostsReloadBtn, &QPushButton::clicked, [=] {
+		ReloadHostsData();
+		ReloadHostsList();
+	});
+
+	connect(ui_->hostsSaveBtn, &QPushButton::clicked, [=] {
+		WriteHostsData();
+	});
+
+	connect(ui_->hostsBackupBtn, &QPushButton::clicked, [=] {
+		bool ok;
+		SYSTEMTIME systime;
+		GetSystemTime(&systime);
+		QString def = WStrToQ(UNONE::TmFormatSystemTimeW(systime, L"YMD-HWS"));
+		QString text = QInputDialog::getText(this, tr("Hosts Backup"), tr("Please input file name: (hosts-***)"), QLineEdit::Normal, def, &ok);
+		if (ok && !text.isEmpty()) {
+			auto &&hosts = hosts_dir_ + L"\\hosts-" + text.toStdWString();
+			WriteHostsData(hosts);
+			ReloadHostsList();
+		}
+	});
+
+	connect(ui_->hostsClearBtn, &QPushButton::clicked, [=] {
+		ui_->hostsDataEdit->clear();
+	});
+
+	connect(ui_->hostsDirBtn, &QPushButton::clicked, [&] {
+		ShellRun(WStrToQ(hosts_dir_), "");
+	});
+
+	if (!UNONE::FsIsExistedW(hosts_file_)) UNONE::FsWriteFileDataW(hosts_file_, "# 127.0.0.1 localhost\n# ::1 localhost");		
+	ReloadHostsList();
+	ui_->hostsFileListWidget->setCurrentRow(0);
+
+	ui_->hostsFileListWidget->installEventFilter(this);
+	hosts_menu_ = new QMenu();
+
+	hosts_menu_->addAction(tr("Rename"), kernel_, [=] {
+		bool ok;
+		std::wstring &&old = GetCurrentHostsPath();
+		auto && name = UNONE::FsPathToNameW(old);
+		UNONE::StrReplaceIW(name, L"hosts-");
+		QString text = QInputDialog::getText(this, tr("Hosts Rename"), tr("Please input file name: (hosts-***)"), QLineEdit::Normal, WStrToQ(name), &ok);
+		if (ok) {
+			DeleteFileW(old.c_str());
+			std::wstring hosts;
+			if (!text.isEmpty()) {
+				hosts = hosts_dir_ + L"\\hosts-" + text.toStdWString();
+			} else {
+				hosts = hosts_dir_ + L"\\hosts";
+			}
+			WriteHostsData(hosts);
+			ReloadHostsList();
+		}
+	});
+	hosts_menu_->addAction(tr("Backup"), kernel_, [=] {
+		emit ui_->hostsBackupBtn->click();
+	});
+	hosts_menu_->addAction(tr("Reload"), kernel_, [=] {
+		emit ui_->hostsReloadBtn->click();
+	});
+	auto copy_menu = new QMenu();
+	copy_menu->addAction(tr("File Name"))->setData(0);
+	copy_menu->addAction(tr("File Path"))->setData(1);
+	copy_menu->setTitle(tr("Copy"));
+	connect(copy_menu, &QMenu::triggered, [=](QAction* action) {
+		auto idx = action->data().toInt();
+		std::wstring data;
+		switch (idx) {
+		case 0: data = GetCurrentHostsName(); break;
+		case 1: data = GetCurrentHostsPath(); break;
+		}
+		ClipboardCopyData(UNONE::StrToA(data));
+	});
+
+	hosts_menu_->addAction(copy_menu->menuAction());
+	hosts_menu_->addSeparator();
+	hosts_menu_->addAction(tr("Delete"), kernel_, [=] {
+		DeleteFileW(GetCurrentHostsPath().c_str());
+		emit ui_->hostsReloadBtn->click();
+	}, QKeySequence::Delete);
+	hosts_menu_->addAction(tr("Delete All"), kernel_, [=] {
+		if (QMessageBox::warning(this, tr("Warning"), tr("Are you sure to delete all hosts file(include backups)?"),
+			QMessageBox::Yes | QMessageBox::No) == QMessageBox::No) {
+			return;
+		}
+		for (int i = 0; i < ui_->hostsFileListWidget->count(); i++) {
+			auto name = ui_->hostsFileListWidget->item(i)->text();
+			auto path = hosts_dir_ + L"\\" + QToWStr(name);
+			DeleteFileW(path.c_str());
+		}
+		emit ui_->hostsReloadBtn->click();
+	});
 }
 
 void KernelNetwork::ShowWfpInfo()

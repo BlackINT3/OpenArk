@@ -40,7 +40,7 @@ public:
 	KernelNetwork();
 	~KernelNetwork();
 public:
-	bool EventFilter();
+	bool eventFilter(QObject *obj, QEvent *e);
 	void ModuleInit(Ui::Kernel *ui, Kernel *kernel);
 
 private slots:
@@ -48,11 +48,15 @@ private slots:
 
 private:
 	void ShowWfpInfo();
-
+	void InitWfpView();
+	void InitHostsView();
 
 private:
-	Ui::Kernel *ui;
-	QMenu *wfp_menu_;
+	Ui::Kernel *ui_;
+	Kernel *kernel_;
+	std::wstring hosts_dir_;
+	std::wstring hosts_file_;
+	QMenu *hosts_menu_;
 	QStandardItemModel *wfp_model_;
 	WfpSortFilterProxyModel *proxy_wfp_;
 };

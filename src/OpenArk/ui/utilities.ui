@@ -26,7 +26,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabSystemTools">
       <attribute name="title">
@@ -325,7 +325,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>124</width>
+               <width>113</width>
                <height>141</height>
               </rect>
              </property>
@@ -760,7 +760,6 @@
          </layout>
          <zorder>scrollArea_5</zorder>
          <zorder>scrollArea_6</zorder>
-         <zorder>diskmgrBtn</zorder>
          <zorder>horizontalSpacer_3</zorder>
         </widget>
        </item>
@@ -801,7 +800,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>124</width>
+               <width>113</width>
                <height>140</height>
               </rect>
              </property>
@@ -909,7 +908,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>124</width>
+               <width>113</width>
                <height>140</height>
               </rect>
              </property>
@@ -1000,7 +999,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>118</width>
+               <width>113</width>
                <height>140</height>
               </rect>
              </property>
@@ -1364,7 +1363,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>136</width>
+               <width>124</width>
                <height>141</height>
               </rect>
              </property>
@@ -1526,6 +1525,13 @@
           <widget class="QPushButton" name="cleanBtn">
            <property name="text">
             <string>&amp;Clean</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="settingBtn">
+           <property name="text">
+            <string>Setting</string>
            </property>
           </widget>
          </item>

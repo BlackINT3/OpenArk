@@ -89,7 +89,7 @@ bool Kernel::eventFilter(QObject *obj, QEvent *e)
 		}
 	}
 
-	if (network_) network_->EventFilter();
+	if (network_) network_->eventFilter(obj, e);
 	if (driver_) driver_->eventFilter(obj, e);
 
 	if (filtered) {
