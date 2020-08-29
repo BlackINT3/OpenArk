@@ -38,9 +38,9 @@ void KernelMemory::onTabChanged(int index)
 	CommonTabObject::onTabChanged(index);
 }
 
-bool KernelMemory::EventFilter()
+bool KernelMemory::eventFilter(QObject *obj, QEvent *e)
 {
-	return true;
+	return QWidget::eventFilter(obj, e);
 }
 
 void KernelMemory::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
@@ -69,6 +69,7 @@ KernelMemoryRW::KernelMemoryRW()
 	setAttribute(Qt::WA_DeleteOnClose);
 
 	connect(memui_, &QWidget::destroyed, this, &QWidget::close);
+	memui_->installEventFilter(this);
 
 	DEFINE_WIDGET(QPushButton*, readMemBtn);
 	connect(readMemBtn, &QPushButton::clicked, this, [&] {
@@ -78,6 +79,10 @@ KernelMemoryRW::KernelMemoryRW()
 		ULONG64 addr = VariantInt64(readAddrEdit->text().toStdString());
 		ULONG size = VariantInt(readSizeEdit->text().toStdString());
 		ULONG pid = VariantInt(pidEdit->text().toStdString(), 10);
+		if (size > PAGE_SIZE * 100) {
+			QMessageBox::warning(this, tr("Warning"), tr("Read size too big, UI maybe no responsible."), QMessageBox::Ok);
+			return;
+		}
 		ViewMemory(pid, addr, size);
 	});
 
@@ -136,6 +141,17 @@ KernelMemoryRW::~KernelMemoryRW()
 	free_callback_(free_vars_);
 }
 
+bool KernelMemoryRW::eventFilter(QObject *obj, QEvent *e)
+{
+	if (e->type() == QEvent::KeyPress) {
+		QKeyEvent *keyevt = dynamic_cast<QKeyEvent*>(e);
+		if (keyevt->matches(QKeySequence::Cancel)) {
+			memui_->close();
+		}
+	}
+	return QWidget::eventFilter(obj, e);
+}
+
 void KernelMemoryRW::ViewMemory(ULONG pid, ULONG64 addr, ULONG size)
 {
 	bool readok = false;
@@ -153,10 +169,9 @@ void KernelMemoryRW::ViewMemory(ULONG pid, ULONG64 addr, ULONG size)
 		readok = true;
 	}
 
-	auto hexdump = HexDumpMemory(addr, mem, minsize);
-	if (maxsize_ != -1 && size > maxsize_) {
-		auto delta = size - maxsize_;
-		auto hexdump2 = HexDumpMemory(addr+size, nullptr, size-maxsize_);
+	auto hexdump = HexDumpMemory(addr, mem, memsize);
+	if (size > memsize) {
+		auto hexdump2 = HexDumpMemory(addr+size, nullptr, size-memsize);
 		hexdump.append(hexdump2);
 	}
 	auto disasm = DisasmMemory(addr, mem, minsize);
@@ -174,10 +189,10 @@ void KernelMemoryRW::ViewMemory(ULONG pid, ULONG64 addr, ULONG size)
 	for (auto info : infos) {
 		if (IN_RANGE(addr, info.base, info.size)) {
 			path = WStrToQ(ParseDriverPath(info.path));
+			regionLabel->setText(path);
 			break;
 		}
 	}
-	regionLabel->setText(path);
 	readok ? LabelSuccess(statusLabel, tr("Read Memory successfully, addr:0x%1 size:0x%2").arg(QString::number(addr, 16).toUpper()).arg(QString::number(size, 16).toUpper())) :
 		LabelError(statusLabel, tr("Read Memory error, addr:0x%1 size:0x%2").arg(QString::number(addr, 16).toUpper()).arg(QString::number(size, 16).toUpper()));
 }

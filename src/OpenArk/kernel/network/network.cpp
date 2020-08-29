@@ -287,6 +287,7 @@ void KernelNetwork::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 
 	InitWfpView();
 	InitHostsView();
+	InitPortView();
 }
 
 void KernelNetwork::InitWfpView()
@@ -413,7 +414,11 @@ void KernelNetwork::InitHostsView()
 
 	ui_->hostsFileListWidget->installEventFilter(this);
 	hosts_menu_ = new QMenu();
-
+	hosts_menu_->addAction(tr("Mark as Main"), kernel_, [=] {
+		WriteHostsData(hosts_file_);
+		ReloadHostsList();
+		ui_->hostsFileListWidget->setCurrentRow(0);
+	});
 	hosts_menu_->addAction(tr("Rename"), kernel_, [=] {
 		bool ok;
 		std::wstring &&old = GetCurrentHostsPath();
@@ -435,9 +440,6 @@ void KernelNetwork::InitHostsView()
 	hosts_menu_->addAction(tr("Backup"), kernel_, [=] {
 		emit ui_->hostsBackupBtn->click();
 	});
-	hosts_menu_->addAction(tr("Reload"), kernel_, [=] {
-		emit ui_->hostsReloadBtn->click();
-	});
 	auto copy_menu = new QMenu();
 	copy_menu->addAction(tr("File Name"))->setData(0);
 	copy_menu->addAction(tr("File Path"))->setData(1);
@@ -451,6 +453,9 @@ void KernelNetwork::InitHostsView()
 		}
 		ClipboardCopyData(UNONE::StrToA(data));
 	});
+	hosts_menu_->addAction(tr("Reload"), kernel_, [=] {
+		emit ui_->hostsReloadBtn->click();
+	});
 
 	hosts_menu_->addAction(copy_menu->menuAction());
 	hosts_menu_->addSeparator();
@@ -458,17 +463,47 @@ void KernelNetwork::InitHostsView()
 		DeleteFileW(GetCurrentHostsPath().c_str());
 		emit ui_->hostsReloadBtn->click();
 	}, QKeySequence::Delete);
-	hosts_menu_->addAction(tr("Delete All"), kernel_, [=] {
+	hosts_menu_->addAction(tr("Delete Non-Main"), kernel_, [=] {
 		if (QMessageBox::warning(this, tr("Warning"), tr("Are you sure to delete all hosts file(include backups)?"),
 			QMessageBox::Yes | QMessageBox::No) == QMessageBox::No) {
 			return;
 		}
 		for (int i = 0; i < ui_->hostsFileListWidget->count(); i++) {
 			auto name = ui_->hostsFileListWidget->item(i)->text();
+			if (!name.compare("hosts", Qt::CaseInsensitive)) continue;
 			auto path = hosts_dir_ + L"\\" + QToWStr(name);
 			DeleteFileW(path.c_str());
 		}
 		emit ui_->hostsReloadBtn->click();
+	});
+}
+
+void KernelNetwork::InitPortView()
+{
+	QTreeView *view = ui_->portView;
+	port_model_ = new QStandardItemModel;
+	proxy_port_ = new WfpSortFilterProxyModel(view);
+	std::pair<int, QString> colum_layout[] = {
+		{ 80, tr("Protocol") },
+		{ 150, tr("Local address") },
+		{ 150, tr("Foreign address") },
+		{ 80, tr("State") },
+		{ 80, tr("PID") },
+		{ 150, tr("Process Name") },
+		{ 350, tr("Process Path") },
+	};
+
+	SetDefaultTreeViewStyle(view, port_model_, proxy_port_, colum_layout, _countof(colum_layout));
+	view->viewport()->installEventFilter(this);
+	view->installEventFilter(this);
+
+	port_menu_ = new QMenu();
+	port_menu_->addAction(tr("Refresh"), this, [&] {
+		
+	});
+	port_menu_->addAction(tr("Copy"), this, [&] {
+		auto view = ui_->objectSectionsView;
+		ClipboardCopyData(GetCurItemViewData(view, GetCurViewColumn(view)).toStdString());
 	});
 }
 

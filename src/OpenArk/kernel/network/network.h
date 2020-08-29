@@ -50,6 +50,7 @@ private:
 	void ShowWfpInfo();
 	void InitWfpView();
 	void InitHostsView();
+	void InitPortView();
 
 private:
 	Ui::Kernel *ui_;
@@ -57,6 +58,9 @@ private:
 	std::wstring hosts_dir_;
 	std::wstring hosts_file_;
 	QMenu *hosts_menu_;
+	QMenu *port_menu_;
 	QStandardItemModel *wfp_model_;
+	QStandardItemModel *port_model_;
 	WfpSortFilterProxyModel *proxy_wfp_;
+	WfpSortFilterProxyModel *proxy_port_;
 };

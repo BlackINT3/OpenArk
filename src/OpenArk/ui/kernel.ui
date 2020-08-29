@@ -902,7 +902,7 @@
        <item>
         <widget class="QTabWidget" name="tabNetwork">
          <property name="currentIndex">
-          <number>3</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="tabWfp">
           <attribute name="title">
@@ -940,7 +940,7 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_16">
            <item>
-            <widget class="QTreeView" name="treeView"/>
+            <widget class="QTreeView" name="portView"/>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -956,6 +956,27 @@
                 </size>
                </property>
               </spacer>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_5">
+               <property name="text">
+                <string>IPV4</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_4">
+               <property name="text">
+                <string>IPV6</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox">

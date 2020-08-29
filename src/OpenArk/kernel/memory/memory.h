@@ -35,7 +35,7 @@ public:
 	KernelMemory();
 	~KernelMemory();
 public:
-	bool EventFilter();
+	bool eventFilter(QObject *obj, QEvent *e);
 	void ModuleInit(Ui::Kernel *mainui, Kernel *kernel);
 
 private slots:
@@ -60,6 +60,7 @@ private:
 	ULONG maxsize_;
 
 public:
+	bool eventFilter(QObject *obj, QEvent *e);
 	void RegFreeCallback(std::function<void(QList<QVariant>)> callback, QList<QVariant> vars) {
 		free_callback_ = callback;
 		free_vars_ = vars;
@@ -72,6 +73,7 @@ public:
 	{
 		auto memwidget = this->GetWidget();
 		memwidget->findChild<QLineEdit*>("readAddrEdit")->setText(QString("0x%1").arg(QString::number(addr,16).toUpper()));
+		memwidget->findChild<QLineEdit*>("writeAddrEdit")->setText(QString("0x%1").arg(QString::number(addr, 16).toUpper()));
 		memwidget->findChild<QLineEdit*>("readSizeEdit")->setText(QString("0x%1").arg(QString::number(size, 16).toUpper()));
 		memwidget->setParent(parent);
 		memwidget->setWindowTitle(tr("Memory Read-Write"));
