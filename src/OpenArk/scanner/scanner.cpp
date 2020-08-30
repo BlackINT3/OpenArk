@@ -436,7 +436,11 @@ void Scanner::RefreshSummary(const std::wstring& path)
 		down_seq++;
 	};
 
-	AddSummaryUpItem(tr("File Path"), WStrToQ(UNONE::FsPathStandardW(path)));
+	auto std_path = WStrToQ(UNONE::FsPathStandardW(path));
+	sumup_model_->setItem(up_seq, 0, new QStandardItem(tr("File Path")));
+	sumup_model_->setItem(up_seq, 1, new QStandardItem(LoadIcon(std_path), std_path));
+	up_seq++;
+
 	AddSummaryUpItem(tr("File Type"), WStrToQ(GuessFileType()));
 	AddSummaryUpItem(tr("File Size"), WStrToQ(formed));
 

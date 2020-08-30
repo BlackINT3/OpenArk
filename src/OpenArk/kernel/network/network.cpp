@@ -14,6 +14,7 @@
 **
 ****************************************************************************/
 #include <WinSock2.h>
+#include <arkdrv-api/arkdrv-api.h>
 
 //https://social.msdn.microsoft.com/Forums/windowsdesktop/en-US/8fd93a3d-a794-4233-9ff7-09b89eed6b1f/compiling-with-wfp?forum=wfp
 #include "include/fwpmu.h"
@@ -262,11 +263,13 @@ bool KernelNetwork::eventFilter(QObject *obj, QEvent *e)
 	if (e->type() == QEvent::ContextMenu) {
 		QMenu *menu = nullptr;
 		if (obj == ui_->hostsFileListWidget) menu = hosts_menu_;
+		if (obj == ui_->portView) menu = port_menu_;
 		QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
 		if (ctxevt && menu) {
 			menu->move(ctxevt->globalPos());
 			menu->show();
 		}
+
 	}
 	if (e->type() == QEvent::KeyPress) {
 		QKeyEvent *keyevt = dynamic_cast<QKeyEvent*>(e);
@@ -483,28 +486,55 @@ void KernelNetwork::InitPortView()
 	QTreeView *view = ui_->portView;
 	port_model_ = new QStandardItemModel;
 	proxy_port_ = new WfpSortFilterProxyModel(view);
-	std::pair<int, QString> colum_layout[] = {
-		{ 80, tr("Protocol") },
-		{ 150, tr("Local address") },
-		{ 150, tr("Foreign address") },
-		{ 80, tr("State") },
-		{ 80, tr("PID") },
-		{ 150, tr("Process Name") },
+	std::pair<int, QString> layout[] = {
+		{ 50, tr("Protocol") },
+		{ 135, tr("Local address") },
+		{ 145, tr("Foreign address") },
+		{ 100, tr("State") },
+		{ 50, tr("PID") },
 		{ 350, tr("Process Path") },
 	};
 
-	SetDefaultTreeViewStyle(view, port_model_, proxy_port_, colum_layout, _countof(colum_layout));
+	SetDefaultTreeViewStyle(view, port_model_, proxy_port_, layout, _countof(layout));
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
 
 	port_menu_ = new QMenu();
 	port_menu_->addAction(tr("Refresh"), this, [&] {
-		
+		onShowPortInfo();
 	});
 	port_menu_->addAction(tr("Copy"), this, [&] {
 		auto view = ui_->objectSectionsView;
 		ClipboardCopyData(GetCurItemViewData(view, GetCurViewColumn(view)).toStdString());
 	});
+	port_menu_->addSeparator();
+	port_menu_->addAction(tr("Kill Process"), this, [&] {
+		auto pid = GetCurItemViewData(ui_->portView, 4).toInt();
+		UNONE::PsKillProcess(pid);
+		onShowPortInfo();
+	});
+	port_menu_->addSeparator();
+	port_menu_->addAction(tr("Sendto Scanner"), this, [&] {
+		kernel_->GetParent()->SetActiveTab(TAB_SCANNER);
+		emit kernel_->signalOpen(GetCurItemViewData(ui_->portView, 5));
+	});
+	port_menu_->addAction(tr("Explore File"), this, [&] {
+		ExploreFile(GetCurItemViewData(ui_->portView, 5));
+	});
+	port_menu_->addAction(tr("Properties..."), this, [&]() {
+		WinShowProperties(GetCurItemViewData(ui_->portView, 5).toStdWString());
+	});
+	connect(ui_->locaIPv4Btn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k ipconfig|findstr /i ipv4"); });
+	connect(ui_->locaIPv6Btn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k ipconfig|findstr /i ipv6"); });
+	connect(ui_->ipv4CheckBox, SIGNAL(clicked()), this, SLOT(onShowPortInfo()));
+	connect(ui_->ipv6CheckBox, SIGNAL(clicked()), this, SLOT(onShowPortInfo()));
+	connect(ui_->tcpListenCheckBox, SIGNAL(clicked()), this, SLOT(onShowPortInfo()));
+	connect(ui_->tcpConnCheckBox, SIGNAL(clicked()), this, SLOT(onShowPortInfo()));
+	connect(ui_->udpListenCheckBox, SIGNAL(clicked()), this, SLOT(onShowPortInfo()));
+	
+	ui_->ipv4CheckBox->setChecked(true);
+	ui_->tcpListenCheckBox->setChecked(true);
+	onShowPortInfo();
 }
 
 void KernelNetwork::ShowWfpInfo()
@@ -523,5 +553,52 @@ void KernelNetwork::ShowWfpInfo()
 		wfp_model_->setItem(count, 0, id_item);
 		wfp_model_->setItem(count, 1, key_item);
 		wfp_model_->setItem(count, 2, name_item);
+	}
+}
+
+void KernelNetwork::onShowPortInfo()
+{
+	DISABLE_RECOVER();
+	ClearItemModelData(port_model_, 0);
+
+	auto ipv4 = ui_->ipv4CheckBox->isChecked();
+	auto ipv6 = ui_->ipv6CheckBox->isChecked();
+	auto tcpls = ui_->tcpListenCheckBox->isChecked();
+	auto tcpconn = ui_->tcpConnCheckBox->isChecked();
+	auto udpls = ui_->udpListenCheckBox->isChecked();
+
+	std::vector<ARK_NETWORK_ENDPOINT_ITEM> items;
+	std::vector<ARK_NETWORK_ENDPOINT_ITEM> filters;
+	if (tcpls || tcpconn) {
+		if (ipv4) ArkDrvApi::Network::EnumTcp4Endpoints(items);
+		if (ipv6) ArkDrvApi::Network::EnumTcp6Endpoints(items);
+		for (auto &item : items) {
+			if (tcpls && item.state == 2) filters.push_back(item);
+			if (tcpconn && item.state != 2) filters.push_back(item);
+		}
+	}
+	if (udpls) {
+		items.clear();
+		if (ipv4) ArkDrvApi::Network::EnumUdp4Endpoints(items);
+		if (ipv6) ArkDrvApi::Network::EnumUdp6Endpoints(items);
+		filters.insert(filters.end(), items.begin(), items.end());
+	}
+	for (auto &item : filters) {
+		auto item_0 = new QStandardItem(CharsToQ(item.protocol));
+		auto item_1 = new QStandardItem(CharsToQ(item.local));
+		auto item_2 = new QStandardItem(CharsToQ(item.remote));
+		QStandardItem *item_3 = new QStandardItem();
+		if (item.tran_ver == ARK_NETWORK_TCP) item_3->setText(CharsToQ(item.readable_state));
+		auto item_4 = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", item.pid)));
+		ProcInfo pi;
+		CacheGetProcInfo(item.pid, pi);
+		auto item_5 = new QStandardItem(LoadIcon(pi.path), pi.path);
+		auto count = port_model_->rowCount();
+		port_model_->setItem(count, 0, item_0);
+		port_model_->setItem(count, 1, item_1);
+		port_model_->setItem(count, 2, item_2);
+		port_model_->setItem(count, 3, item_3);
+		port_model_->setItem(count, 4, item_4);
+		port_model_->setItem(count, 5, item_5);
 	}
 }

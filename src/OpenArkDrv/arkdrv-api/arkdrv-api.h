@@ -29,7 +29,7 @@
 #include "api-notify/api-notify.h"
 #include "api-object/api-object.h"
 #include "api-process/api-process.h"
-
+#include "api-network/api-network.h"
 
 #define ARK_NTDEVICE_NAME L"\\Device\\OpenArkDrv"
 #define ARK_DOSDEVICE_NAME L"\\DosDevices\\OpenArkDrv"

@@ -255,6 +255,7 @@
   <ItemGroup>
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-driver\api-driver.cpp" />
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-memory\api-memory.cpp" />
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-network\api-network.cpp" />
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-notify\api-notify.cpp" />
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-object\api-object.cpp" />
     <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-process\api-process.cpp" />
@@ -348,6 +349,7 @@
   <ItemGroup>
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-driver\api-driver.h" />
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-memory\api-memory.h" />
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-network\api-network.h" />
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-notify\api-notify.h" />
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-object\api-object.h" />
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-process\api-process.h" />

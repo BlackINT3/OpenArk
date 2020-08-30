@@ -131,9 +131,16 @@ KernelMemoryRW::KernelMemoryRW()
 	connect(pidEdit, &QLineEdit::textChanged, [&](const QString&) {
 		DEFINE_WIDGET(QLineEdit*, pidEdit);
 		DEFINE_WIDGET(QLabel*, pnameLabel);
+		DEFINE_WIDGET(QLabel*, iconLabel);
 		ULONG pid = VariantInt(pidEdit->text().toStdString(), 10);
-		pnameLabel->setText(CacheGetProcInfo(pid).name);
+		auto &&name = CacheGetProcInfo(pid).name;
+		if (name.isEmpty()) return;
+		pnameLabel->setText(name);
+		auto pixmap = LoadIcon(CacheGetProcInfo(pid).path).pixmap(iconLabel->size()).scaled(iconLabel->size(), Qt::KeepAspectRatio);
+		iconLabel->setScaledContents(true);
+		iconLabel->setPixmap(pixmap);
 	});
+	emit pidEdit->textChanged("4");
 }
 
 KernelMemoryRW::~KernelMemoryRW()

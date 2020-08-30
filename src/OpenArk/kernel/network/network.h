@@ -45,12 +45,13 @@ public:
 
 private slots:
 	void onTabChanged(int index);
+	void onShowPortInfo();
 
 private:
-	void ShowWfpInfo();
 	void InitWfpView();
 	void InitHostsView();
 	void InitPortView();
+	void ShowWfpInfo();
 
 private:
 	Ui::Kernel *ui_;

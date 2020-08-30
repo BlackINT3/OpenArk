@@ -153,6 +153,9 @@
     <Filter Include="kernel\object">
       <UniqueIdentifier>{d182a510-0632-4c4a-a913-91db1451a2ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="kernel\arkdrv-api\api-network">
+      <UniqueIdentifier>{94d5a16e-d3ff-400b-b13e-599022aabf66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openark\openark.cpp">
@@ -320,6 +323,9 @@
     </ClCompile>
     <ClCompile Include="kernel\object\object.cpp">
       <Filter>kernel\object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenArkDrv\arkdrv-api\api-network\api-network.cpp">
+      <Filter>kernel\arkdrv-api\api-network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -569,6 +575,9 @@
     </ClInclude>
     <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-object\api-object.h">
       <Filter>kernel\arkdrv-api\api-object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenArkDrv\arkdrv-api\api-network\api-network.h">
+      <Filter>kernel\arkdrv-api\api-network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

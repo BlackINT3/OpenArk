@@ -70,14 +70,22 @@ bool MemoryRead(ULONG pid, ULONG64 addr, ULONG size, std::string &readbuf)
 	data.resize(size);
 	BOOL ret = ReadProcessMemory(phd, (PVOID)addr, (PVOID)data.data(), (SIZE_T)size, (SIZE_T*)&readlen);
 	if (!ret) {
-		ERR(L"ReadProcessMemory pid:%d, err:%d", pid, GetLastError());
-		CloseHandle(phd);
-		return FALSE;
+		auto err = GetLastError();
+		if (err != ERROR_PARTIAL_COPY) goto err;
+		MEMORY_BASIC_INFORMATION mbi;
+		if (!VirtualQueryEx(phd, (PVOID)addr, &mbi, sizeof(mbi))) goto err;
+		auto exact = (ULONG)mbi.RegionSize - (ULONG)(addr - (ULONG64)mbi.BaseAddress);
+		ret = ReadProcessMemory(phd, (PVOID)addr, (PVOID)data.data(), (SIZE_T)exact, (SIZE_T*)&readlen);
+		if (!ret) goto err;
 	}
 	CloseHandle(phd);
-
+	data.resize(readlen);
 	readbuf = std::move(data);
 	return true;
+err:
+	ERR(L"ReadProcessMemory pid:%d, err:%d", pid, GetLastError());
+	CloseHandle(phd);
+	return false;
 }
 
 bool MemoryWriteR0(ULONG pid, ULONG64 addr, std::string &writebuf)

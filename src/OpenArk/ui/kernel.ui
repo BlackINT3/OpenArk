@@ -940,10 +940,28 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_16">
            <item>
-            <widget class="QTreeView" name="portView"/>
+            <widget class="QTreeView" name="portView">
+             <property name="indentation">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_12">
+             <item>
+              <widget class="QPushButton" name="locaIPv4Btn">
+               <property name="text">
+                <string>Local IPV4</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="locaIPv6Btn">
+               <property name="text">
+                <string>Local IPV6</string>
+               </property>
+              </widget>
+             </item>
              <item>
               <spacer name="horizontalSpacer_6">
                <property name="orientation">
@@ -958,14 +976,14 @@
               </spacer>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_5">
+              <widget class="QCheckBox" name="ipv4CheckBox">
                <property name="text">
                 <string>IPV4</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_4">
+              <widget class="QCheckBox" name="ipv6CheckBox">
                <property name="text">
                 <string>IPV6</string>
                </property>
@@ -979,21 +997,21 @@
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox">
+              <widget class="QCheckBox" name="tcpListenCheckBox">
                <property name="text">
                 <string>TCP Listen</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_2">
+              <widget class="QCheckBox" name="tcpConnCheckBox">
                <property name="text">
                 <string>TCP Connection</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_3">
+              <widget class="QCheckBox" name="udpListenCheckBox">
                <property name="text">
                 <string>UDP Listen</string>
                </property>
