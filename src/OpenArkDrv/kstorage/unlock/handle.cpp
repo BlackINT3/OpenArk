@@ -201,11 +201,11 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 	ULONG		count = 0;
 	UCHAR		filetypeindex = 28;  // set file object type index
 
-	if (ArkDrv.major > 6) {
-		filetypeindex = 32;
+	filetypeindex = ObjectTypeIndexByName(L"File");
+	if (filetypeindex == -1) {
+		return status;
 	}
-
-
+	
 	buffer = ExAllocatePoolWithTag(NonPagedPool, size, 'enhd');
 	if (buffer == NULL) {
 		return STATUS_MEMORY_NOT_ALLOCATED;
@@ -215,7 +215,6 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 	status = ZwQuerySystemInformation(SystemHandleInformation, buffer, size, &size);
 	while (status == STATUS_INFO_LENGTH_MISMATCH) {
 		ExFreePoolWithTag(buffer, 'enhd');
-		// size = size * 2;
 		buffer = ExAllocatePoolWithTag(NonPagedPool, size, 'enhd');
 		if (buffer == NULL) {
 			return STATUS_MEMORY_NOT_ALLOCATED;

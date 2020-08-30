@@ -58,6 +58,27 @@ typedef struct _ARK_OBJECT_SECTION_INFO {
 //#undef _ARKDRV_
 #ifdef _ARKDRV_
 #include <ntifs.h>
+
+typedef struct _OBJECT_TYPE_INFORMATION {
+	UNICODE_STRING          TypeName;
+	ULONG                   TotalNumberOfHandles;
+	ULONG                   TotalNumberOfObjects;
+	WCHAR                   Unused1[8];
+	ULONG                   HighWaterNumberOfHandles;
+	ULONG                   HighWaterNumberOfObjects;
+	WCHAR                   Unused2[8];
+	ACCESS_MASK             InvalidAttributes;
+	GENERIC_MAPPING         GenericMapping;
+	ACCESS_MASK             ValidAttributes;
+	BOOLEAN                 SecurityRequired;
+	BOOLEAN                 MaintainHandleCount;
+	USHORT                  MaintainTypeList;
+	POOL_TYPE               PoolType;
+	ULONG                   DefaultPagedPoolCharge;
+	ULONG                   DefaultNonPagedPoolCharge;
+} OBJECT_TYPE_INFORMATION, *POBJECT_TYPE_INFORMATION;
+
+ULONG ObjectTypeIndexByName(WCHAR *object_type_name);
 #else
 #include <unone.h>
 #include <string>

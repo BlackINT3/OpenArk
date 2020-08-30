@@ -61,7 +61,7 @@ typedef struct _OBJECT_NAME_INFORMATION {
 	WCHAR                   NameBuffer[0];
 } OBJECT_NAME_INFORMATION, *POBJECT_NAME_INFORMATION;
 */
-
+/*
 typedef struct _OBJECT_TYPE_INFORMATION {
 	UNICODE_STRING          TypeName;
 	ULONG                   TotalNumberOfHandles;
@@ -80,6 +80,7 @@ typedef struct _OBJECT_TYPE_INFORMATION {
 	ULONG                   DefaultPagedPoolCharge;
 	ULONG                   DefaultNonPagedPoolCharge;
 } OBJECT_TYPE_INFORMATION, *POBJECT_TYPE_INFORMATION;
+*/
 
 
 typedef struct _OBJECT_HANDLE_FLAG_INFORMATION {
