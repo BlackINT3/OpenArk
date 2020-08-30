@@ -94,13 +94,18 @@ CoderKit::CoderKit(QWidget* parent, int tabid) :
 	is_user_ = false;
 	is_format_changed_ = false;
 	onAlgIndexChanged(alg_idx_);
-	ui.typeBox->insertItem(IDX.base64, "Base64");
-	ui.typeBox->insertItem(IDX.crc32, "CRC32");
-	ui.typeBox->insertItem(IDX.md5, "MD5");
-	ui.typeBox->insertItem(IDX.sha1, "SHA1");
-	//ui.typeBox->insertItem(IDX.rc4, "RC4");
+	// ui.typeBox->insertItem(IDX.base64, "Base64");
+	// ui.typeBox->insertItem(IDX.crc32, "CRC32");
+	// ui.typeBox->insertItem(IDX.md5, "MD5");
+	// ui.typeBox->insertItem(IDX.sha1, "SHA1");
+	// ui.typeBox->insertItem(IDX.rc4, "RC4");
 
-	connect(ui.typeBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onAlgIndexChanged(int)));
+	ui.base64Radio->setChecked(true);
+	connect(ui.base64Radio, SIGNAL(clicked()), this, SLOT(onAlgPlainChanged()));
+	connect(ui.crc32Radio, SIGNAL(clicked()), this, SLOT(onAlgPlainChanged()));
+	connect(ui.md5Radio, SIGNAL(clicked()), this, SLOT(onAlgPlainChanged()));
+	connect(ui.sha1Radio, SIGNAL(clicked()), this, SLOT(onAlgPlainChanged()));
+	//connect(ui.typeBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onAlgIndexChanged(int)));
 	connect(ui.plainEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
 	connect(ui.cipherEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
 	//connect(ui.keyEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
@@ -260,7 +265,20 @@ void CoderKit::onAlgPlainChanged()
 		UpdateAlgorithmText(false);
 	} else if (sender == ui.keyEdit) {
 		UpdateAlgorithmText(true);
-	} 
+	}
+	auto sender_radio = qobject_cast<QRadioButton*>(QObject::sender()); 
+	if (sender_radio == ui.base64Radio) {
+		alg_idx_ = 0;
+	} else if (sender_radio == ui.crc32Radio) {
+		alg_idx_ = 1;
+	} else if (sender_radio == ui.md5Radio) {
+		alg_idx_ = 2;
+	} else if (sender_radio == ui.sha1Radio) {
+		alg_idx_ = 3;
+	} else {
+		return;
+	}
+	UpdateAlgorithmText(true);
 }
 
 void CoderKit::onFormatChanged()
