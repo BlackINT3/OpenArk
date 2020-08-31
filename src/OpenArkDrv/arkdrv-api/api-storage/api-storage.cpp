@@ -36,6 +36,7 @@ bool UnlockClose(HANDLE_ITEM &item)
 	std::string outdata;
 	indata.assign((char *)&item, sizeof(HANDLE_ITEM));
 	bool ret = IoControlDriver(IOCTL_ARK_STORAGE, STORAGE_UNLOCK_CLOSE, indata, outdata);
+	if (!ret) return false;
 	return true;
 }
 

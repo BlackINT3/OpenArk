@@ -15,6 +15,47 @@
 ****************************************************************************/
 #include "api-object.h"
 #ifdef _ARKDRV_
+
+ULONG ObjectTypeIndexByName(WCHAR *object_type_name)
+{
+	ULONG		index = -1;
+	NTSTATUS	status;
+	ULONG		bufsize = PAGE_SIZE;
+	PVOID		buf = ExAllocatePoolWithTag(NonPagedPool, bufsize, 'obte');
+	while ((status = ZwQueryObject(
+		NULL,
+		(OBJECT_INFORMATION_CLASS)3, //ObjectTypesInformation,
+		buf,
+		bufsize,
+		NULL
+	)) == STATUS_INFO_LENGTH_MISMATCH) {
+		ExFreePoolWithTag(buf, 'obte');
+		bufsize *= 2;
+		buf = ExAllocatePoolWithTag(NonPagedPool, bufsize, 'obte');
+	}
+	if (!NT_SUCCESS(status)) {
+		ExFreePoolWithTag(buf, 'obte');
+		return index;
+	}
+	ULONG number_types = *(ULONG *)buf;
+	POBJECT_TYPE_INFORMATION obj_info = (POBJECT_TYPE_INFORMATION)(((PUCHAR)buf) + ALIGN_UP(sizeof(number_types), ULONG_PTR));
+	for (ULONG i = 0; i < number_types; i++) {
+		UNICODE_STRING t_type_name;
+		RtlInitUnicodeString(&t_type_name, object_type_name);
+
+		if (0 == RtlCompareUnicodeString(&t_type_name, &(obj_info->TypeName), TRUE)) {
+			index = i + 2;
+			break;
+		}
+		obj_info = (POBJECT_TYPE_INFORMATION)
+			((PCHAR)(obj_info + 1) + ALIGN_UP(obj_info->TypeName.MaximumLength, ULONG_PTR));
+	}
+	if (buf) {
+		ExFreePoolWithTag(buf, 'obte');
+	}
+	return index;
+}
+
 #else
 
 #undef ALIGN_DOWN_BY
