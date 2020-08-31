@@ -21,7 +21,6 @@ bool UnlockFileSortFilterProxyModel::lessThan(const QModelIndex &left, const QMo
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
 }
 
-
 KernelStorage::KernelStorage()
 {
 
@@ -42,11 +41,21 @@ bool KernelStorage::eventFilter(QObject *obj, QEvent *e)
 	if (e->type() == QEvent::ContextMenu) {
 		QMenu *menu = nullptr;
 		if (obj == ui_->unlockView->viewport()) menu = unlock_menu_;
-		if (obj == ui_->fsfltView->viewport()) menu = fsflt_menu_;
+		//if (obj == ui_->fsfltView->viewport()) menu = fsflt_menu_;
 		QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
 		if (ctxevt && menu) {
 			menu->move(ctxevt->globalPos());
 			menu->show();
+		}
+	} else if (e->type() == QEvent::MouseMove) {
+		QMouseEvent *mouse = static_cast<QMouseEvent *>(e);
+		QPoint pt = mouse->pos();
+		if (ui_->inputPathEdit->geometry().contains(pt)) {
+			if (ui_->inputPathEdit->text().isEmpty()) {
+				QString tips(tr("Tips: You can copy file or directory and paste to here..."));
+				QToolTip::showText(mouse->globalPos(), tips);
+				return true;
+			}
 		}
 	}
 	return QWidget::eventFilter(obj, e);
@@ -55,44 +64,33 @@ bool KernelStorage::eventFilter(QObject *obj, QEvent *e)
 void KernelStorage::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 {
 	this->ui_ = ui;
+	this->kernel_ = kernel;
 
 	Init(ui->tabStorage, TAB_KERNEL, TAB_KERNEL_STORAGE);
 
 	InitFileUnlockView();
-	InitFileFilterView();
+	//InitFileFilterView();
 }
-
-ULONG64 GetFreeLibraryAddress(DWORD pid); //temp code
 
 void KernelStorage::InitFileUnlockView()
 {
 	unlock_model_ = new QStandardItemModel;
 	QTreeView *view = ui_->unlockView;
 	proxy_unlock_ = new UnlockFileSortFilterProxyModel(view);
-	proxy_unlock_->setSourceModel(unlock_model_);
-	proxy_unlock_->setDynamicSortFilter(true);
-	proxy_unlock_->setFilterKeyColumn(1);
-	view->setModel(proxy_unlock_);
-	view->selectionModel()->setModel(proxy_unlock_);
-	view->header()->setSortIndicator(-1, Qt::AscendingOrder);
-	view->setSortingEnabled(true);
-	view->viewport()->installEventFilter(this);
-	view->installEventFilter(this);
-	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	std::pair<int, QString> colum_layout[] = {
+	std::pair<int, QString> layout[] = {
 		{ 150, tr("ProcessName") },
 		{ 50, tr("PID") },
-		{ 240, tr("FilePath") },
-		{ 240, tr("ProcessPath") },
-		{ 150, tr("FileObject") },
-		{ 100, tr("FileHandle") },
+		{ 340, tr("FilePath") },
+		{ 250, tr("ProcessPath") },
+		{ 50, tr("Type") },
+		{ 150, tr("FileObject/DllBase") },
+		{ 70, tr("FileHandle") },
 	};
-	QStringList name_list;
-	for (auto p : colum_layout)  name_list << p.second;
-	unlock_model_->setHorizontalHeaderLabels(name_list);
-	for (int i = 0; i < _countof(colum_layout); i++) {
-		view->setColumnWidth(i, colum_layout[i].first);
-	}
+	SetDefaultTreeViewStyle(view, unlock_model_, proxy_unlock_, layout, _countof(layout));
+	view->viewport()->installEventFilter(this);
+	view->installEventFilter(this);
+	ui_->inputPathEdit->installEventFilter(this);
+
 	unlock_menu_ = new QMenu();
 	unlock_menu_->addAction(tr("Refresh"), this, [&] {
 		ui_->showHoldBtn->click();
@@ -103,43 +101,50 @@ void KernelStorage::InitFileUnlockView()
 		ClipboardCopyData(GetCurItemViewData(view, GetCurViewColumn(view)).toStdString());
 	});
 
-	unlock_menu_->addAction(tr("CloseHandle"), this, [&] {
+	unlock_menu_->addSeparator();
+	unlock_menu_->addAction(tr("Unlock"), this, [&] {
 		ui_->unlockFileBtn->click();
 	});
 
-	unlock_menu_->addAction(tr("CloseAllHandle"), this, [&] {
+	unlock_menu_->addAction(tr("Unlock All"), this, [&] {
 		ui_->unlockFileAllBtn->click();
 	});
 
-	unlock_menu_->addAction(tr("KillProcess"), this, [&] {
+	unlock_menu_->addAction(tr("Kill Process"), this, [&] {
 		ui_->killProcessBtn->click();
 	});
 
-	unlock_menu_->addAction(tr("LocateFile"), this, [&] {
-		
+	unlock_menu_->addSeparator();
+	unlock_menu_->addAction(tr("Sendto Scanner"), this, [&] {
+		kernel_->GetParent()->SetActiveTab(TAB_SCANNER);
+		emit kernel_->signalOpen(GetCurItemViewData(ui_->unlockView, 2));
 	});
-
-	unlock_menu_->addAction(tr("ScanFile"), this, [&] {
-
+	unlock_menu_->addAction(tr("Explore File"), this, [&] {
+		ExploreFile(GetCurItemViewData(ui_->unlockView, 2));
 	});
-
-	unlock_menu_->addAction(tr("ViewFileAttribute"), this, [&] {
-
+	unlock_menu_->addAction(tr("Properties..."), this, [&]() {
+		WinShowProperties(GetCurItemViewData(ui_->unlockView, 2).toStdWString());
 	});
-
+	connect(ui_->inputPathEdit, &QLineEdit::textChanged, [&](QString str) { 
+		if (str.contains("file:///")) {
+			ui_->inputPathEdit->setText(str.replace("file:///", ""));
+			ui_->inputPathEdit->setText(str.replace("/", "\\"));
+		}
+	});
 
 	connect(ui_->showHoldBtn, &QPushButton::clicked, [&] {
 		DISABLE_RECOVER();
 		ClearItemModelData(unlock_model_, 0);
 
 		QString file = ui_->inputPathEdit->text();
-		if (file.length() <= 0) {
-			INFO(L"Please input the file path...");
+		if (file.isEmpty()) {
+			ERR(L"Please input the file path...");
 			return;
 		}
-		std::wstring path;
+		std::wstring origin, path;
 		std::vector<HANDLE_ITEM> items;
-		UNONE::ObParseToNtPathW(file.toStdWString(), path);
+		origin = UNONE::FsPathStandardW(file.toStdWString());
+		UNONE::ObParseToNtPathW(origin, path);
 		UNONE::StrLowerW(path);
 		ArkDrvApi::Storage::UnlockEnum(path, items);
 		for (auto item : items) {
@@ -151,88 +156,87 @@ void KernelStorage::InitFileUnlockView()
 			auto item_pname = new QStandardItem(LoadIcon(WStrToQ(ppath)), WStrToQ(pname));
 			auto item_pid = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", pid)));
 			auto item_fpath = new QStandardItem(WStrToQ(fpath));
+			auto item_ftype = new QStandardItem("FILE");
 			auto item_fobj = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", item.object)));
 			auto item_ppath = new QStandardItem(WStrToQ(ppath));
-			auto item_fhandle = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%08X", (DWORD)item.handle)));
+			auto item_fhandle = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%X", (DWORD)item.handle)));
 			
 			auto count = unlock_model_->rowCount();
 			unlock_model_->setItem(count, 0, item_pname);
 			unlock_model_->setItem(count, 1, item_pid);
 			unlock_model_->setItem(count, 2, item_fpath);
 			unlock_model_->setItem(count, 3, item_ppath);
-			unlock_model_->setItem(count, 4, item_fobj);
-			unlock_model_->setItem(count, 5, item_fhandle);
+			unlock_model_->setItem(count, 4, item_ftype);
+			unlock_model_->setItem(count, 5, item_fobj);
+			unlock_model_->setItem(count, 6, item_fhandle);
 		}
-		// Add Process Dll Path
+		// Add process dll path
 		std::vector<DWORD> pids;
 		UNONE::PsGetAllProcess(pids);
 		for (auto pid : pids) {
 			UNONE::PsEnumModule(pid, [&](MODULEENTRY32W& entry)->bool {
-				QString modname = WCharsToQ(entry.szModule);
-				QString modpath = WCharsToQ(entry.szExePath);
-				HANDLE  hmodule = entry.hModule;
-				QString pname = WStrToQ(UNONE::PsGetProcessNameW(pid));
-				QString ppath = WStrToQ(UNONE::PsGetProcessPathW(pid));
-				auto index = modpath.toLower().indexOf(file.toLower());
-				if (index >= 0) {
+				if (UNONE::StrContainIW(entry.szExePath, origin)) {
+					QString modname = WCharsToQ(entry.szModule);
+					QString modpath = WCharsToQ(entry.szExePath);
+					HANDLE  hmodule = entry.hModule;
+					QString pname = WStrToQ(UNONE::PsGetProcessNameW(pid));
+					QString ppath = WStrToQ(UNONE::PsGetProcessPathW(pid));
+
 					auto item_pname = new QStandardItem(LoadIcon(ppath), pname);
 					auto item_pid = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", pid)));
 					auto item_fpath = new QStandardItem(modpath);
-					auto item_fobj = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"")));
 					auto item_ppath = new QStandardItem(ppath);
-					auto item_fhandle = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", hmodule)));
+					auto item_ftype = new QStandardItem("DLL");
+					auto item_fobj = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", hmodule))); 
+					auto item_fhandle = new QStandardItem("0");
 
 					auto count = unlock_model_->rowCount();
 					unlock_model_->setItem(count, 0, item_pname);
 					unlock_model_->setItem(count, 1, item_pid);
 					unlock_model_->setItem(count, 2, item_fpath);
 					unlock_model_->setItem(count, 3, item_ppath);
-					unlock_model_->setItem(count, 4, item_fobj);
-					unlock_model_->setItem(count, 5, item_fhandle);
-					INFO(entry.szExePath);
+					unlock_model_->setItem(count, 4, item_ftype);
+					unlock_model_->setItem(count, 5, item_fobj);
+					unlock_model_->setItem(count, 6, item_fhandle);
 				}
 				return true;
 			});
 		}
 	});
 
-	connect(ui_->unlockFileBtn, &QPushButton::clicked, [&]{
-		INFO(L"Click the unlockFileBtn button");
-		DISABLE_RECOVER();
-		auto selected = ui_->unlockView->selectionModel()->selectedIndexes();
-		if (selected.empty()) {
-			WARN(L"Not select the item of unlock file!");
-			return;
-		}
-		for (int i = 0; i < selected.size() / 6; i++) {
-			auto pname = ui_->unlockView->model()->itemData(selected[i * 6]).values()[0].toString();
-			auto pid = ui_->unlockView->model()->itemData(selected[i * 6 + 1]).values()[0].toUInt();
-			auto fpath = ui_->unlockView->model()->itemData(selected[i * 6 + 2]).values()[0].toString();
-			auto ppath = ui_->unlockView->model()->itemData(selected[i * 6 + 3]).values()[0].toString();
-			auto fobj = ui_->unlockView->model()->itemData(selected[i * 6 + 4]).values()[0].toString();
-			auto fhandle = ui_->unlockView->model()->itemData(selected[i * 6 + 5]).values()[0].toString();
-			if (fobj.length() > 0 ) {
-				// close by driver
-				HANDLE_ITEM handle_item = { 0 };
-				handle_item.pid = HANDLE(pid);
-				QString qshandle = fhandle.replace(QRegExp("0x"), "");
-				handle_item.handle = HANDLE(UNONE::StrToHexA(qshandle.toStdString().c_str()));
-				ArkDrvApi::Storage::UnlockClose(handle_item);
-				INFO(L"Unlock file handle(pid: %i, handle: %p)", pid, handle_item.handle);
-			}
-			else {
-				// close by freelibrary
-				ULONG64 remote_routine = GetFreeLibraryAddress(pid);
-				if (remote_routine) {
-					QString qshandle = fhandle.replace(QRegExp("0x"), "");
-					ULONG64 pararm = UNONE::StrToHexA(qshandle.toStdString().c_str());
+	auto CommonUnlock = [&](QString type, DWORD pid, QString fobj, QString fhandle) {
+		if (type == "DLL") {
+			// close by freelibrary
+			ULONG64 remote_routine = GetFreeLibraryAddress(pid);
+			if (remote_routine) {
+				ULONG64 pararm = QHexToQWord(fobj);
+				for (int i = 0; i < 10; i++) {
 					UNONE::PsCreateRemoteThread((DWORD)pid, remote_routine, pararm, 0);
+					INFO("%d %lld %lld", pid, remote_routine, pararm);
 				}
 			}
-			
+		} else {
+			// close by driver
+			HANDLE_ITEM handle_item = { 0 };
+			handle_item.pid = HANDLE(pid);
+			handle_item.handle = HANDLE(QHexToDWord(fhandle));
+			ArkDrvApi::Storage::UnlockClose(handle_item);
+		}
+	};
+
+	connect(ui_->unlockFileBtn, &QPushButton::clicked, [&]{
+		DISABLE_RECOVER();
+		auto selected = ui_->unlockView->selectionModel()->selectedIndexes();
+		if (selected.empty()) return;
+		int count = unlock_model_->columnCount();
+		for (int i = 0; i < selected.size() / count; i++) {
+			auto pid = ui_->unlockView->model()->itemData(selected[i * count + 1]).values()[0].toUInt();
+			auto type = ui_->unlockView->model()->itemData(selected[i * count + 4]).values()[0].toString();
+			auto fobj = ui_->unlockView->model()->itemData(selected[i * count + 5]).values()[0].toString();
+			auto fhandle = ui_->unlockView->model()->itemData(selected[i * count + 6]).values()[0].toString();
+			CommonUnlock(type, pid, fobj, fhandle);
 		}
 		ui_->showHoldBtn->click();
-		INFO(L"Reflush the unlock file handle");
 	});
 
 	connect(ui_->unlockFileAllBtn, &QPushButton::clicked, [&] {
@@ -240,40 +244,30 @@ void KernelStorage::InitFileUnlockView()
 		for (int i = 0; i < unlock_model_->rowCount(); i++) {
 			QStandardItem *item = unlock_model_->item(i, 1); //pid
 			auto pid = item->text().toUInt();
-
-			item = unlock_model_->item(i, 5); //handle
-			auto handle = HANDLE(UNONE::StrToHexA(item->text().replace(QRegExp("0x"), "").toStdString().c_str()));
-			HANDLE_ITEM handle_item = { 0 };
-			handle_item.pid = HANDLE(pid);
-			handle_item.handle = handle;
-			ArkDrvApi::Storage::UnlockClose(handle_item);
-			INFO(L"Unlock file handle all(pid: %i, handle: %p)", pid, handle_item.handle);
+			auto type = unlock_model_->item(i, 4)->text();
+			auto fobj = unlock_model_->item(i, 5)->text();
+			auto fhandle = unlock_model_->item(i, 6)->text();
+			CommonUnlock(type, pid, fobj, fhandle);
 		}
 		ui_->showHoldBtn->click();
-		INFO(L"Reflush the unlock file handle");
-
 	});
 
 	connect(ui_->killProcessBtn, &QPushButton::clicked, [&] {
-		INFO(L"Click the killProcessBtn button");
 		DISABLE_RECOVER();
 		auto selected = ui_->unlockView->selectionModel()->selectedIndexes();
-		if (selected.empty()) {
-			WARN(L"Not select the item of kill process!");
-			return;
-		}
-		for (int i = 0; i < selected.size() / 6; i++) {
-			auto pid = ui_->unlockView->model()->itemData(selected[i * 6 + 1]).values()[0].toUInt();
-			UNONE::PsKillProcess(pid);
-			INFO(L"Kill process(pid: %i)", pid);
+		if (selected.empty()) return;
+		int count = unlock_model_->columnCount();
+		for (int i = 0; i < selected.size() / count; i++) {
+			auto pid = ui_->unlockView->model()->itemData(selected[i * count + 1]).values()[0].toUInt();
+			PsKillProcess(pid);
 		}
 		ui_->showHoldBtn->click();
-		INFO(L"Reflush the unlock file handle");
 	});
 }
 
 void KernelStorage::InitFileFilterView()
 {
+/*
 	fsflt_model_ = new QStandardItemModel;
 	fsflt_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Value"));
 	SetDefaultTreeViewStyle(ui_->fsfltView, fsflt_model_);
@@ -281,56 +275,10 @@ void KernelStorage::InitFileFilterView()
 	ui_->fsfltView->viewport()->installEventFilter(this);
 	ui_->fsfltView->installEventFilter(this);
 	fsflt_menu_ = new QMenu();
-	fsflt_menu_->addAction(tr("ExpandAll"), this, SLOT(onExpandAll()));
+	fsflt_menu_->addAction(tr("ExpandAll"), this, SLOT(onExpandAll()));*/
 }
 
 void KernelStorage::ShowUnlockFiles()
 {
 
-}
-
-// temp function 
-ULONG64 GetFreeLibraryAddress32(DWORD pid)
-{
-	ULONG64 addr = 0;
-#ifdef _AMD64_
-	std::vector<UNONE::MODULE_BASE_INFOW> mods;
-	UNONE::PsGetModulesInfoW(pid, mods);
-	auto it = std::find_if(std::begin(mods), std::end(mods), [](UNONE::MODULE_BASE_INFOW &info) {
-		return UNONE::StrCompareIW(info.BaseDllName, L"kernel32.dll");
-	});
-	if (it == std::end(mods)) {
-		UNONE_ERROR("not found kernel32.dll");
-		return NULL;
-	}
-	ULONG64 base = it->DllBase;
-	auto &&path = UNONE::OsSyswow64DirW() + L"\\kernel32.dll";
-	auto image = UNONE::PeMapImageByPathW(path);
-	if (!image) {
-		UNONE_ERROR("MapImage %s failed, err:%d", path.c_str(), GetLastError());
-		return NULL;
-	}
-	auto pFreeLibrary = UNONE::PeGetProcAddress(image, "FreeLibrary");
-	UNONE::PeUnmapImage(image);
-	if (pFreeLibrary == NULL) {
-		UNONE_ERROR("PsGetProcAddress err:%d", GetLastError());
-		return NULL;
-	}
-	addr = (ULONG64)pFreeLibrary - (ULONG64)image + base;
-#else
-	addr = (ULONG64)GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "FreeLibrary");
-#endif
-	return addr;
-}
-
-ULONG64 GetFreeLibraryAddress(DWORD pid)
-{
-	ULONG64 addr = 0;
-	if (UNONE::PsIsX64(pid)) {
-		addr = (ULONG64)GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "FreeLibrary");
-	}
-	else {
-		addr = GetFreeLibraryAddress32(pid);
-	}
-	return addr;
 }

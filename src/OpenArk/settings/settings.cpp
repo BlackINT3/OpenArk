@@ -17,6 +17,17 @@
 #include "../common/common.h"
 #include <QMessageBox>
 
+bool Settings::eventFilter(QObject *obj, QEvent *e)
+{
+	if (e->type() == QEvent::KeyPress) {
+		QKeyEvent *keyevt = dynamic_cast<QKeyEvent*>(e);
+		if (keyevt->matches(QKeySequence::Cancel)) {
+			close();
+		}
+	}
+	return QWidget::eventFilter(obj, e);
+}
+
 void Settings::InitConsoleView()
 {
 	console_model_ = new QStandardItemModel;
@@ -66,7 +77,7 @@ void Settings::InitGeneralView()
 {
 	QString section = "/Setting.General/";
 	QString ctxkey = section + "context_menu";
-	auto ctx = OpenArkConfig::Instance()->GetValue(ctxkey, 1).toInt();
+	auto ctx = OpenArkConfig::Instance()->GetValue(ctxkey, 0).toInt();
 	connect(ui.ctxmenuBox, &QCheckBox::toggled, [=](bool checked) {
 		const char *subkey = R"(*\shell\OpenArk)";
 		if (checked) {
@@ -116,11 +127,11 @@ Settings::Settings(QWidget *parent)
 	setAttribute(Qt::WA_ShowModal, true);
 	setAttribute(Qt::WA_DeleteOnClose);
 	setWindowFlags(windowFlags()& ~(Qt::WindowMaximizeButtonHint| Qt::WindowMinimizeButtonHint)| Qt::MSWindowsFixedSizeDialogHint);
+	installEventFilter(this);
 
 	InitConsoleView();
 	InitCleanView();
 	InitGeneralView();
-
 }
 
 Settings::~Settings()

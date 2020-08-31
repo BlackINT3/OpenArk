@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1066</width>
-    <height>693</height>
+    <width>839</width>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -95,7 +95,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>141</height>
+               <height>116</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_4">
@@ -212,7 +212,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>141</height>
+               <height>116</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_3">
@@ -326,7 +326,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>141</height>
+               <height>78</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_2">
@@ -406,7 +406,7 @@
                <x>0</x>
                <y>0</y>
                <width>142</width>
-               <height>141</height>
+               <height>116</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout">
@@ -548,7 +548,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>141</height>
+               <height>116</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_6">
@@ -656,7 +656,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>141</height>
+               <height>116</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_5">
@@ -801,7 +801,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>140</height>
+               <height>116</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_11">
@@ -909,7 +909,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>140</height>
+               <height>87</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_12">
@@ -1000,7 +1000,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>140</height>
+               <height>87</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_13">
@@ -1091,7 +1091,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>140</height>
+               <height>78</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_14">
@@ -1182,7 +1182,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>141</height>
+               <height>87</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_17">
@@ -1273,7 +1273,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>141</height>
+               <height>87</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_18">
@@ -1364,7 +1364,7 @@
                <x>0</x>
                <y>0</y>
                <width>124</width>
-               <height>141</height>
+               <height>69</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_19">
@@ -1531,7 +1531,7 @@
          <item>
           <widget class="QPushButton" name="settingBtn">
            <property name="text">
-            <string>Setting</string>
+            <string>&amp;Setting</string>
            </property>
           </widget>
          </item>

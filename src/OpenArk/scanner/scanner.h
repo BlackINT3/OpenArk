@@ -75,7 +75,6 @@ private:
 	CHAR* pe_image_;
 	bool pe_x64_;
 	bool pe_valid_;
-	OpenArk* parent_;
 	QStandardItemModel* sumup_model_;
 	QStandardItemModel* sumdown_model_;
 	QStandardItemModel* headers_model_;

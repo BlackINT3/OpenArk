@@ -98,5 +98,4 @@ private:
 	ScanJunksThread *scanjunks_thread_;
 	CleanJunksThread *cleanjunks_thread_;
 	Ui::Utilities ui;
-	OpenArk *parent_;
 };

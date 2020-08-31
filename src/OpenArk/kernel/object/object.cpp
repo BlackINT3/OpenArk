@@ -57,6 +57,12 @@ bool KernelObject::eventFilter(QObject *obj, QEvent *e)
 			menu->show();
 		}
 	}
+	if (e->type() == QEvent::KeyPress) {
+		QKeyEvent *keyevt = dynamic_cast<QKeyEvent*>(e);
+		if (keyevt->matches(QKeySequence::Refresh)) {
+			ShowObjectTypes();
+		}
+	}
 	return QWidget::eventFilter(obj, e);
 }
 
@@ -90,7 +96,7 @@ void KernelObject::InitObjectTypesView()
 	objtypes_menu_ = new QMenu();
 	objtypes_menu_->addAction(tr("Refresh"), this, [&] {
 		ShowObjectTypes();
-	});
+	}, QKeySequence::Refresh);
 	objtypes_menu_->addAction(tr("Copy"), this, [&] {
 		auto view = ui_->objectTypesView;
 		ClipboardCopyData(GetCurItemViewData(view, GetCurViewColumn(view)).toStdString());

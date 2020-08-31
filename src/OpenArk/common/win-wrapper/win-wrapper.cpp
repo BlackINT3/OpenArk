@@ -621,3 +621,60 @@ bool ObUnloadDriverRegistryW(__in const std::wstring &srv_name)
 	SHDeleteKeyW(HKEY_LOCAL_MACHINE, key_name.c_str());
 	return true;
 }
+
+bool PsKillProcess(__in DWORD pid)
+{
+	bool result = false;
+	HANDLE phd = ArkDrvApi::Process::OpenProcess(PROCESS_TERMINATE, FALSE, pid);
+	if (phd) {
+		if (TerminateProcess(phd, 1))
+			result = true;
+		CloseHandle(phd);
+	}
+	return result;
+}
+
+// temp function 
+ULONG64 GetFreeLibraryAddress32(DWORD pid)
+{
+	ULONG64 addr = 0;
+#ifdef _AMD64_
+	std::vector<UNONE::MODULE_BASE_INFOW> mods;
+	UNONE::PsGetModulesInfoW(pid, mods);
+	auto it = std::find_if(std::begin(mods), std::end(mods), [](UNONE::MODULE_BASE_INFOW &info) {
+		return UNONE::StrCompareIW(info.BaseDllName, L"kernel32.dll");
+	});
+	if (it == std::end(mods)) {
+		UNONE_ERROR("not found kernel32.dll");
+		return NULL;
+	}
+	ULONG64 base = it->DllBase;
+	auto &&path = UNONE::OsSyswow64DirW() + L"\\kernel32.dll";
+	auto image = UNONE::PeMapImageByPathW(path);
+	if (!image) {
+		UNONE_ERROR("MapImage %s failed, err:%d", path.c_str(), GetLastError());
+		return NULL;
+	}
+	auto pFreeLibrary = UNONE::PeGetProcAddress(image, "FreeLibrary");
+	UNONE::PeUnmapImage(image);
+	if (pFreeLibrary == NULL) {
+		UNONE_ERROR("PsGetProcAddress err:%d", GetLastError());
+		return NULL;
+	}
+	addr = (ULONG64)pFreeLibrary - (ULONG64)image + base;
+#else
+	addr = (ULONG64)GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "FreeLibrary");
+#endif
+	return addr;
+}
+
+ULONG64 GetFreeLibraryAddress(DWORD pid)
+{
+	ULONG64 addr = 0;
+	if (UNONE::PsIsX64(pid)) {
+		addr = (ULONG64)GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "FreeLibrary");
+	} else {
+		addr = GetFreeLibraryAddress32(pid);
+	}
+	return addr;
+}

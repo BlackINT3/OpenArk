@@ -62,7 +62,7 @@
      </widget>
      <widget class="QWidget" name="tabCleanConfig">
       <attribute name="title">
-       <string>Custom Clean Setting</string>
+       <string>Cleaner</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
@@ -105,35 +105,7 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="add_path_btn">
-                <property name="text">
-                 <string>Add Path</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="del_path_btn">
-                <property name="text">
-                 <string>Del Path</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <layout class="QHBoxLayout" name="horizontalLayout"/>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -163,6 +135,20 @@
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="add_path_btn">
+                <property name="text">
+                 <string>Add Path</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="del_path_btn">
+                <property name="text">
+                 <string>Del Path</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QPushButton" name="save_btn">

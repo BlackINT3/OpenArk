@@ -132,7 +132,7 @@
       <SubSystem>Native</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EntryPointSymbol>DriverEntry</EntryPointSymbol>
-      <AdditionalDependencies>ntoskrnl.lib;hal.lib;ntstrsafe.lib;tdi.lib;bufferoverflowK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>hal.lib;ntstrsafe.lib;tdi.lib;bufferoverflowK.lib;ntoskrnl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
       <Driver>Driver</Driver>
       <RandomizedBaseAddress>
@@ -162,7 +162,7 @@
       <SubSystem>Native</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EntryPointSymbol>DriverEntry</EntryPointSymbol>
-      <AdditionalDependencies>ntoskrnl.lib;hal.lib;ntstrsafe.lib;tdi.lib;bufferoverflowK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>hal.lib;ntstrsafe.lib;tdi.lib;bufferoverflowK.lib;ntoskrnl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
       <Driver>Driver</Driver>
       <RandomizedBaseAddress>
@@ -193,7 +193,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EntryPointSymbol>DriverEntry</EntryPointSymbol>
-      <AdditionalDependencies>ntoskrnl.lib;hal.lib;ntstrsafe.lib;tdi.lib;bufferoverflowK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>hal.lib;ntstrsafe.lib;tdi.lib;bufferoverflowK.lib;ntoskrnl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
       <Driver>Driver</Driver>
       <RandomizedBaseAddress>
@@ -224,7 +224,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EntryPointSymbol>DriverEntry</EntryPointSymbol>
-      <AdditionalDependencies>ntoskrnl.lib;hal.lib;ntstrsafe.lib;tdi.lib;bufferoverflowK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>hal.lib;ntstrsafe.lib;tdi.lib;bufferoverflowK.lib;ntoskrnl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
       <Driver>Driver</Driver>
       <RandomizedBaseAddress>

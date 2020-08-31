@@ -44,6 +44,7 @@ private:
 
 private:
 	Ui::Kernel *ui_;
+	Kernel *kernel_;
 	QMenu *unlock_menu_;
 	QMenu *fsflt_menu_; 
 	QStandardItemModel *fsflt_model_;

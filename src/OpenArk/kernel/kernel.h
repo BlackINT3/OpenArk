@@ -54,7 +54,6 @@ class Kernel : public CommonMainTabObject {
 public:
 	Kernel(QWidget *parent, int tabid);
 	~Kernel();
-	OpenArk *GetParent() const { return parent_; };
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *e);
@@ -90,7 +89,6 @@ private:
 	KernelDriver *driver_;
 
 	Ui::Kernel ui;
-	OpenArk *parent_;
 	QMenu *notify_menu_;
 	QMenu *hotkey_menu_;
 	QStandardItemModel *kerninfo_model_;

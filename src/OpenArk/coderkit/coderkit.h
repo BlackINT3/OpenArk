@@ -58,7 +58,6 @@ private:
 
 private:
 	Ui::CoderKit ui;
-	OpenArk* parent_;
 	std::mutex upt_mutex_;
 	int alg_idx_;
 	bool is_user_;

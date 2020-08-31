@@ -50,7 +50,6 @@ private:
 
 private:
 	Ui::Reverse ui;
-	OpenArk *parent_;
 	QNetworkReply *reply;
 	QFile *file;
 };

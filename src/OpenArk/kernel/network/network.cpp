@@ -15,10 +15,11 @@
 ****************************************************************************/
 #include <WinSock2.h>
 #include <arkdrv-api/arkdrv-api.h>
+#include "network.h"
 
+/*
 //https://social.msdn.microsoft.com/Forums/windowsdesktop/en-US/8fd93a3d-a794-4233-9ff7-09b89eed6b1f/compiling-with-wfp?forum=wfp
 #include "include/fwpmu.h"
-#include "network.h"
 #pragma comment(lib, "fwpuclnt.lib")
 #pragma comment(lib, "Rpcrt4.lib")
 
@@ -230,10 +231,27 @@ bool DeleteFilterById(UINT64 FilterId)
 
 	return Result;
 }
+*/
 
 bool WfpSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const {
 	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
 	return QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive) < 0;
+}
+
+#define QVariantHex(s1) s1.toString().toULongLong(nullptr, 16)
+#define QVariantStrcmp(s1, s2)  QString::compare(s1.toString(), s2.toString(), Qt::CaseInsensitive)
+bool PortSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const {
+	auto s1 = sourceModel()->data(left); auto s2 = sourceModel()->data(right);
+	auto column = left.column();
+	if ((column == 1 || column == 2)) {
+		auto list1 = s1.toString().split(":");
+		auto list2 = s2.toString().split(":");
+		auto ip1 = list1[0]; auto ip2 = list2[0];
+		if (ip1 != ip2) return ip1 < ip2;
+		return QHexToDWord(list1[1]) < QHexToDWord(list2[1]);
+	}
+	if ((column == 4)) return QVariantHex(s1) < QVariantHex(s2);
+	return QVariantStrcmp(s1, s2) < 0;
 }
 
 KernelNetwork::KernelNetwork()
@@ -249,11 +267,9 @@ KernelNetwork::~KernelNetwork()
 void KernelNetwork::onTabChanged(int index)
 {
 	switch (index) {
-	case 0:
-		ShowWfpInfo();
-		break;
-	default:
-		break;
+	//case TAB_KERNEL_NETWORK_WFP: ShowWfpInfo(); break;
+	case TAB_KERNEL_NETWORK_PORT: onShowPortInfo(); break;
+	default: break;
 	}
 	CommonTabObject::onTabChanged(index);
 }
@@ -275,8 +291,11 @@ bool KernelNetwork::eventFilter(QObject *obj, QEvent *e)
 		QKeyEvent *keyevt = dynamic_cast<QKeyEvent*>(e);
 		if (keyevt->matches(QKeySequence::Delete)) {
 			for (auto &action : hosts_menu_->actions()) {
-				if (action->text() == "Delete") emit action->trigger();
+				if (action->text() == tr("Delete")) emit action->trigger();
 			}
+		}
+		if (keyevt->matches(QKeySequence::Refresh)) {
+			onShowPortInfo();
 		}
 	}
 	return QWidget::eventFilter(obj, e);
@@ -288,13 +307,17 @@ void KernelNetwork::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 	this->kernel_ = kernel;
 	Init(ui->tabNetwork, TAB_KERNEL, TAB_KERNEL_NETWORK);
 
-	InitWfpView();
+	//InitWfpView();
+
 	InitHostsView();
 	InitPortView();
+
+	onTabChanged(ui_->tabNetwork->currentIndex());
 }
 
 void KernelNetwork::InitWfpView()
 {
+	/*
 	wfp_model_ = new QStandardItemModel;
 	QTreeView *view = ui_->wfpView;
 	proxy_wfp_ = new WfpSortFilterProxyModel(view);
@@ -321,6 +344,7 @@ void KernelNetwork::InitWfpView()
 		view->setColumnWidth(i, colum_layout[i].first);
 	}
 	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	*/
 }
 
 void KernelNetwork::InitHostsView()
@@ -485,7 +509,7 @@ void KernelNetwork::InitPortView()
 {
 	QTreeView *view = ui_->portView;
 	port_model_ = new QStandardItemModel;
-	proxy_port_ = new WfpSortFilterProxyModel(view);
+	proxy_port_ = new PortSortFilterProxyModel(view);
 	std::pair<int, QString> layout[] = {
 		{ 50, tr("Protocol") },
 		{ 135, tr("Local address") },
@@ -502,15 +526,15 @@ void KernelNetwork::InitPortView()
 	port_menu_ = new QMenu();
 	port_menu_->addAction(tr("Refresh"), this, [&] {
 		onShowPortInfo();
-	});
+	}, QKeySequence::Refresh);
 	port_menu_->addAction(tr("Copy"), this, [&] {
-		auto view = ui_->objectSectionsView;
+		auto view = ui_->portView;
 		ClipboardCopyData(GetCurItemViewData(view, GetCurViewColumn(view)).toStdString());
 	});
 	port_menu_->addSeparator();
 	port_menu_->addAction(tr("Kill Process"), this, [&] {
 		auto pid = GetCurItemViewData(ui_->portView, 4).toInt();
-		UNONE::PsKillProcess(pid);
+		PsKillProcess(pid);
 		onShowPortInfo();
 	});
 	port_menu_->addSeparator();
@@ -531,10 +555,10 @@ void KernelNetwork::InitPortView()
 	connect(ui_->tcpListenCheckBox, SIGNAL(clicked()), this, SLOT(onShowPortInfo()));
 	connect(ui_->tcpConnCheckBox, SIGNAL(clicked()), this, SLOT(onShowPortInfo()));
 	connect(ui_->udpListenCheckBox, SIGNAL(clicked()), this, SLOT(onShowPortInfo()));
+	connect(ui_->portFilterEdit, &QLineEdit::textChanged, [&](QString str) {onShowPortInfo(); });
 	
 	ui_->ipv4CheckBox->setChecked(true);
 	ui_->tcpListenCheckBox->setChecked(true);
-	onShowPortInfo();
 }
 
 void KernelNetwork::ShowWfpInfo()
@@ -543,7 +567,7 @@ void KernelNetwork::ShowWfpInfo()
 	ClearItemModelData(wfp_model_, 0);
 
 	std::vector<CALLOUT_INFO> infos;
-	EnumWfpCallouts(infos);
+	//EnumWfpCallouts(infos);
 
 	for (auto item : infos) {
 		auto id_item = new QStandardItem(DWordToHexQ(item.CalloutId));
@@ -568,30 +592,45 @@ void KernelNetwork::onShowPortInfo()
 	auto udpls = ui_->udpListenCheckBox->isChecked();
 
 	std::vector<ARK_NETWORK_ENDPOINT_ITEM> items;
-	std::vector<ARK_NETWORK_ENDPOINT_ITEM> filters;
+	std::vector<ARK_NETWORK_ENDPOINT_ITEM> newers;
 	if (tcpls || tcpconn) {
 		if (ipv4) ArkDrvApi::Network::EnumTcp4Endpoints(items);
 		if (ipv6) ArkDrvApi::Network::EnumTcp6Endpoints(items);
 		for (auto &item : items) {
-			if (tcpls && item.state == 2) filters.push_back(item);
-			if (tcpconn && item.state != 2) filters.push_back(item);
+			if (tcpls && item.state == 2) newers.push_back(item);
+			if (tcpconn && item.state != 2) newers.push_back(item);
 		}
 	}
 	if (udpls) {
 		items.clear();
 		if (ipv4) ArkDrvApi::Network::EnumUdp4Endpoints(items);
 		if (ipv6) ArkDrvApi::Network::EnumUdp6Endpoints(items);
-		filters.insert(filters.end(), items.begin(), items.end());
+		newers.insert(newers.end(), items.begin(), items.end());
 	}
-	for (auto &item : filters) {
-		auto item_0 = new QStandardItem(CharsToQ(item.protocol));
-		auto item_1 = new QStandardItem(CharsToQ(item.local));
-		auto item_2 = new QStandardItem(CharsToQ(item.remote));
-		QStandardItem *item_3 = new QStandardItem();
-		if (item.tran_ver == ARK_NETWORK_TCP) item_3->setText(CharsToQ(item.readable_state));
-		auto item_4 = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", item.pid)));
+
+	auto flttext = ui_->portFilterEdit->text();
+	for (auto &item : newers) {
+		auto protocol = CharsToQ(item.protocol);
+		auto local = CharsToQ(item.local);
+		auto remote = CharsToQ(item.remote);
+		auto readable_state = (item.tran_ver == ARK_NETWORK_TCP) ? CharsToQ(item.readable_state) : "";
+		auto pidstr = WStrToQ(UNONE::StrFormatW(L"%d", item.pid));
 		ProcInfo pi;
 		CacheGetProcInfo(item.pid, pi);
+		if (!flttext.isEmpty()) {
+			if (!protocol.contains(flttext, Qt::CaseInsensitive) && 
+				!local.contains(flttext, Qt::CaseInsensitive) &&
+				!remote.contains(flttext, Qt::CaseInsensitive) &&
+				!readable_state.contains(flttext, Qt::CaseInsensitive) &&
+				!pidstr.contains(flttext, Qt::CaseInsensitive) &&
+				!pi.path.contains(flttext, Qt::CaseInsensitive)
+				) continue;
+		}
+		auto item_0 = new QStandardItem(protocol);
+		auto item_1 = new QStandardItem(local);
+		auto item_2 = new QStandardItem(remote);
+		auto item_3 = new QStandardItem(readable_state);
+		auto item_4 = new QStandardItem(pidstr);
 		auto item_5 = new QStandardItem(LoadIcon(pi.path), pi.path);
 		auto count = port_model_->rowCount();
 		port_model_->setItem(count, 0, item_0);

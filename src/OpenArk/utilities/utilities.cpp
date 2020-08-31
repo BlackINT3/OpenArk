@@ -14,8 +14,9 @@
 **
 ****************************************************************************/
 #include "utilities.h"
-#include "../common/common.h"
-#include "../openark/openark.h"
+#include <common/common.h>
+#include <openark/openark.h>
+#include <settings/settings.h>
 #include <arkdrv-api/arkdrv-api.h>
 
 #define MODEL_STRING(model, row, columm) (model->index(row, columm).data(Qt::DisplayRole).toString())
@@ -37,7 +38,7 @@ bool JunksSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIn
 }
 
 Utilities::Utilities(QWidget *parent, int tabid) :
-	parent_((OpenArk*)parent),
+	CommonMainTabObject::CommonMainTabObject((OpenArk*)parent),
 	scanjunks_thread_(nullptr),
 	cleanjunks_thread_(nullptr)
 {
@@ -291,6 +292,12 @@ void Utilities::InitCleanerView()
 	view->setColumnWidth(JUNKS.dir, 700);
 	view->setColumnWidth(JUNKS.filecnt, 100);
 	view->setColumnWidth(JUNKS.sumsize, 170);
+	connect(ui.settingBtn, &QPushButton::clicked, this, [&] {
+		auto about = new Settings(this);
+		about->raise();
+		about->SetActiveTab(TAB_SETTINGS_CLEAN);
+		about->show();
+	});
 	connect(ui.scanBtn, &QPushButton::clicked, this, [&] {
 		ClearItemModelData(junks_model_);
 		ui.cleanBtn->setEnabled(false);
@@ -348,24 +355,8 @@ void Utilities::InitCleanerView()
 		cleanjunks_thread_->setJunkCluster(clusters);
 		cleanjunks_thread_->start(QThread::NormalPriority);
 	});
-
-
-
-
 }
 
-bool PsKillProcess(__in DWORD pid)
-{
-	bool result = false;
-	HANDLE phd = ArkDrvApi::Process::OpenProcess(PROCESS_TERMINATE, FALSE, pid);
-	if (phd) {
-		if (TerminateProcess(phd, 1))
-			result = true;
-		CloseHandle(phd);
-	}
-	return result;
-
-}
 void Utilities::InitSystemToolsView()
 {
 	connect(ui.cmdBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k cd /d %userprofile%"); });

@@ -22,8 +22,8 @@
 #define PE_FILE64 L"PE 64-bit"
 
 Scanner::Scanner(QWidget *parent, int tabid) :
-	pe_image_(NULL),
-	parent_((OpenArk*)parent)
+	CommonMainTabObject::CommonMainTabObject((OpenArk*)parent),
+	pe_image_(NULL)
 {
 	ui.setupUi(this);
 	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });

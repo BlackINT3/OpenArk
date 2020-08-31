@@ -46,7 +46,7 @@ bool HotkeySortFilterProxyModel::lessThan(const QModelIndex &left, const QModelI
 }
 
 Kernel::Kernel(QWidget *parent, int tabid) :
-	parent_((OpenArk*)parent)
+	CommonMainTabObject::CommonMainTabObject((OpenArk*)parent)
 {
 	ui.setupUi(this);
 	setAcceptDrops(true);

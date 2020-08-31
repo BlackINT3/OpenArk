@@ -59,6 +59,7 @@ void KernelMemory::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
 
 KernelMemoryRW::KernelMemoryRW()
 {
+	free_init_ = false;
 	maxsize_ = -1;
 	QUiLoader loader;
 	QFile file(":/UI/ui/memory-rw.ui");
@@ -145,7 +146,7 @@ KernelMemoryRW::KernelMemoryRW()
 
 KernelMemoryRW::~KernelMemoryRW()
 {
-	free_callback_(free_vars_);
+	if (free_init_) free_callback_(free_vars_);
 }
 
 bool KernelMemoryRW::eventFilter(QObject *obj, QEvent *e)

@@ -275,7 +275,7 @@ void ProcessMgr::onCopyActionTriggerd(QAction* action)
 
 void ProcessMgr::onKillProcess()
 {
-	UNONE::PsKillProcess(ProcCurPid());
+	PsKillProcess(ProcCurPid());
 	onRefresh();
 }
 
@@ -293,7 +293,7 @@ void ProcessMgr::onKillProcessTree()
 	}
 	auto msbox = QMessageBox::warning(this, tr("Warning"), tips, QMessageBox::Yes | QMessageBox::No);
 	if (msbox == QMessageBox::Yes) {
-		for (auto d : pids) { UNONE::PsKillProcess(d); };
+		for (auto d : pids) { PsKillProcess(d); };
 		onRefresh();
 	}
 }
@@ -642,7 +642,7 @@ void ProcessMgr::onShowHandle()
 	UNONE::PsEnumHandle(pid, [&](SYSTEM_HANDLE_TABLE_ENTRY_INFO &info)->bool {
 		auto count = bottom_model_->rowCount();
 		auto idx = info.ObjectTypeIndex;
-		QStandardItem *type_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%s (%02d)",ObjectTypeTable[idx].c_str(), idx)));
+		QStandardItem *type_item = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%s",ObjectTypeTable[idx].c_str())));
 		std::string name;
 		if (phd != NULL) {
 			HANDLE dup = NULL;

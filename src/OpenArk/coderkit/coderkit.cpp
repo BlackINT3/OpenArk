@@ -45,7 +45,7 @@ struct {
 } BITS_IDX;
 
 CoderKit::CoderKit(QWidget* parent, int tabid) :
-	parent_((OpenArk*)parent)
+	CommonMainTabObject::CommonMainTabObject((OpenArk*)parent)
 {
 	ui.setupUi(this);
 	connect(OpenArkLanguage::Instance(), &OpenArkLanguage::languageChaned, this, [this]() {ui.retranslateUi(this); });

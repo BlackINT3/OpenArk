@@ -16,15 +16,17 @@
 #pragma once
 #include <windows.h>
 #include <vector>
-#include "../common/common.h"
+#include <common/common.h>
+#include <openark/openark.h>
 
 class CommonMainTabObject : public QTabWidget {
 	Q_OBJECT
 public:
-	CommonMainTabObject() {};
+	CommonMainTabObject(OpenArk *parent) { parent_ = parent; };
 	~CommonMainTabObject() {};
 
 public:
+	OpenArk *GetParent() const { return parent_; };
 	Q_INVOKABLE void SetActiveTab(QVector<int> idx) {
 		tabwidget_->setCurrentIndex(idx[0]);
 		auto tabwidgets = tabwidget_->currentWidget()->findChildren<QTabWidget*>();
@@ -59,8 +61,8 @@ protected:
 		connect(tabwidget_, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 	};
 	int maintab_id_;
-
 	QTabWidget *tabwidget_;
+	OpenArk *parent_;
 };
 
 class CommonTabObject : public QWidget {

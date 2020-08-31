@@ -449,9 +449,11 @@ Q_INVOKABLE void Cmds::CmdProcessInfo(QString cmd, QStringList argv)
 
 	auto KillPids = [&](std::vector<DWORD> &pids) {
 		for (auto pid : pids) {
-			auto name = UNONE::PsGetProcessNameW(pid);
-			auto path = UNONE::PsGetProcessPathW(pid);
-			bool killed = UNONE::PsKillProcess(pid);
+			ProcInfo info;
+			CacheGetProcInfo(pid, info);
+			auto name = QToWStr(info.name);
+			auto path = QToWStr(info.path);
+			bool killed = PsKillProcess(pid);
 			if (killed) {
 				CmdOutput(L"[+] kill pid:%d name:%s path:%s ok", pid, name.c_str(), path.c_str());
 			} else {
@@ -462,9 +464,11 @@ Q_INVOKABLE void Cmds::CmdProcessInfo(QString cmd, QStringList argv)
 
 	auto RestartPids = [&](std::vector<DWORD> &pids) {
 		for (auto pid : pids) {
-			auto name = UNONE::PsGetProcessNameW(pid);
-			auto path = UNONE::PsGetProcessPathW(pid);
-			bool killed = UNONE::PsKillProcess(pid);
+			ProcInfo info;
+			CacheGetProcInfo(pid, info);
+			auto name = QToWStr(info.name);
+			auto path = QToWStr(info.path);
+			bool killed = PsKillProcess(pid);
 			if (killed) {
 				UNONE::PsCreateProcessW(path);
 				CmdOutput(L"[+] restart pid:%d name:%s path:%s ok", pid, name.c_str(), path.c_str());

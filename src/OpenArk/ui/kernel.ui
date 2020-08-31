@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>982</width>
-    <height>582</height>
+    <width>752</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>7</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="tabKernelEntry">
       <attribute name="title">
@@ -694,31 +694,6 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="tabMemoryRegion">
-          <attribute name="title">
-           <string>MemoryRegion</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_20">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QTreeView" name="MemoryRegionView"/>
-           </item>
-          </layout>
-         </widget>
         </widget>
        </item>
       </layout>
@@ -746,16 +721,13 @@
        <item>
         <widget class="QTabWidget" name="tabStorage">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
-         <widget class="QWidget" name="tabFileFilter">
+         <widget class="QWidget" name="tabFileUnlock">
           <attribute name="title">
-           <string>FileFilter</string>
+           <string>FileUnlock</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <property name="spacing">
-            <number>0</number>
-           </property>
+          <layout class="QVBoxLayout" name="verticalLayout_15">
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -768,20 +740,6 @@
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item>
-            <widget class="QTreeView" name="fsfltView">
-             <property name="indentation">
-              <number>5</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="tabFileUnlock">
-          <attribute name="title">
-           <string>FileUnlock</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_15">
            <item>
             <widget class="QTreeView" name="unlockView">
              <property name="selectionMode">
@@ -797,6 +755,9 @@
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
              <item>
               <widget class="QLabel" name="label_2">
                <property name="text">
@@ -826,7 +787,7 @@
              <item>
               <widget class="QPushButton" name="showHoldBtn">
                <property name="text">
-                <string>ShowHold</string>
+                <string>&amp;ShowHold</string>
                </property>
               </widget>
              </item>
@@ -853,21 +814,21 @@
              <item>
               <widget class="QPushButton" name="unlockFileBtn">
                <property name="text">
-                <string>Unlock</string>
+                <string>&amp;Unlock</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QPushButton" name="unlockFileAllBtn">
                <property name="text">
-                <string>Unlock All</string>
+                <string>Unlock &amp;All</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QPushButton" name="killProcessBtn">
                <property name="text">
-                <string>KillProcess</string>
+                <string>&amp;Kill Process</string>
                </property>
               </widget>
              </item>
@@ -902,15 +863,15 @@
        <item>
         <widget class="QTabWidget" name="tabNetwork">
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
-         <widget class="QWidget" name="tabWfp">
+         <widget class="QWidget" name="tabPort">
           <attribute name="title">
-           <string>WFP</string>
+           <string>Port</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_9">
+          <layout class="QVBoxLayout" name="verticalLayout_16">
            <property name="spacing">
-            <number>0</number>
+            <number>6</number>
            </property>
            <property name="leftMargin">
             <number>0</number>
@@ -924,21 +885,6 @@
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item>
-            <widget class="QTreeView" name="wfpView"/>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="tabTdi">
-          <attribute name="title">
-           <string>TDI</string>
-          </attribute>
-         </widget>
-         <widget class="QWidget" name="tabPort">
-          <attribute name="title">
-           <string>Port</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_16">
            <item>
             <widget class="QTreeView" name="portView">
              <property name="indentation">
@@ -961,6 +907,23 @@
                 <string>Local IPV6</string>
                </property>
               </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line_3">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Filter:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="portFilterEdit"/>
              </item>
              <item>
               <spacer name="horizontalSpacer_6">

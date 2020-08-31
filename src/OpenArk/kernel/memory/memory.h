@@ -55,6 +55,7 @@ public:
 
 private:
 	QWidget *memui_;
+	bool free_init_;
 	std::function<void(QList<QVariant>)> free_callback_;
 	QList<QVariant> free_vars_;
 	ULONG maxsize_;
@@ -64,6 +65,7 @@ public:
 	void RegFreeCallback(std::function<void(QList<QVariant>)> callback, QList<QVariant> vars) {
 		free_callback_ = callback;
 		free_vars_ = vars;
+		free_init_ = true;
 	};
 	void SetMaxSize(ULONG maxsize) { maxsize_ = maxsize; };
 	void ViewMemory(ULONG pid, ULONG64 addr, ULONG size);

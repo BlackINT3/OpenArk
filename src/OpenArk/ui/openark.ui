@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1058</width>
-    <height>696</height>
+    <width>626</width>
+    <height>404</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -183,7 +183,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1058</width>
+     <width>626</width>
      <height>23</height>
     </rect>
    </property>
@@ -403,7 +403,7 @@ p, li { white-space: pre-wrap; }
     <string>&amp;Refresh</string>
    </property>
    <property name="shortcut">
-    <string>F5</string>
+    <string/>
    </property>
   </action>
   <action name="actionSave">

@@ -24,6 +24,13 @@
 class Ui::Kernel;
 class Kernel;
 
+enum {
+	//TAB_KERNEL_NETWORK_WFP,
+	//TAB_KERNEL_NETWORK_TDI,
+	TAB_KERNEL_NETWORK_PORT,
+	TAB_KERNEL_NETWORK_HOSTS,
+};
+
 typedef struct _CALLOUT_INFO {
 	ULONG CalloutId;
 	GUID CalloutKey;
@@ -33,6 +40,7 @@ typedef struct _CALLOUT_INFO {
 bool EnumWfpCallouts(std::vector<CALLOUT_INFO>& CalloutIDs);
 
 PROXY_FILTER(WfpSortFilterProxyModel);
+PROXY_FILTER(PortSortFilterProxyModel);
 class KernelNetwork : public CommonTabObject {
 	Q_OBJECT
 
@@ -63,5 +71,5 @@ private:
 	QStandardItemModel *wfp_model_;
 	QStandardItemModel *port_model_;
 	WfpSortFilterProxyModel *proxy_wfp_;
-	WfpSortFilterProxyModel *proxy_port_;
+	PortSortFilterProxyModel *proxy_port_;
 };

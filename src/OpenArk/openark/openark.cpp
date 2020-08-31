@@ -558,8 +558,3 @@ void OpenArk::StatusBarAdd(QWidget *label)
 	stool_->addSeparator();
 	stool_->addWidget(label);
 }
-
-void OpenArk::SetActiveTab(int idx)
-{
-	ui.tabWidget->setCurrentIndex(idx);
-}

@@ -19,15 +19,20 @@
 #include <Windows.h>
 #include "ui_settings.h"
 
-namespace Ui {
-	class Settings;
-}
+enum SettingsTabNumber {
+	TAB_SETTINGS_GENERAL,
+	TAB_SETTINGS_CONSOLE,
+	TAB_SETTINGS_CLEAN,
+};
 
 class Settings : public QWidget {
 	Q_OBJECT
 public:
 	Settings(QWidget *parent);
 	~Settings();
+	void SetActiveTab(int idx) const { ui.tabWidget->setCurrentIndex(idx); };
+	bool eventFilter(QObject *obj, QEvent *e);
+
 protected:
 	void closeEvent(QCloseEvent *e);
 	void InitConsoleView();
