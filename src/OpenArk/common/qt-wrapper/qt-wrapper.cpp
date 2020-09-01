@@ -252,6 +252,7 @@ void SetDefaultTreeViewStyle(QTreeView* view, QStandardItemModel* model,
 	view->setModel(proxy);
 	view->selectionModel()->setModel(proxy);
 	view->header()->setSortIndicator(-1, Qt::AscendingOrder);
+	view->header()->setStretchLastSection(false);
 	view->setSortingEnabled(true);
 	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	QStringList name_list;
@@ -260,7 +261,8 @@ void SetDefaultTreeViewStyle(QTreeView* view, QStandardItemModel* model,
 	}
 	model->setHorizontalHeaderLabels(name_list);
 	for (int i = 0; i < count; i++) {
-		view->setColumnWidth(i, colum_layout[i].first);
+		if (colum_layout[i].first)
+			view->setColumnWidth(i, colum_layout[i].first);
 	}
 }
 

@@ -49,13 +49,19 @@ bool KernelStorage::eventFilter(QObject *obj, QEvent *e)
 		}
 	} else if (e->type() == QEvent::MouseMove) {
 		QMouseEvent *mouse = static_cast<QMouseEvent *>(e);
-		QPoint pt = mouse->pos();
-		if (ui_->inputPathEdit->geometry().contains(pt)) {
+		if (obj == ui_->inputPathEdit) {
 			if (ui_->inputPathEdit->text().isEmpty()) {
-				QString tips(tr("Tips: You can copy file or directory and paste to here..."));
+				QString tips(tr("Tips: \n1. You can copy file or directory and paste to here(Enter key to ShowHold).\n"
+					"2. You need enter kernel mode to view FileHold.\n"
+					"3. Path is case insensitive"));
 				QToolTip::showText(mouse->globalPos(), tips);
 				return true;
 			}
+		}
+	} else if (e->type() == QEvent::KeyPress) {
+		QKeyEvent *keyevt = dynamic_cast<QKeyEvent*>(e);
+		if ((keyevt->key() == Qt::Key_Enter) || (keyevt->key() == Qt::Key_Return)) {
+			ui_->showHoldBtn->click();
 		}
 	}
 	return QWidget::eventFilter(obj, e);
@@ -90,7 +96,7 @@ void KernelStorage::InitFileUnlockView()
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
 	ui_->inputPathEdit->installEventFilter(this);
-
+	ui_->inputPathEdit->setMouseTracking(true);
 	unlock_menu_ = new QMenu();
 	unlock_menu_->addAction(tr("Refresh"), this, [&] {
 		ui_->showHoldBtn->click();
@@ -115,15 +121,21 @@ void KernelStorage::InitFileUnlockView()
 	});
 
 	unlock_menu_->addSeparator();
-	unlock_menu_->addAction(tr("Sendto Scanner"), this, [&] {
+	unlock_menu_->addAction(tr("Scan Selected"), this, [&] {
 		kernel_->GetParent()->SetActiveTab(TAB_SCANNER);
-		emit kernel_->signalOpen(GetCurItemViewData(ui_->unlockView, 2));
+		auto column = GetCurViewColumn(ui_->unlockView);
+		if (column == 0) column = 3;
+		emit kernel_->signalOpen(GetCurItemViewData(ui_->unlockView, column));
 	});
-	unlock_menu_->addAction(tr("Explore File"), this, [&] {
-		ExploreFile(GetCurItemViewData(ui_->unlockView, 2));
+	unlock_menu_->addAction(tr("Explore Selected"), this, [&] {
+		auto column = GetCurViewColumn(ui_->unlockView);
+		if (column == 0) column = 3; 
+		ExploreFile(GetCurItemViewData(ui_->unlockView, column));
 	});
-	unlock_menu_->addAction(tr("Properties..."), this, [&]() {
-		WinShowProperties(GetCurItemViewData(ui_->unlockView, 2).toStdWString());
+	unlock_menu_->addAction(tr("Properties Selected..."), this, [&]() {
+		auto column = GetCurViewColumn(ui_->unlockView);
+		if (column == 0) column = 3;
+		WinShowProperties(GetCurItemViewData(ui_->unlockView, column).toStdWString());
 	});
 	connect(ui_->inputPathEdit, &QLineEdit::textChanged, [&](QString str) { 
 		if (str.contains("file:///")) {
@@ -149,16 +161,18 @@ void KernelStorage::InitFileUnlockView()
 		ArkDrvApi::Storage::UnlockEnum(path, items);
 		for (auto item : items) {
 			auto pid = (DWORD)item.pid;
-			auto &&ppath = UNONE::PsGetProcessPathW(pid);
-			auto &&pname = UNONE::FsPathToNameW(ppath);
+			ProcInfo info;
+			CacheGetProcInfo(pid, info);
+			auto &&ppath = info.path;
+			auto &&pname = info.name;
 			std::wstring fpath;
 			UNONE::ObParseToDosPathW(item.name, fpath);
-			auto item_pname = new QStandardItem(LoadIcon(WStrToQ(ppath)), WStrToQ(pname));
+			auto item_pname = new QStandardItem(LoadIcon(ppath), pname);
 			auto item_pid = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", pid)));
 			auto item_fpath = new QStandardItem(WStrToQ(fpath));
 			auto item_ftype = new QStandardItem("FILE");
 			auto item_fobj = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%p", item.object)));
-			auto item_ppath = new QStandardItem(WStrToQ(ppath));
+			auto item_ppath = new QStandardItem(ppath);
 			auto item_fhandle = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"0x%X", (DWORD)item.handle)));
 			
 			auto count = unlock_model_->rowCount();
@@ -179,8 +193,10 @@ void KernelStorage::InitFileUnlockView()
 					QString modname = WCharsToQ(entry.szModule);
 					QString modpath = WCharsToQ(entry.szExePath);
 					HANDLE  hmodule = entry.hModule;
-					QString pname = WStrToQ(UNONE::PsGetProcessNameW(pid));
-					QString ppath = WStrToQ(UNONE::PsGetProcessPathW(pid));
+					ProcInfo info;
+					CacheGetProcInfo(pid, info);
+					auto &&ppath = info.path;
+					auto &&pname = info.name;
 
 					auto item_pname = new QStandardItem(LoadIcon(ppath), pname);
 					auto item_pid = new QStandardItem(WStrToQ(UNONE::StrFormatW(L"%d", pid)));
@@ -204,9 +220,14 @@ void KernelStorage::InitFileUnlockView()
 		}
 	});
 
-	auto CommonUnlock = [&](QString type, DWORD pid, QString fobj, QString fhandle) {
+	auto CommonUnlock = [&](QString type, DWORD pid, QString fobj, QString fhandle, QString fpath="") {
 		if (type == "DLL") {
-			// close by freelibrary
+			// Close by kill process
+			if (fpath.compare(CacheGetProcInfo(pid).path, Qt::CaseInsensitive)) {
+				PsKillProcess(pid);
+				return;
+			}
+			// Close by free library
 			ULONG64 remote_routine = GetFreeLibraryAddress(pid);
 			if (remote_routine) {
 				ULONG64 pararm = QHexToQWord(fobj);
@@ -216,7 +237,7 @@ void KernelStorage::InitFileUnlockView()
 				}
 			}
 		} else {
-			// close by driver
+			// Close by driver
 			HANDLE_ITEM handle_item = { 0 };
 			handle_item.pid = HANDLE(pid);
 			handle_item.handle = HANDLE(QHexToDWord(fhandle));
@@ -231,10 +252,11 @@ void KernelStorage::InitFileUnlockView()
 		int count = unlock_model_->columnCount();
 		for (int i = 0; i < selected.size() / count; i++) {
 			auto pid = ui_->unlockView->model()->itemData(selected[i * count + 1]).values()[0].toUInt();
+			auto fpath = ui_->unlockView->model()->itemData(selected[i * count + 2]).values()[0].toString();
 			auto type = ui_->unlockView->model()->itemData(selected[i * count + 4]).values()[0].toString();
 			auto fobj = ui_->unlockView->model()->itemData(selected[i * count + 5]).values()[0].toString();
 			auto fhandle = ui_->unlockView->model()->itemData(selected[i * count + 6]).values()[0].toString();
-			CommonUnlock(type, pid, fobj, fhandle);
+			CommonUnlock(type, pid, fobj, fhandle, fpath);
 		}
 		ui_->showHoldBtn->click();
 	});

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>839</width>
-    <height>434</height>
+    <height>605</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,7 +26,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabSystemTools">
       <attribute name="title">
@@ -69,7 +69,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -95,7 +95,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>116</height>
+               <height>120</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_4">
@@ -114,23 +114,6 @@
               <property name="bottomMargin">
                <number>3</number>
               </property>
-              <item row="0" column="0">
-               <widget class="QPushButton" name="cmdBtn">
-                <property name="minimumSize">
-                 <size>
-                  <width>101</width>
-                  <height>23</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Command</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/systools/cmd.ico</normaloff>:/OpenArk/systools/cmd.ico</iconset>
-                </property>
-               </widget>
-              </item>
               <item row="1" column="0">
                <widget class="QPushButton" name="wslBtn">
                 <property name="minimumSize">
@@ -165,8 +148,8 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
-               <widget class="QPushButton" name="calcBtn">
+              <item row="0" column="0">
+               <widget class="QPushButton" name="cmdBtn">
                 <property name="minimumSize">
                  <size>
                   <width>101</width>
@@ -174,11 +157,11 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>Calculator</string>
+                 <string>Command</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/systools/calc.ico</normaloff>:/OpenArk/systools/calc.ico</iconset>
+                  <normaloff>:/OpenArk/systools/cmd.ico</normaloff>:/OpenArk/systools/cmd.ico</iconset>
                 </property>
                </widget>
               </item>
@@ -189,7 +172,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_2">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -212,7 +195,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>116</height>
+               <height>120</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_3">
@@ -279,23 +262,6 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
-               <widget class="QPushButton" name="programsBtn">
-                <property name="minimumSize">
-                 <size>
-                  <width>101</width>
-                  <height>23</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Programs</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/systools/program.ico</normaloff>:/OpenArk/systools/program.ico</iconset>
-                </property>
-               </widget>
-              </item>
              </layout>
             </widget>
            </widget>
@@ -303,7 +269,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_3">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -326,7 +292,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>78</height>
+               <height>93</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_2">
@@ -376,6 +342,23 @@
                 </property>
                </widget>
               </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="programsBtn">
+                <property name="minimumSize">
+                 <size>
+                  <width>101</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Programs</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/systools/program.ico</normaloff>:/OpenArk/systools/program.ico</iconset>
+                </property>
+               </widget>
+              </item>
              </layout>
             </widget>
            </widget>
@@ -383,7 +366,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_4">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -405,11 +388,11 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>142</width>
-               <height>116</height>
+               <width>113</width>
+               <height>90</height>
               </rect>
              </property>
-             <layout class="QFormLayout" name="formLayout">
+             <layout class="QFormLayout" name="formLayout_9">
               <property name="leftMargin">
                <number>3</number>
               </property>
@@ -423,32 +406,32 @@
                <number>3</number>
               </property>
               <item row="0" column="0">
-               <widget class="QPushButton" name="fastrebootBtn">
+               <widget class="QPushButton" name="calcBtn">
                 <property name="minimumSize">
                  <size>
-                  <width>130</width>
+                  <width>101</width>
                   <height>23</height>
                  </size>
                 </property>
                 <property name="text">
-                 <string>FastReboot   </string>
+                 <string>Calculator</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/systools/reboot.ico</normaloff>:/OpenArk/systools/reboot.ico</iconset>
+                  <normaloff>:/OpenArk/systools/calc.ico</normaloff>:/OpenArk/systools/calc.ico</iconset>
                 </property>
                </widget>
               </item>
-              <item row="1" column="0">
+              <item row="2" column="0">
                <widget class="QPushButton" name="fastpoweroffBtn">
                 <property name="minimumSize">
                  <size>
-                  <width>130</width>
+                  <width>101</width>
                   <height>23</height>
                  </size>
                 </property>
                 <property name="text">
-                 <string>FastPoweroff </string>
+                 <string>FastPoweroff</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
@@ -456,11 +439,97 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
+              <item row="1" column="0">
+               <widget class="QPushButton" name="fastrebootBtn">
+                <property name="minimumSize">
+                 <size>
+                  <width>101</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>FastReboot</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/systools/reboot.ico</normaloff>:/OpenArk/systools/reboot.ico</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+          <item>
+           <widget class="QScrollArea" name="scrollArea_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>130</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="scrollAreaWidgetContents_7">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>142</width>
+               <height>120</height>
+              </rect>
+             </property>
+             <layout class="QFormLayout" name="formLayout_7">
+              <property name="horizontalSpacing">
+               <number>3</number>
+              </property>
+              <property name="verticalSpacing">
+               <number>6</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>3</number>
+              </property>
+              <property name="rightMargin">
+               <number>3</number>
+              </property>
+              <property name="bottomMargin">
+               <number>3</number>
+              </property>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="resetexplorerBtn">
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>ResetExplorer</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/systools/resetexplorer.ico</normaloff>:/OpenArk/systools/resetexplorer.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
                <widget class="QPushButton" name="killexplorerBtn">
                 <property name="minimumSize">
                  <size>
-                  <width>130</width>
+                  <width>120</width>
                   <height>23</height>
                  </size>
                 </property>
@@ -473,11 +542,11 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
-               <widget class="QPushButton" name="resetexplorerBtn">
+              <item row="2" column="1">
+               <widget class="QPushButton" name="hideBtn0">
                 <property name="minimumSize">
                  <size>
-                  <width>130</width>
+                  <width>120</width>
                   <height>23</height>
                  </size>
                 </property>
@@ -531,7 +600,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_5">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -548,7 +617,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>116</height>
+               <height>120</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_6">
@@ -615,23 +684,6 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
-               <widget class="QPushButton" name="wallpaperBtn">
-                <property name="minimumSize">
-                 <size>
-                  <width>101</width>
-                  <height>23</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Wallpaper</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/systools/wallpaper.ico</normaloff>:/OpenArk/systools/wallpaper.ico</iconset>
-                </property>
-               </widget>
-              </item>
              </layout>
             </widget>
            </widget>
@@ -639,7 +691,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_6">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -656,7 +708,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>116</height>
+               <height>120</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_5">
@@ -723,7 +775,47 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
+             </layout>
+            </widget>
+           </widget>
+          </item>
+          <item>
+           <widget class="QScrollArea" name="scrollArea_8">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="scrollAreaWidgetContents_8">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>113</width>
+               <height>120</height>
+              </rect>
+             </property>
+             <layout class="QFormLayout" name="formLayout_8">
+              <property name="leftMargin">
+               <number>3</number>
+              </property>
+              <property name="topMargin">
+               <number>3</number>
+              </property>
+              <property name="rightMargin">
+               <number>3</number>
+              </property>
+              <property name="bottomMargin">
+               <number>3</number>
+              </property>
+              <item row="0" column="0">
                <widget class="QPushButton" name="datetimeBtn">
                 <property name="minimumSize">
                  <size>
@@ -737,6 +829,43 @@
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
                   <normaloff>:/OpenArk/systools/datetime.ico</normaloff>:/OpenArk/systools/datetime.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="wallpaperBtn">
+                <property name="minimumSize">
+                 <size>
+                  <width>101</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Wallpaper</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/systools/wallpaper.ico</normaloff>:/OpenArk/systools/wallpaper.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="hideBtn1">
+                <property name="minimumSize">
+                 <size>
+                  <width>101</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Wallpaper</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/systools/wallpaper.ico</normaloff>:/OpenArk/systools/wallpaper.ico</iconset>
                 </property>
                </widget>
               </item>
@@ -758,9 +887,6 @@
            </spacer>
           </item>
          </layout>
-         <zorder>scrollArea_5</zorder>
-         <zorder>scrollArea_6</zorder>
-         <zorder>horizontalSpacer_3</zorder>
         </widget>
        </item>
        <item>
@@ -784,7 +910,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_11">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -801,7 +927,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>116</height>
+               <height>120</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_11">
@@ -817,23 +943,6 @@
               <property name="bottomMargin">
                <number>3</number>
               </property>
-              <item row="3" column="0">
-               <widget class="QPushButton" name="certBtn">
-                <property name="minimumSize">
-                 <size>
-                  <width>101</width>
-                  <height>23</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Certificate</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/systools/certmgr.ico</normaloff>:/OpenArk/systools/certmgr.ico</iconset>
-                </property>
-               </widget>
-              </item>
               <item row="2" column="0">
                <widget class="QPushButton" name="usersBtn">
                 <property name="minimumSize">
@@ -892,7 +1001,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_12">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -909,7 +1018,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>87</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_12">
@@ -983,7 +1092,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_13">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -1000,7 +1109,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>87</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_13">
@@ -1074,7 +1183,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_14">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -1089,9 +1198,9 @@
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>0</y>
+               <y>-18</y>
                <width>113</width>
-               <height>78</height>
+               <height>87</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_14">
@@ -1121,6 +1230,40 @@
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
                   <normaloff>:/OpenArk/systools/powercfg.ico</normaloff>:/OpenArk/systools/powercfg.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="certBtn">
+                <property name="minimumSize">
+                 <size>
+                  <width>101</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Certificate</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/systools/certmgr.ico</normaloff>:/OpenArk/systools/certmgr.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="hideBtn2">
+                <property name="minimumSize">
+                 <size>
+                  <width>101</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Certificate</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/systools/certmgr.ico</normaloff>:/OpenArk/systools/certmgr.ico</iconset>
                 </property>
                </widget>
               </item>
@@ -1165,7 +1308,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_16">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -1182,7 +1325,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>87</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_17">
@@ -1256,7 +1399,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_17">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -1273,7 +1416,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>87</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_18">
@@ -1347,7 +1490,7 @@
           <item>
            <widget class="QScrollArea" name="scrollArea_18">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -1362,9 +1505,9 @@
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>0</y>
-               <width>124</width>
-               <height>69</height>
+               <y>-18</y>
+               <width>113</width>
+               <height>87</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_19">
@@ -1414,6 +1557,23 @@
                 </property>
                </widget>
               </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="hideBtn3">
+                <property name="minimumSize">
+                 <size>
+                  <width>101</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Shared Folders</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/systools/share.ico</normaloff>:/OpenArk/systools/share.ico</iconset>
+                </property>
+               </widget>
+              </item>
              </layout>
             </widget>
            </widget>
@@ -1433,6 +1593,19 @@
           </item>
          </layout>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>

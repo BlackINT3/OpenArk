@@ -23,6 +23,11 @@
 class Ui::Kernel;
 class Kernel;
 
+enum {
+	TAB_KERNEL_OBJECT_TYPES,
+	TAB_KERNEL_OBJECT_SECTIONS,
+};
+
 PROXY_FILTER(ObjectTypesSortFilterProxyModel);
 PROXY_FILTER(ObjectSectionsSortFilterProxyModel);
 

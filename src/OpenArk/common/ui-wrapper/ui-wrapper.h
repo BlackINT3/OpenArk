@@ -37,6 +37,7 @@ public:
 	};
 	Q_INVOKABLE int GetActiveTab() { return tabwidget_->currentIndex(); };
 	Q_INVOKABLE void SetActiveTab(int idx) { tabwidget_->setCurrentIndex(idx); };
+	Q_INVOKABLE void RefreshTab() { onTabChanged(GetActiveTab()); };
 
 public slots:
 	virtual void onTabChanged(int index) {

@@ -312,7 +312,7 @@ void KernelNetwork::ModuleInit(Ui::Kernel *ui, Kernel *kernel)
 	InitHostsView();
 	InitPortView();
 
-	onTabChanged(ui_->tabNetwork->currentIndex());
+	//onTabChanged(ui_->tabNetwork->currentIndex());
 }
 
 void KernelNetwork::InitWfpView()
@@ -608,7 +608,7 @@ void KernelNetwork::onShowPortInfo()
 		newers.insert(newers.end(), items.begin(), items.end());
 	}
 
-	auto flttext = ui_->portFilterEdit->text();
+	auto flt = ui_->portFilterEdit->text();
 	for (auto &item : newers) {
 		auto protocol = CharsToQ(item.protocol);
 		auto local = CharsToQ(item.local);
@@ -617,13 +617,13 @@ void KernelNetwork::onShowPortInfo()
 		auto pidstr = WStrToQ(UNONE::StrFormatW(L"%d", item.pid));
 		ProcInfo pi;
 		CacheGetProcInfo(item.pid, pi);
-		if (!flttext.isEmpty()) {
-			if (!protocol.contains(flttext, Qt::CaseInsensitive) && 
-				!local.contains(flttext, Qt::CaseInsensitive) &&
-				!remote.contains(flttext, Qt::CaseInsensitive) &&
-				!readable_state.contains(flttext, Qt::CaseInsensitive) &&
-				!pidstr.contains(flttext, Qt::CaseInsensitive) &&
-				!pi.path.contains(flttext, Qt::CaseInsensitive)
+		if (!flt.isEmpty()) {
+			if (!protocol.contains(flt, Qt::CaseInsensitive) && 
+				!local.contains(flt, Qt::CaseInsensitive) &&
+				!remote.contains(flt, Qt::CaseInsensitive) &&
+				!readable_state.contains(flt, Qt::CaseInsensitive) &&
+				!pidstr.contains(flt, Qt::CaseInsensitive) &&
+				!pi.path.contains(flt, Qt::CaseInsensitive)
 				) continue;
 		}
 		auto item_0 = new QStandardItem(protocol);

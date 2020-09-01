@@ -541,9 +541,9 @@ void OpenArk::onTabChanged(int idx)
 		if (obj->objectName().contains("tab")) break;
 		qint32 l2;
 		qRegisterMetaType<qint32>("qint32");
-		QMetaObject::invokeMethod(obj,
-			"GetActiveTab", Qt::DirectConnection, Q_RETURN_ARG(qint32, l2));
+		QMetaObject::invokeMethod(obj, "GetActiveTab", Qt::DirectConnection, Q_RETURN_ARG(qint32, l2));
 		OpenArkConfig::Instance()->SetPrefLevel2Tab(l2);
+		QMetaObject::invokeMethod(obj, "RefreshTab", Qt::DirectConnection);
 		break;
 	}
 

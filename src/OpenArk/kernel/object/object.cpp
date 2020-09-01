@@ -42,6 +42,11 @@ KernelObject::~KernelObject()
 
 void KernelObject::onTabChanged(int index)
 {
+	switch (index) {
+	case TAB_KERNEL_OBJECT_TYPES: ShowObjectTypes(); break;
+	case TAB_KERNEL_OBJECT_SECTIONS: ShowObjectSections(); break;
+	default: break;
+	}
 	CommonTabObject::onTabChanged(index);
 }
 
@@ -101,7 +106,6 @@ void KernelObject::InitObjectTypesView()
 		auto view = ui_->objectTypesView;
 		ClipboardCopyData(GetCurItemViewData(view, GetCurViewColumn(view)).toStdString());
 	});
-	ShowObjectTypes();
 }
 
 void KernelObject::InitObjectSectionsView()
@@ -196,8 +200,6 @@ void KernelObject::InitObjectSectionsView()
 		memrw->ViewMemory(GetCurrentProcessId(), map_addr, map_size);
 		memrw->OpenNewWindow(qobject_cast<QWidget*>(this->parent()), map_addr, map_size);
 	});
-	ShowObjectTypes();
-	ShowObjectSections();
 }
 
 void KernelObject::ShowObjectTypes()

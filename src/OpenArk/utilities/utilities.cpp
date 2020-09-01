@@ -359,6 +359,11 @@ void Utilities::InitCleanerView()
 
 void Utilities::InitSystemToolsView()
 {
+	ui.hideBtn0->setVisible(false);
+	ui.hideBtn1->setVisible(false);
+	ui.hideBtn2->setVisible(false);
+	ui.hideBtn3->setVisible(false);
+
 	connect(ui.cmdBtn, &QPushButton::clicked, [] {ShellRun("cmd.exe", "/k cd /d %userprofile%"); });
 	connect(ui.wslBtn, &QPushButton::clicked, [] {ShellRun("wsl.exe", ""); });
 	connect(ui.powershellBtn, &QPushButton::clicked, [] {ShellRun("powershell.exe", ""); });

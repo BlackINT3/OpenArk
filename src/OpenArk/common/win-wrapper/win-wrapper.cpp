@@ -622,6 +622,19 @@ bool ObUnloadDriverRegistryW(__in const std::wstring &srv_name)
 	return true;
 }
 
+std::wstring ArkPsGetProcessPathW(__in DWORD pid = GetCurrentProcessId())
+{
+	bool activate = false;
+	auto &&path = UNONE::PsGetProcessPathW(pid);
+	if (path.empty()) {
+		UNONE::InterCreateTlsValue(ArkDrvApi::Process::OpenProcessR0, UNONE::PROCESS_VID);
+		path = UNONE::PsGetProcessPathW(pid);
+		activate = true;
+	}
+	if (activate) UNONE::InterDeleteTlsValue(UNONE::PROCESS_VID);
+	return path;
+}
+
 bool PsKillProcess(__in DWORD pid)
 {
 	bool result = false;

@@ -64,7 +64,7 @@ private:
 	QString DriversItemData(int column);
 
 private:
-	Ui::Kernel *ui;
+	Ui::Kernel *ui_;
 	Kernel *kernel_;
 	QMenu *drivers_menu_;
 	QStandardItemModel *drivers_model_;

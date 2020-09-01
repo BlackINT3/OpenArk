@@ -67,7 +67,7 @@ bool KernelDriver::eventFilter(QObject *obj, QEvent *e)
 {
 	if (e->type() == QEvent::ContextMenu) {
 		QMenu *menu = nullptr;
-		if (obj == ui->driverView->viewport()) menu = drivers_menu_;
+		if (obj == ui_->driverView->viewport()) menu = drivers_menu_;
 		QContextMenuEvent *ctxevt = dynamic_cast<QContextMenuEvent*>(e);
 		if (ctxevt && menu) {
 			menu->move(ctxevt->globalPos());
@@ -79,10 +79,10 @@ bool KernelDriver::eventFilter(QObject *obj, QEvent *e)
 
 void KernelDriver::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
 {
-	this->ui = mainui;
+	this->ui_ = mainui;
 	this->kernel_ = kernel;
 
-	Init(ui->tabDriver, TAB_KERNEL, TAB_KERNEL_DRIVER);
+	Init(ui_->tabDriver, TAB_KERNEL, TAB_KERNEL_DRIVER);
 
 	InitDriversView();
 	InitDriverKitView();
@@ -90,31 +90,25 @@ void KernelDriver::ModuleInit(Ui::Kernel *mainui, Kernel *kernel)
 
 void KernelDriver::InitDriversView()
 {
+	QTreeView *view = ui_->driverView;
 	drivers_model_ = new QStandardItemModel;
-	QTreeView *view = ui->driverView;
 	proxy_drivers_ = new DriversSortFilterProxyModel(view);
-	proxy_drivers_->setSourceModel(drivers_model_);
-	proxy_drivers_->setDynamicSortFilter(true);
-	proxy_drivers_->setFilterKeyColumn(1);
-	view->setModel(proxy_drivers_);
-	view->selectionModel()->setModel(proxy_drivers_);
-	view->header()->setSortIndicator(-1, Qt::AscendingOrder);
-	view->setSortingEnabled(true);
+	std::pair<int, QString> layout[] = {
+		{ 138, tr("Name") },
+		{ 135, tr("Base") },
+		{ 285, tr("Path") },
+		{ 60, tr("Number") },
+		{ 180, tr("Description") },
+		{ 120, tr("Version") },
+		{ 160, tr("Company") } };
+	SetDefaultTreeViewStyle(view, drivers_model_, proxy_drivers_, layout, _countof(layout));
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
-	drivers_model_->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Base") << tr("Path") << tr("Number") << tr("Description") << tr("Version") << tr("Company"));
-	view->setColumnWidth(DRV.name, 138);
-	view->setColumnWidth(DRV.base, 135);
-	view->setColumnWidth(DRV.path, 285);
-	view->setColumnWidth(DRV.number, 60);
-	view->setColumnWidth(DRV.desc, 180);
-	//dview->setColumnWidth(DRV.corp, 155);
-	view->setColumnWidth(DRV.ver, 120);
-	view->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
 	drivers_menu_ = new QMenu();
 	drivers_menu_->addAction(tr("Refresh"), this, [&] { ShowDrivers(); });
 	drivers_menu_->addAction(tr("Copy"), this, [&] {
-		ClipboardCopyData(DriversItemData(GetCurViewColumn(ui->driverView)).toStdString());
+		ClipboardCopyData(DriversItemData(GetCurViewColumn(ui_->driverView)).toStdString());
 	});
 	drivers_menu_->addAction(tr("Sendto Scanner"), this, [&] {
 		kernel_->GetParent()->SetActiveTab(TAB_SCANNER);
@@ -130,45 +124,45 @@ void KernelDriver::InitDriversView()
 
 void KernelDriver::InitDriverKitView()
 {
-	ui->groupWDF->setVisible(false);
-	connect(ui->browseBtn, &QPushButton::clicked, this, [&]() {
+	ui_->groupWDF->setVisible(false);
+	connect(ui_->browseBtn, &QPushButton::clicked, this, [&]() {
 		QString file = QFileDialog::getOpenFileName(kernel_, tr("Open File"), "", tr("Driver Files (*.sys);;All Files (*.*)"));
 		kernel_->onOpenFile(file);
 	});
-	connect(ui->signBtn, SIGNAL(clicked()), this, SLOT(onSignDriver()));
-	connect(ui->installNormallyBtn, SIGNAL(clicked()), this, SLOT(onInstallNormallyDriver()));
-	connect(ui->installUnsignedBtn, SIGNAL(clicked()), this, SLOT(onInstallUnsignedDriver()));
-	connect(ui->installExpiredBtn, SIGNAL(clicked()), this, SLOT(onInstallExpiredDriver()));
-	connect(ui->uninstallBtn, SIGNAL(clicked()), this, SLOT(onUninstallDriver()));
-	connect(ui->writeRegBtn, &QPushButton::clicked, [&] {
-		auto driver = QToWStr(ui->driverFileEdit->text());
-		auto service = QToWStr(ui->serviceEdit->text());
+	connect(ui_->signBtn, SIGNAL(clicked()), this, SLOT(onSignDriver()));
+	connect(ui_->installNormallyBtn, SIGNAL(clicked()), this, SLOT(onInstallNormallyDriver()));
+	connect(ui_->installUnsignedBtn, SIGNAL(clicked()), this, SLOT(onInstallUnsignedDriver()));
+	connect(ui_->installExpiredBtn, SIGNAL(clicked()), this, SLOT(onInstallExpiredDriver()));
+	connect(ui_->uninstallBtn, SIGNAL(clicked()), this, SLOT(onUninstallDriver()));
+	connect(ui_->writeRegBtn, &QPushButton::clicked, [&] {
+		auto driver = QToWStr(ui_->driverFileEdit->text());
+		auto service = QToWStr(ui_->serviceEdit->text());
 		ObLoadDriverRegistryW(driver, service) ?
-			LabelSuccess(ui->infoLabel, tr("Write registry ok...")) :
-			LabelError(ui->infoLabel, tr("Write registry failed, open console window to view detail..."));
+			LabelSuccess(ui_->infoLabel, tr("Write registry ok...")) :
+			LabelError(ui_->infoLabel, tr("Write registry failed, open console window to view detail..."));
 	});
-	connect(ui->cleanRegBtn, &QPushButton::clicked, [&] {
-		auto service = QToWStr(ui->serviceEdit->text());
+	connect(ui_->cleanRegBtn, &QPushButton::clicked, [&] {
+		auto service = QToWStr(ui_->serviceEdit->text());
 		ObUnloadDriverRegistryW(service) ?
-			LabelSuccess(ui->infoLabel, tr("Clean registry ok...")) :
-			LabelError(ui->infoLabel, tr("Clean registry failed, open console window to view detail..."));
+			LabelSuccess(ui_->infoLabel, tr("Clean registry ok...")) :
+			LabelError(ui_->infoLabel, tr("Clean registry failed, open console window to view detail..."));
 	});
 
 }
 
 void KernelDriver::onSignDriver()
 {
-	QString driver = ui->driverFileEdit->text();
+	QString driver = ui_->driverFileEdit->text();
 	SignExpiredDriver(driver) ? 
-		LabelSuccess(ui->infoLabel, tr("Sign ok...")) :
-		LabelError(ui->infoLabel, tr("Sign failed, open console window to view detail..."));
+		LabelSuccess(ui_->infoLabel, tr("Sign ok...")) :
+		LabelError(ui_->infoLabel, tr("Sign failed, open console window to view detail..."));
 }
 
 void KernelDriver::onInstallNormallyDriver()
 {
-	InstallDriver(ui->driverFileEdit->text(), ui->serviceEdit->text()) ?
-		LabelSuccess(ui->infoLabel, tr("Install ok...")) :
-		LabelError(ui->infoLabel, tr("Install failed, open console window to view detail..."));
+	InstallDriver(ui_->driverFileEdit->text(), ui_->serviceEdit->text()) ?
+		LabelSuccess(ui_->infoLabel, tr("Install ok...")) :
+		LabelError(ui_->infoLabel, tr("Install failed, open console window to view detail..."));
 }
 
 void KernelDriver::onInstallUnsignedDriver()
@@ -186,9 +180,9 @@ void KernelDriver::onInstallExpiredDriver()
 
 void KernelDriver::onUninstallDriver()
 {
-	UninstallDriver(ui->serviceEdit->text()) ?
-		LabelSuccess(ui->infoLabel, tr("Uninstall ok...")) :
-		LabelError(ui->infoLabel, tr("Uninstall failed, open console window to view detail..."));
+	UninstallDriver(ui_->serviceEdit->text()) ?
+		LabelSuccess(ui_->infoLabel, tr("Uninstall ok...")) :
+		LabelError(ui_->infoLabel, tr("Uninstall failed, open console window to view detail..."));
 }
 
 bool KernelDriver::InstallDriver(QString driver, QString name)
@@ -270,7 +264,7 @@ void KernelDriver::ShowDrivers()
 
 QString KernelDriver::DriversItemData(int column)
 {
-	return GetCurItemViewData(ui->driverView, column);
+	return GetCurItemViewData(ui_->driverView, column);
 }
 
 
