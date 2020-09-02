@@ -33,6 +33,8 @@ HANDLE WINAPI OpenProcessR0(DWORD access, BOOL inherit, DWORD pid)
 
 HANDLE WINAPI OpenProcess(DWORD access, BOOL inherit, DWORD pid)
 {
+	if (pid == -1) return NULL;
+
 	HANDLE phd = ::OpenProcess(access, inherit, pid);
 	if (phd) return phd;
 

@@ -53,7 +53,7 @@ bool KernelStorage::eventFilter(QObject *obj, QEvent *e)
 			if (ui_->inputPathEdit->text().isEmpty()) {
 				QString tips(tr("Tips: \n1. You can copy file or directory and paste to here(Enter key to ShowHold).\n"
 					"2. You need enter kernel mode to view FileHold.\n"
-					"3. Path is case insensitive"));
+					"3. Path is case insensitive."));
 				QToolTip::showText(mouse->globalPos(), tips);
 				return true;
 			}

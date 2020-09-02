@@ -32,6 +32,13 @@
 class OpenArk;
 class Ui::Reverse;
 
+typedef struct _WINTOOL_ITEM {
+	int type;
+	QString name;
+	QString exec;
+	QString uri;
+} WINTOOL_ITEM;
+
 class Reverse : public CommonMainTabObject {
 	Q_OBJECT
 public:
@@ -45,8 +52,9 @@ private slots:
 	void onProgress(qint64 bytesSent, qint64 bytesTotal);
 
 private:
-	void DownloadAndExecuteFile(int type, QString path, QString exe, QString url);
+	void DownloadAndExecuteFile(WINTOOL_ITEM wintool);
 	void InitWinReverseToolsView();
+	void InitWinDriverKitsView();
 
 private:
 	Ui::Reverse ui;

@@ -59,11 +59,13 @@ ProcInfo CacheGetProcInfo(unsigned int pid, ProcInfo& info)
 	}
 	static bool is_os64 = UNONE::OsIs64();
 	info.path = WStrToQ(path);
-	std::wstring corp, desc;
-	UNONE::FsGetFileInfoW(path, L"CompanyName", corp);
-	UNONE::FsGetFileInfoW(path, L"FileDescription", desc);
-	info.corp = WStrToQ(corp);
-	info.desc = WStrToQ(desc);
+	if (!path.empty() && path != L"System") {
+		std::wstring corp, desc;
+		UNONE::FsGetFileInfoW(path, L"CompanyName", corp);
+		UNONE::FsGetFileInfoW(path, L"FileDescription", desc);
+		info.corp = WStrToQ(corp);
+		info.desc = WStrToQ(desc);
+	}
 	if (info.name.isEmpty()) info.name = WStrToQ(UNONE::FsPathToNameW(path));
 	info.ctime = WStrToQ(ProcessCreateTime(pid));
 	if (is_os64 && !UNONE::PsIsX64(pid))	info.name.append(" *32");

@@ -232,6 +232,7 @@ void SetDefaultTableViewStyle(QTableView* view, QStandardItemModel* model)
 	view->horizontalHeader()->setMinimumSectionSize(100);
 	view->verticalHeader()->setDefaultSectionSize(25);
 	view->selectionModel()->selectedIndexes();
+	view->setEditTriggers(false);
 }
 
 void SetDefaultTreeViewStyle(QTreeView* view, QStandardItemModel* model)
@@ -322,6 +323,18 @@ void ShellOpenUrl(QString url)
 void ShellRun(QString cmdline, QString param)
 {
 	ShellExecuteW(NULL, L"open", cmdline.toStdWString().c_str(), param.toStdWString().c_str(), NULL, SW_SHOW);
+}
+
+void ShellRunCmdExe(QString exe, int show)
+{
+	auto cmdline = "cmd /c " + exe;
+	UNONE::PsCreateProcessW(cmdline.toStdWString(), show);
+}
+
+void ShellRunCmdDir(QString dir)
+{
+	auto cmdline = "cmd /k cd /D" + dir;
+	UNONE::PsCreateProcessW(cmdline.toStdWString());
 }
 
 QString PidFormat(DWORD pid)

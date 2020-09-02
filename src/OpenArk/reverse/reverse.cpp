@@ -21,16 +21,13 @@ using namespace Plugin::Compressor;
 
 enum {
 	RUN_EXE,
+	RUN_EXE_BY_CMD,
 	RUN_DIR,
-	RUN_CMD_DIR
+	RUN_CMD_DIR,
+	RUN_OPEN_URL,
 };
 
-struct {
-	int type;
-	QString name;
-	QString exec;
-	QString uri;
-} WinReverseTools[] = {
+WINTOOL_ITEM WinAllTools[] = {
 	{ RUN_EXE, "procexp", "procexp/procexp.exe", "procexp.zip" },
 	{ RUN_EXE, "procmon", "Procmon/Procmon.exe", "Procmon.zip" },
 	{ RUN_EXE, "pchunter32", "PCHunter/PCHunter32.exe", "PCHunter32.zip" },
@@ -77,6 +74,54 @@ struct {
 	{ RUN_EXE, "teamviewer", "Teamviewer/Teamviewer.exe", "Teamviewer.zip" },
 	{ RUN_EXE, "anydesk", "AnyDesk/AnyDesk.exe", "AnyDesk.zip" },
 	{ RUN_EXE, "sunlogin", "Sunlogin/SunloginClient_10.3.0.27372.exe", "Sunlogin.zip" },
+	
+	//2020.09.02 add
+	{ RUN_EXE, "pchunternew32", "PCHunterNew/PCHunter32.exe", "PCHunterNew32.zip" },
+	{ RUN_EXE, "pchunternew64", "PCHunterNew/PCHunter64.exe", "PCHunterNew64.zip" },
+	{ RUN_EXE, "wke32", "WKE32.exe", "WKE32.exe" },
+	{ RUN_EXE, "wke64", "WKE64.exe", "WKE64.exe" },
+	{ RUN_EXE, "ghidra", "Ghidra/ghidraRun.bat", "Ghidra.zip" },
+	{ RUN_EXE, "keygener", "Keygener.exe", "Keygener.exe" },
+	{ RUN_EXE, "pygtools", "PYGTools/PYG_TOOLS_VER5.exe", "PYGTools.zip" },
+	{ RUN_EXE, "poolmonx", "PoolMonX/PoolMonX.exe", "PoolMonX.zip" },
+	{ RUN_EXE_BY_CMD, "diskgenius", "DiskGenius/DiskGenius.exe", "DiskGenius.zip" },	//cannot shell open diskgenius directly, WTF
+	{ RUN_EXE, "window", "Window.exe", "Window.exe" },
+	{ RUN_CMD_DIR, "curl", "network/curl/", "network/curl.zip" },
+	{ RUN_EXE, "nmap", "network/nmap-setup.exe", "network/nmap-setup.exe" },
+	{ RUN_EXE, "charles", "charles-win64.msi", "charles-win64.msi" },
+	{ RUN_CMD_DIR, "tcpdump", "network/tcpdump/", "network/tcpdump.zip" },
+	{ RUN_EXE, "x7z", "compressor/7z.exe", "compressor/7z.exe" },
+	{ RUN_EXE, "winrar", "compressor/winrar.exe", "compressor/winrar.exe" },
+	{ RUN_EXE, "chrome49", "browser/ChromeStandalone49.exe", "browser/ChromeStandalone49.exe" },
+	{ RUN_EXE, "chrome85", "browser/ChromeStandalone85.exe", "browser/ChromeStandalone85.exe" },
+	{ RUN_EXE, "firefox", "browser/FirefoxSetup.exe", "browser/FirefoxSetup.exe" },
+	{ RUN_EXE, "cpuz", "cpuz/cpuz_x32.exe", "cpuz.zip" },
+	{ RUN_EXE, "aida64", "aida64/aida64.exe", "aida64.zip" },
+
+	//WinDevKits
+	{ RUN_OPEN_URL, "jdk", "https://mirrors.huaweicloud.com/java/jdk/", "" },
+	{ RUN_OPEN_URL, "python", "https://www.python.org/downloads/", "" },
+	{ RUN_OPEN_URL, "golang", "https://studygolang.com/dl", "" },
+	{ RUN_EXE, "git32", "dev/Git-32bit.exe", "dev/Git-32bit.exe" },
+	{ RUN_EXE, "torgit32", "dev/TortoiseGit-32bit.msi", "dev/TortoiseGit-32bit.msi" },
+	{ RUN_EXE, "torsvn32", "dev/TortoiseSVN-32bit.msi", "dev/TortoiseSVN-32bit.msi" },
+	{ RUN_EXE, "git64", "dev/Git-64bit.exe", "dev/Git-64bit.exe" },
+	{ RUN_EXE, "torgit64", "dev/TortoiseGit-64bit.msi", "dev/TortoiseGit-64bit.msi" },
+	{ RUN_EXE, "torsvn64", "dev/TortoiseSVN-64bit.msi", "dev/TortoiseSVN-64bit.msi" },
+	{ RUN_EXE, "vc2005x64", "dev/vcredist_2005_x64", "" },
+	{ RUN_EXE, "vc2005x86", "dev/vcredist/vcredist_2005_x86.exe", "dev/vcredist/vcredist_2005_x86.exe" },
+	{ RUN_EXE, "vc2008x64", "dev/vcredist/vcredist_2008_x64.exe", "dev/vcredist/vcredist_2008_x64.exe" },
+	{ RUN_EXE, "vc2008x86", "dev/vcredist/vcredist_2008_x86.exe", "dev/vcredist/vcredist_2008_x86.exe" },
+	{ RUN_EXE, "vc2010x64", "dev/vcredist/vcredist_2010_x64.exe", "dev/vcredist/vcredist_2010_x64.exe" },
+	{ RUN_EXE, "vc2010x86", "dev/vcredist/vcredist_2010_x86.exe", "dev/vcredist/vcredist_2010_x86.exe" },
+	{ RUN_EXE, "vc2012x64", "dev/vcredist/vcredist_2012_x64.exe", "dev/vcredist/vcredist_2012_x64.exe" },
+	{ RUN_EXE, "vc2012x86", "dev/vcredist/vcredist_2012_x86.exe", "dev/vcredist/vcredist_2012_x86.exe" },
+	{ RUN_EXE, "vc2013x64", "dev/vcredist/vcredist_2013_x64.exe", "dev/vcredist/vcredist_2013_x64.exe" },
+	{ RUN_EXE, "vc2013x86", "dev/vcredist/vcredist_2013_x86.exe", "dev/vcredist/vcredist_2013_x86.exe" },
+	{ RUN_EXE, "vc2015x64", "dev/vcredist/vcredist_2015_x64.exe", "dev/vcredist/vcredist_2015_x64.exe" },
+	{ RUN_EXE, "vc2015x86", "dev/vcredist/vcredist_2015_x86.exe", "dev/vcredist/vcredist_2015_x86.exe" },
+	{ RUN_EXE, "vc1519x64", "dev/vcredist/vcredist_2015~2019_x64.exe", "dev/vcredist/vcredist_2015~2019_x64.exe" },
+	{ RUN_EXE, "vc1519x86", "dev/vcredist/vcredist_2015~2019_x86.exe", "dev/vcredist/vcredist_2015~2019_x86.exe" },
 };
 
 Reverse::Reverse(QWidget *parent, int tabid) :
@@ -87,6 +132,7 @@ Reverse::Reverse(QWidget *parent, int tabid) :
 	ui.progressBar->show();
 
 	InitWinReverseToolsView();
+	InitWinDriverKitsView();
 
 	CommonMainTabObject::Init(ui.tabWidget, tabid);
 }
@@ -103,42 +149,49 @@ void Reverse::onTabChanged(int index)
 void Reverse::onExecute()
 {
 	QString name;
-
+	static auto is64 = UNONE::OsIs64();
 	auto sender = QObject::sender();
 	name = sender->objectName().replace("Btn", "");
+	if (sender == ui.pchunterBtn) name = is64 ? "pchunter64" : "pchunter32";
+	if (sender == ui.pchunternewBtn) name = is64 ? "pchunternew64" : "pchunternew32";
+	if (sender == ui.wkeBtn) name = is64 ? "wke64" : "wke32";
+	if (sender == ui.gitBtn) name = is64 ? "git64" : "git32";
+	if (sender == ui.torgitBtn) name = is64 ? "torgit64" : "torgit32";
+	if (sender == ui.torsvnBtn) name = is64 ? "torsvn64" : "torsvn32";
 
-	if (sender == ui.pchunterBtn) {
-		name = UNONE::OsIs64() ? "pchunter64" : "pchunter32";
-	}
-
-	int type;
-	QString uri, exec;
-	for (int i = 0; i < _countof(WinReverseTools); i++)	{
-		if (WinReverseTools[i].name == name) {
-			uri = WinReverseTools[i].uri;
-			exec = WinReverseTools[i].exec;
-			type = WinReverseTools[i].type;
+	WINTOOL_ITEM wintool;
+	for (int i = 0; i < _countof(WinAllTools); i++)	{
+		if (WinAllTools[i].name == name) {
+			wintool = WinAllTools[i];
 			break;
 		}
 	}
+	DownloadAndExecuteFile(wintool);
+}
+
+
+void Reverse::DownloadAndExecuteFile(WINTOOL_ITEM wintool)
+{
+	int type;
+	QString uri, exec;
+
+	uri = wintool.uri;
+	exec = wintool.exec;
+	type = wintool.type;
+
+	if (type == RUN_OPEN_URL) {
+		ShellOpenUrl(exec);
+		return;
+	}
+
 	auto &&filebase = WStrToQ(AppConfigDir() + L"/files/");
 	if (!UNONE::FsIsExistedW(filebase.toStdWString())) {
 		UNONE::FsCreateDirW(filebase.toStdWString());
 	}
-	auto &&file = filebase + uri;
+	auto &&path = filebase + uri;
 	auto &&url = AppFsUrl() + "/" + uri;
 	exec = filebase + exec;
-	DownloadAndExecuteFile(type, file, exec, url);
-}
 
-void ShellRunCmdDir(QString dir)
-{
-	auto cmdline = "cmd /k cd /D" + dir;
-	UNONE::PsCreateProcessW(cmdline.toStdWString());
-}
-
-void Reverse::DownloadAndExecuteFile(int type, QString path, QString exe, QString url)
-{
 	auto Run = [&](int type, QString exe)->bool {
 		if (UNONE::FsIsExistedW(QToWStr(exe))) {
 			if (type == RUN_EXE)
@@ -147,6 +200,8 @@ void Reverse::DownloadAndExecuteFile(int type, QString path, QString exe, QStrin
 				ShellRunCmdDir(exe);
 			else if (type == RUN_DIR)
 				ExploreFile(exe);
+			else if (type == RUN_EXE_BY_CMD)
+				ShellRunCmdExe(exe, SW_HIDE);
 			return true;
 		}
 		return false;
@@ -154,7 +209,7 @@ void Reverse::DownloadAndExecuteFile(int type, QString path, QString exe, QStrin
 
 	static bool pending = false;
 	
-	if (Run(type, exe))
+	if (Run(type, exec))
 		return;
 
 	if (pending) {
@@ -163,6 +218,7 @@ void Reverse::DownloadAndExecuteFile(int type, QString path, QString exe, QStrin
 	}
 	pending = true;
 
+	UNONE::FsCreateDirW(UNONE::FsPathToDirW(QToWStr(path)));
 	file = new QFile(path);
 	file->open(QIODevice::WriteOnly);
 
@@ -175,7 +231,7 @@ void Reverse::DownloadAndExecuteFile(int type, QString path, QString exe, QStrin
 	reply = accessmgr->get(request);
 
 	connect((QObject *)reply, SIGNAL(readyRead()), this, SLOT(readContent()));
-	connect(accessmgr, &QNetworkAccessManager::finished, [&, Run, type, path, exe](QNetworkReply*) {
+	connect(accessmgr, &QNetworkAccessManager::finished, [&, Run, type, path, exec](QNetworkReply*) {
 		if (reply->error() != QNetworkReply::NoError) {
 			QMessageBox::critical(NULL, tr("Error"), tr("Download failed, err:%1").arg(reply->error()));
 			ui.progressBar->setValue(0);
@@ -189,16 +245,18 @@ void Reverse::DownloadAndExecuteFile(int type, QString path, QString exe, QStrin
 		file->flush();
 		file->close();
 
-		//Unpack
-		auto filepath = path.toStdString();
-		auto dir = UNONE::FsPathToDirA(filepath);
-		ZipUtils::UnpackToDir(filepath, ZipUtils::UNPACK_CURRENT, dir);
-	
-		//Run
-		Run(type, exe);
 
-		//Clean
-		DeleteFileA(filepath.c_str());
+		auto filepath = path.toStdString();
+		if (UNONE::FsPathToExtensionA(filepath) == ".zip") {
+			//Unpack
+			auto dir = UNONE::FsPathToDirA(filepath);
+			ZipUtils::UnpackToDir(filepath, ZipUtils::UNPACK_CURRENT, dir);
+			//Clean
+			DeleteFileA(filepath.c_str());
+		}
+
+		//Run
+		Run(type, exec);
 
 		pending = false;
 	});
@@ -218,7 +276,7 @@ void Reverse::onProgress(qint64 bytesSent, qint64 bytesTotal)
 
 void Reverse::InitWinReverseToolsView()
 {
-	QList<QPushButton*> buttons = ui.groupBox->findChildren<QPushButton*>();
+	QList<QPushButton*> buttons = ui.commonBox->findChildren<QPushButton*>();
 	for (auto &btn : buttons) {
 		connect(btn, SIGNAL(clicked()), this, SLOT(onExecute()));
 	}
@@ -227,4 +285,12 @@ void Reverse::InitWinReverseToolsView()
 		auto folder = AppConfigDir() + L"\\files";
 		ShellRun(WStrToQ(folder), "");
 	});
+}
+
+void Reverse::InitWinDriverKitsView()
+{
+	QList<QPushButton*> buttons = ui.devkitsBox->findChildren<QPushButton*>();
+	for (auto &btn : buttons) {
+		connect(btn, SIGNAL(clicked()), this, SLOT(onExecute()));
+	}
 }

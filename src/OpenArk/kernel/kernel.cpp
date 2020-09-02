@@ -328,7 +328,7 @@ void Kernel::InitHotkeyView()
 	{ 180, tr("Title") },
 	{ 180, tr("ClassName") },
 	{ 300, tr("Path") },
-	{ 120, tr("Description") } };
+	{ 160, tr("Description") } };
 	SetDefaultTreeViewStyle(view, hotkey_model_, proxy_hotkey_, colum_layout, _countof(colum_layout));
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);

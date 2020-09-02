@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>7</number>
      </property>
      <widget class="QWidget" name="tabKernelEntry">
       <attribute name="title">
@@ -70,7 +70,7 @@
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
-       <string>Driver Manager</string>
+       <string>Kernel Driver</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_12">
        <property name="spacing">
@@ -487,7 +487,7 @@
      </widget>
      <widget class="QWidget" name="tabNotify">
       <attribute name="title">
-       <string>System Notify</string>
+       <string>SystemNotify</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_8">
        <property name="leftMargin">
@@ -596,7 +596,7 @@
      </widget>
      <widget class="QWidget" name="tab_6">
       <attribute name="title">
-       <string>Object Manager</string>
+       <string>Kernel Object</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <property name="leftMargin">
@@ -686,7 +686,7 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Memory Manager</string>
+       <string>Kernel Memory</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_10">
        <property name="spacing">
@@ -746,7 +746,7 @@
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
-       <string>Storage Manager</string>
+       <string>Kernel Storage</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_19">
        <property name="spacing">
@@ -888,7 +888,7 @@
      </widget>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Network Manager</string>
+       <string>Kernel Network</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <property name="spacing">
@@ -1102,9 +1102,9 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="hostsReloadBtn">
+              <widget class="QPushButton" name="hostsRefreshBtn">
                <property name="text">
-                <string>&amp;Reload</string>
+                <string>&amp;Refresh</string>
                </property>
               </widget>
              </item>

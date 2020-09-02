@@ -367,7 +367,7 @@ void KernelNetwork::InitHostsView()
 		return std::move(hosts);
 	};
 
-	auto ReloadHostsData = [=]() {
+	auto RefreshHostsData = [=]() {
 		std::string data;
 		auto &&hosts = GetCurrentHostsPath();
 		UNONE::FsReadFileDataW(hosts, data);
@@ -383,7 +383,7 @@ void KernelNetwork::InitHostsView()
 		UNONE::FsWriteFileDataW(hosts, data);
 	};
 
-	auto ReloadHostsList = [=]() {
+	auto RefreshHostsList = [=]() {
 		auto row = ui_->hostsFileListWidget->currentRow();
 		ui_->hostsFileListWidget->clear();
 		std::vector<std::wstring> names;
@@ -402,12 +402,12 @@ void KernelNetwork::InitHostsView()
 	};
 
 	connect(ui_->hostsFileListWidget, &QListWidget::itemSelectionChanged, [=] {
-		ReloadHostsData();
+		RefreshHostsData();
 	});
 
-	connect(ui_->hostsReloadBtn, &QPushButton::clicked, [=] {
-		ReloadHostsData();
-		ReloadHostsList();
+	connect(ui_->hostsRefreshBtn, &QPushButton::clicked, [=] {
+		RefreshHostsData();
+		RefreshHostsList();
 	});
 
 	connect(ui_->hostsSaveBtn, &QPushButton::clicked, [=] {
@@ -423,7 +423,7 @@ void KernelNetwork::InitHostsView()
 		if (ok && !text.isEmpty()) {
 			auto &&hosts = hosts_dir_ + L"\\hosts-" + text.toStdWString();
 			WriteHostsData(hosts);
-			ReloadHostsList();
+			RefreshHostsList();
 		}
 	});
 
@@ -436,14 +436,14 @@ void KernelNetwork::InitHostsView()
 	});
 
 	if (!UNONE::FsIsExistedW(hosts_file_)) UNONE::FsWriteFileDataW(hosts_file_, "# 127.0.0.1 localhost\n# ::1 localhost");		
-	ReloadHostsList();
+	RefreshHostsList();
 	ui_->hostsFileListWidget->setCurrentRow(0);
 
 	ui_->hostsFileListWidget->installEventFilter(this);
 	hosts_menu_ = new QMenu();
 	hosts_menu_->addAction(tr("Mark as Main"), kernel_, [=] {
 		WriteHostsData(hosts_file_);
-		ReloadHostsList();
+		RefreshHostsList();
 		ui_->hostsFileListWidget->setCurrentRow(0);
 	});
 	hosts_menu_->addAction(tr("Rename"), kernel_, [=] {
@@ -461,7 +461,7 @@ void KernelNetwork::InitHostsView()
 				hosts = hosts_dir_ + L"\\hosts";
 			}
 			WriteHostsData(hosts);
-			ReloadHostsList();
+			RefreshHostsList();
 		}
 	});
 	hosts_menu_->addAction(tr("Backup"), kernel_, [=] {
@@ -480,15 +480,15 @@ void KernelNetwork::InitHostsView()
 		}
 		ClipboardCopyData(UNONE::StrToA(data));
 	});
-	hosts_menu_->addAction(tr("Reload"), kernel_, [=] {
-		emit ui_->hostsReloadBtn->click();
+	hosts_menu_->addAction(tr("Refresh"), kernel_, [=] {
+		emit ui_->hostsRefreshBtn->click();
 	});
 
 	hosts_menu_->addAction(copy_menu->menuAction());
 	hosts_menu_->addSeparator();
 	hosts_menu_->addAction(tr("Delete"), kernel_, [=] {
 		DeleteFileW(GetCurrentHostsPath().c_str());
-		emit ui_->hostsReloadBtn->click();
+		emit ui_->hostsRefreshBtn->click();
 	}, QKeySequence::Delete);
 	hosts_menu_->addAction(tr("Delete Non-Main"), kernel_, [=] {
 		if (QMessageBox::warning(this, tr("Warning"), tr("Are you sure to delete all hosts file(include backups)?"),
@@ -501,7 +501,7 @@ void KernelNetwork::InitHostsView()
 			auto path = hosts_dir_ + L"\\" + QToWStr(name);
 			DeleteFileW(path.c_str());
 		}
-		emit ui_->hostsReloadBtn->click();
+		emit ui_->hostsRefreshBtn->click();
 	});
 }
 
@@ -516,7 +516,7 @@ void KernelNetwork::InitPortView()
 		{ 145, tr("Foreign address") },
 		{ 100, tr("State") },
 		{ 50, tr("PID") },
-		{ 350, tr("Process Path") },
+		{ 530, tr("Process Path") },
 	};
 
 	SetDefaultTreeViewStyle(view, port_model_, proxy_port_, layout, _countof(layout));
