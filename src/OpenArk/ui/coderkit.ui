@@ -583,6 +583,20 @@
              </widget>
             </item>
             <item>
+             <widget class="QRadioButton" name="urlencodeRadio">
+              <property name="text">
+               <string>urlencode</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="urldecodeRadio">
+              <property name="text">
+               <string>urldecode</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
