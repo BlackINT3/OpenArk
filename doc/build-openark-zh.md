@@ -8,7 +8,7 @@
 - 下载 [WDK 7601](http://nuget.blackint3.com:20001/wdk71.iso) 版本的安装包，之后安装
 - 在用户环境变量里新建一个环境变量，变量名是 WDKPATH，变量值是 WDK 的安装根目录。例：C:\WINDDK\7600.16385.1
 
-#### 安装 Visual Stdio
+#### 安装 Visual Studio
 - 下载 [Visual Studio 2015 (Update 3)](http://nuget.blackint3.com:20001/vs2015.iso) 的安装包 ，之后安装
 - **重要**：你必须在安装向导中选择 Visual Studio 拓展性工具 Update 3
 
