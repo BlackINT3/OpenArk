@@ -339,7 +339,7 @@ void Kernel::InitHotkeyView()
 	hotkey_menu_->addAction(tr("Refresh"), this, [&] { ShowSystemHotkey(); });
 	hotkey_menu_->addSeparator();
 	hotkey_menu_->addAction(tr("Delete Hotkey"), this, [&] {
-		ULONG32 vkid = QHexToDWord(HotkeyItemData(3));
+		ULONG32 vkid = QHexToDWord(HotkeyItemData(4));
 		auto arr = HotkeyItemData(1).split(".");
 		ULONG32 pid = QDecToDWord(arr[0]);
 		ULONG32 tid = QDecToDWord(arr[1]);
