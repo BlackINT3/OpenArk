@@ -909,7 +909,7 @@
        <item>
         <widget class="QTabWidget" name="tabNetwork">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tabPort">
           <attribute name="title">
@@ -1054,7 +1054,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QTextEdit" name="hostsDataEdit"/>
+              <widget class="QTextEdit" name="hostsDataEdit">
+               <property name="acceptRichText">
+                <bool>false</bool>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
