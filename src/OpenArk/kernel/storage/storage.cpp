@@ -83,7 +83,7 @@ void KernelStorage::InitFileUnlockView()
 	unlock_model_ = new QStandardItemModel;
 	QTreeView *view = ui_->unlockView;
 	proxy_unlock_ = new UnlockFileSortFilterProxyModel(view);
-	std::pair<int, QString> layout[] = {
+	std::vector<std::pair<int, QString>> layout = {
 		{ 150, tr("ProcessName") },
 		{ 50, tr("PID") },
 		{ 340, tr("FilePath") },
@@ -92,7 +92,7 @@ void KernelStorage::InitFileUnlockView()
 		{ 150, tr("FileObject/DllBase") },
 		{ 70, tr("FileHandle") },
 	};
-	SetDefaultTreeViewStyle(view, unlock_model_, proxy_unlock_, layout, _countof(layout));
+	SetDefaultTreeViewStyle(view, unlock_model_, proxy_unlock_, layout);
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
 	ui_->inputPathEdit->installEventFilter(this);

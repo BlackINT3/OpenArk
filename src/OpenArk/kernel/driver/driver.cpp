@@ -93,7 +93,7 @@ void KernelDriver::InitDriversView()
 	QTreeView *view = ui_->driverView;
 	drivers_model_ = new QStandardItemModel;
 	proxy_drivers_ = new DriversSortFilterProxyModel(view);
-	std::pair<int, QString> layout[] = {
+	std::vector<std::pair<int, QString>> layout = {
 		{ 138, tr("Name") },
 		{ 135, tr("Base") },
 		{ 285, tr("Path") },
@@ -101,7 +101,7 @@ void KernelDriver::InitDriversView()
 		{ 180, tr("Description") },
 		{ 120, tr("Version") },
 		{ 160, tr("Company") } };
-	SetDefaultTreeViewStyle(view, drivers_model_, proxy_drivers_, layout, _countof(layout));
+	SetDefaultTreeViewStyle(view, drivers_model_, proxy_drivers_, layout);
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
 

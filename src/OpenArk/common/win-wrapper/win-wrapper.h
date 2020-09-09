@@ -17,6 +17,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <array>
 #include <QString>
 #include "../common.h"
 #include "reg-wrapper.h"

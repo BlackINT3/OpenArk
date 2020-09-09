@@ -208,7 +208,9 @@ void ExpandTreeView(const QModelIndex& index, QTreeView* view);
 void SetDefaultTableViewStyle(QTableView* view, QStandardItemModel* model);
 void SetDefaultTreeViewStyle(QTreeView* view, QStandardItemModel* model);
 void SetDefaultTreeViewStyle(QTreeView* view, QStandardItemModel* model, QSortFilterProxyModel *proxy, 
-	std::pair<int, QString> colum_layout[], int count);
+	std::vector<std::pair<int, QString>>& layout);
+int GetLayoutIndex(std::vector<std::pair<int, QString>> &layout, QString name);
+#define LAYOUT_INDEX(str) GetLayoutIndex(layout, tr(str))
 void SetLineBgColor(QStandardItemModel *model, int row, const QBrush &abrush);
 void SetLineHidden(QTreeView *view, int row, bool hide);
 

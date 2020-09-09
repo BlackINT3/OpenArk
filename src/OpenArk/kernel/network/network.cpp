@@ -510,7 +510,7 @@ void KernelNetwork::InitPortView()
 	QTreeView *view = ui_->portView;
 	port_model_ = new QStandardItemModel;
 	proxy_port_ = new PortSortFilterProxyModel(view);
-	std::pair<int, QString> layout[] = {
+	std::vector<std::pair<int, QString>> layout = {
 		{ 50, tr("Protocol") },
 		{ 135, tr("Local address") },
 		{ 145, tr("Foreign address") },
@@ -519,7 +519,7 @@ void KernelNetwork::InitPortView()
 		{ 530, tr("Process Path") },
 	};
 
-	SetDefaultTreeViewStyle(view, port_model_, proxy_port_, layout, _countof(layout));
+	SetDefaultTreeViewStyle(view, port_model_, proxy_port_, layout);
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
 

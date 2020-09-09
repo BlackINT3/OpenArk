@@ -86,7 +86,7 @@ void KernelObject::InitObjectTypesView()
 	QTreeView *view = ui_->objectTypesView;
 	objtypes_model_ = new QStandardItemModel;
 	proxy_objtypes_ = new ObjectTypesSortFilterProxyModel(view);
-	std::pair<int, QString> colum_layout[] = {
+	std::vector<std::pair<int, QString>> layout = {
 		{ 170, tr("TypeObject") },
 		{ 80, tr("TypeIndex") },
 		{ 227, tr("TypeName") },
@@ -94,7 +94,7 @@ void KernelObject::InitObjectTypesView()
 		{ 110, tr("TotalHandlesNum") },
 	};
 
-	SetDefaultTreeViewStyle(view, objtypes_model_, proxy_objtypes_, colum_layout, _countof(colum_layout));
+	SetDefaultTreeViewStyle(view, objtypes_model_, proxy_objtypes_, layout);
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
 
@@ -113,7 +113,7 @@ void KernelObject::InitObjectSectionsView()
 	QTreeView *view = ui_->objectSectionsView;
 	objsections_model_ = new QStandardItemModel;
 	proxy_objsections_ = new ObjectSectionsSortFilterProxyModel(view);
-	std::pair<int, QString> colum_layout[] = {
+	std::vector<std::pair<int, QString>> layout = {
 		{ 220, tr("SectionDirectory") },
 		{ 350, tr("SectionName") },
 		{ 90, tr("SectionSize") },
@@ -121,7 +121,7 @@ void KernelObject::InitObjectSectionsView()
 		{ 80, tr("SessionName") },
 	};
 
-	SetDefaultTreeViewStyle(view, objsections_model_, proxy_objsections_, colum_layout, _countof(colum_layout));
+	SetDefaultTreeViewStyle(view, objsections_model_, proxy_objsections_, layout);
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
 
