@@ -5,21 +5,22 @@
 ### Introduction
 * [中文说明](doc/README-zh.md)
 
-* OpenArk is a open source anti-rookit(Ark) tool on Windows. Ark is Anti Rootkit abbreviated, it aimmed at reversing and programming helper, users also can use it to find out malwares in the OS. More and more commands will be supported in future.
+* OpenArk is an open source anti-rookit(ARK) tool for Windows. Ark is Anti-Rootkit abbreviated, it aimmed at reversing/programming helper and also users can find out hidden malwares in the OS. More and more powerful features will be supported in future.
 
 ![image](doc/resources/snapshot-en-v108.png)
 ![image](doc/resources/snapshot-en-v108-01.png)
 
 ### Features
 * Process - Process/Thread/Module/Handles/Memory/Window... information view, Dll Injector x86/x64.
-* Kernel - OS Kernel internal toolkit, eg: Drivers, Callback, Filters, IDT/SDT, WFP and more in future.
+* Kernel - OS Kernel internal toolkit, eg: Memory, Drivers, Hotkey, Callback, Filters, IDT/SDT/NDIS/WFP etc.
 * CoderKit - Helper for coders.
-* Scanner - PE file parsers, evolved to virus analyzer in future.
+* Scanner - PE/ELF file parsers, evolved to virus analyzer in future.
 * Bundler - Directory and files could be bundled to one executable file, it also support scripts.
-* Commands - Many useful coammands in there.
-* Utilities - Cleaner、System tools and more.
-* Language - support English and Chinese now, more languages in future.
-* More features in developing...
+* Utilities - Cleaner/System tools etc.
+* Reverse - Collect many useful tools that functional complementation each others, for efficient, always thinking.
+* Console - Many useful coammands in here.
+* Language - Support English and Chinese now, more in future.
+* More powerful features in developing...
 
 ### Distributions
 * Program: one exe binary, no dependence, support 32/64 bit.
