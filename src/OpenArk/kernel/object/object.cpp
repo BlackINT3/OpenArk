@@ -120,7 +120,6 @@ void KernelObject::InitObjectSectionsView()
 		{ 80, tr("SessionID") },
 		{ 80, tr("SessionName") },
 	};
-
 	SetDefaultTreeViewStyle(view, objsections_model_, proxy_objsections_, layout);
 	view->viewport()->installEventFilter(this);
 	view->installEventFilter(this);
