@@ -35,6 +35,10 @@ struct {
 	int md5 = s++;
 	int sha1 = s++;
 	int rc4 = s++;
+	int urlencode = s++;
+	int urldecode = s++;
+	int urlencodeURL = s++;
+	int urldecodeURL = s++;
 } IDX;
 
 struct {
@@ -105,6 +109,10 @@ CoderKit::CoderKit(QWidget* parent, int tabid) :
 	connect(ui.crc32Radio, SIGNAL(clicked()), this, SLOT(onAlgPlainChanged()));
 	connect(ui.md5Radio, SIGNAL(clicked()), this, SLOT(onAlgPlainChanged()));
 	connect(ui.sha1Radio, SIGNAL(clicked()), this, SLOT(onAlgPlainChanged()));
+	connect(ui.urlencodeRadio, SIGNAL(clicked()), this, SLOT(onAlgPlainChanged()));
+	connect(ui.urldecodeRadio, SIGNAL(clicked()), this, SLOT(onAlgPlainChanged()));
+	// connect(ui.urlencodeURLRadio, SIGNAL(clicked()), this, SLOT(onAlgPlainChanged()));
+	// connect(ui.urldecodeURLRadio, SIGNAL(clicked()), this, SLOT(onAlgPlainChanged()));
 	//connect(ui.typeBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onAlgIndexChanged(int)));
 	connect(ui.plainEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
 	connect(ui.cipherEdit, SIGNAL(textChanged()), this, SLOT(onAlgPlainChanged()));
@@ -275,6 +283,14 @@ void CoderKit::onAlgPlainChanged()
 		alg_idx_ = 2;
 	} else if (sender_radio == ui.sha1Radio) {
 		alg_idx_ = 3;
+	} else if (sender_radio == ui.urlencodeRadio) {
+		alg_idx_ = 5;
+	} else if (sender_radio == ui.urldecodeRadio) {
+		alg_idx_ = 6;
+	// } else if (sender_radio == ui.urlencodeURLRadio) {
+	// 	alg_idx_ = 7;
+	// } else if (sender_radio == ui.urldecodeURLRadio) {
+	// 	alg_idx_ = 8;
 	} else {
 		return;
 	}
@@ -371,6 +387,14 @@ void CoderKit::UpdateAlgorithmText(bool crypt)
 		cipher = UNONE::StrStreamToHexStrA(cipher);
 	}	else if (alg_idx_ == IDX.rc4) {
 		cipher = Cryptor::GetSHA1ByData(plain);
+	} else if (alg_idx_ == IDX.urlencode) {
+		cipher = UrlEncode(plain);
+	} else if (alg_idx_ == IDX.urldecode) {
+		cipher = UrlDecode(plain);
+	} else if (alg_idx_ == IDX.urlencodeURL) {
+		cipher = UrlEncodeURL(plain);
+	}	else if (alg_idx_ == IDX.urldecodeURL) {
+		cipher = UrlDecode(plain);
 	}
 
 	if (!crypt) return;
@@ -526,3 +550,176 @@ void CoderKit::SolveCodeTextFormat(std::string &text, std::string &format, int i
 		text = format + UNONE::StrInsertA(text, interval, format);
 	}
 }
+
+#ifndef HEX_TO_UPPER_CHAR
+#define HEX_TO_UPPER_CHAR(x)	((unsigned char)(x) > 9 ? (unsigned char)(x) -10 + 'A': (unsigned char)(x) + '0')
+#endif
+//'1' => 1 / 'A' => A
+#ifndef UPPER_CHAR_TO_HEX
+#define UPPER_CHAR_TO_HEX(x)	(isdigit((unsigned char)(x)) ? (unsigned char)(x)-'0' : (unsigned char)(toupper(x))-'A'+10)
+#endif
+
+static const char* kUrlReservedCharset = "!*'();:@&=+$,/?#[]";
+static const char* kUrlNonReservedCharset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~";
+
+std::string CoderKit::UrlEncode(const std::string &buf)
+{
+	std::string str;
+	try {
+		std::string CharSet = kUrlNonReservedCharset;
+		for (size_t i = 0; i < buf.size(); i++) {
+			unsigned char temp[4] = {0};
+			unsigned char ch = static_cast<unsigned char>(buf[i]);
+			if (CharSet.find(ch) != std::string::npos) {
+				temp[0] = ch;
+			} else {
+				temp[0] = '%';
+				temp[1] = HEX_TO_UPPER_CHAR(ch >> 4);
+				temp[2] = HEX_TO_UPPER_CHAR(ch & 0x0F);
+			}
+			str += (char*)temp;
+		}
+	} catch (std::exception& e) {
+		str.clear();
+	} catch (...) {
+		str.clear();
+	}
+	return std::move(str);
+}
+
+std::string CoderKit::UrlDecode(const std::string &buf) 
+{
+	std::string str;	
+	try {
+		std::string bits;
+		bits.assign(buf.size(), 0);
+		for (size_t i = 0; i < buf.size(); i++) {
+			if (buf[i]=='%') {
+				bits[i] = 1;
+				bits[i+1] = 1;
+				bits[i+2] = 1;
+				i += 2;
+			}
+		}
+		auto& decode = [](std::string& s)->std::string {
+			std::string out;
+			for (size_t i = 0; i < s.size(); i+=3) {
+				unsigned char ch = 0;
+				if (s[i] != '%')
+					continue;
+				ch = UPPER_CHAR_TO_HEX(s[i+1]) << 4;
+				ch |= (UPPER_CHAR_TO_HEX(s[i+2]) & 0x0F);
+				out.push_back(ch);
+			}
+			//out = StrUTF8ToGBK(out);
+			return out;
+		};
+		size_t last = 0;
+		size_t i = 0;
+		for (i=0; i<bits.size(); i++) {
+			if (bits[i] == 0) {
+				if (last < i) {
+					str += decode(buf.substr(last, i-last));
+				}
+				str += buf[i];
+				last = i + 1;
+			}
+		}
+		//处理边界情况
+		if (bits.size() && bits.back() == 1) {
+			if (last < i) {
+				str += decode(buf.substr(last, i-last));
+			}
+		}
+
+	} catch (std::exception& e) {
+		str.clear();
+	} catch (...) {
+		str.clear();
+	}
+	return std::move(str);
+}
+
+
+bool IsValidUrlChar(char ch, bool unsafe_only) {
+  if (static_cast<unsigned>(ch) < 0 || static_cast<unsigned>(ch) > 127) {
+	  return false;
+  }
+  if (unsafe_only) {
+    return !(ch <= ' ' || strchr("\\\"^&`<>[]{}", ch));
+  } else {
+    return isalnum(ch) || strchr("-_.!~*'()", ch);
+  }
+}
+
+static const char* kSpecialCharset = "/:?";
+static const char* kNewUrlNonReservedCharset = "!*()ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~";
+
+std::string CoderKit::UrlEncodeURL(const std::string &buf) 
+{
+	std::string source = buf;
+	std::string str;
+	try {
+		// for (size_t i = 0; i < buf.size(); i++) {
+		// 	unsigned char temp[4] = {0};
+		// 	unsigned char ch = static_cast<unsigned char>(buf[i]);
+		// 	if (char_set.find(ch) != std::string::npos) {
+		// 		temp[0] = ch;
+		// 	}
+		// 	else {
+		// 		if (!has_question_mark && (special_charset.find(ch) != std::string::npos)) {
+		// 			temp[0] = ch;
+		// 			has_question_mark = (ch == '?');
+		// 		} else if (!has_equal_mark && ch == '=') {
+		// 			temp[0] = ch;
+		// 			has_equal_mark = true;
+		// 		} else {
+		// 			temp[0] = '%';
+		// 			temp[1] = HEX_TO_UPPER_CHAR(ch >> 4);
+		// 			temp[2] = HEX_TO_UPPER_CHAR(ch & 0x0F);
+		// 		}
+		// 	}
+		// 	str += (char*)temp;
+		// }
+	} catch (std::exception& e) {
+		str.clear();
+	} catch (...) {
+		str.clear();
+	}
+	return std::move(str);
+	// size_t size = buf.size() + 5;
+	// std::unique_ptr<char[]> source_ptr(new char[size]);
+	// std::unique_ptr<char[]> dest_ptr(new char[size<<2]);
+	// strcpy(source_ptr.get(), buf.c_str());
+	// char *source = source_ptr.get();
+	// char *dest = dest_ptr.get();
+	// bool encode_space_as_plus = true;
+	// bool unsafe_only = false;
+
+	// static const char *digits = "0123456789ABCDEF";
+  // //if (max == 0) {
+  // //  return 0;
+  // //}
+  // char *start = dest;
+  // while (*source) {
+  //   unsigned char ch = static_cast<unsigned char>(*source);
+  //   if (*source == ' ' && encode_space_as_plus && !unsafe_only) {
+  //     *dest++ = '+';
+  //   } else if (IsValidUrlChar(ch, unsafe_only)) {
+  //     *dest++ = *source;
+  //   } else {
+  //     /*if (static_cast<unsigned>(dest - start) + 4 > max) {
+  //       break;
+  //     }*/
+  //     *dest++ = '%';
+  //     *dest++ = digits[(ch >> 4) & 0x0F];
+  //     *dest++ = digits[       ch & 0x0F];
+  //   }
+  //   source++;
+  // }
+  // // ASSERT(static_cast<unsigned int>(dest - start) < max);
+  // *dest = 0;
+  // return std::move(dest_ptr.get());
+}
+
+
