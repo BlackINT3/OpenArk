@@ -103,7 +103,7 @@ KernelMemoryRW::KernelMemoryRW()
 			return;
 		}
 		
-		QString filename = WStrToQ(UNONE::StrFormatW(L"%s_%X_%X", QToWChars(CacheGetProcInfo(pid).name), addr, size));
+		QString filename = WStrToQ(UNONE::StrFormatW(L"%s_%llX_%X", QToWChars(CacheGetProcInfo(pid).name), addr, size));
 		QString dumpmem = QFileDialog::getSaveFileName(this, tr("Save to"), filename, tr("DumpMemory(*)"));
 		if (!dumpmem.isEmpty()) {
 			UNONE::FsWriteFileDataW(dumpmem.toStdWString(), buf) ?
