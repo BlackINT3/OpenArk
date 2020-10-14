@@ -56,7 +56,16 @@ inline QString AppBuildTime()
 
 inline std::wstring AppConfigDir()
 {
-	auto &&dir = UNONE::OsEnvironmentW(L"%AppData%") + L"\\OpenArk";
+	static std::wstring dir;
+	if (!dir.empty()) return dir;
+
+	auto &&curdir = UNONE::PsGetProcessDirW();
+	auto &&cfg = curdir + L"\\openark.ini";
+	if (UNONE::FsIsExistedW(cfg)) {
+		dir = std::move(curdir);
+		return dir;
+	}
+	dir = UNONE::OsEnvironmentW(L"%AppData%") + L"\\OpenArk";
 	return dir;
 }
 
