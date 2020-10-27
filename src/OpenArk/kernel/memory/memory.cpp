@@ -182,7 +182,14 @@ void KernelMemoryRW::ViewMemory(ULONG pid, ULONG64 addr, ULONG size)
 		auto hexdump2 = HexDumpMemory(addr+size, nullptr, size-memsize);
 		hexdump.append(hexdump2);
 	}
-	auto disasm = DisasmMemory(addr, mem, minsize);
+	bool isx64 = true;
+	if (ArkDrvApi::Memory::IsKernelAddress(addr)) {
+		isx64 = UNONE::OsIs64();
+	} else {
+		EN_VID_PROCESS();
+		isx64 = UNONE::PsIsX64(pid);
+	}
+	auto disasm = DisasmMemory(addr, mem, minsize, isx64 ? 64 : 32);
 
 	DEFINE_WIDGET(QTextEdit*, hexEdit);
 	DEFINE_WIDGET(QTextEdit*, disasmEdit);
