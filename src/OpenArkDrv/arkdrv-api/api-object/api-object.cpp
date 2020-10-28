@@ -229,14 +229,19 @@ bool GetSessions(std::vector<SESSION_INFOW> &sinfos)
 	typedef void (WINAPI *__WTSFreeMemory)(
 		IN PVOID pMemory
 	);
-	__WTSEnumerateSessionsW pWTSEnumerateSessionsW = (__WTSEnumerateSessionsW)GetProcAddress(GetModuleHandleA("Wtsapi32.dll"), "WTSEnumerateSessionsW");
-	__WTSFreeMemory pWTSFreeMemory = (__WTSFreeMemory)GetProcAddress(GetModuleHandleA("Wtsapi32.dll"), "WTSFreeMemory");
+	HMODULE wts = GetModuleHandleA("Wtsapi32.dll");
+	if (!wts) wts = LoadLibraryA("Wtsapi32.dll");
+	__WTSEnumerateSessionsW pWTSEnumerateSessionsW = (__WTSEnumerateSessionsW)GetProcAddress(wts, "WTSEnumerateSessionsW");
+	__WTSFreeMemory pWTSFreeMemory = (__WTSFreeMemory)GetProcAddress(wts, "WTSFreeMemory");
 	if (!pWTSEnumerateSessionsW || !pWTSFreeMemory) return false;
 
 	DWORD scount = 0;
 	PWTS_SESSION_INFOW sessions = NULL;
 	BOOL ret = pWTSEnumerateSessionsW(WTS_CURRENT_SERVER_HANDLE, 0, 1, &sessions, &scount);
-	if (!ret) return false;
+	if (!ret) {
+		ERR(L"WTSEnumerateSessionsW err:%d", GetLastError());
+		return false;
+	}
 
 	for (int i = 0; i < scount; i++) {
 		SESSION_INFOW info;
@@ -276,7 +281,10 @@ bool ObjectSectionEnumR3(std::vector<ARK_OBJECT_SECTION_ITEM> &items, ULONG sess
 	udirname.MaximumLength = udirname.Length;
 	InitializeObjectAttributes(&oa, &udirname, 0, NULL, NULL);
 	status = pNtOpenDirectoryObject(&dirobj, DIRECTORY_QUERY, &oa);
-	if (!NT_SUCCESS(status)) return false;
+	if (!NT_SUCCESS(status)) {
+		ERR(L"NtOpenDirectoryObject status:%d", status);
+		return false;
+	}
 
 	ULONG context, written;
 	ULONG bufsize = 512;
@@ -286,6 +294,7 @@ bool ObjectSectionEnumR3(std::vector<ARK_OBJECT_SECTION_ITEM> &items, ULONG sess
 	if (!NT_SUCCESS(status)) {
 		CloseHandle(dirobj);
 		free(info);
+		ERR(L"NtQueryDirectoryObject status:%d", status);
 		return false;
 	}
 	while (NT_SUCCESS(pNtQueryDirectoryObject(dirobj, info, bufsize, TRUE, FALSE, &context, &written))) {
