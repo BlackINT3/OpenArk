@@ -627,8 +627,7 @@ void Scanner::RefreshHeaders()
 		AppendTreeItem(opt_item, "SizeOfHeapCommit", QWordToHexQ(opt_hdr64->SizeOfHeapCommit));
 		AppendTreeItem(opt_item, "LoaderFlags", DWordToHexQ(opt_hdr64->LoaderFlags));
 		AppendTreeItem(opt_item, "NumberOfRvaAndSizes", DWordToHexQ(opt_hdr64->NumberOfRvaAndSizes));
-	}
-	else {
+	} else {
 		AppendTreeItem(opt_item, "Magic", WordToHexQ(opt_hdr32->Magic));
 		AppendTreeItem(opt_item, "MajorLinkerVersion", ByteToHexQ(opt_hdr32->MajorLinkerVersion));
 		AppendTreeItem(opt_item, "MinorLinkerVersion", ByteToHexQ(opt_hdr32->MinorLinkerVersion));
@@ -830,11 +829,20 @@ void Scanner::RefreshDebug()
 	AppendNameValue(dbg_model_, tr("AddressOfRawData"), DWordToHexQ(dbg->AddressOfRawData));
 	AppendNameValue(dbg_model_, tr("PointerToRawData"), DWordToHexQ(dbg->PointerToRawData));
 
+	PIMAGE_NT_HEADERS nt_hdr = PE_NT_HEADER(pe_image_);
+	PIMAGE_FILE_HEADER file_hdr = &nt_hdr->FileHeader;
+	auto ts = file_hdr->TimeDateStamp;
+	PIMAGE_OPTIONAL_HEADER32 opt_hdr32;
+	PIMAGE_OPTIONAL_HEADER64 opt_hdr64;
+	ULONG imgsize;
+	char* opt_title;
+	if (pe_x64_) imgsize = PE_OPT_HEADER64(pe_image_)->SizeOfImage;
+	else imgsize = PE_OPT_HEADER32(pe_image_)->SizeOfImage;
+	auto imgid = UNONE::StrFormatA("%X%x", ts, imgsize);
+
 	DWORD age = 0;
 	CHAR *sig = "";
-	std::string pdb;
-	std::string guidsig;
-	std::string symid;
+	std::string pdb, guidsig, symid;
 	if (cv_hdr->Signature == NB10_SIG) {
 		sig = "NB10";
 		age = ((UNONE::CV_INFO_PDB20*)cv_hdr)->Age;
@@ -877,6 +885,7 @@ void Scanner::RefreshDebug()
 	AppendNameValue(dbg_model_, tr("Signature"), CharsToQ(sig));
 	AppendNameValue(dbg_model_, tr("Age"), DWordToHexQ(age));
 	AppendNameValue(dbg_model_, tr("GUID"), StrToQ(guidsig));
+	AppendNameValue(dbg_model_, tr("ImageID"), StrToQ(imgid));
 	AppendNameValue(dbg_model_, tr("SymbolID"), StrToQ(symid));
 	AppendNameValue(dbg_model_, tr("PDB"), WStrToQ(UNONE::StrToW(pdb)));
 }
