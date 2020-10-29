@@ -50,7 +50,9 @@ void OpenArkTabStyle::drawControl(ControlElement element, const QStyleOption *op
 				painter->setPen(0x00868b);
 				QTextOption option;
 				option.setAlignment(Qt::AlignCenter);
-				painter->setFont(QFont("", 11, QFont::Bold));
+				QFont font = QFont("Microsoft YaHei", 11, QFont::Bold);
+				font.setPixelSize(15);
+				painter->setFont(font);
 				painter->drawText(rect, tabopt->text, option);
 				painter->restore();
 			} else {
@@ -66,7 +68,9 @@ void OpenArkTabStyle::drawControl(ControlElement element, const QStyleOption *op
 				painter->save();
 				QTextOption option;
 				option.setAlignment(Qt::AlignCenter);
-				painter->setFont(QFont("", 11));
+				QFont font = QFont("Microsoft YaHei", 11);
+				font.setPixelSize(15);
+				painter->setFont(font);
 				painter->drawText(rect, tabopt->text, option);
 				painter->restore();
 			}

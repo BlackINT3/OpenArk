@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabKernelEntry">
       <attribute name="title">
@@ -504,11 +504,6 @@
        </property>
        <item>
         <widget class="QTreeView" name="notifyView">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
          <property name="indentation">
           <number>5</number>
          </property>
@@ -535,11 +530,6 @@
        </property>
        <item>
         <widget class="QTreeView" name="hotkeyView">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
          <property name="indentation">
           <number>5</number>
          </property>

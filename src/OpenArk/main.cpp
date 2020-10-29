@@ -37,6 +37,10 @@ int OpenArkInit(int argc, char *argv[])
 	app = new QApplication(argc, argv);
 	app->setWindowIcon(QIcon(":/OpenArk/OpenArk.ico"));
 	app_tr = new QTranslator();
+	QFont font = qApp->font();
+	font.setPixelSize(12);
+	font.setFamily("Microsoft YaHei");
+	qApp->setFont(font);
 
 	OpenArkConfig::Instance()->Init();
 	OpenArkLanguage::Instance()->ChangeLanguage(OpenArkConfig::Instance()->GetLang(CONF_GET));

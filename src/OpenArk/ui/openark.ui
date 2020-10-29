@@ -344,7 +344,6 @@ p, li { white-space: pre-wrap; }
    <property name="font">
     <font>
      <family>Agency FB</family>
-     <pointsize>20</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
