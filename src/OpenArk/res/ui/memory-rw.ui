@@ -219,11 +219,23 @@
           <height>0</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>SimSun</family>
+          <kerning>false</kerning>
+         </font>
+        </property>
         <property name="verticalScrollBarPolicy">
          <enum>Qt::ScrollBarAlwaysOn</enum>
         </property>
        </widget>
        <widget class="QTextEdit" name="disasmEdit">
+        <property name="font">
+         <font>
+          <family>SimSun</family>
+          <kerning>false</kerning>
+         </font>
+        </property>
         <property name="verticalScrollBarPolicy">
          <enum>Qt::ScrollBarAlwaysOn</enum>
         </property>
@@ -325,7 +337,7 @@
      <item>
       <widget class="QLabel" name="statusLabel">
        <property name="text">
-        <string>              </string>
+        <string/>
        </property>
       </widget>
      </item>

@@ -248,6 +248,12 @@ void Kernel::InitKernelEntryView()
 	AddSummaryUpItem(tr("SystemRoot"), WStrToQ(UNONE::OsWinDirW()));
 
 	connect(ui.kernelModeBtn, SIGNAL(clicked()), this, SLOT(onClickKernelMode()));
+	connect(ui.kernelInfoView, &QTableView::doubleClicked, [&](QModelIndex idx) {
+		QString &txt = idx.data().toString();
+		if (txt == tr("ReleaseNumber") || txt == tr("BuildNumber")) {
+			ShellOpenUrl("https://docs.microsoft.com/en-us/windows/release-information/");
+		}
+	});
 
 	arkdrv_conn_ = false;
 	auto timer = new QTimer(this);

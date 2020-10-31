@@ -49,7 +49,7 @@
        <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="indentation">
-       <number>20</number>
+       <number>5</number>
       </property>
       <property name="itemsExpandable">
        <bool>true</bool>

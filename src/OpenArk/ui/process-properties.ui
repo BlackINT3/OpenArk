@@ -23,7 +23,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="imageTab">
       <property name="sizePolicy">
@@ -398,7 +398,7 @@
          <x>310</x>
          <y>420</y>
          <width>41</width>
-         <height>21</height>
+         <height>16</height>
         </rect>
        </property>
        <property name="cursor">
@@ -418,7 +418,11 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QTreeView" name="threadView"/>
+        <widget class="QTreeView" name="threadView">
+         <property name="indentation">
+          <number>5</number>
+         </property>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -459,7 +463,11 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QTreeView" name="wndsView"/>
+        <widget class="QTreeView" name="wndsView">
+         <property name="indentation">
+          <number>5</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

@@ -178,241 +178,241 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">文字编码</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="402"/>
+        <location filename="ui/coderkit.ui" line="389"/>
         <source>Text:</source>
         <translation type="unfinished">文字:</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="96"/>
+        <location filename="ui/coderkit.ui" line="95"/>
         <source>Default:</source>
         <translation type="unfinished">默认编码:</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="116"/>
+        <location filename="ui/coderkit.ui" line="114"/>
         <source>ASCII:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="136"/>
+        <location filename="ui/coderkit.ui" line="133"/>
         <source>UNICODE:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="156"/>
+        <location filename="ui/coderkit.ui" line="152"/>
         <source>UTF-7:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="176"/>
+        <location filename="ui/coderkit.ui" line="171"/>
         <source>UTF-8:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="196"/>
+        <location filename="ui/coderkit.ui" line="190"/>
         <source>UTF-16:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="216"/>
+        <location filename="ui/coderkit.ui" line="209"/>
         <source>UTF-16BE:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="236"/>
+        <location filename="ui/coderkit.ui" line="228"/>
         <source>UTF-32:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="256"/>
+        <location filename="ui/coderkit.ui" line="247"/>
         <source>UTF-32BE:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="276"/>
+        <location filename="ui/coderkit.ui" line="266"/>
         <source>GBK:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="296"/>
+        <location filename="ui/coderkit.ui" line="285"/>
         <source>BIG5:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="316"/>
+        <location filename="ui/coderkit.ui" line="304"/>
         <source>CP866:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="352"/>
+        <location filename="ui/coderkit.ui" line="340"/>
         <source>assemble</source>
         <translation type="unfinished">汇编</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="359"/>
+        <location filename="ui/coderkit.ui" line="347"/>
         <source>1 byte</source>
         <translation type="unfinished">1字节</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="413"/>
+        <location filename="ui/coderkit.ui" line="400"/>
         <source>Constants</source>
         <translation type="unfinished">常量信息</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="419"/>
+        <location filename="ui/coderkit.ui" line="406"/>
         <source>Windows Error</source>
         <translation type="unfinished">Windows错误码</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="451"/>
+        <location filename="ui/coderkit.ui" line="438"/>
         <source>DosError:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="464"/>
+        <location filename="ui/coderkit.ui" line="451"/>
         <source>NTSTATUS:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="487"/>
+        <location filename="ui/coderkit.ui" line="474"/>
         <source>HRESULT:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="510"/>
+        <location filename="ui/coderkit.ui" line="497"/>
         <source>Message:</source>
         <translation type="unfinished">错误消息：</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="518"/>
+        <location filename="ui/coderkit.ui" line="505"/>
         <source>Windows GUI</source>
         <translation type="unfinished">Windows界面</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="530"/>
+        <location filename="ui/coderkit.ui" line="517"/>
         <source>Message ID</source>
         <translation type="unfinished">查看消息ID</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="539"/>
+        <location filename="ui/coderkit.ui" line="526"/>
         <source>Algorithms</source>
         <translation type="unfinished">加密算法</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="553"/>
+        <location filename="ui/coderkit.ui" line="540"/>
         <source>Type:</source>
         <translation type="unfinished">类型:</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="560"/>
+        <location filename="ui/coderkit.ui" line="547"/>
         <source>Base64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="567"/>
+        <location filename="ui/coderkit.ui" line="554"/>
         <source>CRC32</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="574"/>
+        <location filename="ui/coderkit.ui" line="561"/>
         <source>MD5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="581"/>
+        <location filename="ui/coderkit.ui" line="568"/>
         <source>SHA1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="588"/>
+        <location filename="ui/coderkit.ui" line="575"/>
         <source>urlencode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="595"/>
+        <location filename="ui/coderkit.ui" line="582"/>
         <source>urldecode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="619"/>
+        <location filename="ui/coderkit.ui" line="606"/>
         <source>PlainText:</source>
         <translation type="unfinished">明文:</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="633"/>
+        <location filename="ui/coderkit.ui" line="620"/>
         <source>Key:</source>
         <translation type="unfinished">密钥:</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="660"/>
+        <location filename="ui/coderkit.ui" line="647"/>
         <source>CipherText:</source>
         <translation type="unfinished">密文:</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="676"/>
+        <location filename="ui/coderkit.ui" line="663"/>
         <source>AsmTools</source>
         <translation type="unfinished">汇编工具</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="684"/>
+        <location filename="ui/coderkit.ui" line="671"/>
         <source>Assemble</source>
         <translation type="unfinished">汇编</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="691"/>
+        <location filename="ui/coderkit.ui" line="678"/>
         <source>Disassemble</source>
         <translation type="unfinished">反汇编</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="698"/>
+        <location filename="ui/coderkit.ui" line="685"/>
         <source>Platform:</source>
         <translation type="unfinished">平台:</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="706"/>
+        <location filename="ui/coderkit.ui" line="693"/>
         <source>64-bit</source>
         <translation type="unfinished">64位</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="711"/>
+        <location filename="ui/coderkit.ui" line="698"/>
         <source>32-bit</source>
         <translation type="unfinished">32位</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="716"/>
+        <location filename="ui/coderkit.ui" line="703"/>
         <source>16-bit</source>
         <translation type="unfinished">16位</translation>
     </message>
     <message>
         <location filename="ui/coderkit.ui" line="66"/>
-        <location filename="ui/coderkit.ui" line="724"/>
+        <location filename="ui/coderkit.ui" line="711"/>
         <source>Format:</source>
         <translation type="unfinished">格式:</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="331"/>
-        <location filename="ui/coderkit.ui" line="731"/>
+        <location filename="ui/coderkit.ui" line="319"/>
+        <location filename="ui/coderkit.ui" line="718"/>
         <source>null</source>
         <translation type="unfinished">无</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="366"/>
+        <location filename="ui/coderkit.ui" line="354"/>
         <source>2 bytes</source>
         <translation type="unfinished">2字节</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="373"/>
+        <location filename="ui/coderkit.ui" line="361"/>
         <source>4 bytes</source>
         <translation type="unfinished">4字节</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="345"/>
-        <location filename="ui/coderkit.ui" line="738"/>
+        <location filename="ui/coderkit.ui" line="333"/>
+        <location filename="ui/coderkit.ui" line="725"/>
         <source>space</source>
         <translation type="unfinished">空格</translation>
     </message>
     <message>
-        <location filename="ui/coderkit.ui" line="338"/>
-        <location filename="ui/coderkit.ui" line="745"/>
+        <location filename="ui/coderkit.ui" line="326"/>
+        <location filename="ui/coderkit.ui" line="732"/>
         <source>\x</source>
         <translation type="unfinished"></translation>
     </message>
@@ -468,12 +468,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">[内核模式] 连接成功...</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1136"/>
+        <location filename="ui/kernel.ui" line="1126"/>
         <source>[KernelMode] not initialized...</source>
         <translation type="unfinished">[内核模式] 未初始化...</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1156"/>
+        <location filename="ui/kernel.ui" line="1146"/>
         <location filename="kernel/kernel.cpp" line="156"/>
         <location filename="kernel/kernel.cpp" line="175"/>
         <source>Enter KernelMode</source>
@@ -551,12 +551,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="ui/kernel.ui" line="490"/>
-        <source>SystemNotify</source>
-        <oldsource>System Notify</oldsource>
+        <source>System Notify</source>
+        <oldsource>SystemNotify</oldsource>
         <translation type="unfinished">系统回调</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="521"/>
+        <location filename="ui/kernel.ui" line="516"/>
         <source>System Hotkey</source>
         <translation type="unfinished">系统热键</translation>
     </message>
@@ -566,116 +566,116 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">温馨提示：如果上面没获取对应的热键，请检查你输入法的快捷键（比如：微软拼音/搜狗/谷歌输入法等）</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="630"/>
+        <location filename="ui/kernel.ui" line="620"/>
         <source>ObjectTypes</source>
         <translation type="unfinished">对象类型表</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="662"/>
+        <location filename="ui/kernel.ui" line="652"/>
         <source>ObjectSections</source>
         <translation type="unfinished">内存区对象</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="813"/>
+        <location filename="ui/kernel.ui" line="803"/>
         <source>Path:</source>
         <oldsource>InputPath:</oldsource>
         <translation type="unfinished">路径：</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="839"/>
+        <location filename="ui/kernel.ui" line="829"/>
         <source>&amp;ShowHold</source>
         <oldsource>ShowHold</oldsource>
         <translation type="unfinished">查看占用(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="949"/>
+        <location filename="ui/kernel.ui" line="939"/>
         <source>Local IPV4</source>
         <translation type="unfinished">本机 IPV4</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="956"/>
+        <location filename="ui/kernel.ui" line="946"/>
         <source>Local IPV6</source>
         <translation type="unfinished">本机 IPV6</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="556"/>
-        <location filename="ui/kernel.ui" line="970"/>
+        <location filename="ui/kernel.ui" line="546"/>
+        <location filename="ui/kernel.ui" line="960"/>
         <source>Filter:</source>
         <translation type="unfinished">过滤器:</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="589"/>
+        <location filename="ui/kernel.ui" line="579"/>
         <source>&lt;a href=&quot;https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes&quot;&gt;Virtual-Key Codes&lt;/a&gt;</source>
         <oldsource>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Virtual-Key Codes&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
         <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;虚拟键码对照表&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="692"/>
+        <location filename="ui/kernel.ui" line="682"/>
         <source>Kernel Memory</source>
         <translation type="unfinished">内存管理</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="752"/>
+        <location filename="ui/kernel.ui" line="742"/>
         <source>Kernel Storage</source>
         <translation type="unfinished">存储管理</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="894"/>
+        <location filename="ui/kernel.ui" line="884"/>
         <source>Kernel Network</source>
         <translation type="unfinished">网络管理</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="993"/>
+        <location filename="ui/kernel.ui" line="983"/>
         <source>IPV4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1000"/>
+        <location filename="ui/kernel.ui" line="990"/>
         <source>IPV6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1014"/>
+        <location filename="ui/kernel.ui" line="1004"/>
         <source>TCP Listen</source>
         <translation type="unfinished">TCP监听</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1021"/>
+        <location filename="ui/kernel.ui" line="1011"/>
         <source>TCP Connection</source>
         <translation type="unfinished">TCP连接</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1028"/>
+        <location filename="ui/kernel.ui" line="1018"/>
         <source>UDP Listen</source>
         <translation type="unfinished">UDP监听</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1038"/>
+        <location filename="ui/kernel.ui" line="1028"/>
         <source>Hosts</source>
         <translation type="unfinished">Hosts文件</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1073"/>
+        <location filename="ui/kernel.ui" line="1063"/>
         <source>&amp;HostsDirectory</source>
         <translation type="unfinished">打开Hosts目录(&amp;H)</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1093"/>
+        <location filename="ui/kernel.ui" line="1083"/>
         <source>&amp;Save</source>
         <translation type="unfinished">保存(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1100"/>
+        <location filename="ui/kernel.ui" line="1090"/>
         <source>&amp;Clear</source>
         <translation type="unfinished">清空(&amp;C)</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1107"/>
+        <location filename="ui/kernel.ui" line="1097"/>
         <source>&amp;Backup</source>
         <translation type="unfinished">备份(&amp;B)</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="1114"/>
+        <location filename="ui/kernel.ui" line="1104"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">刷新(&amp;R)</translation>
     </message>
@@ -744,7 +744,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">NT驱动安装</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="602"/>
+        <location filename="ui/kernel.ui" line="592"/>
         <source>Kernel Object</source>
         <oldsource>Object Manager</oldsource>
         <translation type="unfinished">对象管理</translation>
@@ -754,7 +754,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">内存管理</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="723"/>
+        <location filename="ui/kernel.ui" line="713"/>
         <source>MemoryReadWrite</source>
         <oldsource>MemoryView</oldsource>
         <translation type="unfinished">内存读写</translation>
@@ -764,7 +764,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">文件过滤</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="777"/>
+        <location filename="ui/kernel.ui" line="767"/>
         <source>FileUnlock</source>
         <translation type="unfinished">文件解锁</translation>
     </message>
@@ -773,19 +773,19 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">选择文件...</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="880"/>
+        <location filename="ui/kernel.ui" line="870"/>
         <source>&amp;Kill Process</source>
         <oldsource>KillProcess</oldsource>
         <translation type="unfinished">结束进程(&amp;K)</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="866"/>
+        <location filename="ui/kernel.ui" line="856"/>
         <source>&amp;Unlock</source>
         <oldsource>Unlock</oldsource>
         <translation type="unfinished">解锁(&amp;U)</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="873"/>
+        <location filename="ui/kernel.ui" line="863"/>
         <source>Unlock &amp;All</source>
         <oldsource>Unlock All</oldsource>
         <translation type="unfinished">解锁全部(&amp;A)</translation>
@@ -795,7 +795,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">网络管理</translation>
     </message>
     <message>
-        <location filename="ui/kernel.ui" line="919"/>
+        <location filename="ui/kernel.ui" line="909"/>
         <source>Port</source>
         <translation type="unfinished">端口</translation>
     </message>
@@ -1856,19 +1856,19 @@ appurl: %3</source>
     </message>
     <message>
         <location filename="ui/openark.ui" line="85"/>
-        <location filename="ui/openark.ui" line="432"/>
+        <location filename="ui/openark.ui" line="431"/>
         <source>CoderKit</source>
         <translation type="unfinished">编程助手</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="90"/>
-        <location filename="ui/openark.ui" line="437"/>
+        <location filename="ui/openark.ui" line="436"/>
         <source>Scanner</source>
         <translation type="unfinished">扫描器</translation>
     </message>
     <message>
         <location filename="ui/openark.ui" line="95"/>
-        <location filename="ui/openark.ui" line="447"/>
+        <location filename="ui/openark.ui" line="446"/>
         <source>Bundler</source>
         <translation type="unfinished">捆绑器</translation>
     </message>
@@ -1878,14 +1878,14 @@ appurl: %3</source>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;SimSun&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#21daff;&quot;&gt;OpenArk Console&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#e0e2e4;&quot;&gt;Copyright (C) 2019 BlackINT3 &lt;/span&gt;&lt;a href=&quot;https://github.com/BlackINT3/OpenArk&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#8ccf34;&quot;&gt;https://github.com/BlackINT3/OpenArk&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;; font-weight:600; color:#21daff;&quot;&gt;OpenArk Console&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;; color:#e0e2e4;&quot;&gt;Copyright (C) 2019 BlackINT3 &lt;/span&gt;&lt;a href=&quot;https://github.com/BlackINT3/OpenArk&quot;&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;; text-decoration: underline; color:#8ccf34;&quot;&gt;https://github.com/BlackINT3/OpenArk&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <oldsource>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;SimSun&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#21daff;&quot;&gt;OpenArk Console&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Copyright (C) 2019 BlackINT3 &lt;a href=&quot;https://github.com/BlackINT3/OpenArk&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/BlackINT3/OpenArk&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#e0e2e4;&quot;&gt;Copyright (C) 2019 BlackINT3 &lt;/span&gt;&lt;a href=&quot;https://github.com/BlackINT3/OpenArk&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#8ccf34;&quot;&gt;https://github.com/BlackINT3/OpenArk&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2002,94 +2002,94 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="359"/>
-        <location filename="ui/openark.ui" line="362"/>
-        <location filename="ui/openark.ui" line="385"/>
+        <location filename="ui/openark.ui" line="358"/>
+        <location filename="ui/openark.ui" line="361"/>
+        <location filename="ui/openark.ui" line="384"/>
         <source>Project on Github</source>
         <translation type="unfinished">Github开源项目</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="371"/>
+        <location filename="ui/openark.ui" line="370"/>
         <source>About OpenArk</source>
         <translation type="unfinished">关于OpenArk</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="380"/>
+        <location filename="ui/openark.ui" line="379"/>
         <source>Check for Updates...</source>
         <translation type="unfinished">检查更新...</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="394"/>
+        <location filename="ui/openark.ui" line="393"/>
         <source>Manuals</source>
         <translation type="unfinished">文档手册</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="403"/>
+        <location filename="ui/openark.ui" line="402"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">刷新(&amp;R)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="415"/>
+        <location filename="ui/openark.ui" line="414"/>
         <source>&amp;Save</source>
         <translation type="unfinished">保存(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="418"/>
+        <location filename="ui/openark.ui" line="417"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="427"/>
+        <location filename="ui/openark.ui" line="426"/>
         <source>&amp;Settings</source>
         <translation type="unfinished">设置(&amp;S)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="476"/>
+        <location filename="ui/openark.ui" line="475"/>
         <source>&amp;Module</source>
         <translation type="unfinished">模块(&amp;M)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="479"/>
+        <location filename="ui/openark.ui" line="478"/>
         <source>Open Module Window</source>
         <translation type="unfinished">打开模块列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="491"/>
+        <location filename="ui/openark.ui" line="490"/>
         <source>&amp;Handle</source>
         <translation type="unfinished">句柄(&amp;H)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="494"/>
+        <location filename="ui/openark.ui" line="493"/>
         <source>Open Handle Window</source>
         <translation type="unfinished">打开句柄列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="506"/>
+        <location filename="ui/openark.ui" line="505"/>
         <source>&amp;Memory</source>
         <translation type="unfinished">内存(&amp;M)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="509"/>
+        <location filename="ui/openark.ui" line="508"/>
         <source>Open Memory Window</source>
         <translation type="unfinished">打开内存列表</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="517"/>
+        <location filename="ui/openark.ui" line="516"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="525"/>
+        <location filename="ui/openark.ui" line="524"/>
         <source>简体中文</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="534"/>
+        <location filename="ui/openark.ui" line="533"/>
         <source>&amp;Run</source>
         <translation type="unfinished">运行(&amp;R)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="537"/>
+        <location filename="ui/openark.ui" line="536"/>
         <source>Ctrl+R</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2098,22 +2098,22 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">编程助手</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="442"/>
+        <location filename="ui/openark.ui" line="441"/>
         <source>C&amp;leaner</source>
         <translation type="unfinished">清理设置(&amp;L)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="456"/>
+        <location filename="ui/openark.ui" line="455"/>
         <source>&amp;Allways On Top</source>
         <translation type="unfinished">置顶(&amp;A)</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="461"/>
+        <location filename="ui/openark.ui" line="460"/>
         <source>Reset</source>
         <translation type="unfinished">重置</translation>
     </message>
     <message>
-        <location filename="ui/openark.ui" line="464"/>
+        <location filename="ui/openark.ui" line="463"/>
         <source>Reset Window</source>
         <translation type="unfinished">重置窗口</translation>
     </message>
@@ -2126,22 +2126,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/process-mgr.ui" line="74"/>
+        <location filename="ui/process-mgr.ui" line="69"/>
         <source>Hide Unnamed Handles</source>
         <translation type="unfinished">隐藏无名称句柄</translation>
     </message>
     <message>
-        <location filename="ui/process-mgr.ui" line="82"/>
+        <location filename="ui/process-mgr.ui" line="77"/>
         <source>Hide Uncommited Memory</source>
         <translation type="unfinished">隐藏未提交内存</translation>
     </message>
     <message>
-        <location filename="ui/process-mgr.ui" line="90"/>
+        <location filename="ui/process-mgr.ui" line="85"/>
         <source>Hide NonExecute Memory</source>
         <translation type="unfinished">隐藏非可执行内存</translation>
     </message>
     <message>
-        <location filename="ui/process-mgr.ui" line="98"/>
+        <location filename="ui/process-mgr.ui" line="93"/>
         <source>Hide Image Memory</source>
         <translation type="unfinished">隐藏模块内存</translation>
     </message>
@@ -2515,7 +2515,7 @@ p, li { white-space: pre-wrap; }
         <location filename="ui/process-properties.ui" line="344"/>
         <location filename="ui/process-properties.ui" line="376"/>
         <location filename="ui/process-properties.ui" line="408"/>
-        <location filename="ui/process-properties.ui" line="435"/>
+        <location filename="ui/process-properties.ui" line="439"/>
         <source>N/A</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2580,12 +2580,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">线程列表</translation>
     </message>
     <message>
-        <location filename="ui/process-properties.ui" line="428"/>
+        <location filename="ui/process-properties.ui" line="432"/>
         <source>Count:</source>
         <translation type="unfinished">数量:</translation>
     </message>
     <message>
-        <location filename="ui/process-properties.ui" line="458"/>
+        <location filename="ui/process-properties.ui" line="462"/>
         <source>WindowList</source>
         <translation type="unfinished">窗口列表</translation>
     </message>
@@ -2766,7 +2766,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="ui/reverse.ui" line="179"/>
-        <source>APIMonitor32</source>
+        <source>APIMon32</source>
+        <oldsource>APIMonitor32</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3124,7 +3125,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="ui/reverse.ui" line="655"/>
-        <source>APIMonitor64</source>
+        <source>APIMon64</source>
+        <oldsource>APIMonitor64</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3215,32 +3217,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">地址转换</translation>
     </message>
     <message>
-        <location filename="ui/scanner.ui" line="366"/>
+        <location filename="ui/scanner.ui" line="365"/>
         <source>VA:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/scanner.ui" line="389"/>
+        <location filename="ui/scanner.ui" line="387"/>
         <source>Base:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/scanner.ui" line="412"/>
+        <location filename="ui/scanner.ui" line="409"/>
         <source>RVA:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/scanner.ui" line="445"/>
+        <location filename="ui/scanner.ui" line="441"/>
         <source>Raw:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/scanner.ui" line="488"/>
+        <location filename="ui/scanner.ui" line="483"/>
         <source>ReBase:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/scanner.ui" line="511"/>
+        <location filename="ui/scanner.ui" line="505"/>
         <source>ReVA:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3549,32 +3551,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="892"/>
+        <location filename="scanner/scanner.cpp" line="885"/>
         <source>Signature</source>
         <translation type="unfinished">签名</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="893"/>
+        <location filename="scanner/scanner.cpp" line="886"/>
         <source>Age</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="894"/>
+        <location filename="scanner/scanner.cpp" line="887"/>
         <source>GUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="895"/>
+        <location filename="scanner/scanner.cpp" line="888"/>
         <source>ImageID</source>
         <translation type="unfinished">镜像ID</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="896"/>
+        <location filename="scanner/scanner.cpp" line="889"/>
         <source>SymbolID</source>
         <translation type="unfinished">符号ID</translation>
     </message>
     <message>
-        <location filename="scanner/scanner.cpp" line="897"/>
+        <location filename="scanner/scanner.cpp" line="890"/>
         <source>PDB</source>
         <translation type="unfinished">符号文件</translation>
     </message>

@@ -95,7 +95,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>120</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_4">
@@ -195,7 +195,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>120</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_3">
@@ -292,7 +292,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>93</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_2">
@@ -485,8 +485,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>142</width>
-               <height>120</height>
+               <width>128</width>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_7">
@@ -617,7 +617,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>120</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_6">
@@ -708,7 +708,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>120</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_5">
@@ -799,7 +799,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>120</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_8">
@@ -927,7 +927,7 @@
                <x>0</x>
                <y>0</y>
                <width>113</width>
-               <height>120</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_11">
@@ -1198,9 +1198,9 @@
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-18</y>
+               <y>0</y>
                <width>113</width>
-               <height>87</height>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_14">
@@ -1505,9 +1505,9 @@
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-18</y>
-               <width>113</width>
-               <height>87</height>
+               <y>0</y>
+               <width>124</width>
+               <height>90</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout_19">
