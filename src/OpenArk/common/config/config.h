@@ -44,6 +44,7 @@ public:
 	QStringList GetJunkDirs();
 	QString GetConsole(const QString &name);
 	void GetMainGeometry(int &x, int &y, int &w, int &h);
+	void GetMainDefaultGeometry(int &x, int &y, int &w, int &h);
 	void SetMainGeometry(int x, int y, int w, int h);
 	void GetMainMaxed(bool &maxed);
 	void SetMainMaxed(bool maxed);

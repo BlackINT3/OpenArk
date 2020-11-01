@@ -87,23 +87,31 @@ void OpenArkConfig::GetMainGeometry(int &x, int &y, int &w, int &h)
 	
 	if (!(Contains(section + "x") || Contains(section + "y") ||
 		Contains(section + "w") || Contains(section + "h"))) {
-		QRect desk = QApplication::desktop()->availableGeometry();
-		double scale = (double)desk.height() / desk.width();
-		double width = desk.width() / 1.7;
-		double height = width * scale;
-		double pos_x = desk.width() / 8;
-		double pos_y = desk.height() / 8;
-		x = (int)pos_x;
-		y = (int)pos_y;
-		w = (int)width;
-		h = (int)height;
-		return;
+		return GetMainDefaultGeometry(x, y, w, h);
 	}
 
 	x = GetValue(section + "x").toInt();
 	y = GetValue(section + "y").toInt();
 	w = GetValue(section + "w").toInt();
 	h = GetValue(section + "h").toInt();
+
+	if (GetSystemMetrics(SM_CMONITORS) <= 1 && (x <= 0 || y <= 0))
+		OpenArkConfig::Instance()->GetMainDefaultGeometry(x, y, w, h);
+}
+
+void OpenArkConfig::GetMainDefaultGeometry(int &x, int &y, int &w, int &h)
+{
+	QRect desk = QApplication::desktop()->availableGeometry();
+	double scale = (double)desk.height() / desk.width();
+	double width = desk.width() / 1.7;
+	double height = width * scale;
+	double pos_x = desk.width() / 8;
+	double pos_y = desk.height() / 8;
+	x = (int)pos_x;
+	y = (int)pos_y;
+	w = (int)width;
+	h = (int)height;
+	return;
 }
 
 void OpenArkConfig::SetMainGeometry(int x, int y, int w, int h)
