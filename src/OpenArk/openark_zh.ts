@@ -21,8 +21,9 @@
     </message>
     <message>
         <location filename="ui/about.ui" line="84"/>
-        <source>Support :Windows XP/7/8/8.1/10 32/64bit</source>
-        <translation type="unfinished">系统支持：:Windows XP/7/8/8.1/10 32/64bit</translation>
+        <source>Support: Windows XP/7/8/8.1/10 32/64bit</source>
+        <oldsource>Support :Windows XP/7/8/8.1/10 32/64bit</oldsource>
+        <translation type="unfinished">系统支持：Windows XP/7/8/8.1/10 32/64bit</translation>
     </message>
     <message>
         <location filename="ui/about.ui" line="97"/>
@@ -68,14 +69,14 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;SimSun&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;;&lt;span style=&quot; font-weight:600; color:#00aa00;&quot;&gt;Bundler script manual&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;;&lt;span style=&quot; font-weight:600; color:#aa0000;&quot;&gt;start&lt;/span&gt; file param - aysnc execute file&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;;&lt;span style=&quot; font-weight:600; color:#aa0000;&quot;&gt;call&lt;/span&gt; file param - sync execute file until exited&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;;&lt;span style=&quot; font-weight:600; color:#aa0000;&quot;&gt;cmd&lt;/span&gt; param - execute cmd&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;;&lt;span style=&quot; font-weight:600; color:#aa0000;&quot;&gt;clean&lt;/span&gt; - remove extracted files&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;;--------------------------------------------------------------------------------------&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;call %root%\OpenArk32.exe&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;clean&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt;;&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;; font-weight:600; color:#00aa00;&quot;&gt;Bundler script manual&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt;;&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;; font-weight:600; color:#aa0000;&quot;&gt;start&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt; file param - aysnc execute file&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt;;&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;; font-weight:600; color:#aa0000;&quot;&gt;call&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt; file param - sync execute file until exited&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt;;&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;; font-weight:600; color:#aa0000;&quot;&gt;cmd&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt; param - execute cmd&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt;;&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;; font-weight:600; color:#aa0000;&quot;&gt;clean&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt; - remove extracted files&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt;;--------------------------------------------------------------------------------------&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt;call %root%\OpenArk32.exe&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Microsoft YaHei&apos;;&quot;&gt;clean&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -820,7 +821,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="kernel/kernel.cpp" line="212"/>
-        <location filename="kernel/kernel.cpp" line="322"/>
+        <location filename="kernel/kernel.cpp" line="328"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
@@ -841,11 +842,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="kernel/kernel.cpp" line="237"/>
+        <location filename="kernel/kernel.cpp" line="253"/>
         <source>ReleaseNumber</source>
         <translation type="unfinished">发行编号</translation>
     </message>
     <message>
         <location filename="kernel/kernel.cpp" line="238"/>
+        <location filename="kernel/kernel.cpp" line="253"/>
         <source>BuildNumber</source>
         <translation type="unfinished">编译号</translation>
     </message>
@@ -898,8 +901,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">基址</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="267"/>
-        <location filename="kernel/kernel.cpp" line="330"/>
+        <location filename="kernel/kernel.cpp" line="273"/>
+        <location filename="kernel/kernel.cpp" line="336"/>
         <source>Path</source>
         <translation type="unfinished">路径</translation>
     </message>
@@ -908,41 +911,41 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">顺序</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="268"/>
-        <location filename="kernel/kernel.cpp" line="331"/>
+        <location filename="kernel/kernel.cpp" line="274"/>
+        <location filename="kernel/kernel.cpp" line="337"/>
         <source>Description</source>
         <translation type="unfinished">描述</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="269"/>
+        <location filename="kernel/kernel.cpp" line="275"/>
         <source>Version</source>
         <translation type="unfinished">版本</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="270"/>
+        <location filename="kernel/kernel.cpp" line="276"/>
         <source>Company</source>
         <translation type="unfinished">公司</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="276"/>
-        <location filename="kernel/kernel.cpp" line="339"/>
+        <location filename="kernel/kernel.cpp" line="282"/>
+        <location filename="kernel/kernel.cpp" line="345"/>
         <source>Refresh</source>
         <translation type="unfinished">刷新</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="300"/>
+        <location filename="kernel/kernel.cpp" line="306"/>
         <source>Copy</source>
         <translation type="unfinished">复制</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="307"/>
-        <location filename="kernel/kernel.cpp" line="364"/>
+        <location filename="kernel/kernel.cpp" line="313"/>
+        <location filename="kernel/kernel.cpp" line="370"/>
         <source>Explore File</source>
         <translation type="unfinished">定位到文件</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="303"/>
-        <location filename="kernel/kernel.cpp" line="360"/>
+        <location filename="kernel/kernel.cpp" line="309"/>
+        <location filename="kernel/kernel.cpp" line="366"/>
         <source>Sendto Scanner</source>
         <translation type="unfinished">扫描文件</translation>
     </message>
@@ -962,8 +965,8 @@ p, li { white-space: pre-wrap; }
         <translation>[内核模式] 使用（热键/回调/内存）等功能时需要进入内核模式...</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="310"/>
-        <location filename="kernel/kernel.cpp" line="367"/>
+        <location filename="kernel/kernel.cpp" line="316"/>
+        <location filename="kernel/kernel.cpp" line="373"/>
         <source>Properties...</source>
         <translation type="unfinished">属性...</translation>
     </message>
@@ -976,26 +979,26 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">驱动文件 (*.sys);;所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="283"/>
-        <location filename="kernel/kernel.cpp" line="420"/>
+        <location filename="kernel/kernel.cpp" line="289"/>
+        <location filename="kernel/kernel.cpp" line="426"/>
         <source>CreateProcess</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="284"/>
-        <location filename="kernel/kernel.cpp" line="423"/>
+        <location filename="kernel/kernel.cpp" line="290"/>
+        <location filename="kernel/kernel.cpp" line="429"/>
         <source>CreateThread</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="285"/>
-        <location filename="kernel/kernel.cpp" line="426"/>
+        <location filename="kernel/kernel.cpp" line="291"/>
+        <location filename="kernel/kernel.cpp" line="432"/>
         <source>LoadImage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="286"/>
-        <location filename="kernel/kernel.cpp" line="429"/>
+        <location filename="kernel/kernel.cpp" line="292"/>
+        <location filename="kernel/kernel.cpp" line="435"/>
         <source>CmpCallback</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1038,22 +1041,22 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">[内核模式] 你需要启用内核模式来安装驱动...</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="265"/>
+        <location filename="kernel/kernel.cpp" line="271"/>
         <source>Callback Entry</source>
         <translation type="unfinished">回调入口</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="266"/>
+        <location filename="kernel/kernel.cpp" line="272"/>
         <source>Type</source>
         <translation type="unfinished">类型</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="278"/>
+        <location filename="kernel/kernel.cpp" line="284"/>
         <source>Delete Notify</source>
         <translation type="unfinished">删除回调</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="290"/>
+        <location filename="kernel/kernel.cpp" line="296"/>
         <source>Disassemble Notify</source>
         <translation type="unfinished">反汇编回调入口</translation>
     </message>
@@ -1062,37 +1065,37 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">内存读写</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="323"/>
+        <location filename="kernel/kernel.cpp" line="329"/>
         <source>PID.TID</source>
         <translation type="unfinished">进程ID.线程ID</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="324"/>
+        <location filename="kernel/kernel.cpp" line="330"/>
         <source>Hotkey</source>
         <translation type="unfinished">热键</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="325"/>
+        <location filename="kernel/kernel.cpp" line="331"/>
         <source>HotkeyObject</source>
         <translation type="unfinished">热键对象地址</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="326"/>
+        <location filename="kernel/kernel.cpp" line="332"/>
         <source>HotkeyID</source>
         <translation type="unfinished">热键ID</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="327"/>
+        <location filename="kernel/kernel.cpp" line="333"/>
         <source>HWND</source>
         <translation type="unfinished">句柄</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="328"/>
+        <location filename="kernel/kernel.cpp" line="334"/>
         <source>Title</source>
         <translation type="unfinished">标题</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="329"/>
+        <location filename="kernel/kernel.cpp" line="335"/>
         <source>ClassName</source>
         <translation type="unfinished">类名</translation>
     </message>
@@ -1101,12 +1104,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">错误</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="341"/>
+        <location filename="kernel/kernel.cpp" line="347"/>
         <source>Delete Hotkey</source>
         <translation type="unfinished">删除热键</translation>
     </message>
     <message>
-        <location filename="kernel/kernel.cpp" line="395"/>
+        <location filename="kernel/kernel.cpp" line="401"/>
         <source>[-] Driver file not existed!</source>
         <translation type="unfinished">[-] 驱动文件不存在!</translation>
     </message>
@@ -1743,22 +1746,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">转存到文件</translation>
     </message>
     <message>
-        <location filename="res/ui/memory-rw.ui" line="240"/>
+        <location filename="res/ui/memory-rw.ui" line="252"/>
         <source>PID:</source>
         <translation type="unfinished">进程ID：</translation>
     </message>
     <message>
-        <location filename="res/ui/memory-rw.ui" line="268"/>
+        <location filename="res/ui/memory-rw.ui" line="280"/>
         <source>4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="res/ui/memory-rw.ui" line="282"/>
+        <location filename="res/ui/memory-rw.ui" line="294"/>
         <source>ProcessName:</source>
         <translation type="unfinished">进程名：</translation>
     </message>
     <message>
-        <location filename="res/ui/memory-rw.ui" line="314"/>
+        <location filename="res/ui/memory-rw.ui" line="326"/>
         <source>SYSTEM</source>
         <translation type="unfinished"></translation>
     </message>
