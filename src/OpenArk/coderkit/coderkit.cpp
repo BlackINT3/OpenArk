@@ -388,7 +388,15 @@ void CoderKit::UpdateAlgorithmText(bool crypt)
 	}	else if (alg_idx_ == IDX.rc4) {
 		cipher = Cryptor::GetSHA1ByData(plain);
 	} else if (alg_idx_ == IDX.urlencode) {
-		cipher = UrlEncode(plain);
+		std::vector<char> pass;
+		std::vector<std::string> headers = { "http", "https", "ftp" };
+		for (auto h : headers) {
+			if (UNONE::StrIndexIA(plain, h) == 0) {
+				pass = { ':', '&', '/', '?', '=' };
+				break;
+			}
+		}
+		cipher = UrlEncode(plain, pass);
 	} else if (alg_idx_ == IDX.urldecode) {
 		cipher = UrlDecode(plain);
 	} else if (alg_idx_ == IDX.urlencodeURL) {
@@ -562,7 +570,7 @@ void CoderKit::SolveCodeTextFormat(std::string &text, std::string &format, int i
 static const char* kUrlReservedCharset = "!*'();:@&=+$,/?#[]";
 static const char* kUrlNonReservedCharset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~";
 
-std::string CoderKit::UrlEncode(const std::string &buf)
+std::string CoderKit::UrlEncode(const std::string &buf, std::vector<char> pass)
 {
 	std::string str;
 	try {
@@ -570,7 +578,14 @@ std::string CoderKit::UrlEncode(const std::string &buf)
 		for (size_t i = 0; i < buf.size(); i++) {
 			unsigned char temp[4] = {0};
 			unsigned char ch = static_cast<unsigned char>(buf[i]);
-			if (CharSet.find(ch) != std::string::npos) {
+			bool found = false;
+			for (auto p : pass) {
+				if (p == ch) {
+					found = true;
+					break;
+				}
+			}
+			if (found || CharSet.find(ch) != std::string::npos) {
 				temp[0] = ch;
 			} else {
 				temp[0] = '%';

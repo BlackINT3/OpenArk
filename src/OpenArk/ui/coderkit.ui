@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1131</width>
-    <height>797</height>
+    <width>654</width>
+    <height>566</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -572,14 +572,14 @@
             <item>
              <widget class="QRadioButton" name="urlencodeRadio">
               <property name="text">
-               <string>urlencode</string>
+               <string>URL-Encode</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QRadioButton" name="urldecodeRadio">
               <property name="text">
-               <string>urldecode</string>
+               <string>URL-Decode</string>
               </property>
              </widget>
             </item>
