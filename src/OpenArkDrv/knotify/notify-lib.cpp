@@ -109,7 +109,7 @@ FORCEINLINE ULONG GetThreadNotifyMaximum()
 }
 FORCEINLINE ULONG GetImageNotifyMaximum()
 {
-	if (ArkDrv.ver >= NTOS_WIN7SP1) return 64;
+	if (ArkDrv.ver >= _NTOS_WIN7SP1) return 64;
 	else return 8;
 }
 FORCEINLINE ULONG GetRegistryNotifyMaximum()
@@ -125,7 +125,7 @@ PEX_CALLBACK GetProcessNotifyCallback()
 
 	PEX_CALLBACK callback = NULL;
 #ifdef _AMD64_
-	if (ArkDrv.ver >= NTOS_WINVISTA && ArkDrv.ver < NTOS_WIN7) {
+	if (ArkDrv.ver >= _NTOS_WINVISTA && ArkDrv.ver < _NTOS_WIN7) {
 		for (PUCHAR ptr1 = routine; ptr1 <= routine + 0x10; ptr1++) {
 			// e9 jmp
 			if (*ptr1 == 0xe9) {
@@ -143,7 +143,7 @@ PEX_CALLBACK GetProcessNotifyCallback()
 				}
 			}
 		}
-	} else if (ArkDrv.ver >= NTOS_WIN7 && ArkDrv.ver < NTOS_WIN8) {
+	} else if (ArkDrv.ver >= _NTOS_WIN7 && ArkDrv.ver < _NTOS_WIN8) {
 		for (PUCHAR ptr1 = routine; ptr1 <= routine + 0x10; ptr1++) {
 			// e9 jmp
 			if (*ptr1 == 0xe9) {
@@ -159,7 +159,7 @@ PEX_CALLBACK GetProcessNotifyCallback()
 				}
 			}
 		}
-	} else if (ArkDrv.ver >= NTOS_WIN8 && ArkDrv.ver < NTOS_WIN10_1507) {
+	} else if (ArkDrv.ver >= _NTOS_WIN8 && ArkDrv.ver < _NTOS_WIN10_1507) {
 		for (PUCHAR ptr1 = routine; ptr1 <= routine + 0x10; ptr1++) {
 			PUCHAR psp_routine = NULL;
 			//Win8 eb jmp 
@@ -178,7 +178,7 @@ PEX_CALLBACK GetProcessNotifyCallback()
 				}
 			}
 		}
-	} else if (ArkDrv.ver >= NTOS_WIN10_1507) {
+	} else if (ArkDrv.ver >= _NTOS_WIN10_1507) {
 		//Win10 2004 0xe8   call
 		//Win10 1909 0xe8   call
 		//Win10 1903 0xe8   call
@@ -290,7 +290,7 @@ PEX_CALLBACK GetThreadNotifyCallback()
 
 	PEX_CALLBACK callback = NULL;
 #ifdef _AMD64_
-	if (ArkDrv.ver >= NTOS_WINVISTA && ArkDrv.ver <= NTOS_WIN81) {
+	if (ArkDrv.ver >= _NTOS_WINVISTA && ArkDrv.ver <= _NTOS_WIN81) {
 		// lea rcx
 		for (PUCHAR ptr1 = routine; ptr1 <= routine + 0x30; ptr1++) {
 			if (*ptr1 == 0x48 && *(ptr1 + 1) == 0x8d && *(ptr1 + 2) == 0x0d) {
@@ -299,7 +299,7 @@ PEX_CALLBACK GetThreadNotifyCallback()
 				break;
 			}
 		}
-	} else if (ArkDrv.ver >= NTOS_WIN10_1507) {
+	} else if (ArkDrv.ver >= _NTOS_WIN10_1507) {
 		//Win10 2004 e8   call
 		//Win10 1909 e8   call
 		//Win10 1903 e8   call
@@ -391,9 +391,9 @@ BOOLEAN RemoveThreadNotify(ULONG64 routine)
 PEX_CALLBACK GetImageNotifyCallback()
 {
 	PUCHAR routine = NULL;
-	if (ArkDrv.ver >= NTOS_WINXP && ArkDrv.ver <= NTOS_WIN10_1703) {
+	if (ArkDrv.ver >= _NTOS_WINXP && ArkDrv.ver <= _NTOS_WIN10_1703) {
 		routine = (PUCHAR)GetNtRoutineAddress(L"PsSetLoadImageNotifyRoutine");
-	} else if (ArkDrv.ver >= NTOS_WIN10_1709 && ArkDrv.ver <= NTOS_WIN10_1903) {
+	} else if (ArkDrv.ver >= _NTOS_WIN10_1709 && ArkDrv.ver <= _NTOS_WIN10_20H2) {
 		routine = (PUCHAR)GetNtRoutineAddress(L"PsSetLoadImageNotifyRoutineEx");
 	}
 	if (!routine) return NULL;
@@ -477,7 +477,7 @@ PVOID GetRegistryNotifyCallback()
 	PVOID callback = NULL;
 
 #ifdef _AMD64_
-	if (ArkDrv.ver >= NTOS_WINVISTA) {
+	if (ArkDrv.ver >= _NTOS_WINVISTA) {
 		// xor r8d, r8d
 		// lea rcx, CallbackListHead
 		for (PUCHAR ptr1 = routine; ptr1 <= routine + 0x100; ptr1++) {
