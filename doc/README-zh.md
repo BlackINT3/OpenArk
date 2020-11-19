@@ -24,7 +24,7 @@
 
 ### 发布
 * 程序：独立的exe，无DLL依赖，支持32位、64位。
-* 支持系统：Windows XP ... Win7 ... Win10 2004 ...
+* 支持系统：Windows XP ... Win7 ... Win10 20H2 ...
 
 ### 编译
 * [如何编译OpenArk](build-openark.md)

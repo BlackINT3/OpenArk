@@ -24,7 +24,7 @@
 
 ### Distributions
 * Program: one exe binary, no dependence, support 32/64 bit.
-* Supported OS: Windows XP ... Win7 ... Win10 2004  ...
+* Supported OS: Windows XP ... Win7 ... Win10 20H2  ...
 
 ### Compile
 * [How To Build OpenArk](doc/build-openark.md)
