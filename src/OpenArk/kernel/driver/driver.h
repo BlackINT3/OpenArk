@@ -77,10 +77,21 @@ std::wstring ParseDriverPath(UCHAR *symlnk);
 #define RECOVER_SIGN_TIME() \
 		SYSTEMTIME saved = { 0 };\
 		GetLocalTime(&saved);\
+		FILETIME ft;\
+		SystemTimeToFileTime(&saved, &ft);\
 		auto ticks = GetTickCount();\
 		SYSTEMTIME cur = { 0 };\
 		cur.wYear = 2012;\
 		cur.wMonth = 1;\
 		cur.wDay = 1;\
 		SetLocalTime(&cur);\
-		ON_SCOPE_EXIT([&] {	saved.wSecond += (GetTickCount() - ticks)/1000; SetLocalTime(&saved); });
+		ON_SCOPE_EXIT([&] {	\
+			LARGE_INTEGER li;\
+			li.LowPart = ft.dwLowDateTime;\
+			li.HighPart = ft.dwHighDateTime;\
+			li.QuadPart += (GetTickCount() - ticks) * 10000; \
+			ft.dwHighDateTime = li.HighPart; \
+			ft.dwLowDateTime = li.LowPart; \
+			FileTimeToSystemTime(&ft, &saved); \
+			SetLocalTime(&saved); \
+		});
