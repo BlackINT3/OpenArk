@@ -129,10 +129,7 @@ void KernelDriver::InitDriverKitView()
 		QString file = QFileDialog::getOpenFileName(kernel_, tr("Open File"), "", tr("Driver Files (*.sys);;All Files (*.*)"));
 		kernel_->onOpenFile(file);
 	});
-	connect(ui_->signBtn, SIGNAL(clicked()), this, SLOT(onSignDriver()));
-	connect(ui_->installNormallyBtn, SIGNAL(clicked()), this, SLOT(onInstallNormallyDriver()));
-	connect(ui_->installUnsignedBtn, SIGNAL(clicked()), this, SLOT(onInstallUnsignedDriver()));
-	connect(ui_->installExpiredBtn, SIGNAL(clicked()), this, SLOT(onInstallExpiredDriver()));
+	connect(ui_->installBtn, SIGNAL(clicked()), this, SLOT(onInstallNormallyDriver()));
 	connect(ui_->uninstallBtn, SIGNAL(clicked()), this, SLOT(onUninstallDriver()));
 	connect(ui_->writeRegBtn, &QPushButton::clicked, [&] {
 		auto driver = QToWStr(ui_->driverFileEdit->text());

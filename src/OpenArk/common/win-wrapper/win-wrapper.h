@@ -52,3 +52,5 @@ bool ObLoadDriverRegistryW(__in const std::wstring &file_path, __in std::wstring
 bool ObUnloadDriverRegistryW(__in const std::wstring &srv_name);
 bool PsKillProcess(__in DWORD pid);
 ULONG64 GetFreeLibraryAddress(DWORD pid);
+std::string OsWinVersionInfo();
+std::string OsReleaseNumber();

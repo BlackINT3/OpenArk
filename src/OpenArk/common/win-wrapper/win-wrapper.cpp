@@ -691,3 +691,112 @@ ULONG64 GetFreeLibraryAddress(DWORD pid)
 	}
 	return addr;
 }
+
+std::string OsWinVersionInfo()
+{
+	//from https://github.com/BlackINT3/unone
+	std::string winver;
+	auto major = UNONE::OsMajorVer();
+	auto minor = UNONE::OsMinorVer();
+	auto release = UNONE::OsBuildNumber();
+	SYSTEM_INFO info;
+	GetSystemInfo(&info);
+	OSVERSIONINFOEX os;
+	os.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+	GetVersionEx((OSVERSIONINFO *)&os);
+	if (major == 10 && minor == 0) {
+		if (os.dwPlatformId == VER_PLATFORM_WIN32_NT) {
+			if (release > 19043) winver = "Windows 11";
+			else winver = "Windows 10";
+		} else {
+			switch (release) {
+			case 14393: winver = "Windows Server 2016"; break;
+			case 17763:
+			case 18363:
+			case 19041:
+			case 19042: winver = "Windows Server 2019"; break;
+			case 20348: winver = "Windows Server 2022"; break;
+			}
+		}
+	} else {
+		switch (major) {
+		case 4:
+			switch (minor) {
+			case 0:
+				if (os.dwPlatformId == VER_PLATFORM_WIN32_NT) winver = "Windows NT 4.0";
+				else if (os.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS) winver = "Windows 95";
+				break;
+			case 10: winver = "Windows 98"; break;
+			case 90: winver = "Windows ME"; break;
+			}
+			break;
+		case 5:
+			switch (major) {
+			case 0: winver = "Windows 2000"; break;
+			case 1: winver = "Windows XP"; break;
+			case 2:
+				if (os.wProductType == VER_NT_WORKSTATION && info.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64)
+					winver = "Windows XP Professional x64 Edition";
+				else if (GetSystemMetrics(SM_SERVERR2) == 0)
+					winver = "Windows Server 2003";
+				else if (GetSystemMetrics(SM_SERVERR2) != 0)
+					winver = "Windows Server 2003 R2";
+				break;
+			}
+			break;
+		case 6:
+			switch (minor) {
+			case 0:
+				if (os.wProductType == VER_NT_WORKSTATION) winver = "Windows Vista";
+				else winver = "Windows Server 2008";
+				break;
+			case 1:
+				if (os.wProductType == VER_NT_WORKSTATION) winver = "Windows 7";
+				else winver = "Windows Server 2008 R2";
+				break;
+			case 2:
+				if (os.wProductType == VER_NT_WORKSTATION) winver = "Windows 8";
+				else winver = "Windows Server 2012";
+				break;
+			case 3:
+				if (os.wProductType == VER_NT_WORKSTATION) winver = "Windows 8.1";
+				else winver = "Windows Server 2012 R2";
+			}
+			break;
+		}
+	}
+	return winver;
+}
+
+std::string OsReleaseNumber()
+{
+	/*
+	//c++11
+	std::map<DWORD, DWORD> tables = {
+	{ 10240, 1507 }, { 10586, 1511} ,{ 14393, 1607 } ,{ 15063, 1703 } ,{ 16299, 1709 } ,{ 17134, 1803 } ,
+	{ 17763, 1809 }, { 18362, 1903 } ,{ 18363, 1909 } ,{ 19041, 2004 }, { 19042, 20H2 }
+	};*/
+
+	std::pair<DWORD, std::string> pairs[] = {
+		std::make_pair(10240, "1507"),
+		std::make_pair(10586, "1511"),
+		std::make_pair(14393, "1607"),
+		std::make_pair(15063, "1703"),
+		std::make_pair(16299, "1709"),
+		std::make_pair(17134, "1803"),
+		std::make_pair(17763, "1809"),
+		std::make_pair(18362, "1903"),
+		std::make_pair(18363, "1909"),
+		std::make_pair(19041, "2004"),
+		std::make_pair(19042, "20H2"),
+		std::make_pair(19043, "21H1"),
+		std::make_pair(22000, "21H2"),
+	};
+	std::map<DWORD, std::string> tables(pairs, pairs + _countof(pairs));
+
+	DWORD build = UNONE::OsBuildNumber();
+	auto it = tables.find(build);
+	if (it != tables.end())
+		return it->second;
+	return "";
+}

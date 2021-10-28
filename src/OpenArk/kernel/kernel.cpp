@@ -203,36 +203,6 @@ void Kernel::onTabChanged(int index)
 	CommonMainTabObject::onTabChanged(index);
 }
 
-std::string OsReleaseNumber()
-{
-	/*
-	//c++11
-	std::map<DWORD, DWORD> tables = {
-		{ 10240, 1507 }, { 10586, 1511} ,{ 14393, 1607 } ,{ 15063, 1703 } ,{ 16299, 1709 } ,{ 17134, 1803 } ,
-		{ 17763, 1809 }, { 18362, 1903 } ,{ 18363, 1909 } ,{ 19041, 2004 }, { 19042, 20H2 }
-	};*/
-
-	std::pair<DWORD, std::string> pairs[] = {
-		std::make_pair(10240, "1507"),
-		std::make_pair(10586, "1511"),
-		std::make_pair(14393, "1607"),
-		std::make_pair(15063, "1703"),
-		std::make_pair(16299, "1709"),
-		std::make_pair(17134, "1803"),
-		std::make_pair(17763, "1809"),
-		std::make_pair(18362, "1903"),
-		std::make_pair(18363, "1909"),
-		std::make_pair(19041, "2004"),
-		std::make_pair(19042, "20H2"),
-	};
-	std::map<DWORD, std::string> tables(pairs, pairs+_countof(pairs));
-
-	DWORD build = UNONE::OsBuildNumber();
-	auto it = tables.find(build);
-	if (it != tables.end())
-		return it->second;
-	return "";
-}
 void Kernel::InitKernelEntryView()
 {
 	kerninfo_model_ = new QStandardItemModel;
@@ -261,6 +231,7 @@ void Kernel::InitKernelEntryView()
 	GetPerformanceInfo(&perf, sizeof(perf));
 	double gb = round((double)(perf.PhysicalTotal*perf.PageSize) / 1024 / 1024 / 1024);
 
+	AddSummaryUpItem(tr("OperateSystem"), StrToQ(OsWinVersionInfo()));
 	auto major = UNONE::OsMajorVer();
 	AddSummaryUpItem(tr("MajorVersion"), DWordToDecQ(major));
 	AddSummaryUpItem(tr("MiniorVersion"), DWordToDecQ(UNONE::OsMinorVer()));
@@ -281,7 +252,7 @@ void Kernel::InitKernelEntryView()
 	connect(ui.kernelInfoView, &QTableView::doubleClicked, [&](QModelIndex idx) {
 		QString &txt = idx.data().toString();
 		if (txt == tr("ReleaseNumber") || txt == tr("BuildNumber")) {
-			ShellOpenUrl("https://docs.microsoft.com/en-us/windows/release-information/");
+			ShellOpenUrl("https://docs.microsoft.com/en-us/windows/release-health/release-information");
 		}
 	});
 

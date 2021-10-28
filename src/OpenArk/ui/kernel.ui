@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabKernelEntry">
       <attribute name="title">
@@ -91,7 +91,7 @@
        <item>
         <widget class="QTabWidget" name="tabDriver">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tabDrivers">
           <attribute name="title">
@@ -196,13 +196,6 @@
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QPushButton" name="signBtn">
-                  <property name="text">
-                   <string>Sign</string>
-                  </property>
-                 </widget>
-                </item>
                </layout>
               </item>
               <item>
@@ -256,7 +249,7 @@
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="installUnsignedBtn">
+                 <widget class="QPushButton" name="installBtn">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -270,26 +263,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>Install Unsigned</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="uninstallBtn">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Uninstall</string>
+                   <string>Install</string>
                   </property>
                  </widget>
                 </item>
@@ -356,7 +330,7 @@
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="installExpiredBtn">
+                 <widget class="QPushButton" name="uninstallBtn">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -370,26 +344,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>Install Expired</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="installNormallyBtn">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Install Normally</string>
+                   <string>Uninstall</string>
                   </property>
                  </widget>
                 </item>
@@ -487,7 +442,7 @@
      </widget>
      <widget class="QWidget" name="tabNotify">
       <attribute name="title">
-       <string>System Notify</string>
+       <string>SystemNotify</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_8">
        <property name="leftMargin">
@@ -504,6 +459,11 @@
        </property>
        <item>
         <widget class="QTreeView" name="notifyView">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="indentation">
           <number>5</number>
          </property>
@@ -530,6 +490,11 @@
        </property>
        <item>
         <widget class="QTreeView" name="hotkeyView">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="indentation">
           <number>5</number>
          </property>
@@ -571,15 +536,12 @@
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="vkCodeLabel">
+          <widget class="QLabel" name="label_7">
            <property name="styleSheet">
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>&lt;a href=&quot;https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes&quot;&gt;Virtual-Key Codes&lt;/a&gt;</string>
-           </property>
-           <property name="openExternalLinks">
-            <bool>true</bool>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Virtual-Key Codes&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -607,7 +569,7 @@
        <item>
         <widget class="QTabWidget" name="tabObject">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tabObjectTypes">
           <property name="sizePolicy">
@@ -1047,11 +1009,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QTextEdit" name="hostsDataEdit">
-               <property name="acceptRichText">
-                <bool>false</bool>
-               </property>
-              </widget>
+              <widget class="QTextEdit" name="hostsDataEdit"/>
              </item>
             </layout>
            </item>
