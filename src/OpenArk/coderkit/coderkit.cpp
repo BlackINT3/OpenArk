@@ -530,6 +530,19 @@ QString CoderKit::NasmAsm(std::string data, int bits, const std::string &format)
 	return StrToQ(bin);
 }
 
+enum InstType
+{
+	X16,
+	X86,
+	X64,
+	ARM_32,
+	ARM_64
+};
+QString CoderKit::Rasm2Asm(std::string data, InstType type, const std::string &format)
+{
+	return "";
+}
+
 QString CoderKit::NasmDisasm(const std::string &data, int bits)
 {
 	auto &&ndisasm = AppConfigDir() + L"\\nasm\\ndisasm.exe";
