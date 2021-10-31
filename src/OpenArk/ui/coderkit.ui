@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>654</width>
-    <height>566</height>
+    <width>1391</width>
+    <height>873</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabCodePoints">
       <property name="sizePolicy">
@@ -690,17 +690,68 @@
           <widget class="QComboBox" name="platformBox">
            <item>
             <property name="text">
-             <string>64-bit</string>
+             <string>x64</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>32-bit</string>
+             <string>x86</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>16-bit</string>
+             <string>x86-16</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>arm64</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>arm32</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>arm16</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>mips64</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>mips32</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>mips16</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_24">
+           <property name="text">
+            <string>ByteOrder:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="byteorderBox">
+           <item>
+            <property name="text">
+             <string>little-endian</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>big-endian</string>
             </property>
            </item>
           </widget>
@@ -753,8 +804,21 @@
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <widget class="QTextEdit" name="asmEdit"/>
-         <widget class="QTextEdit" name="disasmEdit"/>
+         <widget class="QTextEdit" name="asmEdit">
+          <property name="font">
+           <font>
+            <family>Consolas</family>
+           </font>
+          </property>
+         </widget>
+         <widget class="QTextEdit" name="disasmEdit">
+          <property name="font">
+           <font>
+            <family>Consolas</family>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
+         </widget>
         </widget>
        </item>
       </layout>

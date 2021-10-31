@@ -52,6 +52,8 @@ private:
 
 	void UpdateAlgorithmText(bool crypt);
 	void UpdateEditCodeText(const std::wstring& data, QObject* ignored_obj);
+	QString Rasm2Asm(std::string data, int cpu, int byteorder, const std::string &format);
+	QString Rasm2Disasm(std::string data, int cpu, int byteorder);
 	QString NasmAsm(std::string data, int bits, const std::string &format);
 	QString NasmDisasm(const std::string &data, int bits);
 	void SolveCodeTextFormat(std::string &text, std::string &format, int interval, int id);

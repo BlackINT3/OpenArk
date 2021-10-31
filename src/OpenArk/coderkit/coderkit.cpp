@@ -43,10 +43,32 @@ struct {
 
 struct {
 	int s = 0;
-	int bits64 = s++;
-	int bits32 = s++;
-	int bits16 = s++;
-} BITS_IDX;
+	int x64 = s++;
+	int x86 = s++;
+	int x86_16 = s++;
+	int arm64 = s++;
+	int arm32 = s++;
+	int arm16 = s++;
+	int mips64 = s++;
+	int mips32 = s++;
+	int mips16 = s++;
+} CPUPLATFORM_IDX;
+
+enum InstrPlatform {
+	X64,
+	X86,
+	X86_16,
+	ARM64,
+	ARM32,
+	ARM16,
+	MIPS64,
+	MIPS32,
+	MIPS16,
+};
+enum ByteOrder {
+	LITTLE_ENDIAN,
+	BIG_ENDIAN,
+};
 
 CoderKit::CoderKit(QWidget* parent, int tabid) :
 	CommonMainTabObject::CommonMainTabObject((OpenArk*)parent)
@@ -309,11 +331,21 @@ void CoderKit::InitAsmToolsView()
 	ui.splitter->setStretchFactor(1, 2);
 	ui.nullRadio->setChecked(true);
 	connect(ui.asmBtn, &QPushButton::clicked, this, [&]() {
-		int bits = 64;
+		ByteOrder byteorder = LITTLE_ENDIAN;
+		auto byteorder_idx = ui.byteorderBox->currentIndex();
+		if (byteorder_idx == 0) byteorder = LITTLE_ENDIAN;
+		else if (byteorder_idx == 1) byteorder = BIG_ENDIAN;
+		InstrPlatform cpu = X64;
 		auto idx = ui.platformBox->currentIndex();
-		if (idx == BITS_IDX.bits64) bits = 64;
-		else if (idx == BITS_IDX.bits32) bits = 32;
-		else if (idx == BITS_IDX.bits16) bits = 16;
+		if (idx == CPUPLATFORM_IDX.x64) cpu = X64;
+		else if (idx == CPUPLATFORM_IDX.x86) cpu = X86;
+		else if (idx == CPUPLATFORM_IDX.x86_16) cpu = X86_16;
+		else if (idx == CPUPLATFORM_IDX.arm64) cpu = ARM64;
+		else if (idx == CPUPLATFORM_IDX.arm32) cpu = ARM32;
+		else if (idx == CPUPLATFORM_IDX.arm16) cpu = ARM16;
+		else if (idx == CPUPLATFORM_IDX.mips64) cpu = MIPS64;
+		else if (idx == CPUPLATFORM_IDX.mips32) cpu = MIPS32;
+		else if (idx == CPUPLATFORM_IDX.mips16) cpu = MIPS16;
 		auto &&in = ui.asmEdit->toPlainText().toStdString();
 
 		std::string formats;
@@ -321,26 +353,36 @@ void CoderKit::InitAsmToolsView()
 		else if (ui.spaceRadio->isChecked()) formats = " ";
 		else if (ui.slashxRadio->isChecked()) formats = "\\x";
 
-		auto &&out = NasmAsm(in, bits, formats);
+		auto &&out = Rasm2Asm(in, cpu, byteorder, formats);
 		ui.disasmEdit->setText(out);
 	});
 
 	connect(ui.disasmBtn, &QPushButton::clicked, this, [&]() {
-		int bits = 64;
+		ByteOrder byteorder = LITTLE_ENDIAN;
+		auto byteorder_idx = ui.byteorderBox->currentIndex();
+		if (byteorder_idx == 0) byteorder = LITTLE_ENDIAN;
+		else if (byteorder_idx == 1) byteorder = BIG_ENDIAN;
+		InstrPlatform cpu = X64;
 		auto idx = ui.platformBox->currentIndex();
-		if (idx == BITS_IDX.bits64) bits = 64;
-		else if (idx == BITS_IDX.bits32) bits = 32;
-		else if (idx == BITS_IDX.bits16) bits = 16;
+		if (idx == CPUPLATFORM_IDX.x64) cpu = X64;
+		else if (idx == CPUPLATFORM_IDX.x86) cpu = X86;
+		else if (idx == CPUPLATFORM_IDX.x86_16) cpu = X86_16;
+		else if (idx == CPUPLATFORM_IDX.arm64) cpu = ARM64;
+		else if (idx == CPUPLATFORM_IDX.arm32) cpu = ARM32;
+		else if (idx == CPUPLATFORM_IDX.arm16) cpu = ARM16;
+		else if (idx == CPUPLATFORM_IDX.mips64) cpu = MIPS64;
+		else if (idx == CPUPLATFORM_IDX.mips32) cpu = MIPS32;
+		else if (idx == CPUPLATFORM_IDX.mips16) cpu = MIPS16;
 		auto &&in = ui.asmEdit->toPlainText().toStdString();
 		const char *pfx = "file:///";
 		auto pos = in.find(pfx);
 		if (pos == 0) {
 			auto file = UNONE::StrToW(in.substr(pos + strlen(pfx)));
 			UNONE::FsReadFileDataW(file, in);
+			in = UNONE::StrStreamToHexStrA(in);
 		} else {
 			UNONE::StrReplaceA(in, " ");
 			UNONE::StrReplaceA(in, "\\x");
-			in = UNONE::StrHexStrToStreamA(in);
 		}
 		if (in.size() >= 10 * KB) {
 			auto msbox = QMessageBox::warning(this, tr("Warning"),
@@ -349,7 +391,7 @@ void CoderKit::InitAsmToolsView()
 			if (msbox == QMessageBox::No) return;
 		}
 
-		auto &&out = NasmDisasm(in, bits);
+		auto &&out = Rasm2Disasm(in, cpu, byteorder);
 		ui.disasmEdit->setText(out);
 	});
 }
@@ -502,6 +544,81 @@ void CoderKit::UpdateEditCodeText(const std::wstring& data, QObject* ignored_obj
 	SetText(ui.cp866Edit, text);
 }
 
+QString CoderKit::Rasm2Asm(std::string data, int cpu, int byteorder, const std::string &format)
+{
+	auto &&rasm2 = AppConfigDir() + L"\\nasm\\rasm2.exe";
+	if (!UNONE::FsIsExistedW(rasm2)) {
+		ExtractResource(":/OpenArk/nasm/rasm2.exe", WStrToQ(rasm2));
+	}
+	auto &&tmp_out = UNONE::OsEnvironmentW(L"%Temp%\\temp-nasm-code.bin");
+	auto &&tmp_in = UNONE::OsEnvironmentW(L"%Temp%\\temp-nasm-code.asm");
+	UNONE::FsWriteFileDataW(tmp_in, data);
+	int bits;
+	std::wstring plat;
+	switch (cpu) {
+	case X64: plat = L"x86";  bits = 64; break;
+	case X86: plat = L"x86";  bits = 32; break;
+	case X86_16: plat = L"x86";  bits = 16; break;
+	case ARM64: plat = L"arm";  bits = 64; break;
+	case ARM32: plat = L"arm";  bits = 32; break;
+	case ARM16: plat = L"arm";  bits = 16; break;
+	case MIPS64: plat = L"mips";  bits = 64; break;
+	case MIPS32: plat = L"mips";  bits = 32; break;
+	case MIPS16: plat = L"mips";  bits = 16; break;
+	}
+	auto &&cmdline = rasm2;
+	if (byteorder == BIG_ENDIAN) cmdline += L" -e";
+	cmdline = UNONE::StrFormatW(L"%s -a %s -b%d -O \"%s\" -f \"%s\"",
+		rasm2.c_str(), plat.c_str(), bits,
+		tmp_out.c_str(), tmp_in.c_str());
+
+	std::wstring out;
+	DWORD exitcode;
+	QString err_prefix = tr("Compile Error:\n--------------------------------------------------------------\n");
+	auto ret = ReadStdout(cmdline, out, exitcode);
+	if (!ret) return err_prefix + tr("run compiler error");
+	if (exitcode != 0) return err_prefix + WStrToQ(out);
+	std::string bin;
+	UNONE::FsReadFileDataW(tmp_out, bin);
+	bin = format + UNONE::StrInsertA(bin, 2, format);
+	return StrToQ(bin);
+}
+
+QString CoderKit::Rasm2Disasm(std::string data, int cpu, int byteorder)
+{
+	auto &&rasm2 = AppConfigDir() + L"\\nasm\\rasm2.exe";
+	if (!UNONE::FsIsExistedW(rasm2)) {
+		ExtractResource(":/OpenArk/nasm/rasm2.exe", WStrToQ(rasm2));
+	}
+	auto &&tmp_in = UNONE::OsEnvironmentW(L"%Temp%\\temp-ndisasm-code.bin");
+	UNONE::FsWriteFileDataW(tmp_in, data);
+	int bits;
+	std::wstring plat;
+	switch (cpu) {
+	case X64: plat = L"x86";  bits = 64; break;
+	case X86: plat = L"x86";  bits = 32; break;
+	case X86_16: plat = L"x86";  bits = 16; break;
+	case ARM64: plat = L"arm";  bits = 64; break;
+	case ARM32: plat = L"arm";  bits = 32; break;
+	case ARM16: plat = L"arm";  bits = 16; break;
+	case MIPS64: plat = L"mips";  bits = 64; break;
+	case MIPS32: plat = L"mips";  bits = 32; break;
+	case MIPS16: plat = L"mips";  bits = 16; break;
+	}
+	auto &&cmdline = rasm2;
+	if (byteorder == BIG_ENDIAN) cmdline += L" -e";
+	cmdline = UNONE::StrFormatW(L"%s -a %s -b%d -D -f \"%s\"",
+		cmdline.c_str(), plat.c_str(), bits,
+		tmp_in.c_str());
+	std::wstring out;
+	DWORD exitcode;
+	auto ret = ReadStdout(cmdline, out, exitcode);
+	if (!ret) return tr("run disassember error");
+	UNONE::StrLowerW(out);
+	//UNONE::StrReplaceW(out, L"                 ", L"    ");
+	return WStrToQ(out);
+}
+
 QString CoderKit::NasmAsm(std::string data, int bits, const std::string &format)
 {
 	if (bits == 64) data.insert(0, "[bits 64]\n");
@@ -528,19 +645,6 @@ QString CoderKit::NasmAsm(std::string data, int bits, const std::string &format)
 	bin = UNONE::StrStreamToHexStrA(bin);
 	bin = format + UNONE::StrInsertA(bin, 2, format);
 	return StrToQ(bin);
-}
-
-enum InstType
-{
-	X16,
-	X86,
-	X64,
-	ARM_32,
-	ARM_64
-};
-QString CoderKit::Rasm2Asm(std::string data, InstType type, const std::string &format)
-{
-	return "";
 }
 
 QString CoderKit::NasmDisasm(const std::string &data, int bits)

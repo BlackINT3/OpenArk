@@ -21,8 +21,8 @@
     </message>
     <message>
         <location filename="ui/about.ui" line="84"/>
-        <source>Support: Windows XP/7/8/8.1/10 32/64bit</source>
-        <oldsource>Support :Windows XP/7/8/8.1/10 32/64bit</oldsource>
+        <source>Support: Windows XP/7/8/8.1/10/11 32/64bit</source>
+        <oldsource>Support: Windows XP/7/8/8.1/10 32/64bit</oldsource>
         <translation type="unfinished">系统支持：Windows XP/7/8/8.1/10 32/64bit</translation>
     </message>
     <message>
@@ -372,28 +372,84 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="ui/coderkit.ui" line="693"/>
-        <source>64-bit</source>
-        <translation type="unfinished">64位</translation>
+        <source>x64</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ui/coderkit.ui" line="698"/>
+        <source>x86</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/coderkit.ui" line="708"/>
+        <source>arm64</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/coderkit.ui" line="713"/>
+        <source>arm32</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/coderkit.ui" line="718"/>
+        <source>arm16</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/coderkit.ui" line="723"/>
+        <source>mips64</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/coderkit.ui" line="728"/>
+        <source>mips32</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/coderkit.ui" line="733"/>
+        <source>mips16</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/coderkit.ui" line="741"/>
+        <source>ByteOrder:</source>
+        <translation type="unfinished">字节序:</translation>
+    </message>
+    <message>
+        <location filename="ui/coderkit.ui" line="749"/>
+        <source>little-endian</source>
+        <oldsource>Little-Endian</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/coderkit.ui" line="754"/>
+        <source>big-endian</source>
+        <oldsource>Big-Endian</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>64-bit</source>
+        <translation type="obsolete">64位</translation>
+    </message>
+    <message>
         <source>32-bit</source>
-        <translation type="unfinished">32位</translation>
+        <translation type="obsolete">32位</translation>
     </message>
     <message>
         <location filename="ui/coderkit.ui" line="703"/>
-        <source>16-bit</source>
-        <translation type="unfinished">16位</translation>
+        <source>x86-16</source>
+        <oldsource>16-bit</oldsource>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ui/coderkit.ui" line="66"/>
-        <location filename="ui/coderkit.ui" line="711"/>
+        <location filename="ui/coderkit.ui" line="762"/>
         <source>Format:</source>
         <translation type="unfinished">格式:</translation>
     </message>
     <message>
         <location filename="ui/coderkit.ui" line="319"/>
-        <location filename="ui/coderkit.ui" line="718"/>
+        <location filename="ui/coderkit.ui" line="769"/>
         <source>null</source>
         <translation type="unfinished">无</translation>
     </message>
@@ -409,33 +465,34 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="ui/coderkit.ui" line="333"/>
-        <location filename="ui/coderkit.ui" line="725"/>
+        <location filename="ui/coderkit.ui" line="776"/>
         <source>space</source>
         <translation type="unfinished">空格</translation>
     </message>
     <message>
         <location filename="ui/coderkit.ui" line="326"/>
-        <location filename="ui/coderkit.ui" line="732"/>
+        <location filename="ui/coderkit.ui" line="783"/>
         <source>\x</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="coderkit/coderkit.cpp" line="242"/>
+        <location filename="coderkit/coderkit.cpp" line="264"/>
         <source>Open console to view result</source>
         <translation type="unfinished">打开控制台查看结果</translation>
     </message>
     <message>
-        <location filename="coderkit/coderkit.cpp" line="346"/>
+        <location filename="coderkit/coderkit.cpp" line="388"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="coderkit/coderkit.cpp" line="347"/>
+        <location filename="coderkit/coderkit.cpp" line="389"/>
         <source>Your input data so much(suggest less 10 KB), it&apos;ll be very slowly, continue?</source>
         <translation type="unfinished">你输入的数据太多（建议小于10KB），反汇编会很慢，是否继续？</translation>
     </message>
     <message>
-        <location filename="coderkit/coderkit.cpp" line="521"/>
+        <location filename="coderkit/coderkit.cpp" line="577"/>
+        <location filename="coderkit/coderkit.cpp" line="638"/>
         <source>Compile Error:
 --------------------------------------------------------------
 </source>
@@ -444,12 +501,22 @@ p, li { white-space: pre-wrap; }
 </translation>
     </message>
     <message>
-        <location filename="coderkit/coderkit.cpp" line="523"/>
+        <location filename="coderkit/coderkit.cpp" line="579"/>
+        <source>run compiler error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="coderkit/coderkit.cpp" line="616"/>
+        <source>run disassember error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="coderkit/coderkit.cpp" line="640"/>
         <source>start nasm error</source>
         <translation type="unfinished">启动nasm错误</translation>
     </message>
     <message>
-        <location filename="coderkit/coderkit.cpp" line="545"/>
+        <location filename="coderkit/coderkit.cpp" line="662"/>
         <source>start ndisasm error</source>
         <translation type="unfinished">启动ndisasm错误</translation>
     </message>
@@ -2750,412 +2817,437 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">常用</translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="77"/>
+        <location filename="ui/reverse.ui" line="110"/>
         <source>Procexp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="94"/>
+        <location filename="ui/reverse.ui" line="121"/>
         <source>Procmon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="111"/>
+        <location filename="ui/reverse.ui" line="132"/>
         <source>Winobj</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="128"/>
+        <location filename="ui/reverse.ui" line="143"/>
         <source>Dbgview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="145"/>
+        <location filename="ui/reverse.ui" line="580"/>
         <source>HxD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="162"/>
+        <location filename="ui/reverse.ui" line="198"/>
         <source>PCHunter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="179"/>
+        <location filename="ui/reverse.ui" line="165"/>
         <source>APIMon32</source>
         <oldsource>APIMonitor32</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="196"/>
+        <location filename="ui/reverse.ui" line="624"/>
         <source>Notepad++</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="213"/>
+        <location filename="ui/reverse.ui" line="613"/>
         <source>010Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="230"/>
+        <location filename="ui/reverse.ui" line="635"/>
         <source>WinSpy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="247"/>
+        <location filename="ui/reverse.ui" line="274"/>
         <source>Windbg *32</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="264"/>
+        <location filename="ui/reverse.ui" line="318"/>
         <source>IDA *32</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="281"/>
+        <location filename="ui/reverse.ui" line="296"/>
         <source>x64dbg *32</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="298"/>
+        <location filename="ui/reverse.ui" line="362"/>
         <source>OllyICE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="315"/>
+        <location filename="ui/reverse.ui" line="438"/>
         <source>ExeinfoPe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="332"/>
+        <location filename="ui/reverse.ui" line="471"/>
         <source>ResHacker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="349"/>
+        <location filename="ui/reverse.ui" line="591"/>
         <source>Winhex</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="366"/>
+        <location filename="ui/reverse.ui" line="285"/>
         <source>Windbg *64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="383"/>
+        <location filename="ui/reverse.ui" line="307"/>
         <source>x64dbg *64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="400"/>
+        <location filename="ui/reverse.ui" line="329"/>
         <source>IDA *64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="417"/>
+        <location filename="ui/reverse.ui" line="373"/>
         <source>OD 52PJ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="468"/>
+        <location filename="ui/reverse.ui" line="961"/>
         <source>Fiddler2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="706"/>
+        <location filename="ui/reverse.ui" line="994"/>
         <source>Wireshark1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="723"/>
+        <location filename="ui/reverse.ui" line="1005"/>
         <source>Wireshark3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="740"/>
+        <location filename="ui/reverse.ui" line="972"/>
         <source>Fiddler4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="757"/>
+        <location filename="ui/reverse.ui" line="340"/>
         <source>Ghidra</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="774"/>
+        <location filename="ui/reverse.ui" line="983"/>
         <source>Charles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="791"/>
+        <location filename="ui/reverse.ui" line="646"/>
         <source>Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="808"/>
+        <location filename="ui/reverse.ui" line="602"/>
         <source>DiskGenius</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="828"/>
+        <location filename="ui/reverse.ui" line="922"/>
         <source>cURL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="848"/>
+        <location filename="ui/reverse.ui" line="950"/>
         <source>tcpdump</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="865"/>
+        <location filename="ui/reverse.ui" line="220"/>
         <source>WKE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="882"/>
+        <location filename="ui/reverse.ui" line="209"/>
         <source>PCHunter+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="902"/>
+        <location filename="ui/reverse.ui" line="936"/>
         <source>Nmap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="919"/>
+        <location filename="ui/reverse.ui" line="810"/>
         <source>WinRAR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="936"/>
+        <location filename="ui/reverse.ui" line="799"/>
         <source>7-Zip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="953"/>
+        <location filename="ui/reverse.ui" line="832"/>
         <source>Chrome85</source>
         <oldsource>ChromeSetup</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="970"/>
+        <location filename="ui/reverse.ui" line="821"/>
         <source>Chrome49</source>
         <oldsource>Chrome</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="987"/>
+        <location filename="ui/reverse.ui" line="843"/>
         <source>Firefox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1004"/>
+        <location filename="ui/reverse.ui" line="679"/>
         <source>Keygener</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1021"/>
+        <location filename="ui/reverse.ui" line="690"/>
         <source>PYGTools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1038"/>
+        <location filename="ui/reverse.ui" line="854"/>
         <source>CPU-Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1055"/>
+        <location filename="ui/reverse.ui" line="865"/>
         <source>AIDA64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1072"/>
+        <location filename="ui/reverse.ui" line="701"/>
         <source>PoolMonX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1087"/>
+        <location filename="ui/reverse.ui" line="493"/>
+        <source>PeBear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="504"/>
+        <source>DnSpy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="526"/>
+        <source>InstDrv</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="1016"/>
+        <source>WizTree</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="1027"/>
+        <source>Rapidee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/reverse.ui" line="1046"/>
         <source>WinDevKits</source>
         <translation type="unfinished">开发依赖</translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1129"/>
+        <location filename="ui/reverse.ui" line="1088"/>
         <source>vcredist_2005_x86</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1146"/>
+        <location filename="ui/reverse.ui" line="1105"/>
         <source>TortoiseGit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1163"/>
+        <location filename="ui/reverse.ui" line="1122"/>
         <source>TortoiseSVN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1180"/>
+        <location filename="ui/reverse.ui" line="1139"/>
         <source>Git</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1197"/>
+        <location filename="ui/reverse.ui" line="1156"/>
         <source>vcredist_2008_x86</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1214"/>
+        <location filename="ui/reverse.ui" line="1173"/>
         <source>vcredist_2010_x86</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1231"/>
+        <location filename="ui/reverse.ui" line="1190"/>
         <source>vcredist_2012_x86</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1248"/>
+        <location filename="ui/reverse.ui" line="1207"/>
         <source>vcredist_2013_x86</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1265"/>
+        <location filename="ui/reverse.ui" line="1224"/>
         <source>vcredist_2015_x86</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1282"/>
+        <location filename="ui/reverse.ui" line="1241"/>
         <source>vcredist_15~19_x86</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1299"/>
+        <location filename="ui/reverse.ui" line="1258"/>
         <source>vcredist_15~19_x64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1316"/>
+        <location filename="ui/reverse.ui" line="1275"/>
         <source>vcredist_2015_x64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1333"/>
+        <location filename="ui/reverse.ui" line="1292"/>
         <source>vcredist_2010_x64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1350"/>
+        <location filename="ui/reverse.ui" line="1309"/>
         <source>vcredist_2012_x64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1367"/>
+        <location filename="ui/reverse.ui" line="1326"/>
         <source>vcredist_2008_x64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1384"/>
+        <location filename="ui/reverse.ui" line="1343"/>
         <source>vcredist_2013_x64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1401"/>
+        <location filename="ui/reverse.ui" line="1360"/>
         <source>vcredist_2005_x64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1418"/>
+        <location filename="ui/reverse.ui" line="1377"/>
         <source>JDK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1435"/>
+        <location filename="ui/reverse.ui" line="1394"/>
         <source>Python</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1452"/>
+        <location filename="ui/reverse.ui" line="1411"/>
         <source>Golang</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="434"/>
+        <location filename="ui/reverse.ui" line="460"/>
         <source>HCD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="451"/>
+        <location filename="ui/reverse.ui" line="515"/>
         <source>Cheat Engine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="485"/>
+        <location filename="ui/reverse.ui" line="788"/>
         <source>Everything</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="502"/>
+        <location filename="ui/reverse.ui" line="657"/>
         <source>Spy++ *32</source>
         <oldsource>Spy++</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="519"/>
+        <location filename="ui/reverse.ui" line="755"/>
         <source>Teamviewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="536"/>
+        <location filename="ui/reverse.ui" line="766"/>
         <source>AnyDesk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="553"/>
+        <location filename="ui/reverse.ui" line="777"/>
         <source>Sunlogin</source>
         <translation type="unfinished">向日葵</translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="570"/>
+        <location filename="ui/reverse.ui" line="449"/>
         <source>PEID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="587"/>
+        <location filename="ui/reverse.ui" line="187"/>
         <source>Sysinternals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="604"/>
+        <location filename="ui/reverse.ui" line="482"/>
         <source>CFF Explorer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="621"/>
+        <location filename="ui/reverse.ui" line="154"/>
         <source>NirSoft</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="638"/>
+        <location filename="ui/reverse.ui" line="384"/>
         <source>Radare</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="655"/>
+        <location filename="ui/reverse.ui" line="176"/>
         <source>APIMon64</source>
         <oldsource>APIMonitor64</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="672"/>
+        <location filename="ui/reverse.ui" line="351"/>
         <source>OllyDBG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="689"/>
+        <location filename="ui/reverse.ui" line="668"/>
         <source>Spy++ *64</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/reverse.ui" line="1486"/>
+        <location filename="ui/reverse.ui" line="1445"/>
         <source>ToolsFolder</source>
         <translation type="unfinished">工具目录</translation>
     </message>
