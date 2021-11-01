@@ -331,6 +331,7 @@ void CoderKit::InitAsmToolsView()
 	ui.splitter->setStretchFactor(1, 2);
 	ui.nullRadio->setChecked(true);
 	connect(ui.asmBtn, &QPushButton::clicked, this, [&]() {
+		if (!UNONE::OsIs64()) { MsgBoxError("The feature not support 32bits os."); return; }
 		ByteOrder byteorder = LITTLE_ENDIAN;
 		auto byteorder_idx = ui.byteorderBox->currentIndex();
 		if (byteorder_idx == 0) byteorder = LITTLE_ENDIAN;
@@ -358,6 +359,7 @@ void CoderKit::InitAsmToolsView()
 	});
 
 	connect(ui.disasmBtn, &QPushButton::clicked, this, [&]() {
+		if (!UNONE::OsIs64()) { MsgBoxError("The feature not support 32bits os."); return; }
 		ByteOrder byteorder = LITTLE_ENDIAN;
 		auto byteorder_idx = ui.byteorderBox->currentIndex();
 		if (byteorder_idx == 0) byteorder = LITTLE_ENDIAN;

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>843</width>
+    <width>1087</width>
     <height>628</height>
    </rect>
   </property>
@@ -215,13 +215,13 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>535</width>
+          <width>610</width>
           <height>0</height>
          </size>
         </property>
         <property name="font">
          <font>
-          <family>SimSun</family>
+          <family>Consolas</family>
           <kerning>false</kerning>
          </font>
         </property>
@@ -230,9 +230,15 @@
         </property>
        </widget>
        <widget class="QTextEdit" name="disasmEdit">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="font">
          <font>
-          <family>SimSun</family>
+          <family>Consolas</family>
           <kerning>false</kerning>
          </font>
         </property>

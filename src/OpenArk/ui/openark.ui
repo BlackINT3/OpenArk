@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>626</width>
-    <height>404</height>
+    <width>873</width>
+    <height>661</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -68,7 +68,7 @@
 </string>
        </property>
        <property name="currentIndex">
-        <number>6</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tabProcessMgr">
         <attribute name="title">
@@ -183,7 +183,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>626</width>
+     <width>873</width>
      <height>23</height>
     </rect>
    </property>
@@ -276,6 +276,7 @@ p, li { white-space: pre-wrap; }
    <addaction name="actionOnTop"/>
    <addaction name="separator"/>
    <addaction name="actionGithub"/>
+   <addaction name="actionExit"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="sizePolicy">

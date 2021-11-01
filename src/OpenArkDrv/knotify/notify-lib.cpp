@@ -393,7 +393,7 @@ PEX_CALLBACK GetImageNotifyCallback()
 	PUCHAR routine = NULL;
 	if (ArkDrv.ver >= _NTOS_WINXP && ArkDrv.ver <= _NTOS_WIN10_1703) {
 		routine = (PUCHAR)GetNtRoutineAddress(L"PsSetLoadImageNotifyRoutine");
-	} else if (ArkDrv.ver >= _NTOS_WIN10_1709 && ArkDrv.ver <= _NTOS_WIN10_20H2) {
+	} else if (ArkDrv.ver >= _NTOS_WIN10_1709 && ArkDrv.ver <= _NTOS_WIN11_21H2) {
 		routine = (PUCHAR)GetNtRoutineAddress(L"PsSetLoadImageNotifyRoutineEx");
 	}
 	if (!routine) return NULL;

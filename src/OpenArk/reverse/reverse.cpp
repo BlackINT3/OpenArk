@@ -57,7 +57,6 @@ WINTOOL_ITEM WinAllTools[] = {
 	{ RUN_EXE, "hcd", "HCD/HCD.exe", "HCD.zip" },
 	{ RUN_CMD_DIR, "radare", "radare2/bin/", "radare2.zip" },
 
-
 	{ RUN_EXE, "notepadxx", "Notepad++/notepad++.exe", "Notepadxx.zip" },
 	{ RUN_EXE, "editor010", "010Editor/010Editor.exe", "010Editor.zip" },
 	{ RUN_EXE, "winhex", "Winhex/winhex.exe", "Winhex.zip" },
@@ -71,9 +70,9 @@ WINTOOL_ITEM WinAllTools[] = {
 	{ RUN_EXE, "wiresharkv1", "Wireshark/Wireshark-win32-1.10.14.exe", "Wireshark-v1.zip" },
 	{ RUN_EXE, "wiresharkv3", "Wireshark/Wireshark-win32-3.2.3.exe", "Wireshark-v3.zip" },
 	{ RUN_EXE, "everything", "Everything/Everything.exe", "Everything.zip" },
-	{ RUN_EXE, "teamviewer", "Teamviewer/Teamviewer.exe", "Teamviewer.zip" },
-	{ RUN_EXE, "anydesk", "AnyDesk/AnyDesk.exe", "AnyDesk.zip" },
-	{ RUN_EXE, "sunlogin", "Sunlogin/SunloginClient_10.3.0.27372.exe", "Sunlogin.zip" },
+	{ RUN_EXE, "teamviewer", "misc/remote/Teamviewer.exe", "misc/remote/Teamviewer.exe" },
+	{ RUN_EXE, "anydesk", "misc/remote/AnyDesk.exe", "misc/remote/AnyDesk.exe" },
+	{ RUN_EXE, "sunlogin", "misc/remote/SunloginClient.exe", "misc/remote/SunloginClient.exe" },
 	
 	//2020.09.02 add
 	{ RUN_EXE, "pchunternew32", "PCHunterNew/PCHunter32.exe", "PCHunterNew32.zip" },
@@ -97,6 +96,47 @@ WINTOOL_ITEM WinAllTools[] = {
 	{ RUN_EXE, "firefox", "browser/FirefoxSetup.exe", "browser/FirefoxSetup.exe" },
 	{ RUN_EXE, "cpuz", "cpuz/cpuz_x32.exe", "cpuz.zip" },
 	{ RUN_EXE, "aida64", "aida64/aida64.exe", "aida64.zip" },
+
+	//2021.11.01 add
+	{ RUN_EXE, "dnspy", "reverse/dnSpy/dnSpy.exe", "reverse/dnSpy.zip" },
+	{ RUN_EXE, "die", "reverse/die_win32_portable/die.exe", "reverse/die_win32.zip" },
+	{ RUN_EXE, "pebear", "reverse/PE-bear/PE-bear.exe", "reverse/PE-bear.zip" },
+	{ RUN_EXE, "instdrv", "reverse/InstDrv.exe", "reverse/InstDrv.exe" },
+	{ RUN_EXE, "pdbripper", "reverse/pdbripper.exe", "reverse/pdbripper.exe" },
+	{ RUN_EXE, "instdrv", "reverse/InstDrv.exe", "reverse/InstDrv.exe" },
+	{ RUN_EXE, "loadtest", "reverse/LoadTest.exe", "reverse/LoadTest.exe" },
+	{ RUN_EXE, "notepad2", "misc/Notepad2.exe", "misc/Notepad2.exe" },
+	{ RUN_EXE, "vscode", "misc/VSCodeSetup.exe", "misc/VSCodeSetup.exe" },
+	{ RUN_EXE, "calc", "reverse/Calc.exe", "reverse/Calc.exe" },
+	{ RUN_EXE, "calcfpu", "reverse/CalcFPU.exe", "reverse/CalcFPU.exe" },
+	{ RUN_EXE, "wiztree", "misc/WizTree.exe", "misc/WizTree.zip" },
+	{ RUN_EXE, "rapidee", "misc/rapidee.exe", "misc/rapidee.zip" },
+	{ RUN_EXE, "as_ssd", "misc/AS_SSD/AS_SSD.exe", "misc/AS_SSD.zip" },
+	{ RUN_EXE, "hddog", "misc/HDDog.exe", "misc/HDDog.exe" },
+	
+	//Linux
+	{ RUN_EXE, "cygwin64", "linux/cygwin64/Cygwin.bat", "linux/cygwin64.zip" },
+	{ RUN_EXE, "mobaxterm", "linux/MobaXterm/MobaXterm.exe", "linux/MobaXterm.zip" },
+	{ RUN_EXE, "putty", "linux/putty.exe", "linux/putty.zip" },
+	{ RUN_CMD_DIR, "ssh_win", "linux/ssh-win/", "linux/ssh-win.zip" },
+	{ RUN_EXE, "robo3t", "linux/robo3t-x86_64.exe", "linux/robo3t-x86_64.exe" },
+	{ RUN_EXE, "redistool", "linux/redis-desktop-manager.exe", "linux/redis-desktop-manager.exe" },
+	{ RUN_EXE, "sqlitestudio", "linux/SQLiteStudio/SQLiteStudio.exe", "linux/sqlitestudio.zip" },
+
+	//Android
+	{ RUN_CMD_DIR, "adb", "android/adb/", "android/adb.zip" },
+	{ RUN_CMD_DIR, "aapt", "android/adb/", "android/adb.zip" },
+	{ RUN_EXE, "jadx", "android/jadx.exe", "android/jadx.exe" },
+	{ RUN_EXE, "jeb", "android/jeb/jeb_wincon.bat", "android/jeb.zip" },
+	{ RUN_EXE, "gda", "android/GDA.exe", "android/GDA.exe" },
+	{ RUN_EXE, "jd_gui", "android/jd-gui.exe", "android/jd-gui.exe" },
+	{ RUN_EXE, "scrcpy", "android/scrcpy-win64/scrcpy-noconsole.vbs", "android/scrcpy-win64.zip" },
+	{ RUN_EXE, "xelfviewer", "android/xelfviewer/xelfviewer.exe", "android/xelfviewer.zip" },
+	{ RUN_EXE, "uleb128", "android/ULEB128.exe", "android/ULEB128.exe" },
+	{ RUN_EXE, "apkstudio", "android/ApkStudio-x64/ApkStudio.exe", "android/ApkStudio-x64.zip" },
+	{ RUN_EXE, "androidkiller", "android/AndroidKiller/AndroidKiller.exe", "android/AndroidKiller.zip" },
+	{ RUN_EXE, "jdk11", "android/jdk11.exe", "android/jdk11.exe" },
+
 
 	//WinDevKits
 	{ RUN_OPEN_URL, "jdk", "https://mirrors.huaweicloud.com/java/jdk/", "" },
@@ -131,8 +171,10 @@ Reverse::Reverse(QWidget *parent, int tabid) :
 	ui.progressBar->setValue(0);
 	ui.progressBar->show();
 
-	InitWinReverseToolsView();
-	InitWinDriverKitsView();
+	InitWindowsView();
+	InitLinuxView();
+	InitAndroidView();
+	InitDevKitsView();
 
 	CommonMainTabObject::Init(ui.tabWidget, tabid);
 }
@@ -274,9 +316,9 @@ void Reverse::onProgress(qint64 bytesSent, qint64 bytesTotal)
 	ui.progressBar->setValue(bytesSent);
 }
 
-void Reverse::InitWinReverseToolsView()
+void Reverse::InitWindowsView()
 {
-	QList<QPushButton*> buttons = ui.commonBox->findChildren<QPushButton*>();
+	QList<QPushButton*> buttons = ui.windowsBox->findChildren<QPushButton*>();
 	for (auto &btn : buttons) {
 		connect(btn, SIGNAL(clicked()), this, SLOT(onExecute()));
 	}
@@ -287,7 +329,23 @@ void Reverse::InitWinReverseToolsView()
 	});
 }
 
-void Reverse::InitWinDriverKitsView()
+void Reverse::InitLinuxView()
+{
+	QList<QPushButton*> buttons = ui.linuxBox->findChildren<QPushButton*>();
+	for (auto &btn : buttons) {
+		connect(btn, SIGNAL(clicked()), this, SLOT(onExecute()));
+	}
+}
+
+void Reverse::InitAndroidView()
+{
+	QList<QPushButton*> buttons = ui.androidBox->findChildren<QPushButton*>();
+	for (auto &btn : buttons) {
+		connect(btn, SIGNAL(clicked()), this, SLOT(onExecute()));
+	}
+}
+
+void Reverse::InitDevKitsView()
 {
 	QList<QPushButton*> buttons = ui.devkitsBox->findChildren<QPushButton*>();
 	for (auto &btn : buttons) {

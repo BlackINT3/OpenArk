@@ -53,8 +53,10 @@ private slots:
 
 private:
 	void DownloadAndExecuteFile(WINTOOL_ITEM wintool);
-	void InitWinReverseToolsView();
-	void InitWinDriverKitsView();
+	void InitWindowsView();
+	void InitLinuxView();
+	void InitAndroidView();
+	void InitDevKitsView();
 
 private:
 	Ui::Reverse ui;

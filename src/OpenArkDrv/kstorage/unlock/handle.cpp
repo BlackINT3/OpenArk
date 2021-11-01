@@ -201,7 +201,7 @@ NTSTATUS StorageUnlockEnum(PVOID inbuf, ULONG inlen, PVOID outbuf, ULONG outlen,
 	ULONG		count = 0;
 	UCHAR		filetypeindex = 28;  // set file object type index
 
-	filetypeindex = ObjectTypeIndexByName(L"File");
+	filetypeindex = (UCHAR)ObjectTypeIndexByName(L"File");
 	if (filetypeindex == -1) {
 		return status;
 	}

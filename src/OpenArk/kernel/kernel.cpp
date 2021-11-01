@@ -129,14 +129,11 @@ void Kernel::onClickKernelMode()
 	if (!arkdrv_conn_) {
 		QString drvpath;
 		drvpath = WStrToQ(UNONE::OsEnvironmentW(QToWStr(L"%Temp%\\" + drvname)));
+		DeleteFileW(QToWChars(drvpath));
 		ExtractResource(":/OpenArk/driver/" + drvname, drvpath);
-		{
-			SignExpiredDriver(drvpath);
-			RECOVER_SIGN_TIME();
-			if (!driver_->InstallDriver(drvpath, srvname)) {
-				QERR_W("InstallDriver %s err", QToWChars(drvpath));
-				return;
-			}
+		if (!driver_->InstallDriver(drvpath, srvname)) {
+			QERR_W("InstallDriver %s err", QToWChars(drvpath));
+			return;
 		}
 		if (!ArkDrvApi::ConnectDriver()) {
 			ERR("ConnectDriver err");

@@ -23,7 +23,7 @@
         <location filename="ui/about.ui" line="84"/>
         <source>Support: Windows XP/7/8/8.1/10/11 32/64bit</source>
         <oldsource>Support: Windows XP/7/8/8.1/10 32/64bit</oldsource>
-        <translation type="unfinished">系统支持：Windows XP/7/8/8.1/10 32/64bit</translation>
+        <translation type="unfinished">系统支持：Windows XP/7/8/8.1/10/11 32/64bit</translation>
     </message>
     <message>
         <location filename="ui/about.ui" line="97"/>
