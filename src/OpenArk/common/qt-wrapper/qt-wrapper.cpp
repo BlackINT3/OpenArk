@@ -337,6 +337,11 @@ void ShellRun(QString cmdline, QString param)
 	ShellExecuteW(NULL, L"open", cmdline.toStdWString().c_str(), param.toStdWString().c_str(), NULL, SW_SHOW);
 }
 
+void ShellRunHide(QString cmdline, QString param)
+{
+	ShellExecuteW(NULL, L"open", cmdline.toStdWString().c_str(), param.toStdWString().c_str(), NULL, SW_HIDE);
+}
+
 void ShellRunCmdExe(QString exe, int show)
 {
 	auto cmdline = "cmd /c " + exe;

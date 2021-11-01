@@ -21,6 +21,7 @@ using namespace Plugin::Compressor;
 
 enum {
 	RUN_EXE,
+	RUN_EXE_HIDE,
 	RUN_EXE_BY_CMD,
 	RUN_DIR,
 	RUN_CMD_DIR,
@@ -102,7 +103,7 @@ WINTOOL_ITEM WinAllTools[] = {
 	{ RUN_EXE, "die", "reverse/die_win32_portable/die.exe", "reverse/die_win32.zip" },
 	{ RUN_EXE, "pebear", "reverse/PE-bear/PE-bear.exe", "reverse/PE-bear.zip" },
 	{ RUN_EXE, "instdrv", "reverse/InstDrv.exe", "reverse/InstDrv.exe" },
-	{ RUN_EXE, "pdbripper", "reverse/pdbripper.exe", "reverse/pdbripper.exe" },
+	{ RUN_EXE, "pdbripper", "reverse/pdbripper/pdbripper.exe", "reverse/pdbripper.zip" },
 	{ RUN_EXE, "instdrv", "reverse/InstDrv.exe", "reverse/InstDrv.exe" },
 	{ RUN_EXE, "loadtest", "reverse/LoadTest.exe", "reverse/LoadTest.exe" },
 	{ RUN_EXE, "notepad2", "misc/Notepad2.exe", "misc/Notepad2.exe" },
@@ -127,21 +128,23 @@ WINTOOL_ITEM WinAllTools[] = {
 	{ RUN_CMD_DIR, "adb", "android/adb/", "android/adb.zip" },
 	{ RUN_CMD_DIR, "aapt", "android/adb/", "android/adb.zip" },
 	{ RUN_EXE, "jadx", "android/jadx.exe", "android/jadx.exe" },
-	{ RUN_EXE, "jeb", "android/jeb/jeb_wincon.bat", "android/jeb.zip" },
+	{ RUN_EXE, "jeb", "android/jeb/bin/jeb.exe", "android/jeb.zip" },
 	{ RUN_EXE, "gda", "android/GDA.exe", "android/GDA.exe" },
 	{ RUN_EXE, "jd_gui", "android/jd-gui.exe", "android/jd-gui.exe" },
-	{ RUN_EXE, "scrcpy", "android/scrcpy-win64/scrcpy-noconsole.vbs", "android/scrcpy-win64.zip" },
+	{ RUN_EXE_BY_CMD, "scrcpy", "android/scrcpy-win64/scrcpy.exe", "android/scrcpy-win64.zip" },
 	{ RUN_EXE, "xelfviewer", "android/xelfviewer/xelfviewer.exe", "android/xelfviewer.zip" },
 	{ RUN_EXE, "uleb128", "android/ULEB128.exe", "android/ULEB128.exe" },
 	{ RUN_EXE, "apkstudio", "android/ApkStudio-x64/ApkStudio.exe", "android/ApkStudio-x64.zip" },
 	{ RUN_EXE, "androidkiller", "android/AndroidKiller/AndroidKiller.exe", "android/AndroidKiller.zip" },
-	{ RUN_EXE, "jdk11", "android/jdk11.exe", "android/jdk11.exe" },
-
+	{ RUN_EXE, "jdk8", "android/jdk8.exe", "android/jdk8.exe" },
 
 	//WinDevKits
 	{ RUN_OPEN_URL, "jdk", "https://mirrors.huaweicloud.com/java/jdk/", "" },
+	{ RUN_EXE, "jdk11", "android/jdk11.exe", "android/jdk11.exe" },
 	{ RUN_OPEN_URL, "python", "https://www.python.org/downloads/", "" },
 	{ RUN_OPEN_URL, "golang", "https://studygolang.com/dl", "" },
+	{ RUN_OPEN_URL, "visualstudio", "https://visualstudio.microsoft.com/downloads/", "" },
+	{ RUN_OPEN_URL, "androidstudio", "https://developer.android.google.cn/studio/", "" },
 	{ RUN_EXE, "git32", "dev/Git-32bit.exe", "dev/Git-32bit.exe" },
 	{ RUN_EXE, "torgit32", "dev/TortoiseGit-32bit.msi", "dev/TortoiseGit-32bit.msi" },
 	{ RUN_EXE, "torsvn32", "dev/TortoiseSVN-32bit.msi", "dev/TortoiseSVN-32bit.msi" },
@@ -162,6 +165,7 @@ WINTOOL_ITEM WinAllTools[] = {
 	{ RUN_EXE, "vc2015x86", "dev/vcredist/vcredist_2015_x86.exe", "dev/vcredist/vcredist_2015_x86.exe" },
 	{ RUN_EXE, "vc1519x64", "dev/vcredist/vcredist_2015~2019_x64.exe", "dev/vcredist/vcredist_2015~2019_x64.exe" },
 	{ RUN_EXE, "vc1519x86", "dev/vcredist/vcredist_2015~2019_x86.exe", "dev/vcredist/vcredist_2015~2019_x86.exe" },
+	{ RUN_EXE, "dotnet4", "dev/dotnet/netframework4.msi", "dev/dotnet/netframework4.msi" },
 };
 
 Reverse::Reverse(QWidget *parent, int tabid) :
@@ -238,6 +242,8 @@ void Reverse::DownloadAndExecuteFile(WINTOOL_ITEM wintool)
 		if (UNONE::FsIsExistedW(QToWStr(exe))) {
 			if (type == RUN_EXE)
 				ShellRun(exe, "");
+			if (type == RUN_EXE_HIDE)
+				ShellRunCmdExe(exe, SW_HIDE);
 			else if (type == RUN_CMD_DIR)
 				ShellRunCmdDir(exe);
 			else if (type == RUN_DIR)

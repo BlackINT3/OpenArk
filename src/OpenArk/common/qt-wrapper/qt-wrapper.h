@@ -229,6 +229,7 @@ bool JsonGetValue(const QByteArray &data, const QString &key, QJsonValue &val);
 //
 void ShellOpenUrl(QString url);
 void ShellRun(QString cmdline, QString param);
+void ShellRunHide(QString cmdline, QString param);
 void ShellRunCmdExe(QString exe, int show = SW_SHOW);
 void ShellRunCmdDir(QString dir);
 QString PidFormat(DWORD pid);

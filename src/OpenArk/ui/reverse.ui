@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1147</width>
-    <height>747</height>
+    <width>1101</width>
+    <height>671</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,7 +26,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <property name="movable">
       <bool>true</bool>
@@ -1136,457 +1136,473 @@
       <attribute name="title">
        <string>Linux</string>
       </attribute>
-      <widget class="QGroupBox" name="linuxBox">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>1104</width>
-         <height>692</height>
-        </rect>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="leftMargin">
+        <number>0</number>
        </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+       <property name="topMargin">
+        <number>0</number>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16777215</height>
-        </size>
+       <property name="rightMargin">
+        <number>0</number>
        </property>
-       <property name="title">
-        <string/>
+       <property name="bottomMargin">
+        <number>0</number>
        </property>
-       <widget class="QPushButton" name="cygwin64Btn">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>101</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>Cygwin64</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/cygwin64.ico</normaloff>:/OpenArk/revtools/cygwin64.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="redistoolBtn">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>40</y>
-          <width>101</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>RedisTool</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/redistool.ico</normaloff>:/OpenArk/revtools/redistool.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="puttyBtn">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>70</y>
-          <width>101</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>PuTTY</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/putty.ico</normaloff>:/OpenArk/revtools/putty.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="ssh_winBtn">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>100</y>
-          <width>101</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>ssh-win</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/default.ico</normaloff>:/OpenArk/revtools/default.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="mobaxtermBtn">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>40</y>
-          <width>101</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>MobaXterm</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/mobaxterm.ico</normaloff>:/OpenArk/revtools/mobaxterm.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="robo3tBtn">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>10</y>
-          <width>101</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>Robo3T</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/robo3t.ico</normaloff>:/OpenArk/revtools/robo3t.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="sqlitestudioBtn">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>70</y>
-          <width>101</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>SQLiteStudio</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/sqlitestudio.ico</normaloff>:/OpenArk/revtools/sqlitestudio.ico</iconset>
-        </property>
-       </widget>
-      </widget>
+       <item>
+        <widget class="QGroupBox" name="linuxBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="title">
+          <string/>
+         </property>
+         <widget class="QPushButton" name="cygwin64Btn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>101</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>Cygwin64</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/cygwin64.ico</normaloff>:/OpenArk/revtools/cygwin64.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="redistoolBtn">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>40</y>
+            <width>101</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>RedisTool</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/redistool.ico</normaloff>:/OpenArk/revtools/redistool.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="puttyBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>70</y>
+            <width>101</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>PuTTY</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/putty.ico</normaloff>:/OpenArk/revtools/putty.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="ssh_winBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>100</y>
+            <width>101</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>ssh-win</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/default.ico</normaloff>:/OpenArk/revtools/default.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="mobaxtermBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>40</y>
+            <width>101</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>MobaXterm</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/mobaxterm.ico</normaloff>:/OpenArk/revtools/mobaxterm.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="robo3tBtn">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>10</y>
+            <width>101</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>Robo3T</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/robo3t.ico</normaloff>:/OpenArk/revtools/robo3t.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="sqlitestudioBtn">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>70</y>
+            <width>101</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>SQLiteStudio</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/sqlitestudio.ico</normaloff>:/OpenArk/revtools/sqlitestudio.ico</iconset>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tabAndroid">
       <attribute name="title">
        <string>Android</string>
       </attribute>
-      <widget class="QGroupBox" name="androidBox">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>1104</width>
-         <height>692</height>
-        </rect>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
        </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+       <property name="topMargin">
+        <number>0</number>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16777215</height>
-        </size>
+       <property name="rightMargin">
+        <number>0</number>
        </property>
-       <property name="title">
-        <string/>
+       <property name="bottomMargin">
+        <number>0</number>
        </property>
-       <widget class="QPushButton" name="adbBtn">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>91</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>ADB</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/default.ico</normaloff>:/OpenArk/revtools/default.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="gdaBtn">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>130</y>
-          <width>91</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>GDA</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/gda.ico</normaloff>:/OpenArk/revtools/gda.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="jadxBtn">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>70</y>
-          <width>91</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>Jadx</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/jadx.ico</normaloff>:/OpenArk/revtools/jadx.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="apkstudioBtn">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>100</y>
-          <width>111</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>ApkStudio</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/apkstudio.ico</normaloff>:/OpenArk/revtools/apkstudio.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="androidkillerBtn">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>130</y>
-          <width>111</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>AndroidKiller</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/androidkiller.ico</normaloff>:/OpenArk/revtools/androidkiller.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="uleb128Btn">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>70</y>
-          <width>111</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>ULEB128</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/uleb128.ico</normaloff>:/OpenArk/revtools/uleb128.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="xelfviewerBtn">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>40</y>
-          <width>111</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>XELFViewer</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/xelfviewer.ico</normaloff>:/OpenArk/revtools/xelfviewer.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="jebBtn">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>100</y>
-          <width>91</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>JEB</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/nmap.ico</normaloff>:/OpenArk/revtools/nmap.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="scrcpyBtn">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>10</y>
-          <width>111</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>Scrcpy</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/default.ico</normaloff>:/OpenArk/revtools/default.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="aaptBtn">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>40</y>
-          <width>91</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>AAPT</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/default.ico</normaloff>:/OpenArk/revtools/default.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>190</y>
-          <width>361</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>N.B: You need to install JDK before using some tools!</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="jdk11Btn">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>160</y>
-          <width>111</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>JDK11</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/devkits/jdk.ico</normaloff>:/OpenArk/devkits/jdk.ico</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="jd_guiBtn">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>160</y>
-          <width>91</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">text-align:</string>
-        </property>
-        <property name="text">
-         <string>jd-gui</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../res/openark.qrc">
-          <normaloff>:/OpenArk/revtools/jdgui.ico</normaloff>:/OpenArk/revtools/jdgui.ico</iconset>
-        </property>
-       </widget>
-      </widget>
+       <item>
+        <widget class="QGroupBox" name="androidBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="title">
+          <string/>
+         </property>
+         <widget class="QPushButton" name="adbBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>91</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>ADB</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/default.ico</normaloff>:/OpenArk/revtools/default.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="gdaBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>130</y>
+            <width>91</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>GDA</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/gda.ico</normaloff>:/OpenArk/revtools/gda.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="jadxBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>70</y>
+            <width>91</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>Jadx</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/jadx.ico</normaloff>:/OpenArk/revtools/jadx.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="apkstudioBtn">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>100</y>
+            <width>111</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>ApkStudio</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/apkstudio.ico</normaloff>:/OpenArk/revtools/apkstudio.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="androidkillerBtn">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>130</y>
+            <width>111</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>AndroidKiller</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/androidkiller.ico</normaloff>:/OpenArk/revtools/androidkiller.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="uleb128Btn">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>70</y>
+            <width>111</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>ULEB128</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/uleb128.ico</normaloff>:/OpenArk/revtools/uleb128.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="xelfviewerBtn">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>40</y>
+            <width>111</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>XELFViewer</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/xelfviewer.ico</normaloff>:/OpenArk/revtools/xelfviewer.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="jebBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>100</y>
+            <width>91</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>JEB</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/nmap.ico</normaloff>:/OpenArk/revtools/nmap.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="scrcpyBtn">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>10</y>
+            <width>111</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>Scrcpy</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/default.ico</normaloff>:/OpenArk/revtools/default.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="aaptBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>40</y>
+            <width>91</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>AAPT</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/default.ico</normaloff>:/OpenArk/revtools/default.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>190</y>
+            <width>361</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>N.B: You need to install JDK8 before using some tools!</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="jd_guiBtn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>160</y>
+            <width>91</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:</string>
+          </property>
+          <property name="text">
+           <string>jd-gui</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/revtools/jdgui.ico</normaloff>:/OpenArk/revtools/jdgui.ico</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="jdk8Btn">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>160</y>
+            <width>111</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>JDK 8</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/devkits/jdk.ico</normaloff>:/OpenArk/devkits/jdk.ico</iconset>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tabWinDevKits">
       <attribute name="title">
@@ -1932,7 +1948,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>40</y>
+            <y>70</y>
             <width>101</width>
             <height>23</height>
            </rect>
@@ -1949,7 +1965,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>70</y>
+            <y>100</y>
             <width>101</width>
             <height>23</height>
            </rect>
@@ -1979,7 +1995,7 @@
             <normaloff>:/OpenArk/devkits/androidstudio.ico</normaloff>:/OpenArk/devkits/androidstudio.ico</iconset>
           </property>
          </widget>
-         <widget class="QPushButton" name="vsBtn">
+         <widget class="QPushButton" name="visualstudioBtn">
           <property name="geometry">
            <rect>
             <x>120</x>
@@ -2013,6 +2029,23 @@
             <normaloff>:/OpenArk/devkits/vcredist.ico</normaloff>:/OpenArk/devkits/vcredist.ico</iconset>
           </property>
          </widget>
+         <widget class="QPushButton" name="jdk11Btn">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>40</y>
+            <width>101</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>JDK11</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/openark.qrc">
+            <normaloff>:/OpenArk/devkits/jdk.ico</normaloff>:/OpenArk/devkits/jdk.ico</iconset>
+          </property>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -2041,13 +2074,6 @@
       <widget class="QPushButton" name="toolsfolderBtn">
        <property name="text">
         <string>ToolsFolder</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="toolsfolderBtn_2">
-       <property name="text">
-        <string>Help</string>
        </property>
       </widget>
      </item>
