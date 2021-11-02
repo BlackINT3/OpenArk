@@ -706,7 +706,7 @@ std::string OsWinVersionInfo()
 	GetVersionEx((OSVERSIONINFO *)&os);
 	if (major == 10 && minor == 0) {
 		if (os.dwPlatformId == VER_PLATFORM_WIN32_NT) {
-			if (release > 19043) winver = "Windows 11";
+			if (release >= 22000) winver = "Windows 11";
 			else winver = "Windows 10";
 		} else {
 			switch (release) {
@@ -790,6 +790,7 @@ std::string OsReleaseNumber()
 		std::make_pair(19041, "2004"),
 		std::make_pair(19042, "20H2"),
 		std::make_pair(19043, "21H1"),
+		std::make_pair(19044, "21H2"),
 		std::make_pair(22000, "21H2"),
 	};
 	std::map<DWORD, std::string> tables(pairs, pairs + _countof(pairs));
