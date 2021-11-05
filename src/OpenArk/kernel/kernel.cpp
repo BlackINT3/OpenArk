@@ -131,7 +131,15 @@ void Kernel::onClickKernelMode()
 		drvpath = WStrToQ(UNONE::OsEnvironmentW(QToWStr(L"%Temp%\\" + drvname)));
 		DeleteFileW(QToWChars(drvpath));
 		ExtractResource(":/OpenArk/driver/" + drvname, drvpath);
-		if (!driver_->InstallDriver(drvpath, srvname)) {
+		bool installed;
+		if (UNONE::OsMajorVer() <= 6) {
+			SignExpiredDriver(drvpath);
+			RECOVER_SIGN_TIME();
+			installed = driver_->InstallDriver(drvpath, srvname);
+		} else {
+			installed = driver_->InstallDriver(drvpath, srvname);
+		}
+		if (!installed) {
 			QERR_W("InstallDriver %s err", QToWChars(drvpath));
 			return;
 		}

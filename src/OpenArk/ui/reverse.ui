@@ -6,12 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1101</width>
-    <height>671</height>
+    <width>1520</width>
+    <height>803</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#tabWindows {
+background-color: rgb(240,240,240);
+}
+#tabLinux{
+background-color: rgb(240,240,240);
+}
+#tabAndroid {
+background-color: rgb(240,240,240);
+}
+#tabWinDevKits {
+background-color: rgb(240,240,240);
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_8">
    <item>
@@ -26,12 +40,15 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="movable">
       <bool>true</bool>
      </property>
      <widget class="QWidget" name="tabWindows">
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
       <attribute name="title">
        <string>Windows</string>
       </attribute>
@@ -64,149 +81,19 @@
              <height>16777215</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="title">
             <string/>
            </property>
-           <widget class="QScrollArea" name="scrollArea">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>121</width>
-              <height>391</height>
-             </rect>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="horizontalScrollBarPolicy">
-             <enum>Qt::ScrollBarAlwaysOff</enum>
-            </property>
-            <property name="widgetResizable">
-             <bool>true</bool>
-            </property>
-            <widget class="QWidget" name="scrollAreaWidgetContents">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>119</width>
-               <height>389</height>
-              </rect>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_4">
-              <item>
-               <widget class="QPushButton" name="procexpBtn">
-                <property name="text">
-                 <string>Procexp</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/procexp.ico</normaloff>:/OpenArk/revtools/procexp.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="procmonBtn">
-                <property name="text">
-                 <string>Procmon</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/procmon.ico</normaloff>:/OpenArk/revtools/procmon.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="winobjBtn">
-                <property name="text">
-                 <string>Winobj</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/winobj.ico</normaloff>:/OpenArk/revtools/winobj.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="dbgviewBtn">
-                <property name="text">
-                 <string>Dbgview</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/dbgview.ico</normaloff>:/OpenArk/revtools/dbgview.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="nirsoftBtn">
-                <property name="text">
-                 <string>NirSoft</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/nirsoft.ico</normaloff>:/OpenArk/revtools/nirsoft.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="apimonitor32Btn">
-                <property name="text">
-                 <string>APIMon32</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/apimon32.ico</normaloff>:/OpenArk/revtools/apimon32.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="apimonitor64Btn">
-                <property name="text">
-                 <string>APIMon64</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/apimon64.ico</normaloff>:/OpenArk/revtools/apimon64.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="sysinternalsBtn">
-                <property name="text">
-                 <string>Sysinternals</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/sysinternals.ico</normaloff>:/OpenArk/revtools/sysinternals.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pchunterBtn">
-                <property name="text">
-                 <string>PCHunter</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/pchunter.ico</normaloff>:/OpenArk/revtools/pchunter.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <layout class="QGridLayout" name="gridLayout">
+              <property name="sizeConstraint">
+               <enum>QLayout::SetFixedSize</enum>
+              </property>
+              <item row="9" column="0">
                <widget class="QPushButton" name="pchunternewBtn">
                 <property name="text">
                  <string>PCHunter+</string>
@@ -217,72 +104,95 @@
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="wkeBtn">
+              <item row="7" column="0">
+               <widget class="QPushButton" name="sysinternalsBtn">
                 <property name="text">
-                 <string>WKE</string>
+                 <string>Sysinternals</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/wke.ico</normaloff>:/OpenArk/revtools/wke.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/sysinternals.ico</normaloff>:/OpenArk/revtools/sysinternals.ico</iconset>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="cheatengineBtn">
+              <item row="1" column="0">
+               <widget class="QPushButton" name="procmonBtn">
                 <property name="text">
-                 <string>Cheat Engine</string>
+                 <string>Procmon</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/cheatengine.ico</normaloff>:/OpenArk/revtools/cheatengine.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/procmon.ico</normaloff>:/OpenArk/revtools/procmon.ico</iconset>
                 </property>
                </widget>
               </item>
-             </layout>
-            </widget>
-           </widget>
-           <widget class="QScrollArea" name="scrollArea_2">
-            <property name="geometry">
-             <rect>
-              <x>130</x>
-              <y>0</y>
-              <width>111</width>
-              <height>391</height>
-             </rect>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="horizontalScrollBarPolicy">
-             <enum>Qt::ScrollBarAlwaysOff</enum>
-            </property>
-            <property name="widgetResizable">
-             <bool>true</bool>
-            </property>
-            <widget class="QWidget" name="scrollAreaWidgetContents_2">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>109</width>
-               <height>389</height>
-              </rect>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_5">
-              <item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="winobjBtn">
+                <property name="text">
+                 <string>Winobj</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/winobj.ico</normaloff>:/OpenArk/revtools/winobj.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="0">
+               <widget class="QPushButton" name="pchunterBtn">
+                <property name="text">
+                 <string>PCHunter</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/pchunter.ico</normaloff>:/OpenArk/revtools/pchunter.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QPushButton" name="nirsoftBtn">
+                <property name="text">
+                 <string>NirSoft</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/nirsoft.ico</normaloff>:/OpenArk/revtools/nirsoft.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="0">
+               <widget class="QPushButton" name="apimonitor64Btn">
+                <property name="text">
+                 <string>APIMon64</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/apimon64.ico</normaloff>:/OpenArk/revtools/apimon64.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QPushButton" name="dbgviewBtn">
+                <property name="text">
+                 <string>Dbgview</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/dbgview.ico</normaloff>:/OpenArk/revtools/dbgview.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="procexpBtn">
+                <property name="text">
+                 <string>Procexp</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/procexp.ico</normaloff>:/OpenArk/revtools/procexp.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
                <widget class="QPushButton" name="windbg32">
                 <property name="text">
                  <string>Windbg *32</string>
@@ -293,467 +203,7 @@
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="windbg64">
-                <property name="text">
-                 <string>Windbg *64</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/windbg.ico</normaloff>:/OpenArk/revtools/windbg.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="x64dbg32">
-                <property name="text">
-                 <string>x64dbg *32</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/x64dbg.ico</normaloff>:/OpenArk/revtools/x64dbg.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="x64dbg64">
-                <property name="text">
-                 <string>x64dbg *64</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/x64dbg.ico</normaloff>:/OpenArk/revtools/x64dbg.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="ida32Btn">
-                <property name="text">
-                 <string>IDA *32</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/ida32.ico</normaloff>:/OpenArk/revtools/ida32.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="ida64Btn">
-                <property name="text">
-                 <string>IDA *64</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/ida64.ico</normaloff>:/OpenArk/revtools/ida64.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="ghidraBtn">
-                <property name="text">
-                 <string>Ghidra</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/ghidra.ico</normaloff>:/OpenArk/revtools/ghidra.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="ollydbgBtn">
-                <property name="text">
-                 <string>OllyDBG</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/ollydbg.ico</normaloff>:/OpenArk/revtools/ollydbg.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="ollyiceBtn">
-                <property name="text">
-                 <string>OllyICE</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/ollyice.ico</normaloff>:/OpenArk/revtools/ollyice.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="od52pjBtn">
-                <property name="text">
-                 <string>OD 52PJ</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/od52pj.ico</normaloff>:/OpenArk/revtools/od52pj.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="radareBtn">
-                <property name="text">
-                 <string>Radare</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/default.ico</normaloff>:/OpenArk/revtools/default.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="dnspyBtn">
-                <property name="text">
-                 <string>DnSpy</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/dnspy.ico</normaloff>:/OpenArk/revtools/dnspy.ico</iconset>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </widget>
-           <widget class="QScrollArea" name="scrollArea_3">
-            <property name="geometry">
-             <rect>
-              <x>250</x>
-              <y>0</y>
-              <width>121</width>
-              <height>391</height>
-             </rect>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="horizontalScrollBarPolicy">
-             <enum>Qt::ScrollBarAlwaysOff</enum>
-            </property>
-            <property name="widgetResizable">
-             <bool>true</bool>
-            </property>
-            <widget class="QWidget" name="scrollAreaWidgetContents_3">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>119</width>
-               <height>389</height>
-              </rect>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
-              <item>
-               <widget class="QPushButton" name="dieBtn">
-                <property name="text">
-                 <string>DIE</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/die.ico</normaloff>:/OpenArk/revtools/die.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="exeinfopeBtn">
-                <property name="text">
-                 <string>ExeinfoPe</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/exeinfope.ico</normaloff>:/OpenArk/revtools/exeinfope.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="hcdBtn">
-                <property name="text">
-                 <string>HCD</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/hcd.ico</normaloff>:/OpenArk/revtools/hcd.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="reshackerBtn">
-                <property name="text">
-                 <string>ResHacker</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/reshacker.ico</normaloff>:/OpenArk/revtools/reshacker.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="cffexplorerBtn">
-                <property name="text">
-                 <string>CFF Explorer</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/cffexplorer.ico</normaloff>:/OpenArk/revtools/cffexplorer.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pebearBtn">
-                <property name="text">
-                 <string>PeBear</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/pebear.ico</normaloff>:/OpenArk/revtools/pebear.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="instdrvBtn">
-                <property name="text">
-                 <string>InstDrv</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/instdrv.ico</normaloff>:/OpenArk/revtools/instdrv.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pygtoolsBtn">
-                <property name="text">
-                 <string>PYGTools</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/pygtools.ico</normaloff>:/OpenArk/revtools/pygtools.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="keygenerBtn">
-                <property name="text">
-                 <string>Keygener</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/keygener.ico</normaloff>:/OpenArk/revtools/keygener.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="poolmonxBtn">
-                <property name="text">
-                 <string>PoolMonX</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/poolmonx.ico</normaloff>:/OpenArk/revtools/poolmonx.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pdbripperBtn">
-                <property name="text">
-                 <string>PDBRipper</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/pdbripper.ico</normaloff>:/OpenArk/revtools/pdbripper.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="loadtestBtn">
-                <property name="text">
-                 <string>LoadTest</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/loadtest.ico</normaloff>:/OpenArk/revtools/loadtest.ico</iconset>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </widget>
-           <widget class="QScrollArea" name="scrollArea_4">
-            <property name="geometry">
-             <rect>
-              <x>380</x>
-              <y>0</y>
-              <width>121</width>
-              <height>391</height>
-             </rect>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="horizontalScrollBarPolicy">
-             <enum>Qt::ScrollBarAlwaysOff</enum>
-            </property>
-            <property name="widgetResizable">
-             <bool>true</bool>
-            </property>
-            <widget class="QWidget" name="scrollAreaWidgetContents_4">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>119</width>
-               <height>389</height>
-              </rect>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_7">
-              <item>
-               <widget class="QPushButton" name="hxdBtn">
-                <property name="text">
-                 <string>HxD</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/hxd.ico</normaloff>:/OpenArk/revtools/hxd.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="winhexBtn">
-                <property name="text">
-                 <string>Winhex</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/winhex.ico</normaloff>:/OpenArk/revtools/winhex.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="editor010Btn">
-                <property name="text">
-                 <string>010Editor</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/editor010.ico</normaloff>:/OpenArk/revtools/editor010.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="notepadxxBtn">
-                <property name="text">
-                 <string>Notepad++</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/notepadxx.ico</normaloff>:/OpenArk/revtools/notepadxx.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="notepad2Btn">
-                <property name="text">
-                 <string>Notepad2</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/notepad2.ico</normaloff>:/OpenArk/revtools/notepad2.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="vscodeBtn">
-                <property name="text">
-                 <string>VSCode</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/vscode.ico</normaloff>:/OpenArk/revtools/vscode.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="winspyBtn">
-                <property name="text">
-                 <string>WinSpy</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/winspy.ico</normaloff>:/OpenArk/revtools/winspy.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="windowBtn">
-                <property name="text">
-                 <string>Window</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/window.ico</normaloff>:/OpenArk/revtools/window.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="spyxx32Btn">
-                <property name="text">
-                 <string>Spy++ *32</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/spyxx.ico</normaloff>:/OpenArk/revtools/spyxx.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="spyxx64Btn">
-                <property name="text">
-                 <string>Spy++ *64</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/spyxx.ico</normaloff>:/OpenArk/revtools/spyxx.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="calcBtn">
-                <property name="text">
-                 <string>Calc</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/calc.ico</normaloff>:/OpenArk/revtools/calc.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
+              <item row="11" column="3">
                <widget class="QPushButton" name="calcfpuBtn">
                 <property name="text">
                  <string>CalcFPU</string>
@@ -764,160 +214,84 @@
                 </property>
                </widget>
               </item>
-             </layout>
-            </widget>
-           </widget>
-           <widget class="QScrollArea" name="scrollArea_5">
-            <property name="geometry">
-             <rect>
-              <x>630</x>
-              <y>0</y>
-              <width>121</width>
-              <height>391</height>
-             </rect>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="horizontalScrollBarPolicy">
-             <enum>Qt::ScrollBarAlwaysOff</enum>
-            </property>
-            <property name="widgetResizable">
-             <bool>true</bool>
-            </property>
-            <widget class="QWidget" name="scrollAreaWidgetContents_5">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>119</width>
-               <height>389</height>
-              </rect>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_10">
-              <item>
-               <widget class="QPushButton" name="sunloginBtn">
+              <item row="3" column="1">
+               <widget class="QPushButton" name="x64dbg64">
                 <property name="text">
-                 <string>Sunlogin</string>
+                 <string>x64dbg *64</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/sunlogin.ico</normaloff>:/OpenArk/revtools/sunlogin.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/x64dbg.ico</normaloff>:/OpenArk/revtools/x64dbg.ico</iconset>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="anydeskBtn">
+              <item row="7" column="1">
+               <widget class="QPushButton" name="ollydbgBtn">
                 <property name="text">
-                 <string>AnyDesk</string>
+                 <string>OllyDBG</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/anydesk.ico</normaloff>:/OpenArk/revtools/anydesk.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/ollydbg.ico</normaloff>:/OpenArk/revtools/ollydbg.ico</iconset>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="teamviewerBtn">
+              <item row="10" column="3">
+               <widget class="QPushButton" name="calcBtn">
                 <property name="text">
-                 <string>Teamviewer</string>
+                 <string>Calc</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/teamviewer.ico</normaloff>:/OpenArk/revtools/teamviewer.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/calc.ico</normaloff>:/OpenArk/revtools/calc.ico</iconset>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="everythingBtn">
+              <item row="10" column="0">
+               <widget class="QPushButton" name="wkeBtn">
                 <property name="text">
-                 <string>Everything</string>
+                 <string>WKE</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/everything.ico</normaloff>:/OpenArk/revtools/everything.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/wke.ico</normaloff>:/OpenArk/revtools/wke.ico</iconset>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="x7zBtn">
+              <item row="8" column="1">
+               <widget class="QPushButton" name="ollyiceBtn">
                 <property name="text">
-                 <string>7-Zip</string>
+                 <string>OllyICE</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/7z.ico</normaloff>:/OpenArk/revtools/7z.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/ollyice.ico</normaloff>:/OpenArk/revtools/ollyice.ico</iconset>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="winrarBtn">
+              <item row="3" column="2">
+               <widget class="QPushButton" name="reshackerBtn">
                 <property name="text">
-                 <string>WinRAR</string>
+                 <string>ResHacker</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/winrar.ico</normaloff>:/OpenArk/revtools/winrar.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/reshacker.ico</normaloff>:/OpenArk/revtools/reshacker.ico</iconset>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="chrome49Btn">
+              <item row="5" column="2">
+               <widget class="QPushButton" name="pebearBtn">
                 <property name="text">
-                 <string>Chrome49</string>
+                 <string>PeBear</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/chrome.ico</normaloff>:/OpenArk/revtools/chrome.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/pebear.ico</normaloff>:/OpenArk/revtools/pebear.ico</iconset>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="chrome85Btn">
-                <property name="text">
-                 <string>Chrome85</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/chromesetup.ico</normaloff>:/OpenArk/revtools/chromesetup.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="firefoxBtn">
-                <property name="text">
-                 <string>Firefox</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/firefox.ico</normaloff>:/OpenArk/revtools/firefox.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="cpuzBtn">
-                <property name="text">
-                 <string>CPU-Z</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/cpuz.ico</normaloff>:/OpenArk/revtools/cpuz.ico</iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
+              <item row="10" column="6">
                <widget class="QPushButton" name="hddogBtn">
                 <property name="text">
                  <string>HDDog</string>
@@ -928,7 +302,40 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="11" column="2">
+               <widget class="QPushButton" name="loadtestBtn">
+                <property name="text">
+                 <string>LoadTest</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/loadtest.ico</normaloff>:/OpenArk/revtools/loadtest.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QPushButton" name="x64dbg32">
+                <property name="text">
+                 <string>x64dbg *32</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/x64dbg.ico</normaloff>:/OpenArk/revtools/x64dbg.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QPushButton" name="ida32Btn">
+                <property name="text">
+                 <string>IDA *32</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/ida32.ico</normaloff>:/OpenArk/revtools/ida32.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="6">
                <widget class="QPushButton" name="aida64Btn">
                 <property name="text">
                  <string>AIDA64</string>
@@ -939,61 +346,216 @@
                 </property>
                </widget>
               </item>
-             </layout>
-            </widget>
-           </widget>
-           <widget class="QScrollArea" name="scrollArea_6">
-            <property name="geometry">
-             <rect>
-              <x>510</x>
-              <y>0</y>
-              <width>111</width>
-              <height>391</height>
-             </rect>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="horizontalScrollBarPolicy">
-             <enum>Qt::ScrollBarAlwaysOff</enum>
-            </property>
-            <property name="widgetResizable">
-             <bool>true</bool>
-            </property>
-            <widget class="QWidget" name="scrollAreaWidgetContents_6">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>109</width>
-               <height>389</height>
-              </rect>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_9">
-              <item>
-               <widget class="QPushButton" name="diskgeniusBtn">
+              <item row="4" column="2">
+               <widget class="QPushButton" name="cffexplorerBtn">
                 <property name="text">
-                 <string>DiskGenius</string>
+                 <string>CFF Explorer</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/diskgenius.ico</normaloff>:/OpenArk/revtools/diskgenius.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/cffexplorer.ico</normaloff>:/OpenArk/revtools/cffexplorer.ico</iconset>
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="11" column="5">
+               <widget class="QPushButton" name="as_ssdBtn">
+                <property name="text">
+                 <string>AS_SSD</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/as_ssd.ico</normaloff>:/OpenArk/revtools/as_ssd.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="5">
+               <widget class="QPushButton" name="rapideeBtn">
+                <property name="text">
+                 <string>Rapidee</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/rapidee.ico</normaloff>:/OpenArk/revtools/rapidee.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="2">
+               <widget class="QPushButton" name="instdrvBtn">
+                <property name="text">
+                 <string>InstDrv</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/instdrv.ico</normaloff>:/OpenArk/revtools/instdrv.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="dieBtn">
+                <property name="text">
+                 <string>DIE</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/die.ico</normaloff>:/OpenArk/revtools/die.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="0">
+               <widget class="QPushButton" name="cheatengineBtn">
+                <property name="text">
+                 <string>Cheat Engine</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/cheatengine.ico</normaloff>:/OpenArk/revtools/cheatengine.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QPushButton" name="exeinfopeBtn">
+                <property name="text">
+                 <string>ExeinfoPe</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/exeinfope.ico</normaloff>:/OpenArk/revtools/exeinfope.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="windbg64">
+                <property name="text">
+                 <string>Windbg *64</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/windbg.ico</normaloff>:/OpenArk/revtools/windbg.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QPushButton" name="ida64Btn">
+                <property name="text">
+                 <string>IDA *64</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/ida64.ico</normaloff>:/OpenArk/revtools/ida64.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="QPushButton" name="ghidraBtn">
+                <property name="text">
+                 <string>Ghidra</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/ghidra.ico</normaloff>:/OpenArk/revtools/ghidra.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="1">
+               <widget class="QPushButton" name="dnspyBtn">
+                <property name="text">
+                 <string>DnSpy</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/dnspy.ico</normaloff>:/OpenArk/revtools/dnspy.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QPushButton" name="apimonitor32Btn">
+                <property name="text">
+                 <string>APIMon32</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/apimon32.ico</normaloff>:/OpenArk/revtools/apimon32.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="1">
+               <widget class="QPushButton" name="od52pjBtn">
+                <property name="text">
+                 <string>OD 52PJ</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/od52pj.ico</normaloff>:/OpenArk/revtools/od52pj.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="1">
+               <widget class="QPushButton" name="radareBtn">
+                <property name="text">
+                 <string>Radare</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/default.ico</normaloff>:/OpenArk/revtools/default.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QPushButton" name="hcdBtn">
+                <property name="text">
+                 <string>HCD</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/hcd.ico</normaloff>:/OpenArk/revtools/hcd.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="2">
+               <widget class="QPushButton" name="pygtoolsBtn">
+                <property name="text">
+                 <string>PYGTools</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/pygtools.ico</normaloff>:/OpenArk/revtools/pygtools.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="2">
+               <widget class="QPushButton" name="pdbripperBtn">
+                <property name="text">
+                 <string>PDBRipper</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/pdbripper.ico</normaloff>:/OpenArk/revtools/pdbripper.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="QPushButton" name="editor010Btn">
+                <property name="text">
+                 <string>010Editor</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/editor010.ico</normaloff>:/OpenArk/revtools/editor010.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="3">
+               <widget class="QPushButton" name="windowBtn">
+                <property name="text">
+                 <string>Window</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/window.ico</normaloff>:/OpenArk/revtools/window.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="5">
                <widget class="QPushButton" name="curlBtn">
                 <property name="styleSheet">
                  <string notr="true"/>
@@ -1007,7 +569,117 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="1" column="3">
+               <widget class="QPushButton" name="winhexBtn">
+                <property name="text">
+                 <string>Winhex</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/winhex.ico</normaloff>:/OpenArk/revtools/winhex.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="2">
+               <widget class="QPushButton" name="poolmonxBtn">
+                <property name="text">
+                 <string>PoolMonX</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/poolmonx.ico</normaloff>:/OpenArk/revtools/poolmonx.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="3">
+               <widget class="QPushButton" name="vscodeBtn">
+                <property name="text">
+                 <string>VSCode</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/vscode.ico</normaloff>:/OpenArk/revtools/vscode.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="6">
+               <widget class="QPushButton" name="anydeskBtn">
+                <property name="text">
+                 <string>AnyDesk</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/anydesk.ico</normaloff>:/OpenArk/revtools/anydesk.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="5">
+               <widget class="QPushButton" name="diskgeniusBtn">
+                <property name="text">
+                 <string>DiskGenius</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/diskgenius.ico</normaloff>:/OpenArk/revtools/diskgenius.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="6">
+               <widget class="QPushButton" name="x7zBtn">
+                <property name="text">
+                 <string>7-Zip</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/7z.ico</normaloff>:/OpenArk/revtools/7z.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="6">
+               <widget class="QPushButton" name="winrarBtn">
+                <property name="text">
+                 <string>WinRAR</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/winrar.ico</normaloff>:/OpenArk/revtools/winrar.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="3">
+               <widget class="QPushButton" name="spyxx32Btn">
+                <property name="text">
+                 <string>Spy++ *32</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/spyxx.ico</normaloff>:/OpenArk/revtools/spyxx.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QPushButton" name="hxdBtn">
+                <property name="text">
+                 <string>HxD</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/hxd.ico</normaloff>:/OpenArk/revtools/hxd.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="2">
+               <widget class="QPushButton" name="keygenerBtn">
+                <property name="text">
+                 <string>Keygener</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/keygener.ico</normaloff>:/OpenArk/revtools/keygener.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="5">
                <widget class="QPushButton" name="nmapBtn">
                 <property name="styleSheet">
                  <string notr="true">text-align:</string>
@@ -1021,7 +693,7 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="3" column="5">
                <widget class="QPushButton" name="tcpdumpBtn">
                 <property name="styleSheet">
                  <string notr="true">text-align:</string>
@@ -1035,7 +707,7 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="4" column="5">
                <widget class="QPushButton" name="fiddler2Btn">
                 <property name="text">
                  <string>Fiddler2</string>
@@ -1046,7 +718,7 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="5" column="5">
                <widget class="QPushButton" name="fiddler4Btn">
                 <property name="text">
                  <string>Fiddler4</string>
@@ -1057,7 +729,7 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="6" column="5">
                <widget class="QPushButton" name="charlesBtn">
                 <property name="text">
                  <string>Charles</string>
@@ -1068,7 +740,7 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="7" column="5">
                <widget class="QPushButton" name="wiresharkv1Btn">
                 <property name="text">
                  <string>Wireshark1</string>
@@ -1079,7 +751,7 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="8" column="5">
                <widget class="QPushButton" name="wiresharkv3Btn">
                 <property name="text">
                  <string>Wireshark3</string>
@@ -1090,7 +762,7 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="9" column="5">
                <widget class="QPushButton" name="wiztreeBtn">
                 <property name="text">
                  <string>WizTree</string>
@@ -1101,31 +773,156 @@
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="rapideeBtn">
+              <item row="0" column="6">
+               <widget class="QPushButton" name="sunloginBtn">
                 <property name="text">
-                 <string>Rapidee</string>
+                 <string>Sunlogin</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/rapidee.ico</normaloff>:/OpenArk/revtools/rapidee.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/sunlogin.ico</normaloff>:/OpenArk/revtools/sunlogin.ico</iconset>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="as_ssdBtn">
+              <item row="6" column="3">
+               <widget class="QPushButton" name="winspyBtn">
                 <property name="text">
-                 <string>AS_SSD</string>
+                 <string>WinSpy</string>
                 </property>
                 <property name="icon">
                  <iconset resource="../res/openark.qrc">
-                  <normaloff>:/OpenArk/revtools/as_ssd.ico</normaloff>:/OpenArk/revtools/as_ssd.ico</iconset>
+                  <normaloff>:/OpenArk/revtools/winspy.ico</normaloff>:/OpenArk/revtools/winspy.ico</iconset>
                 </property>
                </widget>
+              </item>
+              <item row="9" column="3">
+               <widget class="QPushButton" name="spyxx64Btn">
+                <property name="text">
+                 <string>Spy++ *64</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/spyxx.ico</normaloff>:/OpenArk/revtools/spyxx.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="3">
+               <widget class="QPushButton" name="notepad2Btn">
+                <property name="text">
+                 <string>Notepad2</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/notepad2.ico</normaloff>:/OpenArk/revtools/notepad2.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="6">
+               <widget class="QPushButton" name="teamviewerBtn">
+                <property name="text">
+                 <string>Teamviewer</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/teamviewer.ico</normaloff>:/OpenArk/revtools/teamviewer.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="6">
+               <widget class="QPushButton" name="everythingBtn">
+                <property name="text">
+                 <string>Everything</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/everything.ico</normaloff>:/OpenArk/revtools/everything.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="6">
+               <widget class="QPushButton" name="chrome49Btn">
+                <property name="text">
+                 <string>Chrome49</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/chrome.ico</normaloff>:/OpenArk/revtools/chrome.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="3">
+               <widget class="QPushButton" name="notepadxxBtn">
+                <property name="text">
+                 <string>Notepad++</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/notepadxx.ico</normaloff>:/OpenArk/revtools/notepadxx.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="6">
+               <widget class="QPushButton" name="chrome85Btn">
+                <property name="text">
+                 <string>Chrome85</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/chromesetup.ico</normaloff>:/OpenArk/revtools/chromesetup.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="6">
+               <widget class="QPushButton" name="firefoxBtn">
+                <property name="text">
+                 <string>Firefox</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/firefox.ico</normaloff>:/OpenArk/revtools/firefox.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="6">
+               <widget class="QPushButton" name="cpuzBtn">
+                <property name="text">
+                 <string>CPU-Z</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res/openark.qrc">
+                  <normaloff>:/OpenArk/revtools/cpuz.ico</normaloff>:/OpenArk/revtools/cpuz.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="12" column="5">
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
-            </widget>
-           </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>868</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
