@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabCodePoints">
       <property name="sizePolicy">
@@ -80,6 +80,9 @@
            <width>16777215</width>
            <height>130</height>
           </size>
+         </property>
+         <property name="acceptRichText">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -810,6 +813,9 @@
             <family>Consolas</family>
            </font>
           </property>
+          <property name="acceptRichText">
+           <bool>false</bool>
+          </property>
          </widget>
          <widget class="QTextEdit" name="disasmEdit">
           <property name="font">
@@ -817,6 +823,9 @@
             <family>Consolas</family>
             <pointsize>9</pointsize>
            </font>
+          </property>
+          <property name="acceptRichText">
+           <bool>false</bool>
           </property>
          </widget>
         </widget>

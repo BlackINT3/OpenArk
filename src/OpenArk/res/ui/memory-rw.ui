@@ -228,6 +228,9 @@
         <property name="verticalScrollBarPolicy">
          <enum>Qt::ScrollBarAlwaysOn</enum>
         </property>
+        <property name="acceptRichText">
+         <bool>false</bool>
+        </property>
        </widget>
        <widget class="QTextEdit" name="disasmEdit">
         <property name="minimumSize">
@@ -244,6 +247,9 @@
         </property>
         <property name="verticalScrollBarPolicy">
          <enum>Qt::ScrollBarAlwaysOn</enum>
+        </property>
+        <property name="acceptRichText">
+         <bool>false</bool>
         </property>
        </widget>
       </widget>
