@@ -165,7 +165,7 @@ WINTOOL_ITEM WinAllTools[] = {
 	{ RUN_EXE, "vc2015x86", "dev/vcredist/vcredist_2015_x86.exe", "dev/vcredist/vcredist_2015_x86.exe" },
 	{ RUN_EXE, "vc1519x64", "dev/vcredist/vcredist_2015~2019_x64.exe", "dev/vcredist/vcredist_2015~2019_x64.exe" },
 	{ RUN_EXE, "vc1519x86", "dev/vcredist/vcredist_2015~2019_x86.exe", "dev/vcredist/vcredist_2015~2019_x86.exe" },
-	{ RUN_EXE, "dotnet4", "dev/dotnet/netframework4.msi", "dev/dotnet/dotNetFx40_Full_x86_x64.exe" },
+	{ RUN_EXE, "dotnet4", "dev/dotnet/dotNetFx40_Full_x86_x64.exe", "dev/dotnet/dotNetFx40_Full_x86_x64.exe" },
 };
 
 Reverse::Reverse(QWidget *parent, int tabid) :

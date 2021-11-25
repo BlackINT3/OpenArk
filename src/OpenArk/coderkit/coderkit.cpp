@@ -582,6 +582,7 @@ QString CoderKit::Rasm2Asm(std::string data, int cpu, int byteorder, const std::
 	if (exitcode != 0) return err_prefix + WStrToQ(out);
 	std::string bin;
 	UNONE::FsReadFileDataW(tmp_out, bin);
+	bin = UNONE::StrTrimA(bin);
 	bin = format + UNONE::StrInsertA(bin, 2, format);
 	return StrToQ(bin);
 }
