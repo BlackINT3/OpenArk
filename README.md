@@ -7,8 +7,8 @@
 
 * OpenArk is an open source anti-rookit(ARK) tool for Windows. Ark is Anti-Rootkit abbreviated, it aimmed at reversing/programming helper and also users can find out hidden malwares in the OS. More and more powerful features will be supported in future.
 
-![image](doc/resources/snapshot-en-v120.png)
-![image](doc/resources/snapshot-en-v120-01.png)
+![image](doc/resources/snapshot-en-v122.png)
+![image](doc/resources/snapshot-en-v122-01.png)
 
 ### Features
 * Process - Process/Thread/Module/Handles/Memory/Window... information view, Dll Injector x86/x64.
