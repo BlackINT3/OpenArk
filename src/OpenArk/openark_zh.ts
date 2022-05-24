@@ -4019,7 +4019,7 @@ p, li { white-space: pre-wrap; }
         <location filename="ui/utilities.ui" line="844"/>
         <location filename="ui/utilities.ui" line="864"/>
         <source>Wallpaper</source>
-        <translation type="unfinished">墙纸</translation>
+        <translation type="unfinished">桌面壁纸</translation>
     </message>
     <message>
         <source>Device Manager</source>
