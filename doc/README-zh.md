@@ -7,7 +7,7 @@
 
 &ensp;&ensp;OpenArk是一款Windows平台上的开源Ark工具. Ark是Anti-Rootkit（对抗恶意程序）的简写。OpenArk的目标是成为逆向工程师、编程人员的工具，同时也能为那些希望清理恶意软件的用户提供帮助。以后也将会支持更多功能和命令。
 
-### 截图
+### 使用截图
 ![image](resources/snapshot-zh-v108.png)
 ![image](resources/snapshot-zh-01.png)
 ![image](resources/snapshot-zh-02.png)
@@ -32,7 +32,7 @@
 * [如何编译OpenArk](build-openark.md)
 * [UNONE & KNONE](https://github.com/BlackINT3/none) - 应用层和内核层的基础库
 
-### 参与/捐赠
+### 帮助我们
 * 欢迎提交Issue和Pull requests。
 * 如果您喜欢OpenArk，可以通过捐赠支持我们的开发工作。
 * [OpenArk 代码风格](code-style-guide.md)
