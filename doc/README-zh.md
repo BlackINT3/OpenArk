@@ -35,7 +35,7 @@
 
 ### 帮助我们
 * 欢迎提交Issue和Pull requests。
-* 如果您喜欢OpenArk，可以通过捐赠支持我们的开发工作。
+* 如果您喜欢OpenArk，可以通过捐赠来支持我们的开发工作。
 * [OpenArk 代码风格](code-style-guide.md)
 
 ### 官方链接
