@@ -39,4 +39,4 @@
 * 官方网站: https://openark.blackint3.com/
 * 项目地址: https://github.com/BlackINT3/OpenArk/
 * 帮助手册: https://openark.blackint3.com/manuals/
-* QQ群: 836208099
+* QQ群: 535752025	836208099(已满)

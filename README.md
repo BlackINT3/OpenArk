@@ -39,4 +39,4 @@
 * Website: https://openark.blackint3.com/
 * Source: https://github.com/BlackINT3/OpenArk/
 * Manuals: https://openark.blackint3.com/manuals/
-* QQ Group: 836208099
+* QQ Group: 535752025	836208099(full)
