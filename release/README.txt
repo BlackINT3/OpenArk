@@ -1,3 +1,19 @@
+OpenArk v1.3.2 
+--------------------------------------------------------------------
+BUILD 202311102254
+进程增强：增加PPL、内存扫描、线程管理、模块卸载、句柄提权等各种功能
+内核增强：增加禁用/启用回调，Dump驱动、消息钩子、强删文件、文件/注册表管理、启动项、计划任务、服务管理等各种功能
+界面增强：优化UI，大幅提升流畅性
+支持最新Win11
+BUG修复，还有其它很多未提及的功能
+Keep Simple, Keep Evolutionary!
+Impoved process manager: Added PPL,MemoryScan,Thread,unload module、change handle access etc.
+Impoved kernel manager: Added kernel features, enable/disable callback, Dump driver,MessageHook,ForceDelete,File/Reg/Boot manager etc.
+Improved UI substantially.
+Support win11 latest release.
+Bugfixed and many other unmentioned features.
+--------------------------------------------------------------------
+
 OpenArk v1.3.0 
 --------------------------------------------------------------------
 BUILD 202302271420
