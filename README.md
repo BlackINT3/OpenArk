@@ -35,11 +35,15 @@
   * If you like that you can donate to our develop.
   * [OpenArk Code Style Guide](doc/code-style-guide.md)
 
+### Contact
+* Discord
+  - https://discord.gg/5HwBqRwx
+* QQ Group
+  - Group3: 706663529
+  - Group2: 535752025(full)
+  - Group1: 836208099(full)
+
 ### Official Links
 * Website: https://openark.blackint3.com/
 * Source: https://github.com/BlackINT3/OpenArk/
 * Manuals: https://openark.blackint3.com/manuals/
-* QQ Group: 
-  - Group3: 706663529
-  - Group2: 535752025(full)
-  - Group1: 836208099(full)

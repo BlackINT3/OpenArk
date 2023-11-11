@@ -34,11 +34,15 @@
 * 如果你喜欢OpenArk，可以捐赠支持我们的开发工作。
 * [OpenArk 代码风格](code-style-guide.md)
 
+### 技术交流
+* Discord
+  - https://discord.gg/5HwBqRwx
+* QQ群: 
+    - 3群: 706663529
+    - 2群: 535752025(已满)
+    - 1群: 836208099(已满)
+
 ### 官方链接
 * 官方网站: https://openark.blackint3.com/
 * 项目地址: https://github.com/BlackINT3/OpenArk/
 * 帮助手册: https://openark.blackint3.com/manuals/
-* QQ群: 
-    - 3群: 706663529
-    - 2群：535752025(已满)
-    - 1群：836208099(已满)
