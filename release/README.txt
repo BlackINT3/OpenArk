@@ -1,3 +1,19 @@
+OpenArk v1.3.4
+--------------------------------------------------------------------
+- 进程增强：增加内存使用、PEB、TEB、线程栈、结束线程等各种功能
+- 内核增强：增加全内存搜索、卸载驱动列表、镜像劫持、加载符号等各种功能
+- 扫描提升：优化PE扫描、支持解析内存化PE等功能
+- 解决部分不能进入内核模式的问题
+- BUG修复，还有其它很多未提及的功能
+- 特别说明：增加致谢名单，感谢对OpenArk的支持！
+- Impoved process manager: Added memory usage, PEB, TEB, CallStack, Terminate Thread etc.
+- Impoved kernel manager: Added memory search, Unloaded drivers, IFEO, Load symbols etc.
+- Improved scanner: Improved pe scanner, Added scanner for Memory PE.
+- Fixed some failure case when enter kernel mode.
+- Bugfixed and many other unmentioned features.
+- Special Notes: Added acknowledgements, thanks for your support!
+--------------------------------------------------------------------
+
 OpenArk v1.3.2 
 --------------------------------------------------------------------
 进程增强：增加PPL、内存扫描、线程管理、模块卸载、句柄提权等各种功能

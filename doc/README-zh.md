@@ -23,7 +23,7 @@
 
 ### 发布
 * 程序：独立的exe，无DLL依赖，支持32位、64位。
-* 支持系统：Windows XP ... Win7 ... Win10 20H2 ...
+* 支持系统：Windows XP ... Win7 ... Win10 ... Win11 ...
 
 ### 编译
 * [如何编译OpenArk](build-openark.md)
@@ -31,12 +31,12 @@
 
 ### 参与/捐赠
 * 欢迎提交Issue和PR.
-* 如果你喜欢OpenArk，可以捐赠支持我们的开发工作。
+* 如果你喜欢OpenArk，可以在软件上点击捐赠，支持我们的开发工作。
 * [OpenArk 代码风格](code-style-guide.md)
 
 ### 技术交流
 * Discord
-  - https://discord.gg/5HwBqRwx
+  - https://discord.com/invite/w9A8q9naDY
 * QQ群: 
     - 3群: 706663529
     - 2群: 535752025(已满)

@@ -32,12 +32,12 @@
 
 ### Contributing/Donate
   * Issues and Push Request is welcome.
-  * If you like that you can donate to our develop.
+  * If you like that you can click to donate our develop.
   * [OpenArk Code Style Guide](doc/code-style-guide.md)
 
 ### Contact
 * Discord
-  - https://discord.gg/5HwBqRwx
+  - https://discord.com/invite/w9A8q9naDY
 * QQ Group
   - Group3: 706663529
   - Group2: 535752025(full)
