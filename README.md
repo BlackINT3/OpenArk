@@ -39,7 +39,8 @@
 * Discord
   - https://discord.com/invite/w9A8q9naDY
 * QQ Group
-  - Group3: 706663529
+  - Group4: 960562534
+  - Group3: 706663529(full)
   - Group2: 535752025(full)
   - Group1: 836208099(full)
 

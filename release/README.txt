@@ -1,3 +1,16 @@
+OpenArk v1.3.6
+--------------------------------------------------------------------
+- 进内核模式支持离线环境(无网络情况)
+- 内核增强：支持NPFS/MailSlot/MUP过滤驱动枚举等
+- 界面优化：新增繁体中文语言、启动项支持多选删除等
+- BUG修复，新增一些工具
+------------------------------------------------------------------
+- Enter kernel mode works in an offline environment(network unavailable).
+- Impoved kernel manager: Added NPFS/MailSlot/MUP list etc.
+- Improved UI: Added zh-tw language, and can be deleted in batches.
+- Bugfixed and added some tools.
+
+
 OpenArk v1.3.4
 --------------------------------------------------------------------
 - 进程增强：增加内存使用、PEB、TEB、线程栈、结束线程等各种功能
