@@ -4,6 +4,7 @@
 
 ### Introduction
 * [中文说明](doc/README-zh.md)
+* [日本語の説明](doc/README-ja.md)
 
 * OpenArk is an open source anti-rookit(ARK) tool for Windows. Ark is Anti-Rootkit abbreviated, it aimmed at reversing/programming helper and also users can find out hidden malwares in the OS. More and more powerful features will be supported in future.
 
