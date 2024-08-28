@@ -40,7 +40,8 @@
 * Discord
   - https://discord.com/invite/w9A8q9naDY
 * QQ Group
-  - Group4: 960562534
+  - Group5: 981859796
+  - Group4: 960562534(full)
   - Group3: 706663529(full)
   - Group2: 535752025(full)
   - Group1: 836208099(full)
