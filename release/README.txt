@@ -1,3 +1,20 @@
+OpenArk v1.3.8
+--------------------------------------------------------------------
+- 支持隐身模式，增加Beta通道
+- 内核增强：新增枚举ImageVerification/Bounds/KernelHash回调以及EPROCESS信息等
+- 界面优化：新增保存过滤历史记录，包含进程树等
+- 热键功能修复，工具库新增工具
+- BUG修复以及一些未提及的功能
+- 新年快乐 2025 🐍
+------------------------------------------------------------------
+- Support invisible mode and added beta channel.
+- Impoved kernel manager: Added enum ImageVerification/Bounds/KernelHash callbacks and EPROCESS info etc.
+- Improved UI: Added filter history and  contain process tree etc.
+- Enum hotkey fixed  and added some tools.
+- Bugfixed and added some features not mentioned .
+- Happy Chinese New Year 2025 🐍
+--------------------------------------------------------------------
+
 OpenArk v1.3.6
 --------------------------------------------------------------------
 - 进内核模式支持离线环境(无网络情况)
@@ -9,7 +26,7 @@ OpenArk v1.3.6
 - Impoved kernel manager: Added NPFS/MailSlot/MUP list etc.
 - Improved UI: Added zh-tw language, and can be deleted in batches.
 - Bugfixed and added some tools.
-
+--------------------------------------------------------------------
 
 OpenArk v1.3.4
 --------------------------------------------------------------------
