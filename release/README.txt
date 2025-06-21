@@ -1,3 +1,16 @@
+OpenArk v1.5.0
+--------------------------------------------------------------------
+- 进程管理增加PID暴力搜索，列表清除、服务定位等功能
+- 内存搜索支持显示模块区域，内存编辑支持更多语法
+- 优化内核模式以及ELF扫描功能支持文件编辑等
+- BUG修复、稳定性增强以及许多未提及的功能
+------------------------------------------------------------------
+- Process management now supports PID brute-force search, list clearing, and service location features.
+- Memory search can now display module regions; memory editing supports more syntax.
+- Kernel-mode and ELF scanning optimized, now supporting file editing and more.
+- Bug fixes, stability improvements, and many other enhancements not listed here.
+--------------------------------------------------------------------
+
 OpenArk v1.3.8
 --------------------------------------------------------------------
 - 支持隐身模式，增加Beta通道
