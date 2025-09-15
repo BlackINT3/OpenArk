@@ -1,3 +1,14 @@
+OpenArk v1.5.2
+------------------------------------------------------------------
+工具库全新升级，支持在线仓库更新、用户自定义工具等功能
+句柄管理支持将FILE_HANDLE保存到文件
+BUG修复、稳定性增强等未提及的功能
+--------------------------------------------------------------------
+ToolRepo fully upgraded, supporting online repository updates, user-defined tools, and other features
+Handle management now supports saving FILE_HANDLE to a file
+Bug fixes, stability improvements, and other enhancements not explicitly mentioned
+------------------------------------------------------------------
+
 OpenArk v1.5.0
 --------------------------------------------------------------------
 - 进程管理增加PID暴力搜索，列表清除、服务定位等功能
@@ -110,4 +121,129 @@ Optimized module, support hide system modules etc.
 PE scanner support download microsoft pdb file
 Support drag file to view unlock file
 Happy Chinese New Year 2022!
+--------------------------------------------------------------------
+
+OpenArk v1.2.0
+--------------------------------------------------------------------
+支持win11 21H2
+汇编工具支持arm/mips 16/32/64 大小端
+增加更多工具加速逆向分析
+修复进入内核模式失败问题 #57 #25 #52 #58 #53 #50 
+部分界面优化
+修复BUG #60 
+--------------------------------------------------------------------
++ support win11 21H2
++ asmtools support arm/mips 16/32/64 be/le
++ add more tools for easy reversing.
++ fix enter kernel mode failed. issue #57 #25 #52 #58 #53 #50 
++ ui optmized
++ fix bug #60 
+--------------------------------------------------------------------
+
+OpenArk v1.1.0
+--------------------------------------------------------------------
+支持Win10 20H2
+支持配置文件和工具可移植，issue #23
+代码和界面优化
+增加URL编解码功能
+修复高分辨率显示异常, issue #24
+修复无法获取其它会话的内存区bug
+修复其它bug, 还有一些没提到的功能点
+--------------------------------------------------------------------
+support win10 20H2
+support portable config and tools, issue #23
+code and ui optmized
+add url encode/decode features
+fix DPI view error bug. issue #24
+fix can't get other sessions bug in memory section view
+fix others bugs, some changes no longer mention...
+--------------------------------------------------------------------
+
+OpenArk v1.0.8
+--------------------------------------------------------------------
+增加内核存储模块，目前支持查看占用，文件解锁等功能（Unlocker）
+增加内存编辑器功能，支持内核和用户态
+增加内核对象模块，支持读写内存共享MAP，查看类型对象
+增加网络管理模块，支持查看端口进程、编辑hosts文件等
+增加大量方便的逆向开发人员的工具
+增强文字编码功能，支持分割符
+代码和界面优化
+修复部分bug, 还有一些没提到的功能点
+--------------------------------------------------------------------
+add kernel storage, aka file unlocker
+add kernel memory editor, r0 and r3 supported
+add kernel object, support read and write shared named map, object types view.
+add kernel network as port and hosts file manager etc.
+add more usefull tools for coder/reverse engineers
+enhanced codec features, support separator
+code and ui optmized
+fix some bugs, some changes no longer mention...
+--------------------------------------------------------------------
+
+OpenArk Daliy-Build（日常构建）
+--------------------------------------------------------------------
+内核：增加枚举和摘除系统热键的功能，支持Win7/Win8/Win8.1/Win10 (~2004) x86/x64 所有版本)
+--------------------------------------------------------------------
+kernel: add enum/remove system hotkeys features，support Win7/Win8/Win8.1/Win10 (~2004) x86/x64 all versions)
+--------------------------------------------------------------------
+
+OpenArk v1.0.6
+--------------------------------------------------------------------
+增加逆向工具，持续更新
+系统工具支持快速关机重启、结束资源管理器等功能
+优化垃圾清理功能
+菜单栏增加运行功能
+支持记录上一次打开的标签页、窗口大小等
+代码和界面优化
+修复部分bug
+--------------------------------------------------------------------
+add reverse tools，update on going.
+add fast reboot/poweroff, kill/reset explorer and so on.
+enhanced cleaner features.
+add run features in menu.
+record the last opened tab and window size
+code and ui optmized
+fix some bugs
+--------------------------------------------------------------------
+
+OpenArk v1.0.4
+--------------------------------------------------------------------
+内核（XP、（Win7、8、10 x64）等版本已测试）：
+新增签名、无签名驱动安装
+新增内核基本信息显示
+新增LoadImage、CreateProcess、CreateThread、CmpCallback回调查看、反汇编以及删除等。
+新增内核内存Dump功能（读取、反汇编）
+支持进程树切换时当前选定进程不丢失
+新增进程列表右键重启
+修复部分bug
+--------------------------------------------------------------------
+add kernel notifies view，memory view，install not signed driver, and more...
+--------------------------------------------------------------------
+
+OpenArk v1.0.2
+--------------------------------------------------------------------
+支持多语言，目前支持中英文切换
+进程树模式支持
+光标移到进程名上，显示命令行和路径
+模块栏增加查看属性
+新增进程句柄、内存列表操作
+UI布局修改
+签名、版本信息查看
+签名信息、Hash值计算
+新增.ps -rst（重启进程）
+新增.pstree（查看进程树）
+命令历史记录自动保存到本地等等..
+新增命令历史记录路径和最大条数配置等等..
+新增Base64、CRC32、MD5、SHA1计算
+新增查看驱动列表（扫描、定位、查看属性等）
+新增驱动安装功能
+--------------------------------------------------------------------
+add support ProcessTree、Memory、Handles、Cryptor、KernelDriver view and install，enahanced UI more and more...
+--------------------------------------------------------------------
+
+OpenArk v1.0.0
+--------------------------------------------------------------------
+OpenArk 第一版问世
+--------------------------------------------------------------------
+The first version of OpenArk is online
 --------------------------------------------------------------------
